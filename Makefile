@@ -6,7 +6,7 @@
 #    By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 18:46:59 by oal-tena          #+#    #+#              #
-#    Updated: 2022/04/19 19:34:41 by oal-tena         ###   ########.fr        #
+#    Updated: 2022/04/19 19:37:11 by oal-tena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJ_DIR = obj/
 OBJS = $(SRC:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJ_DIR), $(OBJS))
 
-$(OBJ_DIR)%.o:%.c include/minishell.h
+$(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src
 	@echo "Compiling $@"
 	@$(CC) -c $< -o $@
