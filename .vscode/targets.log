@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,46 +8,36 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Apr 18 16:01:14 2022
+# Make data base, printed on Tue Apr 19 14:31:14 2022
 
 # Variables
 
 # environment
-REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-dadd9a154ebbe4ceea2ab62774b16a9e19cee33c.sock"]
-# makefile (from 'Makefile', line 33)
-OBJ = $(SRC:.c=.o)
+REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-40d47d8abfb0db64fcedc8d6964867988a81cf27.sock"]
 # environment
 LC_ALL = C
-# makefile (from 'Makefile', line 20)
-SRC = src/push_swap.c src/operation/instructions.c src/operation/instructions_2.c src/operation/instructions_3.c src/slove/sort_functions.c src/slove/ft_push.c src/utils/push_swap_utils.c src/utils/push_swap_utils_2.c src/utils/push_swap_utils_3.c src/utils/print_stack.c 
 # environment
 VSCODE_CWD = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6d56977
 # default
 MAKE_COMMAND := make
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# makefile (from 'Makefile', line 32)
-OBJ_DIR = obj/
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # environment
-PWD = /workspaces/42cursus-push_swap
+PWD = /workspaces/42minishell
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-HOSTNAME = ae262b953a2e
+HOSTNAME = ac11909923fe
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
-# makefile (from 'Makefile', line 16)
-LIBFT = lib/libft/libft.a
-# makefile (from 'Makefile', line 45)
-CC_FLAG = -Wall -Wextra -Werror
 # environment
 LANG = C
 # default
@@ -55,7 +47,7 @@ LANG = C
 # makefile
 MAKEFLAGS = pqrR
 # makefile
-CURDIR := /workspaces/42cursus-push_swap
+CURDIR := /workspaces/42minishell
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -65,7 +57,7 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-dadd9a154ebbe4ceea2ab62774b16a9e19cee33c.sock
+SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-40d47d8abfb0db64fcedc8d6964867988a81cf27.sock
 # default
 .SHELLFLAGS := -c
 # automatic
@@ -97,7 +89,7 @@ MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # default
 MAKEFILES := 
 # automatic
@@ -105,25 +97,19 @@ MAKEFILES :=
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-dadd9a154ebbe4ceea2ab62774b16a9e19cee33c.sock
+REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-40d47d8abfb0db64fcedc8d6964867988a81cf27.sock
 # environment
 REMOTE_CONTAINERS = true
 # automatic
 ?F = $(notdir $?)
-# makefile (from 'Makefile', line 14)
-NAME = push_swap
 # automatic
 +F = $(notdir $+)
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
 BROWSER = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/helpers/browser.sh
-# makefile (from 'Makefile', line 18)
-Header = include/push_swap.h
 # makefile
-.DEFAULT_GOAL := push_swap
-# makefile (from 'Makefile', line 42)
-OBJ_PRIFEX = $(addprefix $(OBJ_DIR),$(OBJ))
+.DEFAULT_GOAL := 
 # environment
 DISPLAY = 192.168.4.222:0.0
 # default
@@ -135,7 +121,7 @@ VSCODE_AGENT_FOLDER = /root/.vscode-server
 # environment
 _ = /bin/cat
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-f428fafe-81d9-4959-bf40-5410369ae589.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-8ef2ca9a-e432-4fa1-bc10-1ccd25fd2586.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -148,10 +134,8 @@ HOME = /root
 SUFFIXES := 
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
-# makefile (from 'Makefile', line 44)
-CC = gcc -g
 # variable set hash-table stats:
-# Load=70/1024=7%, Rehash=0, Collisions=4/116=3%
+# Load=61/1024=6%, Rehash=0, Collisions=2/90=2%
 
 # Pattern-specific Variable Values
 
@@ -159,169 +143,22 @@ CC = gcc -g
 
 # Directories
 
-# src/operation (device 117, inode 121198952): 3 files, no impossibilities so far.
-# include (device 117, inode 121199065): 1 files, no impossibilities so far.
-# src (device 117, inode 121198322): 2 files, no impossibilities so far.
-# . (device 117, inode 121193303): 12 files, no impossibilities.
-# src/utils (device 117, inode 121198988): 4 files, no impossibilities so far.
-# src/slove (device 117, inode 121198981): 2 files, no impossibilities so far.
+# . (device 117, inode 121325117): 11 files, no impossibilities.
 
-# 24 files, no impossibilities in 6 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-obj/%.o: %.c include/push_swap.h
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
+# No implicit rules.
 
-# 1 implicit rules, 0 (0.0%) terminal.
 # Files
-
-# Not a target:
-lib/libft/libft.a:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:37:56.029873525
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-src/utils/push_swap_utils_3.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:54:06.959585669
-#  File has been updated.
-#  Successfully updated.
-
-obj/src/operation/instructions_2.o: src/operation/instructions_2.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/operation/instructions_2'
-#  Last modified 2022-04-18 16:01:08.76784311
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-obj/src/utils/push_swap_utils_2.o: src/utils/push_swap_utils_2.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/utils/push_swap_utils_2'
-#  Last modified 2022-04-18 16:01:09.036512185
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-18 16:01:05.298180404
+#  Last modified 2022-04-19 14:26:46.146540094
 #  File has been updated.
 #  Successfully updated.
-
-# Not a target:
-src/push_swap.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:59:51.90071779
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-src/utils/print_stack.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 16:00:40.754030433
-#  File has been updated.
-#  Successfully updated.
-
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 56):
-	@echo "Cleaning"
-	@rm -rf $(OBJ_DIR)
-	@rm -rf $(NAME)
-
-obj/src/push_swap.o: src/push_swap.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/push_swap'
-#  Last modified 2022-04-18 16:01:08.588036676
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-# Not a target:
-include/push_swap.h:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 16:00:31.075053897
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-src/slove/ft_push.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:53:08.839483831
- 
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-src/utils/push_swap_utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:54:02.335990462
-#  File has been updated.
-#  Successfully updated.
-
-re: clean all
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/slove/sort_functions.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:53:00.790274764
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-src/utils/push_swap_utils_2.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:54:09.940033116
-#  File has been updated.
-#  Successfully updated.
-
-obj/src/utils/push_swap_utils_3.o: src/utils/push_swap_utils_3.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/utils/push_swap_utils_3'
-#  Last modified 2022-04-18 16:01:09.085231696
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
 
 # Not a target:
 .DEFAULT:
@@ -329,165 +166,27 @@ obj/src/utils/push_swap_utils_3.o: src/utils/push_swap_utils_3.c include/push_sw
 #  Modification time never checked.
 #  File has not been updated.
 
-all: push_swap
+# Not a target:
+all:
 #  Command line target.
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
 #  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
-#  recipe to execute (from 'Makefile', line 53):
-	@echo "Compiling all"
-
-push_swap: lib/libft/libft.a obj/src/push_swap.o obj/src/operation/instructions.o obj/src/operation/instructions_2.o obj/src/operation/instructions_3.o obj/src/slove/sort_functions.o obj/src/slove/ft_push.o obj/src/utils/push_swap_utils.o obj/src/utils/push_swap_utils_2.o obj/src/utils/push_swap_utils_3.o obj/src/utils/print_stack.o
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
-#  recipe to execute (from 'Makefile', line 49):
-	@$(CC) $(CC_FLAG) $(OBJ_PRIFEX) $(LIBFT) -o $(NAME)
-	@echo "Done"
-
-obj/src/slove/sort_functions.o: src/slove/sort_functions.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/slove/sort_functions'
-#  Last modified 2022-04-18 16:01:08.880123487
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-# Not a target:
-src/operation/instructions_2.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:50:58.496577973
-#  File has been updated.
-#  Successfully updated.
-
-obj/src/utils/print_stack.o: src/utils/print_stack.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/utils/print_stack'
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/src/utils/print_stack.o
-# automatic
-# * := src/utils/print_stack
-# automatic
-# < := src/utils/print_stack.c
-# automatic
-# + := src/utils/print_stack.c include/push_swap.h
-# automatic
-# % := 
-# automatic
-# ^ := src/utils/print_stack.c include/push_swap.h
-# automatic
-# ? := src/utils/print_stack.c include/push_swap.h
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/19=11%
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-# Not a target:
-src/operation/instructions_3.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:50:35.534760914
-#  File has been updated.
-#  Successfully updated.
-
-obj/src/operation/instructions.o: src/operation/instructions.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/operation/instructions'
-#  Last modified 2022-04-18 16:01:08.698584492
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-# Not a target:
-src/operation/instructions.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-04-18 15:50:28.916891281
-#  File has been updated.
-#  Successfully updated.
-
-obj/src/slove/ft_push.o: src/slove/ft_push.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/slove/ft_push'
-#  Last modified 2022-04-18 16:01:08.9316459
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-obj/src/operation/instructions_3.o: src/operation/instructions_3.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/operation/instructions_3'
-#  Last modified 2022-04-18 16:01:08.82545114
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
-
-obj/src/utils/push_swap_utils.o: src/utils/push_swap_utils.c include/push_swap.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'src/utils/push_swap_utils'
-#  Last modified 2022-04-18 16:01:08.983523485
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 35):
-	@mkdir -p $(OBJ_DIR)/src
-	@mkdir -p $(OBJ_DIR)/src/utils
-	@mkdir -p $(OBJ_DIR)/src/operation
-	@mkdir -p $(OBJ_DIR)/src/slove
-	@echo "Compiling $@"
-	@$(CC)   -c $< -o $@
+#  File has not been updated.
 
 # files hash-table stats:
-# Load=29/1024=3%, Rehash=0, Collisions=2/104=2%
+# Load=4/1024=0%, Rehash=0, Collisions=0/14=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 69 / storage = 1241 B / avg = 17 B
-# current buf: size = 8162 B / used = 1241 B / count = 69 / avg = 17 B
+# strcache buffers: 1 (0) / strings = 16 / storage = 133 B / avg = 8 B
+# current buf: size = 8162 B / used = 133 B / count = 16 / avg = 8 B
 
-# strcache performance: lookups = 113 / hit rate = 38%
+# strcache performance: lookups = 20 / hit rate = 20%
 # hash-table stats:
-# Load=69/8192=1%, Rehash=0, Collisions=0/113=0%
-# Finished Make data base on Mon Apr 18 16:01:14 2022
+# Load=16/8192=0%, Rehash=0, Collisions=0/20=0%
+# Finished Make data base on Tue Apr 19 14:31:14 2022
 
  

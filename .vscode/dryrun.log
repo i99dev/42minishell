@@ -1,12 +1,6 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/workspaces/42cursus-push_swap'
-mkdir -p obj//src
-mkdir -p obj//src/utils
-mkdir -p obj//src/operation
-mkdir -p obj//src/slove
-echo "Compiling obj/src/utils/print_stack.o"
-gcc -g   -c src/utils/print_stack.c -o obj/src/utils/print_stack.o
-gcc -g -Wall -Wextra -Werror obj/src/push_swap.o obj/src/operation/instructions.o obj/src/operation/instructions_2.o obj/src/operation/instructions_3.o obj/src/slove/sort_functions.o obj/src/slove/ft_push.o obj/src/utils/push_swap_utils.o obj/src/utils/push_swap_utils_2.o obj/src/utils/push_swap_utils_3.o obj/src/utils/print_stack.o lib/libft/libft.a -o push_swap
-echo "Done"
-make: Leaving directory '/workspaces/42cursus-push_swap'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/workspaces/42minishell'
+make: Leaving directory '/workspaces/42minishell'
  
+make: *** No targets.  Stop.
+
