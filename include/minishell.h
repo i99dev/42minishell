@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:38:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/19 18:45:26 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/19 19:33:16 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <dirent.h>
-# include "libft.h"
+# include "../lib/libft/libft.h"
 
 //color 
 # define RED "\033[0;31m"
