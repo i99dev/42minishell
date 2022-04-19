@@ -1,4 +1,0 @@
-
-
-# Project file
-NAME = minishell
