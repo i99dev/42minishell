@@ -1,0 +1,13 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "push_swap.h": "c",
+        "libft.h": "c",
+        "limits": "c",
+        "get_next_line.h": "c"
+    },
+    "C_Cpp.formatting": "Disabled",
+    "editor.detectIndentation": true,
+    "editor.formatOnSave": true,
+    "C_Cpp.errorSquiggles": "Disabled",
+}

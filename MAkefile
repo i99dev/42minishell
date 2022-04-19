@@ -1,0 +1,4 @@
+
+
+# Project file
+NAME = minishell
