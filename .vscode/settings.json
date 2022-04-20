@@ -5,7 +5,8 @@
         "libft.h": "c",
         "limits": "c",
         "get_next_line.h": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "readline.h": "c"
     },
     "C_Cpp.formatting": "Disabled",
     "editor.detectIndentation": true,

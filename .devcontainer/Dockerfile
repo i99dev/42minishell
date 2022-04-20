@@ -28,6 +28,7 @@ RUN apt-get update \
     'libxext-dev'   \
     'libx11-dev'    \
     'libbsd-dev' \
+    'libreadline-dev' \
     'lldb'      \
     xorg    \
     && apt-get clean autoclean \
