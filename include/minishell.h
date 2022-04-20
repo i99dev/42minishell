@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:38:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/20 09:51:12 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:24:43 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <dirent.h>
 # include "../lib/libft/libft.h"
 
+# include <readline/readline.h>
+# include <readline/history.h>
 //color 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
