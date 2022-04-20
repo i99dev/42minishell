@@ -6,7 +6,7 @@
 #    By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 18:46:59 by oal-tena          #+#    #+#              #
-#    Updated: 2022/04/19 19:37:11 by oal-tena         ###   ########.fr        #
+#    Updated: 2022/04/20 09:42:40 by oal-tena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ LIBDIR = lib/libft/
 LIBFT = lib/libft/libft.a
 
 SRC= 	src/main.c		\
+		src/tools/prompt.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror
@@ -29,6 +30,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJ_DIR), $(OBJS))
 
 $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
 	@echo "Compiling $@"
 	@$(CC) -c $< -o $@
 

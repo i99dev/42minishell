@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:38:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/19 19:38:27 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/20 09:51:12 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@
 # define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define RESET "\033[0m"
+
+//function
+void	prompt_commend(void);
 
 #endif
