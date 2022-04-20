@@ -30,5 +30,5 @@ void	prompt_commend(void)
 	ft_putstr_fd(CYAN, 1);
 	ft_putstr_fd(host, 1);
 	ft_putstr_fd(GREEN"]", 1);
-	ft_putstr_fd(GREEN"$ "RESET, 1);
+	ft_putstr_fd(GREEN"$~ "RESET, 1);
 }
