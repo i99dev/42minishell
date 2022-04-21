@@ -34,7 +34,7 @@ void	prompt_commend(void)
 	ft_putstr_fd(GREEN"$~ "RESET, 1);
 	while(1)
 	{
-		line = readline("[");
+		line = readline("");
 		add_history(line);
 		free(line);
 	}
