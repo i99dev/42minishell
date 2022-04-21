@@ -41,4 +41,5 @@ void	prompt_commend(void)
 		free(line);
 		line = "NULL";
 	}
+	
 }
