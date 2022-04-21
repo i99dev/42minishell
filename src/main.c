@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 19:09:54 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/21 13:09:28 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:37:08 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)env;
 	prompt_commend();
+	printf("Ok Omar\n")
 	return (0);
 }
