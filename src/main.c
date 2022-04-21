@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 19:09:54 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/21 11:25:02 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:09:28 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
-	printf("ok\n");
-	printf("History 03d\n");
 	(void)argc;
 	(void)argv;
 	(void)env;
 	prompt_commend();
-	printf("Ok i'm Master\n");
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+         #
+#    By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 18:46:59 by oal-tena          #+#    #+#              #
-#    Updated: 2022/04/20 09:42:40 by oal-tena         ###   ########.fr        #
+#    Updated: 2022/04/21 13:09:10 by oabdalla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC= 	src/main.c		\
 		src/tools/prompt.c \
 
 CC = gcc -g
-CC_FLAG = -Wall -Wextra -Werror
+CC_FLAG = -Wall -Wextra -Werror -lreadline
 
 OBJ_DIR = obj/
 OBJS = $(SRC:.c=.o)
