@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 19:09:54 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/21 11:21:25 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:25:02 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(void)
 {
 	printf("ok\n");
-	printf("History 02 d\n");
+	printf("History 03d\n");
 	(void)argc;
 	(void)argv;
 	(void)env;
