@@ -1,5 +1,17 @@
 # Minishell Projecs 
 
+## builtins_implemented
+
+command | description  |
+---|------|
+**echo** | echo the STRING(s) to standart output. **-n** flag: do not output the trailing newline |
+**cd** | change the shell working directory	(with a relative or absolute path)|
+**pwd** | print name of current/working directory	|
+**export** | set export attribute for shell variables | 
+**unset** | unset values of shell variables |
+**env** | print the environment	| 
+**exit** | cause the shell to exit with the exit status specified	| 
+
 ## step_by_step
 
 * Prompt implementation
