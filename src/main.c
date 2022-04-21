@@ -6,14 +6,16 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 19:09:54 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/21 11:07:49 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:25:02 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **env)
+int	main(void)
 {
+	printf("ok\n");
+	printf("History 03d\n");
 	(void)argc;
 	(void)argv;
 	(void)env;
