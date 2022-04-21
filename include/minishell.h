@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:38:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/20 13:25:53 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:20:02 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+
 //color 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
