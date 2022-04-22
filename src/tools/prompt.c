@@ -20,7 +20,11 @@ char	*get_user_inf(void)
 
 	tmp = NULL;
 	user = getenv("USER");
+	if (!user)
+		user = "root";
 	host = getenv("HOSTNAME");
+	if (!host)
+		host = "localhost";
 	tmp = ft_strjoin(tmp, BLUE"["GREEN);
 	tmp = ft_strjoin(tmp, user);
 	tmp = ft_strjoin(tmp, RED"@"GREEN);
