@@ -12,6 +12,25 @@
 
 #include "../../include/minishell.h"
 
+char	*get_user_inf(void)
+{
+	char	*user;
+	char	*host;
+	char	*tmp;
+
+	tmp = NULL;
+	user = getenv("USER");
+	host = getenv("HOSTNAME");
+	tmp = ft_strjoin(tmp, BLUE"["GREEN);
+	tmp = ft_strjoin(tmp, user);
+	tmp = ft_strjoin(tmp, RED"@"GREEN);
+	tmp = ft_strjoin(tmp, host);
+	tmp = ft_strjoin(tmp, BLUE"]");
+	tmp = ft_strjoin(tmp, ":");
+	tmp = ft_strjoin(tmp, RED"> "RESET);
+	return (tmp);
+}
+
 /*
 @add history to the history commend line input 
 @rl_bind_key ->when press tab get dir or complete the command
@@ -20,9 +39,10 @@ void	prompt_commend(void)
 {
 	char	*line;
 
+
 	while (1)
 	{
-		line = readline("$> ");
+		line = readline(get_user_inf());
 		if (line == NULL)
 			return ;
 		if (ft_strlen(line) > 0)
