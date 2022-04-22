@@ -6,7 +6,7 @@
 #    By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 18:46:59 by oal-tena          #+#    #+#              #
-#    Updated: 2022/04/22 06:31:12 by oal-tena         ###   ########.fr        #
+#    Updated: 2022/04/22 13:04:23 by oal-tena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,9 @@ $(NAME): $(OBJECTS_PREFIXED) $(LIBFT)
 	@$(CC) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
 
+leak: #only use to check leak with valgrind
+	@echo "leak"
+	@valgrind --leak-check=full ./$(NAME)
 
 all: $(NAME)
 

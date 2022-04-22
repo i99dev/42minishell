@@ -42,11 +42,12 @@ char	*get_user_inf(void)
 void	prompt_commend(void)
 {
 	char	*line;
+	char	*user_info;
 
-
+	user_info = get_user_inf();
 	while (1)
 	{
-		line = readline(get_user_inf());
+		line = readline(user_info);
 		if (line == NULL)
 			return ;
 		if (ft_strlen(line) > 0)
@@ -63,4 +64,5 @@ void	prompt_commend(void)
 			line = NULL;
 		}
 	}
+	free(user_info);
 }
