@@ -27,4 +27,5 @@ void	execute(char *path, char **command_table)
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
+	free(command);
 }
