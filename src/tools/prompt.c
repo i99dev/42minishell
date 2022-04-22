@@ -13,33 +13,30 @@
 #include "../../include/minishell.h"
 
 /*
-Prompt Display when minishell start and waiting for user input
+@add history to the history commend line input 
+@rl_bind_key ->when press tab get dir or complete the command
 */
-
 void	prompt_commend(void)
 {
-	char	*user;
-	char	*host;
 	char	*line;
 
-	user = getenv("USER");
-	host = getenv("HOSTNAME");
-	/*
-	ft_putstr_fd(GREEN"[", 1);
-	ft_putstr_fd(MAGENTA, 1);
-	ft_putstr_fd(user, 1);
-	ft_putstr_fd(GREEN"@", 1);
-	ft_putstr_fd(CYAN, 1);
-	ft_putstr_fd(host, 1);
-	ft_putstr_fd(GREEN"]", 1);
-	ft_putstr_fd(GREEN"$~ "RESET, 1);
-	*/
 	while (1)
 	{
-		line = readline("minishell $~ ");
-		add_history(line);
-		free(line);
-		line = "NULL";
+		line = readline("$> ");
+		if (line == NULL)
+			return ;
+		if (ft_strlen(line) > 0)
+		{
+			add_history(line);
+			rl_bind_key('\t', rl_complete);
+			free(line);
+			line = NULL;
+		}
+		else
+		{
+			err_msg("empty command");
+			free(line);
+			line = NULL;
+		}
 	}
-	
 }

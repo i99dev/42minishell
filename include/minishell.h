@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:38:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/21 11:20:02 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/22 06:36:05 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@
 
 //function
 void	prompt_commend(void);
+void	err_msg(char *msg);
+
 
 #endif

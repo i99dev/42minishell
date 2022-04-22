@@ -5,19 +5,20 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Thu Apr 21 11:18:56 2022
+# Make data base, printed on Fri Apr 22 06:31:45 2022
 
 # Variables
 
 # environment
-REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-afcc7e54900797ac8042224a5a0ad178825a6ba2.sock"]
+REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-de8a2e5da4941687554ec5d80b05ad5cbdc03fbe.sock"]
 # makefile (from 'Makefile', line 18)
 LIBDIR = lib/libft/
 # environment
 LC_ALL = C
 # makefile (from 'Makefile', line 21)
-SRC = src/main.c src/tools/prompt.c 
+SRC = src/main.c src/tools/prompt.c src/utils/msg.c 
 # environment
 VSCODE_CWD = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6d56977
 # makefile (from 'Makefile', line 17)
@@ -26,7 +27,7 @@ MINISHELL_HEADER = include/minishell.h
 MAKE_COMMAND := make
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# makefile (from 'Makefile', line 27)
+# makefile (from 'Makefile', line 28)
 OBJ_DIR = obj/
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
@@ -37,7 +38,7 @@ PWD = /workspaces/42minishell
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-HOSTNAME = b23ec59c6dfa
+HOSTNAME = 4109d4e56478
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -46,8 +47,8 @@ VSCODE_LOG_STACK = false
 %F = $(notdir $%)
 # makefile (from 'Makefile', line 19)
 LIBFT = lib/libft/libft.a
-# makefile (from 'Makefile', line 25)
-CC_FLAG = -Wall -Wextra -Werror -lreadline -lncurses
+# makefile (from 'Makefile', line 26)
+CC_FLAG = -Wall -Wextra -Werror
 # environment
 LANG = C
 # default
@@ -56,20 +57,20 @@ LANG = C
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # makefile
 MAKEFLAGS = pqrR
-# makefile (from 'Makefile', line 29)
+# makefile (from 'Makefile', line 30)
 OBJECTS_PREFIXED = $(addprefix $(OBJ_DIR), $(OBJS))
 # makefile
 CURDIR := /workspaces/42minishell
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-afcc7e54900797ac8042224a5a0ad178825a6ba2.sock
+SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-de8a2e5da4941687554ec5d80b05ad5cbdc03fbe.sock
 # default
 .SHELLFLAGS := -c
 # automatic
@@ -90,7 +91,7 @@ VSCODE_VERBOSE_LOGGING = true
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
-# makefile (from 'Makefile', line 28)
+# makefile (from 'Makefile', line 29)
 OBJS = $(SRC:.c=.o)
 # makefile
 SHELL = /bin/sh
@@ -103,7 +104,7 @@ MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6d56977/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # default
 MAKEFILES := 
 # automatic
@@ -111,7 +112,7 @@ MAKEFILES :=
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-afcc7e54900797ac8042224a5a0ad178825a6ba2.sock
+REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-de8a2e5da4941687554ec5d80b05ad5cbdc03fbe.sock
 # environment
 REMOTE_CONTAINERS = true
 # automatic
@@ -137,7 +138,7 @@ VSCODE_AGENT_FOLDER = /root/.vscode-server
 # environment
 _ = /bin/cat
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-23e2475e-4936-4ff5-9f0f-e55401044e51.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-b1922276-6f8e-48f0-ba49-ba01dedb620e.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -150,10 +151,10 @@ HOME = /root
 SUFFIXES := 
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
-# makefile (from 'Makefile', line 24)
+# makefile (from 'Makefile', line 25)
 CC = gcc -g
 # variable set hash-table stats:
-# Load=71/1024=7%, Rehash=0, Collisions=5/122=4%
+# Load=71/1024=7%, Rehash=0, Collisions=4/119=3%
 
 # Pattern-specific Variable Values
 
@@ -161,66 +162,57 @@ CC = gcc -g
 
 # Directories
 
-# include (device 113, inode 121325342): 1 files, no impossibilities so far.
-# src (device 113, inode 121325704): 1 files, no impossibilities so far.
-# src/tools (device 113, inode 121547021): 2 files, no impossibilities so far.
-# . (device 113, inode 121325117): 14 files, no impossibilities.
+# include (device 49, inode 2814749767538948): 3 files, no impossibilities so far.
+# src (device 49, inode 3940649674449791): 3 files, no impossibilities so far.
+# src/tools (device 49, inode 3659174697739139): 4 files, no impossibilities so far.
+# . (device 49, inode 9570149208337957): 13 files, no impossibilities.
+# src/utils (device 49, inode 13510798882193800): 3 files, no impossibilities so far.
 
-# 18 files, no impossibilities in 4 directories.
+# 26 files, no impossibilities in 5 directories.
 
 # Implicit Rules
 
 obj/%.o: %.c include/minishell.h
-#  recipe to execute (from 'Makefile', line 32):
+#  recipe to execute (from 'Makefile', line 33):
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/utils
 	@echo "Compiling $@"
-	@$(CC) -c $< -o $@
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
 lib/libft/libft.a:
 #  Implicit rule search has not been done.
-#  Last modified 2022-04-19 19:06:18.088684339
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 38):
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 40):
 	make -C $(LIBDIR)
 	
 
-minishell: obj/src/main.o obj/src/tools/prompt.o lib/libft/libft.a
+# Not a target:
+src/utils/msg.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-22 06:29:06.3343879
+#  File has been updated.
+#  Successfully updated.
+
+minishell: obj/src/main.o obj/src/tools/prompt.o obj/src/utils/msg.o lib/libft/libft.a
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
-# automatic
-# @ := minishell
-# automatic
-# * := 
-# automatic
-# < := obj/src/main.o
-# automatic
-# + := obj/src/main.o obj/src/tools/prompt.o lib/libft/libft.a
-# automatic
-# % := 
-# automatic
-# ^ := obj/src/main.o obj/src/tools/prompt.o lib/libft/libft.a
-# automatic
-# ? := obj/src/main.o obj/src/tools/prompt.o lib/libft/libft.a
-# automatic
-# | := 
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/19=11%
-#  recipe to execute (from 'Makefile', line 41):
-	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME)
+# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
+#  recipe to execute (from 'Makefile', line 43):
+	@$(CC) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-21 11:17:53.276437554
+#  Last modified 2022-04-22 06:31:12.7281457
 #  File has been updated.
 #  Successfully updated.
 
@@ -228,27 +220,59 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 48):
+#  recipe to execute (from 'Makefile', line 50):
 	@echo "Cleaning"
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 
+obj/src/utils/msg.o: src/utils/msg.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/utils/msg'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/src/utils/msg.o
+# automatic
+# * := src/utils/msg
+# automatic
+# < := src/utils/msg.c
+# automatic
+# + := src/utils/msg.c include/minishell.h
+# automatic
+# % := 
+# automatic
+# ^ := src/utils/msg.c include/minishell.h
+# automatic
+# ? := src/utils/msg.c include/minishell.h
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/19=11%
+#  recipe to execute (from 'Makefile', line 33):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
+
 obj/src/main.o: src/main.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/main'
-#  Last modified 2022-04-21 11:16:32.903612873
+#  Last modified 2022-04-22 06:29:43.9736227
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 32):
+#  recipe to execute (from 'Makefile', line 33):
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/utils
 	@echo "Compiling $@"
-	@$(CC) -c $< -o $@
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-21 10:57:40.752419776
+#  Last modified 2022-04-22 05:38:35.8830643
 #  File has been updated.
 #  Successfully updated.
 
@@ -270,63 +294,57 @@ all: minishell
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/11=0%
+ 
+# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
 
 fclean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 53):
+#  recipe to execute (from 'Makefile', line 55):
 	rm -f $(NAME)
 
 # Not a target:
 src/tools/prompt.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-21 11:06:15.511921695
+#  Last modified 2022-04-22 06:29:40.5091053
 #  File has been updated.
 #  Successfully updated.
 
- 
 # Not a target:
 include/minishell.h:
- 
 #  Implicit rule search has been done.
-#  Last modified 2022-04-21 11:16:27.259954165
+#  Last modified 2022-04-22 06:29:26.3781369
 #  File has been updated.
 #  Successfully updated.
-
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 obj/src/tools/prompt.o: src/tools/prompt.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/tools/prompt'
-#  Last modified 2022-04-21 11:16:32.956276529
+#  Last modified 2022-04-22 06:29:44.041486
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 32):
+#  recipe to execute (from 'Makefile', line 33):
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/utils
 	@echo "Compiling $@"
-	@$(CC) -c $< -o $@
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
 # files hash-table stats:
-# Load=14/1024=1%, Rehash=0, Collisions=0/42=0%
+# Load=16/1024=2%, Rehash=0, Collisions=0/49=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 38 / storage = 386 B / avg = 10 B
-# current buf: size = 8162 B / used = 386 B / count = 38 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 42 / storage = 436 B / avg = 10 B
+# current buf: size = 8162 B / used = 436 B / count = 42 / avg = 10 B
 
-# strcache performance: lookups = 62 / hit rate = 38%
+# strcache performance: lookups = 76 / hit rate = 44%
 # hash-table stats:
-# Load=38/8192=0%, Rehash=0, Collisions=1/62=2%
-# Finished Make data base on Thu Apr 21 11:18:56 2022
+# Load=42/8192=1%, Rehash=0, Collisions=1/76=1%
+# Finished Make data base on Fri Apr 22 06:31:45 2022
 
  
