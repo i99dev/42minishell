@@ -43,6 +43,7 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -t robbyrussell \
     -p git 
 
+RUN export USER=root
 
 WORKDIR /app
 
