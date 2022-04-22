@@ -5,14 +5,13 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Fri Apr 22 06:31:45 2022
+# Make data base, printed on Fri Apr 22 10:16:06 2022
 
 # Variables
 
 # environment
-REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-de8a2e5da4941687554ec5d80b05ad5cbdc03fbe.sock"]
+REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-486b58df23d86b006f6664a977cb7bb91cc1e382.sock"]
 # makefile (from 'Makefile', line 18)
 LIBDIR = lib/libft/
 # environment
@@ -38,7 +37,7 @@ PWD = /workspaces/42minishell
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-HOSTNAME = 4109d4e56478
+HOSTNAME = 42MINISHELL
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -70,7 +69,7 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-de8a2e5da4941687554ec5d80b05ad5cbdc03fbe.sock
+SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-486b58df23d86b006f6664a977cb7bb91cc1e382.sock
 # default
 .SHELLFLAGS := -c
 # automatic
@@ -112,7 +111,7 @@ MAKEFILES :=
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-de8a2e5da4941687554ec5d80b05ad5cbdc03fbe.sock
+REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-486b58df23d86b006f6664a977cb7bb91cc1e382.sock
 # environment
 REMOTE_CONTAINERS = true
 # automatic
@@ -129,6 +128,8 @@ BROWSER = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6
 .DEFAULT_GOAL := lib/libft/libft.a
 # environment
 DISPLAY = 192.168.4.222:0.0
+# environment
+USER = Dokcer
 # default
 MAKE_VERSION := 4.3
 # environment
@@ -138,7 +139,7 @@ VSCODE_AGENT_FOLDER = /root/.vscode-server
 # environment
 _ = /bin/cat
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-b1922276-6f8e-48f0-ba49-ba01dedb620e.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-76226403-dc53-4db1-9bc0-44f3f25a32f5.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -154,7 +155,7 @@ SUFFIXES :=
 # makefile (from 'Makefile', line 25)
 CC = gcc -g
 # variable set hash-table stats:
-# Load=71/1024=7%, Rehash=0, Collisions=4/119=3%
+# Load=72/1024=7%, Rehash=0, Collisions=4/112=4%
 
 # Pattern-specific Variable Values
 
@@ -162,13 +163,13 @@ CC = gcc -g
 
 # Directories
 
-# include (device 49, inode 2814749767538948): 3 files, no impossibilities so far.
-# src (device 49, inode 3940649674449791): 3 files, no impossibilities so far.
-# src/tools (device 49, inode 3659174697739139): 4 files, no impossibilities so far.
-# . (device 49, inode 9570149208337957): 13 files, no impossibilities.
-# src/utils (device 49, inode 13510798882193800): 3 files, no impossibilities so far.
+# include (device 113, inode 121325342): 1 files, no impossibilities so far.
+# src (device 113, inode 121325704): 1 files, no impossibilities so far.
+# src/tools (device 113, inode 121547021): 2 files, no impossibilities so far.
+# . (device 113, inode 121325117): 15 files, no impossibilities.
+# src/utils (device 113, inode 121595670): 1 files, no impossibilities so far.
 
-# 26 files, no impossibilities in 5 directories.
+# 20 files, no impossibilities in 5 directories.
 
 # Implicit Rules
 
@@ -185,8 +186,9 @@ obj/%.o: %.c include/minishell.h
 
 lib/libft/libft.a:
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-04-19 19:06:18.088684339
+#  File has been updated.
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 40):
 	make -C $(LIBDIR)
 	
@@ -194,17 +196,15 @@ lib/libft/libft.a:
 # Not a target:
 src/utils/msg.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-22 06:29:06.3343879
+#  Last modified 2022-04-22 09:59:49.573146761
 #  File has been updated.
 #  Successfully updated.
 
 minishell: obj/src/main.o obj/src/tools/prompt.o obj/src/utils/msg.o lib/libft/libft.a
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  Last modified 2022-04-22 09:59:57.287184806
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
 	@$(CC) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
@@ -212,7 +212,7 @@ minishell: obj/src/main.o obj/src/tools/prompt.o obj/src/utils/msg.o lib/libft/l
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-22 06:31:12.7281457
+#  Last modified 2022-04-22 09:59:49.554251634
 #  File has been updated.
 #  Successfully updated.
 
@@ -228,27 +228,9 @@ clean:
 obj/src/utils/msg.o: src/utils/msg.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/utils/msg'
-#  File does not exist.
+#  Last modified 2022-04-22 09:59:57.06822582
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/src/utils/msg.o
-# automatic
-# * := src/utils/msg
-# automatic
-# < := src/utils/msg.c
-# automatic
-# + := src/utils/msg.c include/minishell.h
-# automatic
-# % := 
-# automatic
-# ^ := src/utils/msg.c include/minishell.h
-# automatic
-# ? := src/utils/msg.c include/minishell.h
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/19=11%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 33):
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
@@ -259,7 +241,7 @@ obj/src/utils/msg.o: src/utils/msg.c include/minishell.h
 obj/src/main.o: src/main.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/main'
-#  Last modified 2022-04-22 06:29:43.9736227
+#  Last modified 2022-04-22 09:59:56.957791356
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 33):
@@ -272,7 +254,7 @@ obj/src/main.o: src/main.c include/minishell.h
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-22 05:38:35.8830643
+#  Last modified 2022-04-21 17:54:13.38536154
 #  File has been updated.
 #  Successfully updated.
 
@@ -292,10 +274,7 @@ all: minishell
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
- 
-# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
+#  Successfully updated.
 
 fclean:
 #  Implicit rule search has not been done.
@@ -307,21 +286,21 @@ fclean:
 # Not a target:
 src/tools/prompt.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-22 06:29:40.5091053
+#  Last modified 2022-04-22 09:59:49.567918241
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 include/minishell.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-22 06:29:26.3781369
+#  Last modified 2022-04-22 09:59:49.559271371
 #  File has been updated.
 #  Successfully updated.
 
 obj/src/tools/prompt.o: src/tools/prompt.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/tools/prompt'
-#  Last modified 2022-04-22 06:29:44.041486
+#  Last modified 2022-04-22 09:59:57.017048942
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 33):
@@ -339,12 +318,12 @@ obj/src/tools/prompt.o: src/tools/prompt.c include/minishell.h
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 42 / storage = 436 B / avg = 10 B
-# current buf: size = 8162 B / used = 436 B / count = 42 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 43 / storage = 452 B / avg = 10 B
+# current buf: size = 8162 B / used = 452 B / count = 43 / avg = 10 B
 
-# strcache performance: lookups = 76 / hit rate = 44%
+# strcache performance: lookups = 70 / hit rate = 38%
 # hash-table stats:
-# Load=42/8192=1%, Rehash=0, Collisions=1/76=1%
-# Finished Make data base on Fri Apr 22 06:31:45 2022
+# Load=43/8192=1%, Rehash=0, Collisions=1/70=1%
+# Finished Make data base on Fri Apr 22 10:16:06 2022
 
  

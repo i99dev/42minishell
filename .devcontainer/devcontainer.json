@@ -25,7 +25,7 @@
         "donjayamanne.git-extension-pack",
         "gruntfuggly.todo-tree",
         "ms-vscode.cpptools-extension-pack",
-        // "github.copilot",
+        "github.copilot",
         "ms-vscode.makefile-tools"
     ],
     // Use 'forwardPorts' to make a list of ports inside the container available locally.

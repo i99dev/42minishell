@@ -1,5 +1,5 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/workspaces/42minishell'
-make: 'lib/libft/libft.a' is up to date.
+make -C lib/libft/
 make: Leaving directory '/workspaces/42minishell'
  
