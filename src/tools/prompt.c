@@ -55,8 +55,8 @@ void	prompt_commend(void)
 		{
 			add_history(line);
 			rl_bind_key('\t', rl_complete);
-			command_table=init_command_table(line);
-			execute(command_table[0],command_table);
+			command_table = init_command_table(line);
+			execute(command_table[0], command_table);
 			free(line);
 			line = NULL;
 		}

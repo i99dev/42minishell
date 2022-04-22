@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:38:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/22 06:36:05 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:02:12 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <dirent.h>
+# include <sys/resource.h>
 # include "../lib/libft/libft.h"
 
 # include <readline/readline.h>
