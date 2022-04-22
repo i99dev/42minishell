@@ -21,6 +21,8 @@ LIBFT = lib/libft/libft.a
 SRC= 	src/main.c		\
 		src/tools/prompt.c \
 		src/utils/msg.c \
+		src/tools/parser.c \
+		src/tools/execute.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror

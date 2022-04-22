@@ -42,9 +42,8 @@ char	*get_user_inf(void)
 void	prompt_commend(void)
 {
 	char	*line;
-	char	*user_info;
+	char	**command_table;
 
-	user_info = get_user_inf();
 	while (1)
 	{
 		line = readline(user_info);
@@ -54,6 +53,8 @@ void	prompt_commend(void)
 		{
 			add_history(line);
 			rl_bind_key('\t', rl_complete);
+			command_table=init_command_table(line);
+			execute(command_table[0],command_table);
 			free(line);
 			line = NULL;
 		}
@@ -64,5 +65,4 @@ void	prompt_commend(void)
 			line = NULL;
 		}
 	}
-	free(user_info);
 }
