@@ -6,10 +6,10 @@
 
 void	execute(char *path, char **command_table)
 {
-	pid_t	pid;
-	int		status;
-	struct	rusage ru;
-	char	*command;
+	pid_t			pid;
+	int				status;
+	struct rusage	ru;
+	char			*command;
 
 	if (path[0] != '/')
 		command = ft_strjoin("/bin/", path);
@@ -24,7 +24,6 @@ void	execute(char *path, char **command_table)
 	{
 		execve(command, command_table, NULL);
 		perror("command failed");
-		// ^ This can only be reached if execve fails
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
