@@ -6,7 +6,7 @@
 #    By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 18:46:59 by oal-tena          #+#    #+#              #
-#    Updated: 2022/04/22 17:46:00 by oal-tena         ###   ########.fr        #
+#    Updated: 2022/04/22 18:13:11 by oal-tena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,15 +42,16 @@ $(LIBFT):
 	make re -C $(LIBDIR)
 	
 $(NAME): $(OBJECTS_PREFIXED) $(LIBFT)
-	@$(CC) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
+	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
 
 leak: #only use to check leak with valgrind
 	@echo "leak"
+	@make re
 	@valgrind --leak-check=full ./$(NAME)
 
 all: $(NAME)
-	@make re -C $(LIBDIR)
+	@make all -C $(LIBDIR)
 
 clean:
 	@echo "Cleaning"

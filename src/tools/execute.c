@@ -4,6 +4,7 @@
 	TODO: support characters like "|", ">", "<", etc.
 */
 
+
 void	execute(char *path, char **command_table)
 {
 	pid_t			pid;
@@ -11,10 +12,15 @@ void	execute(char *path, char **command_table)
 	struct rusage	ru;
 	char			*command;
 
-	if (path[0] != '/')
+	if(path[0] != '/')
 		command = ft_strjoin("/bin/", path);
 	else
-		command = path;
+		command = ft_strdup(path);
+	if (access(command, F_OK) == -1)
+	{
+		err_msg("command not found");
+		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 	{
