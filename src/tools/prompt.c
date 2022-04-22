@@ -43,7 +43,9 @@ void	prompt_commend(void)
 {
 	char	*line;
 	char	**command_table;
+	char	*user_info;
 
+	user_info = get_user_inf();
 	while (1)
 	{
 		line = readline(user_info);
