@@ -38,6 +38,7 @@
 void	prompt_commend(void);
 void	err_msg(char *msg);
 char    **init_command_table(char *input);
+void     execute(char *path, char **command_table);
 
 
 #endif
