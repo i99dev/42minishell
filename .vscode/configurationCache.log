@@ -1,1 +1,1 @@
-{"buildTargets":["all","clean","fclean","leak","lib/libft/libft.a","minishell","obj/src/main.o","obj/src/tools/execute.o","obj/src/tools/parser.o","obj/src/tools/prompt.o","obj/src/utils/msg.o","re"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
+{"buildTargets":["all","clean","fclean","leak","lib/libft/libft.a","minishell","obj/src/main.o","re"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

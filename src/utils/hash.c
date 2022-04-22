@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msg.c                                              :+:      :+:    :+:   */
+/*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/22 06:28:09 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/22 15:14:00 by oal-tena         ###   ########.fr       */
+/*   Created: 2022/04/22 14:15:58 by oal-tena          #+#    #+#             */
+/*   Updated: 2022/04/22 15:07:43 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	err_msg(char *msg)
+/**
+ * @brief h_hash function return the hash of the string index.
+ * 
+ * @param str hash name or key
+ * @return unsigned int  index insiad table
+ */
+
+unsigned int	h_hash(char *str)
 {
-	ft_putstr_fd("minishell:\n ", 2);
-	ft_putstr_fd(RED, 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd(RESET"\n", 2);
+	return ft_strlen(str);
 }

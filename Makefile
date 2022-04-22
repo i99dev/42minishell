@@ -23,6 +23,7 @@ SRC= 	src/main.c		\
 		src/utils/msg.c \
 		src/tools/parser.c \
 		src/tools/execute.c \
+		src/utils/hash.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror
