@@ -1,7 +1,8 @@
 #include "../../include/minishell.h"
 /*
-	splits input line into command table.
-	TODO: support characters like "|", ">", "<", etc.
+	parses and splits input line into command table
+	TODO:	support characters like "|", ">", "<", etc.
+			handle double and single quotes
 */
 
 char	**init_command_table(char *input)

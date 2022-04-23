@@ -1,7 +1,8 @@
 #include "../../include/minishell.h"
 /*
 	execute command as child procces in order to keep minishell running
-	TODO: support characters like "|", ">", "<", etc.
+	TODO:	support characters like "|", ">", "<", etc.
+			supoort cd,export,unset,env
 */
 
 void	execute(char *path, char ***command_table)

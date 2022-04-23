@@ -57,7 +57,10 @@ void	free_exit(char **s1, char **s2, char ***table)
 }
 
 /*
-	signal handler to ignore crtl+c, must type "exit" to quit minishell
+	signal handler to ignore crtl+c, must type "exit" or ctrl+D to quit minishell.
+	TODO:	handle ctrl+\ should do nothing.
+			fix leaks on crtl+D exit.
+			fix ctrl+C should not print ^C.
 */
 void	signal_handler(int sig)
 {
@@ -88,7 +91,7 @@ void	prompt_commend(void)
 		line = readline(user_info);
 		if (line == NULL)
 			return ;
-		if (ft_strlen(line) > 0 && ft_strncmp(line, "exit", 4) != 0)
+		if (ft_strlen(line) > 0 && ft_strncmp(line, "exit", 5) != 0)
 		{
 			add_history(line);
 			rl_bind_key('\t', rl_complete);
