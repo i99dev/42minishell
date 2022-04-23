@@ -11,8 +11,12 @@ void	execute(char *path, char **command_table)
 	struct rusage	ru;
 	char			*command;
 
+	command = NULL;
 	if (path[0] != '/')
-		command = ft_strjoin("/bin/", path);
+	{
+		command = ft_strjoin(command, "/bin/");
+		command = ft_strjoin(command, path);
+	}
 	else
 		command = path;
 	pid = fork();
@@ -27,4 +31,5 @@ void	execute(char *path, char **command_table)
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
+	free(command);
 }

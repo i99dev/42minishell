@@ -35,6 +35,27 @@ char	*get_user_inf(void)
 	return (tmp);
 }
 
+void	free_exit(char **user_info, char **line, char ***command_table)
+{
+	free(*line);
+	free(*user_info);
+	if (*command_table)
+		free(*command_table);
+	exit(0);
+}
+
+/*
+	signal handler to ignore crtl+c, must type "exit" to quit minishell
+*/
+void	signal_handler(int sig)
+{
+	(void)sig;
+	info = get_user_inf();
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd(info, 1);
+	free(info);
+}
+
 /*
 @add history to the history commend line input 
 @rl_bind_key ->when press tab get dir or complete the command
@@ -45,12 +66,15 @@ void	prompt_commend(void)
 	char	**command_table;
 	char	*user_info;
 
+	signal(SIGINT, signal_handler);
 	user_info = get_user_inf();
 	while (1)
 	{
 		line = readline(user_info);
 		if (line == NULL)
 			return ;
+		if (ft_strncmp(line, "exit", 4) == 0)
+			free_exit(&user_info, &line, &command_table);
 		if (ft_strlen(line) > 0)
 		{
 			add_history(line);
