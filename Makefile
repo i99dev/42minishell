@@ -6,7 +6,7 @@
 #    By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 18:46:59 by oal-tena          #+#    #+#              #
-#    Updated: 2022/04/22 13:04:23 by oal-tena         ###   ########.fr        #
+#    Updated: 2022/04/22 18:13:11 by oal-tena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC= 	src/main.c		\
 		src/utils/msg.c \
 		src/tools/parser.c \
 		src/tools/execute.c \
+		src/utils/hash.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror
@@ -39,24 +40,27 @@ $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@$(CC) $(CC_FLAG) -c $< -o $@
 
 $(LIBFT):
-	make -C $(LIBDIR)
+	make re -C $(LIBDIR)
 	
 $(NAME): $(OBJECTS_PREFIXED) $(LIBFT)
-	@$(CC) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
+	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
 
 leak: #only use to check leak with valgrind
 	@echo "leak"
+	@make re
 	@valgrind --leak-check=full ./$(NAME)
 
 all: $(NAME)
+	@make all -C $(LIBDIR)
 
 clean:
 	@echo "Cleaning"
 	@rm -rf $(OBJ_DIR)
-	@rm -rf $(NAME)
+	@make clean -C $(LIBDIR)
 
 fclean: 
 	rm -f $(NAME)
+	@make fclean -C $(LIBDIR)
 
 re: fclean all

@@ -91,4 +91,5 @@ void	prompt_commend(void)
 			line = NULL;
 		}
 	}
+	free(user_info);
 }
