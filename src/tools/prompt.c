@@ -37,10 +37,18 @@ char	*get_user_inf(void)
 
 void	free_exit(char **user_info, char **line, char ***command_table)
 {
+	int	i;
+
+
 	free(*line);
 	free(*user_info);
 	if (*command_table)
+	{
+		i = 0;
+		while (((*command_table)[i]) != NULL)
+			free((*command_table)[i++]);
 		free(*command_table);
+	}
 	exit(0);
 }
 
@@ -49,6 +57,8 @@ void	free_exit(char **user_info, char **line, char ***command_table)
 */
 void	signal_handler(int sig)
 {
+	char	*info;
+
 	(void)sig;
 	info = get_user_inf();
 	ft_putstr_fd("\n", 1);
@@ -66,6 +76,7 @@ void	prompt_commend(void)
 	char	**command_table;
 	char	*user_info;
 
+	command_table = NULL;
 	signal(SIGINT, signal_handler);
 	user_info = get_user_inf();
 	while (1)
@@ -73,9 +84,7 @@ void	prompt_commend(void)
 		line = readline(user_info);
 		if (line == NULL)
 			return ;
-		if (ft_strncmp(line, "exit", 4) == 0)
-			free_exit(&user_info, &line, &command_table);
-		if (ft_strlen(line) > 0)
+		if (ft_strlen(line) > 0 && ft_strncmp(line, "exit", 4) != 0)
 		{
 			add_history(line);
 			rl_bind_key('\t', rl_complete);
@@ -84,6 +93,8 @@ void	prompt_commend(void)
 			free(line);
 			line = NULL;
 		}
+		else if (ft_strncmp(line, "exit", 4) == 0)
+			free_exit(&user_info, &line, &command_table);
 		else
 		{
 			err_msg("empty command");
