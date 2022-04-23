@@ -58,18 +58,22 @@ void	free_exit(char **s1, char **s2, char ***table)
 
 /*
 	signal handler to ignore crtl+c, must type "exit" or ctrl+D to quit minishell.
-	TODO:	handle ctrl+\ should do nothing.
-			fix leaks on crtl+D exit.
-			fix ctrl+C should not print ^C.
+	TODO:	fix ctrl+C and ctrl+D should not print anything.
 */
 void	signal_handler(int sig)
 {
 	char	*info;
 
-	(void)sig;
 	info = get_user_inf();
-	ft_putstr_fd("\n", 1);
-	ft_putstr_fd(info, 1);
+	if (sig == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		ft_putstr_fd(info, 1);
+	}
+	else if (sig == SIGINT)
+	{
+		rl_replace_line(info, 1);
+	}
 	free(info);
 }
 
@@ -85,29 +89,34 @@ void	prompt_commend(void)
 
 	command_table = NULL;
 	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
+	/*
+	ADD check for signal creation error
+	if (signal(SIGINT, &sighandler) == SIG_ERR) {
+        fprintf(stderr, "Could not set signal \n");
+        return EXIT_FAILURE;
+    }
+	*/
 	user_info = get_user_inf();
 	while (1)
 	{
 		line = readline(user_info);
 		if (line == NULL)
-			return ;
+			free_exit(&user_info, &line, &command_table);
 		if (ft_strlen(line) > 0 && ft_strncmp(line, "exit", 5) != 0)
 		{
 			add_history(line);
 			rl_bind_key('\t', rl_complete);
 			command_table = init_command_table(line);
 			execute(command_table[0], &command_table);
-			free(line);
-			line = NULL;
 		}
-		else if (ft_strncmp(line, "exit", 4) == 0)
+		else if (ft_strncmp(line, "exit", 5) == 0)
 			free_exit(&user_info, &line, &command_table);
 		else
 		{
 			err_msg("empty command");
-			free(line);
-			line = NULL;
 		}
+		free(line);
+		line = NULL;
 	}
-	free(user_info);
 }
