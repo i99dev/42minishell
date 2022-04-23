@@ -4,8 +4,7 @@
 	TODO: support characters like "|", ">", "<", etc.
 */
 
-
-void	execute(char *path, char **command_table)
+void	execute(char *path, char ***command_table)
 {
 	pid_t			pid;
 	int				status;
@@ -23,6 +22,7 @@ void	execute(char *path, char **command_table)
 	if (access(command, F_OK) == -1)
 	{
 		err_msg("command not found");
+		free(command);
 		return ;
 	}
 	pid = fork();
@@ -32,8 +32,9 @@ void	execute(char *path, char **command_table)
 	}
 	else if (pid == 0)
 	{
-		execve(command, command_table, NULL);
+		execve(command, *command_table, NULL);
 		perror("command failed");
+		free_exit(&command, NULL, command_table);
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);

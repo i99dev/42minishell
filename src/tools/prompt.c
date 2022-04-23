@@ -35,19 +35,23 @@ char	*get_user_inf(void)
 	return (tmp);
 }
 
-void	free_exit(char **user_info, char **line, char ***command_table)
+/*
+	frees 2 strings and table and exits.
+*/
+void	free_exit(char **s1, char **s2, char ***table)
 {
 	int	i;
 
-
-	free(*line);
-	free(*user_info);
-	if (*command_table)
+	if (*s1)
+		free(*s1);
+	if (*s2)
+		free(*s2);
+	if (*table)
 	{
 		i = 0;
-		while (((*command_table)[i]) != NULL)
-			free((*command_table)[i++]);
-		free(*command_table);
+		while ((*table)[i])
+			free((*table)[i++]);
+		free(*table);
 	}
 	exit(0);
 }
@@ -89,7 +93,7 @@ void	prompt_commend(void)
 			add_history(line);
 			rl_bind_key('\t', rl_complete);
 			command_table = init_command_table(line);
-			execute(command_table[0], command_table);
+			execute(command_table[0], &command_table);
 			free(line);
 			line = NULL;
 		}

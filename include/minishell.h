@@ -38,8 +38,11 @@
 //function
 void	prompt_commend(void);
 void	err_msg(char *msg);
-char    **init_command_table(char *input);
-void     execute(char *path, char **command_table);
+void	signal_handler(int sig);
+char	*get_user_inf(void);
+char	**init_command_table(char *input);
+void	free_exit(char **s1, char **s2, char ***table);
+void	execute(char *path, char ***command_table);
 
 
 #endif
