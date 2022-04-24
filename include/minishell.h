@@ -50,6 +50,7 @@ char	*get_user_inf(void);
 char	**init_command_table(char *input);
 void	free_exit(char **s1, char **s2, char ***table);
 void	execute(char *path, char ***command_table);
+void	ft_free_minishell(t_minishell *minishell);
 
 
 #endif

@@ -45,9 +45,12 @@ void	insert_new_env(t_hash_table *table, char *env)
 	t_hash	*new;
 
 	new = (t_hash *)malloc(sizeof(t_hash));
-	new->key = ft_strdup(find_key(env));
-	new->value = ft_strdup(find_value(env));
+	new->key = find_key(env);
+	new->value = find_value(env);
 	new->next = NULL;
 	table->table[hash(env, table->size)] = new;
 	table->count++;
+	free(new->key);
+	free(new->value);
+	free(new);
 }
