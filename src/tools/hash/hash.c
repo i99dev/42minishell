@@ -36,30 +36,22 @@ unsigned long int	hash(char *key, unsigned int size)
 	return (hash % size);
 }
 
-t_hash_table	create_hash_table(unsigned int size)
+t_hash_table	*create_hash_table(unsigned int size)
 {
-	t_hash_table	table;
+	t_hash_table	*table;
+	t_hash			**hash_table;
+	unsigned int	i;
 
-	table.table = (t_hash **)malloc(sizeof(t_hash *) * size);
-	table.count = 0;
-	table.size = size;
+	table = (t_hash_table *)malloc(sizeof(t_hash_table) * 1);
+	hash_table = (t_hash **)malloc(sizeof(t_hash *) * size);
+	i = 0;
+	while (i < size)
+	{
+		hash_table[i] = NULL;
+		i++;
+	}
+	table->table = hash_table;
+	table->count = 0;
+	table->size = size;
 	return (table);
-}
-
-void	insert_hash(t_hash *hash, char *key, char *value)
-{
-	(void)hash;
-	(void)key;
-	(void)value;
-}
-
-void	delete_hash(t_hash *hash, char *key)
-{
-	(void)hash;
-	(void)key;
-}
-
-void	print_hash(t_hash *hash)
-{
-	(void)hash;
 }

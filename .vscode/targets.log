@@ -5,8 +5,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Sun Apr 24 07:55:40 2022
+# Make data base, printed on Sun Apr 24 10:47:03 2022
 
 # Variables
 
@@ -17,7 +18,7 @@ LIBDIR = lib/libft/
 # environment
 LC_ALL = C
 # makefile (from 'Makefile', line 21)
-SRC = src/main.c src/tools/prompt.c src/tools/execute.c src/tools/parser/parser.c src/tools/hash/hash.c src/tools/tokenizer/tokenizer.c src/utils/msg.c 
+SRC = src/main.c src/tools/prompt.c src/tools/execute.c src/tools/parser/parser.c src/tools/hash/hash.c src/tools/hash/insert_env.c src/tools/hash/print_hash.c src/tools/tokenizer/tokenizer.c src/utils/msg.c 
 # environment
 VSCODE_CWD = /vscode/vscode-server/bin/linux-x64/dfd34e8260c270da74b5c2d86d61aee4b6d56977
 # makefile (from 'Makefile', line 17)
@@ -26,7 +27,7 @@ MINISHELL_HEADER = include/minishell.h
 MAKE_COMMAND := make
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# makefile (from 'Makefile', line 32)
+# makefile (from 'Makefile', line 34)
 OBJ_DIR = obj/
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
@@ -46,7 +47,7 @@ VSCODE_LOG_STACK = false
 %F = $(notdir $%)
 # makefile (from 'Makefile', line 19)
 LIBFT = lib/libft/libft.a
-# makefile (from 'Makefile', line 30)
+# makefile (from 'Makefile', line 32)
 CC_FLAG = -Wall -Wextra -Werror
 # environment
 LANG = C
@@ -56,14 +57,14 @@ LANG = C
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # makefile
 MAKEFLAGS = pqrR
-# makefile (from 'Makefile', line 34)
+# makefile (from 'Makefile', line 36)
 OBJECTS_PREFIXED = $(addprefix $(OBJ_DIR), $(OBJS))
 # makefile
 CURDIR := /workspaces/42minishell
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -90,7 +91,7 @@ VSCODE_VERBOSE_LOGGING = true
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
-# makefile (from 'Makefile', line 33)
+# makefile (from 'Makefile', line 35)
 OBJS = $(SRC:.c=.o)
 # makefile
 SHELL = /bin/sh
@@ -152,7 +153,7 @@ HOME = /root
 SUFFIXES := 
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
-# makefile (from 'Makefile', line 29)
+# makefile (from 'Makefile', line 31)
 CC = gcc -g
 # variable set hash-table stats:
 # Load=72/1024=7%, Rehash=0, Collisions=4/123=3%
@@ -165,14 +166,17 @@ CC = gcc -g
 
 # include (device 47, inode 2814749767538948): 4 files, no impossibilities so far.
 # src (device 47, inode 3940649674449791): 3 files, no impossibilities so far.
-# . (device 47, inode 9570149208337957): 16 files, no impossibilities.
+# src/tools (device 47, inode 3659174697739139): 7 files, no impossibilities so far.
+# . (device 47, inode 9570149208337957): 15 files, no impossibilities.
+# src/tools/parser (device 47, inode 18858823440031494): 3 files, no impossibilities so far.
+# src/tools/hash (device 47, inode 22799473113866390): 6 files, no impossibilities so far.
 
-# 23 files, no impossibilities in 3 directories.
+# 38 files, no impossibilities in 6 directories.
 
 # Implicit Rules
 
 obj/%.o: %.c include/minishell.h
-#  recipe to execute (from 'Makefile', line 37):
+#  recipe to execute (from 'Makefile', line 39):
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
 	@mkdir -p $(OBJ_DIR)/src/tools/parser
@@ -185,13 +189,43 @@ obj/%.o: %.c include/minishell.h
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
+# Not a target:
+src/tools/hash/insert_env.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 10:22:38.6903884
+#  File has been updated.
+#  Successfully updated.
+
 lib/libft/libft.a:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 47):
+#  recipe to execute (from 'Makefile', line 49):
 	make re -C $(LIBDIR)
 	
+
+obj/src/tools/hash/insert_env.o: src/tools/hash/insert_env.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/tools/hash/insert_env'
+#  Last modified 2022-04-24 10:43:32.4343712
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 39):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
+
+# Not a target:
+src/tools/parser/parser.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 06:21:44.7073424
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 obj/src/tools/tokenizer/tokenizer.o:
@@ -199,29 +233,64 @@ obj/src/tools/tokenizer/tokenizer.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: obj/src/main.o obj/src/tools/prompt.o obj/src/tools/execute.o obj/src/tools/parser/parser.o obj/src/tools/hash/hash.o obj/src/tools/tokenizer/tokenizer.o obj/src/utils/msg.o lib/libft/libft.a
+obj/src/tools/hash/print_hash.o: src/tools/hash/print_hash.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/tools/hash/print_hash'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/src/tools/hash/print_hash.o
+# automatic
+# * := src/tools/hash/print_hash
+# automatic
+# < := src/tools/hash/print_hash.c
+# automatic
+# + := src/tools/hash/print_hash.c include/minishell.h
+# automatic
+# % := 
+# automatic
+# ^ := src/tools/hash/print_hash.c include/minishell.h
+# automatic
+# ? := src/tools/hash/print_hash.c include/minishell.h
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/22=9%
+#  recipe to execute (from 'Makefile', line 39):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
+
+minishell: obj/src/main.o obj/src/tools/prompt.o obj/src/tools/execute.o obj/src/tools/parser/parser.o obj/src/tools/hash/hash.o obj/src/tools/hash/insert_env.o obj/src/tools/hash/print_hash.o obj/src/tools/tokenizer/tokenizer.o obj/src/utils/msg.o lib/libft/libft.a
 #  Implicit rule search has not been done.
-#  Last modified 2022-04-24 07:23:40.544979
+#  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/11=0%
-#  recipe to execute (from 'Makefile', line 50):
+#  recipe to execute (from 'Makefile', line 52):
 	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-24 06:26:35.737422
+#  Last modified 2022-04-24 10:46:46.5152504
 #  File has been updated.
 #  Successfully updated.
+ 
 
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 62):
+#  recipe to execute (from 'Makefile', line 64):
 	@echo "Cleaning"
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIBDIR)
@@ -235,28 +304,10 @@ obj/src/utils/msg.o:
 obj/src/main.o: src/main.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/main'
-#  Last modified 2022-04-24 07:23:40.1498908
+#  Last modified 2022-04-24 10:46:17.0274122
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/src/main.o
-# automatic
-# * := src/main
-# automatic
-# < := src/main.c
-# automatic
-# + := src/main.c include/minishell.h
-# automatic
-# % := 
-# automatic
-# ^ := src/main.c include/minishell.h
-# automatic
-# ? := src/main.c
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/22=9%
-#  recipe to execute (from 'Makefile', line 37):
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 39):
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
 	@mkdir -p $(OBJ_DIR)/src/tools/parser
@@ -267,9 +318,23 @@ obj/src/main.o: src/main.c include/minishell.h
 	@$(CC) $(CC_FLAG) -c $< -o $@
 
 # Not a target:
+src/tools/hash/print_hash.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 10:45:41.5906984
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/tools/execute.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 06:10:03.2315903
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-24 07:28:53.2398584
+#  Last modified 2022-04-24 10:46:14.6374287
 #  File has been updated.
 #  Successfully updated.
 
@@ -278,11 +343,21 @@ re: fclean all
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-obj/src/tools/parser/parser.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/src/tools/parser/parser.o: src/tools/parser/parser.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/tools/parser/parser'
+#  Last modified 2022-04-24 10:43:03.8827924
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 39):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
 # Not a target:
 .DEFAULT:
@@ -290,43 +365,76 @@ obj/src/tools/parser/parser.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-obj/src/tools/hash/hash.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/src/tools/hash/hash.o: src/tools/hash/hash.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/tools/hash/hash'
+#  Last modified 2022-04-24 10:43:32.3413429
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 39):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
-# Not a target:
-obj/src/tools/execute.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/src/tools/execute.o: src/tools/execute.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/tools/execute'
+#  Last modified 2022-04-24 10:43:03.7859438
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 39):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
 all: minishell
 #  Command line target.
- 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/11=0%
-#  recipe to execute (from 'Makefile', line 59):
+#  recipe to execute (from 'Makefile', line 61):
 	@make all -C $(LIBDIR)
+
+# Not a target:
+src/tools/hash/hash.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 10:43:30.4650065
+#  File has been updated.
+#  Successfully updated.
 
 fclean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 67):
+#  recipe to execute (from 'Makefile', line 69):
 	rm -f $(NAME)
 	@make fclean -C $(LIBDIR)
+
+# Not a target:
+src/tools/prompt.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 05:56:12.0692851
+#  File has been updated.
+#  Successfully updated.
 
 leak:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 54):
+#  recipe to execute (from 'Makefile', line 56):
 	@echo "leak"
 	@make re
 	@valgrind --leak-check=full ./$(NAME)
@@ -334,30 +442,40 @@ leak:
 # Not a target:
 include/minishell.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-24 07:10:59.3843888
+#  Last modified 2022-04-24 10:42:43.6471277
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-obj/src/tools/prompt.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/src/tools/prompt.o: src/tools/prompt.c include/minishell.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'src/tools/prompt'
+#  Last modified 2022-04-24 10:43:03.7031811
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 39):
+	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/utils
+	@echo "Compiling $@"
+	@$(CC) $(CC_FLAG) -c $< -o $@
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=0/46=0%
+# Load=27/1024=3%, Rehash=0, Collisions=6/86=7%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 41 / storage = 486 B / avg = 11 B
-# current buf: size = 8162 B / used = 486 B / count = 41 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 68 / storage = 962 B / avg = 14 B
+# current buf: size = 8162 B / used = 962 B / count = 68 / avg = 14 B
 
-# strcache performance: lookups = 67 / hit rate = 38%
+# strcache performance: lookups = 117 / hit rate = 41%
 # hash-table stats:
-# Load=41/8192=1%, Rehash=0, Collisions=1/67=1%
-# Finished Make data base on Sun Apr 24 07:55:40 2022
+# Load=68/8192=1%, Rehash=0, Collisions=1/117=1%
+# Finished Make data base on Sun Apr 24 10:47:03 2022
 
  

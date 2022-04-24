@@ -28,5 +28,7 @@ typedef struct hash_table
 }					t_hash_table;
 
 unsigned long int	hash(char *key, unsigned int size);
-t_hash_table		create_hash_table(unsigned int size);
+t_hash_table		*create_hash_table(unsigned int size);
+void				insert_new_env(t_hash_table *table, char *env);
+void				print_hash(t_hash_table *table);
 #endif

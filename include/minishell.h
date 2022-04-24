@@ -30,7 +30,7 @@
 
 typedef struct s_minishell
 {
-	t_hash_table	*env;
+	t_hash_table	*env_table;
 }	t_minishell;
 
 //color 
