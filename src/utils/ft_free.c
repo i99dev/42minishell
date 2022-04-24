@@ -12,26 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	ft_free_hash(t_hash_table *env_table)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < env_table->size)
-	{
-		if (env_table->table[i])
-		{
-			free(env_table->table[i]->key);
-			free(env_table->table[i]->value);
-			free(env_table->table[i]);
-		}
-		i++;
-	}
-	free(env_table->table);
-	free(env_table);
-}
-
 void	ft_free_minishell(t_minishell *minishell)
 {
-	ft_free_hash(minishell->env_table);
+	(void)minishell;
 }

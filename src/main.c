@@ -47,8 +47,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	init_minishell(&minishell);
-	print_hash(minishell.env_table);
+	print_hash(minishell.env_table); // print_hash(minishell.env_table); debug only
 	prompt_commend();
-	ft_free_minishell(&minishell);
 	return (0);
 }
