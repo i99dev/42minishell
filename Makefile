@@ -20,10 +20,11 @@ LIBFT = lib/libft/libft.a
 
 SRC= 	src/main.c		\
 		src/tools/prompt.c \
-		src/utils/msg.c \
-		src/tools/parser.c \
 		src/tools/execute.c \
-		src/utils/hash.c \
+		src/tools/parser/parser.c \
+		src/tools/hash/hash.c \
+		src/tools/tokenizer/tokenizer.c \
+		src/utils/msg.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror
@@ -35,6 +36,9 @@ OBJECTS_PREFIXED = $(addprefix $(OBJ_DIR), $(OBJS))
 $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
+	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/hash
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
 	@mkdir -p $(OBJ_DIR)/src/utils
 	@echo "Compiling $@"
 	@$(CC) $(CC_FLAG) -c $< -o $@

@@ -12,11 +12,36 @@
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **env)
+t_hash_table	env_to_table(char **env)
 {
+	t_hash_table		table;
+	int					len;
+
+	len = 0;
+	while (env[len])
+		len++;
+	table = create_hash_table(len);
+	return (table);
+}
+
+/*
+we can implement a function and attach env value to it by bas **env
+exmaple: int main(int argc, char **argv, char **env)
+or we can use a __environ to get env value
+*/
+void	init_minishell(t_minishell *minishell)
+{
+	(void)minishell;
+	// minishell->env = env_map(__environ);
+}
+
+int	main(int argc, char **argv)
+{
+	t_minishell	minishell;
+
 	(void)argc;
 	(void)argv;
-	(void)env;
+	init_minishell(&minishell);
 	prompt_commend();
 	return (0);
 }

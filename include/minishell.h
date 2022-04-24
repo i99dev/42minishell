@@ -21,10 +21,17 @@
 # include <signal.h>
 # include <dirent.h>
 # include <sys/resource.h>
-# include "../lib/libft/libft.h"
-
 # include <readline/readline.h>
 # include <readline/history.h>
+
+//mini shell
+# include "../lib/libft/libft.h"
+# include "./hash.h"
+
+typedef struct s_minishell
+{
+	t_hash_table	*env;
+}	t_minishell;
 
 //color 
 # define RED "\033[0;31m"
