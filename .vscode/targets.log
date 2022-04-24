@@ -6,13 +6,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Apr 24 13:27:35 2022
+# Make data base, printed on Sun Apr 24 17:48:47 2022
 
 # Variables
 
 # environment
- 
-REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-520f58b2fc6a5f3d9e702e5056b6045f23e5c682.sock"]
+REMOTE_CONTAINERS_SOCKETS = ["/tmp/vscode-ssh-auth-18933594d7bbfc206d15d329b20dea9a1bc61fa6.sock"]
 # makefile (from 'Makefile', line 18)
 LIBDIR = lib/libft/
 # environment
@@ -70,7 +69,7 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-520f58b2fc6a5f3d9e702e5056b6045f23e5c682.sock
+SSH_AUTH_SOCK = /tmp/vscode-ssh-auth-18933594d7bbfc206d15d329b20dea9a1bc61fa6.sock
 # default
 .SHELLFLAGS := -c
 # automatic
@@ -112,7 +111,7 @@ MAKEFILES :=
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-520f58b2fc6a5f3d9e702e5056b6045f23e5c682.sock
+REMOTE_CONTAINERS_IPC = /tmp/vscode-remote-containers-ipc-18933594d7bbfc206d15d329b20dea9a1bc61fa6.sock
 # environment
 REMOTE_CONTAINERS = true
 # automatic
@@ -140,7 +139,7 @@ VSCODE_AGENT_FOLDER = /root/.vscode-server
 # environment
 _ = /bin/cat
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-76189660-81ee-4eac-aae7-db0ac44e7201.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-a601b501-ef0c-4fb1-bca2-d20836a91437.sock
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -200,7 +199,7 @@ src/tools/hash/insert_env.c:
 
 lib/libft/libft.a:
 #  Implicit rule search has not been done.
-#  Last modified 2022-04-24 13:27:24.722357044
+#  Last modified 2022-04-24 13:30:06.549636434
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 50):
@@ -271,13 +270,14 @@ obj/src/tools/hash/print_hash.o: src/tools/hash/print_hash.c include/minishell.h
 
 minishell: obj/src/main.o obj/src/tools/prompt.o obj/src/tools/execute.o obj/src/tools/parser/parser.o obj/src/tools/hash/hash.o obj/src/tools/hash/insert_env.o obj/src/tools/hash/print_hash.o obj/src/tools/tokenizer/tokenizer.o obj/src/utils/msg.o obj/src/utils/ft_free.o lib/libft/libft.a
 #  Implicit rule search has not been done.
-#  Last modified 2022-04-24 13:27:24.919887237
+#  Last modified 2022-04-24 13:30:06.743478784
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 53):
 	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
 	@echo "minishell Done !"
 
+ 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
@@ -297,7 +297,6 @@ clean:
 obj/src/utils/msg.o: src/utils/msg.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/utils/msg'
- 
 #  Last modified 2022-04-24 13:04:34.342283665
 #  File has been updated.
 #  Successfully updated.
@@ -314,7 +313,7 @@ obj/src/utils/msg.o: src/utils/msg.c include/minishell.h
 obj/src/main.o: src/main.c include/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'src/main'
-#  Last modified 2022-04-24 13:24:25.962747584
+#  Last modified 2022-04-24 13:30:04.548889536
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 40):
@@ -344,7 +343,7 @@ src/tools/execute.c:
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-24 13:24:20.771612726
+#  Last modified 2022-04-24 13:28:00.869585461
 #  File has been updated.
 #  Successfully updated.
 
@@ -539,6 +538,6 @@ obj/src/tools/prompt.o: src/tools/prompt.c include/minishell.h
 # strcache performance: lookups = 130 / hit rate = 38%
 # hash-table stats:
 # Load=80/8192=1%, Rehash=0, Collisions=1/130=1%
-# Finished Make data base on Sun Apr 24 13:27:35 2022
+# Finished Make data base on Sun Apr 24 17:48:47 2022
 
  
