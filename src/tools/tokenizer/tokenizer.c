@@ -30,6 +30,6 @@ t_token	*ft_tokenizer(char *str, t_token *table)
 			i++;
 		}
 	}
-	table[i].next->token = NULL;
+	table[i].token = NULL;
 	return (table);
 }

@@ -54,6 +54,7 @@ char	*get_user_inf(void);
 void	free_exit(char **s1, char **s2, char ***table);
 void	execute(t_minishell *msh);
 void	ft_free_minishell(t_minishell *minishell);
-
+void	free_line(t_minishell *msh);
+void	free_token(t_token *token);
 
 #endif

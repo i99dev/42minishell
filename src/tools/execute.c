@@ -70,5 +70,5 @@ void	execute(t_minishell *msh)
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
-	free(command);
+	free_token(msh->command_table);
 }
