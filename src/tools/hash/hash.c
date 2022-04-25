@@ -38,20 +38,18 @@ unsigned long int	hash(char *key, unsigned int size)
 
 t_hash_table	*create_hash_table(unsigned int size)
 {
-	t_hash_table	*table;
-	t_hash			**hash_table;
+	t_hash_table	*env_table;
 	unsigned int	i;
 
-	table = (t_hash_table *)malloc(sizeof(t_hash_table) * 1);
-	hash_table = (t_hash **)malloc(sizeof(t_hash *) * size);
 	i = 0;
+	env_table = (t_hash_table *)malloc(sizeof(t_hash_table));
+	env_table->table = (t_hash **)malloc(sizeof(t_hash *) * size);
 	while (i < size)
 	{
-		hash_table[i] = NULL;
+		env_table->table[i] = NULL;
 		i++;
 	}
-	table->table = hash_table;
-	table->count = 0;
-	table->size = size;
-	return (table);
+	env_table->size = size;
+	env_table->count = 0;
+	return (env_table);
 }

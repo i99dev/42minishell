@@ -42,15 +42,20 @@ char	*find_value(char *env)
 
 void	insert_new_env(t_hash_table *table, char *env)
 {
-	t_hash	*new;
+	char			*key;
+	char			*value;
+	unsigned long	_hash;
 
-	new = (t_hash *)malloc(sizeof(t_hash));
-	new->key = find_key(env);
-	new->value = find_value(env);
-	new->next = NULL;
-	table->table[hash(env, table->size)] = new;
-	table->count++;
-	free(new->key);
-	free(new->value);
-	free(new);
+	key = find_key(env);
+	value = find_value(env);
+	_hash = hash(key, table->size);
+	if (table->table[_hash])
+	{
+		free(key);
+		free(value);
+		return ;
+	}
+	table->table[_hash] = malloc(sizeof(t_hash));
+	table->table[_hash]->key = key;
+	table->table[_hash]->value = value;
 }

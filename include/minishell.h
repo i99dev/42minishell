@@ -31,6 +31,9 @@
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
+	char			**command_table;
+	char			*user_inf;
+	char			*line;
 }	t_minishell;
 
 //color 
@@ -43,7 +46,7 @@ typedef struct s_minishell
 # define RESET "\033[0m"
 
 //function
-void	prompt_commend(void);
+void	prompt_commend(t_minishell *minishell);
 void	err_msg(char *msg);
 void	signal_handler(int sig);
 char	*get_user_inf(void);

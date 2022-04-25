@@ -36,27 +36,6 @@ char	*get_user_inf(void)
 }
 
 /*
-	frees 2 strings and table and exits.
-*/
-void	free_exit(char **s1, char **s2, char ***table)
-{
-	int	i;
-
-	if (*s1)
-		free(*s1);
-	if (*s2)
-		free(*s2);
-	if (*table)
-	{
-		i = 0;
-		while ((*table)[i])
-			free((*table)[i++]);
-		free(*table);
-	}
-	exit(0);
-}
-
-/*
 	signal handler to ignore crtl+c, must type "exit" or ctrl+D to quit minishell.
 	TODO:	fix ctrl+C and ctrl+D should not print anything.
 */
@@ -81,13 +60,9 @@ void	signal_handler(int sig)
 @add history to the history commend line input 
 @rl_bind_key ->when press tab get dir or complete the command
 */
-void	prompt_commend(void)
+void	prompt_commend(t_minishell *minishell)
 {
-	char	*line;
-	char	**command_table;
-	char	*user_info;
-
-	command_table = NULL;
+	minishell->command_table = NULL;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	/*
@@ -97,26 +72,25 @@ void	prompt_commend(void)
         return EXIT_FAILURE;
     }
 	*/
-	user_info = get_user_inf();
+	minishell->user_inf = get_user_inf();
 	while (1)
 	{
-		line = readline(user_info);
-		if (line == NULL)
-			free_exit(&user_info, &line, &command_table);
-		if (ft_strlen(line) > 0 && ft_strncmp(line, "exit", 5) != 0)
+		minishell->line = readline(minishell->user_inf);
+		if (minishell->line == NULL)
+			ft_free_minishell(minishell);
+		if (ft_strlen(minishell->line) > 0 \
+		&& ft_strncmp(minishell->line, "exit", 5) != 0)
 		{
-			add_history(line);
+			add_history(minishell->line);
 			rl_bind_key('\t', rl_complete);
-			command_table = init_command_table(line);
-			execute(command_table[0], &command_table);
+			minishell->command_table = init_command_table(minishell->line);
+			execute(minishell->command_table[0], &minishell->command_table);
 		}
-		else if (ft_strncmp(line, "exit", 5) == 0)
-			free_exit(&user_info, &line, &command_table);
+		else if (ft_strncmp(minishell->line, "exit", 5) == 0)
+			ft_free_minishell(minishell);
 		else
 		{
 			err_msg("empty command");
 		}
-		free(line);
-		line = NULL;
 	}
 }
