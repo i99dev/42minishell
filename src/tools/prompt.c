@@ -72,10 +72,10 @@ void	prompt_commend(t_minishell *minishell)
         return EXIT_FAILURE;
     }
 	*/
-	minishell->user_inf = get_user_inf();
+	minishell->user_info = get_user_inf();
 	while (1)
 	{
-		minishell->line = readline(minishell->user_inf);
+		minishell->line = readline(minishell->user_info);
 		if (minishell->line == NULL)
 			ft_free_minishell(minishell);
 		if (ft_strlen(minishell->line) > 0 \

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 /*
 TODO:this function need refocter and shift to ft_free or use ft_free_minishell
 */

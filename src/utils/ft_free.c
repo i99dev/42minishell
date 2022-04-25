@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/25 07:47:46 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/25 12:26:14 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_free_prompt(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	if (msh->user_inf)
-		free(msh->user_inf);
+	if (msh->user_info)
+		free(msh->user_info);
 	if (msh->line)
 		free(msh->line);
 	if (msh->command_table)

@@ -27,12 +27,13 @@
 //mini shell
 # include "../lib/libft/libft.h"
 # include "./hash.h"
+# include "./tokenizer.h"
 
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
 	char			**command_table;
-	char			*user_inf;
+	char			*user_info;
 	char			*line;
 }	t_minishell;
 
