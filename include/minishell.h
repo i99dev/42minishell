@@ -57,4 +57,7 @@ void	ft_free_minishell(t_minishell *minishell);
 void	free_line(t_minishell *msh);
 void	free_token(t_token *token);
 
+void	ft_tokenizer(char *str, t_minishell *msh);
+
+
 #endif

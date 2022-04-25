@@ -12,24 +12,23 @@
 
 #include "../../../include/minishell.h"
 
-t_token	*ft_tokenizer(char *str, t_token *table)
+void	ft_tokenizer(char *str, t_minishell *msh)
 {
 	char	**tokens;
 	int		i;
 
 	i = 0;
 	tokens = ft_split(str, ' ');
-	table = (t_token *)malloc(sizeof(t_token));
+	msh->command_table = (t_token *)malloc(sizeof(t_token));
 	while (tokens[i])
 	{
 		if (tokens[i][0] == '\0')
 			i++;
 		else
 		{
-			table[i].token = ft_strdup(tokens[i]);
+			msh->command_table[i].token = ft_strdup(tokens[i]);
 			i++;
 		}
 	}
-	table[i].token = NULL;
-	return (table);
+	msh->command_table[i].token = NULL;
 }
