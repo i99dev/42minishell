@@ -12,14 +12,14 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_tokenizer(char *str, t_token *table)
+t_token	*ft_tokenizer(char *str, t_token *table)
 {
 	char	**tokens;
 	int		i;
 
 	i = 0;
 	tokens = ft_split(str, ' ');
-	table = (t_token *)malloc(sizeof(t_token *));
+	table = (t_token *)malloc(sizeof(t_token));
 	while (tokens[i])
 	{
 		if (tokens[i][0] == '\0')
@@ -30,5 +30,6 @@ void	ft_tokenizer(char *str, t_token *table)
 			i++;
 		}
 	}
-	table[i].token = NULL;
+	table[i].next->token = NULL;
+	return (table);
 }

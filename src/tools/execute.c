@@ -65,7 +65,7 @@ void	execute(t_minishell *msh)
 	}
 	else if (pid == 0)
 	{
-		// execve(command, *msh->command_table->token, NULL);
+		// execve(command, msh->command_table->token, NULL);
 		perror("command failed");
 		exit(1);
 	}
