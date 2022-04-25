@@ -41,7 +41,13 @@ RUN python3 -m pip install norminette
 
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
     -t robbyrussell \
-    -p git 
+    -p git \
+    -p gh
+
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+RUN apt update
+RUN apt install gh
 
 ENV USER=Dokcer
 ENV HOSTNAME=42MINISHELL
