@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 12:12:55 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/25 12:14:50 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/25 13:37:44 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ typedef struct s_token
 	int				type;
 	struct s_token	*next;
 }					t_token;
+
+void	ft_tokenizer(char *str, t_token *table);
 
 #endif

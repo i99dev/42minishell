@@ -83,8 +83,8 @@ void	prompt_commend(t_minishell *minishell)
 		{
 			add_history(minishell->line);
 			rl_bind_key('\t', rl_complete);
-			minishell->command_table = init_command_table(minishell->line);
-			execute(minishell->command_table[0], &minishell->command_table);
+			ft_tokenizer(minishell->line, &minishell->command_table);
+			execute(minishell);
 		}
 		else if (ft_strncmp(minishell->line, "exit", 5) == 0)
 			ft_free_minishell(minishell);

@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/25 12:26:14 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/25 13:10:10 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	ft_free_prompt(t_minishell *msh)
 		free(msh->line);
 	if (msh->command_table)
 	{
-		while (msh->command_table[i])
+		while (msh->command_table[i].token)
 		{
-			free(msh->command_table[i]);
+			free(msh->command_table[i].token);
 			i++;
 		}
 		free(msh->command_table);

@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/25 08:00:54 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/25 13:09:14 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,4 @@ char	*ft_strtok(char *input, char delim)
 			handle double and single quotes
 			fix tokenizer and return it.
 */
-char	**init_command_table(char *input)
-{
-	char	*token;
 
-	printf("--------------\n");
-	printf("COMMAND TABLE\n");
-	token = ft_strtok(input, ' ');
-	while (token)
-	{
-		printf("%s\n", token);
-		token = ft_strtok(NULL, ' ');
-	}
-	printf("--------------\n");
-	return (ft_split(input, ' '));
-}

@@ -32,7 +32,7 @@
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
-	char			**command_table;
+	t_token			*command_table;
 	char			*user_info;
 	char			*line;
 }	t_minishell;
@@ -51,9 +51,8 @@ void	prompt_commend(t_minishell *minishell);
 void	err_msg(char *msg);
 void	signal_handler(int sig);
 char	*get_user_inf(void);
-char	**init_command_table(char *input);
 void	free_exit(char **s1, char **s2, char ***table);
-void	execute(char *path, char ***command_table);
+void	execute(t_minishell *msh);
 void	ft_free_minishell(t_minishell *minishell);
 
 

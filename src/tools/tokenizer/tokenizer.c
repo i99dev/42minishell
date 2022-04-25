@@ -11,3 +11,24 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+void	ft_tokenizer(char *str, t_token *table)
+{
+	char	**tokens;
+	int		i;
+
+	i = 0;
+	tokens = ft_split(str, ' ');
+	table = (t_token *)malloc(sizeof(t_token *));
+	while (tokens[i])
+	{
+		if (tokens[i][0] == '\0')
+			i++;
+		else
+		{
+			table[i].token = ft_strdup(tokens[i]);
+			i++;
+		}
+	}
+	table[i].token = NULL;
+}

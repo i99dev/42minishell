@@ -37,7 +37,7 @@ void	free_exit(char **s1, char **s2, char ***table)
 	TODO:	support characters like "|", ">", "<", etc.
 			supoort cd,export,unset,env
 */
-void	execute(char *path, char ***command_table)
+void	execute(t_minishell *msh)
 {
 	pid_t			pid;
 	int				status;
@@ -45,13 +45,13 @@ void	execute(char *path, char ***command_table)
 	char			*command;
 
 	command = NULL;
-	if (path[0] != '/')
+	if (msh->command_table[0].token[0] != '/')
 	{
 		command = ft_strjoin(command, "/bin/");
-		command = ft_strjoin(command, path);
+		command = ft_strjoin(command, msh->command_table[0].token);
 	}
 	else
-		command = ft_strdup(path);
+		command = ft_strdup(msh->command_table[0].token);
 	if (access(command, F_OK) == -1)
 	{
 		err_msg("command not found");
@@ -65,9 +65,8 @@ void	execute(char *path, char ***command_table)
 	}
 	else if (pid == 0)
 	{
-		execve(command, *command_table, NULL);
+		// execve(command, *msh->command_table->token, NULL);
 		perror("command failed");
-		free_exit(&command, NULL, command_table);
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
