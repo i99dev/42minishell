@@ -24,7 +24,7 @@ t_hash_table	*init_table(char **env)
 	len = 0;
 	while (env[len])
 	{
-		insert_new_env(table, env[len]);
+		insert_hash(table, env[len]);
 		len++;
 	}
 	return (table);

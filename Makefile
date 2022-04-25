@@ -23,7 +23,8 @@ SRC= 	src/main.c		\
 		src/tools/execute.c \
 		src/tools/parser/parser.c \
 		src/tools/hash/hash.c \
-		src/tools/hash/insert_env.c\
+		src/tools/hash/insert_hash.c\
+		src/tools/hash/find_hash.c\
 		src/tools/hash/print_hash.c\
 		src/tools/tokenizer/tokenizer.c \
 		src/utils/msg.c \

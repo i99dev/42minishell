@@ -40,7 +40,7 @@ char	*find_value(char *env)
 	return (value);
 }
 
-void	insert_new_env(t_hash_table *table, char *env)
+void	insert_hash(t_hash_table *table, char *env)
 {
 	char			*key;
 	char			*value;
