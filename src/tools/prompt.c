@@ -81,7 +81,6 @@ void	prompt_commend(t_minishell *minishell)
 		&& ft_strncmp(minishell->line, "exit", 5) != 0)
 		{
 			add_history(minishell->line);
-			ft_tokenizer(minishell->line, minishell);
 			init_command_table(minishell->line, minishell);
 			execute(minishell);
 		}
