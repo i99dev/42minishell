@@ -30,5 +30,4 @@ void	ft_tokenizer(char *str, t_minishell *msh)
 			i++;
 		}
 	}
-	free(tokens);
 }

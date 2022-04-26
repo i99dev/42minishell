@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/26 05:27:39 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/04/26 06:02:13 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char	*ft_strtok(char *input, char delim)
 void	init_command_table(char *input, t_minishell *msh)
 {
 	char	*token;
+	char	**command_table;
+	int		i;
 
+	i = 0;
 	printf("--------------\n");
 	printf("COMMAND TABLE\n");
 	token = ft_strtok(input, ' ');
@@ -65,5 +68,11 @@ void	init_command_table(char *input, t_minishell *msh)
 		token = ft_strtok(NULL, ' ');
 	}
 	printf("--------------\n");
-	msh->command_table = ft_split(input, ' ');
+	command_table = ft_split(input, ' ');
+	while (command_table[i])
+	{
+		printf("|%s|\n", command_table[i]);
+		i++;
+	}
+	msh->command_table = command_table;
 }

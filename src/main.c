@@ -35,18 +35,18 @@ we can implement a function and attach env value to it by bas **env
 exmaple: int main(int argc, char **argv, char **env)
 or we can use a __environ to get env value
 */
-void	init_minishell(t_minishell *minishell)
+void	init_minishell(t_minishell *minishell, char **env)
 {
-	minishell->env_table = init_table(__environ);
+	minishell->env_table = init_table(env);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	t_minishell	minishell;
 
 	(void)argc;
 	(void)argv;
-	init_minishell(&minishell);
+	init_minishell(&minishell, env);
 	prompt_commend(&minishell);
 	ft_free_minishell(&minishell);
 	return (0);
