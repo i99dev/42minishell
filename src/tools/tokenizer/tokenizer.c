@@ -19,16 +19,16 @@ void	ft_tokenizer(char *str, t_minishell *msh)
 
 	i = 0;
 	tokens = ft_split(str, ' ');
-	msh->command_table = (t_token *)malloc(sizeof(t_token));
+	msh->token_ls = (t_token *)malloc(sizeof(t_token));
 	while (tokens[i])
 	{
 		if (tokens[i][0] == '\0')
 			i++;
 		else
 		{
-			msh->command_table[i].token = ft_strdup(tokens[i]);
+			msh->token_ls->token = ft_strdup(tokens[i]);
 			i++;
 		}
 	}
-	msh->command_table[i].token = NULL;
+	free(tokens);
 }

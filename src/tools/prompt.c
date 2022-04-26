@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*get_user_inf(void)
+char	*get_user_info(void)
 {
 	char	*user;
 	char	*host;
@@ -43,7 +43,7 @@ void	signal_handler(int sig)
 {
 	char	*info;
 
-	info = get_user_inf();
+	info = get_user_info();
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
@@ -62,7 +62,6 @@ void	signal_handler(int sig)
 */
 void	prompt_commend(t_minishell *minishell)
 {
-	minishell->command_table = NULL;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	/*
@@ -72,7 +71,7 @@ void	prompt_commend(t_minishell *minishell)
         return EXIT_FAILURE;
     }
 	*/
-	minishell->user_info = get_user_inf();
+	minishell->user_info = get_user_info();
 	while (1)
 	{
 		minishell->line = readline(minishell->user_info);
@@ -83,6 +82,7 @@ void	prompt_commend(t_minishell *minishell)
 		{
 			add_history(minishell->line);
 			ft_tokenizer(minishell->line, minishell);
+			init_command_table(minishell->line, minishell);
 			execute(minishell);
 		}
 		else if (ft_strncmp(minishell->line, "exit", 5) == 0)

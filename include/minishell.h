@@ -32,7 +32,8 @@
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
-	t_token			*command_table;
+	char			**command_table;
+	t_token			*token_ls;
 	char			*user_info;
 	char			*line;
 }	t_minishell;
@@ -58,6 +59,6 @@ void	free_line(t_minishell *msh);
 void	free_token(t_token *token);
 
 void	ft_tokenizer(char *str, t_minishell *msh);
-
+void	init_command_table(char *input, t_minishell *msh);
 
 #endif
