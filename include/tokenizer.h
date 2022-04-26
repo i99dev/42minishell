@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history.c                                          :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 09:53:51 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/20 09:55:52 by oal-tena         ###   ########.fr       */
+/*   Created: 2022/04/25 12:12:55 by oal-tena          #+#    #+#             */
+/*   Updated: 2022/04/26 04:21:44 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
-/*
-Prompt Display when minishell start and waiting for user input
-*/
+typedef struct s_token
+{
+	char			*token;
+	int				type;
+}					t_token;
+
+#endif
