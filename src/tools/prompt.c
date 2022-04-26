@@ -51,7 +51,7 @@ void	signal_handler(int sig)
 	}
 	else if (sig == SIGINT)
 	{
-		rl_replace_line(info, 1);
+		// rl_replace_line(info, 1); /* this one not work on 42 lab*/
 	}
 	free(info);
 }
