@@ -19,8 +19,8 @@ LIBDIR = lib/libft/
 LIBFT = lib/libft/libft.a
 
 SRC= 	src/main.c		\
-		src/tools/prompt.c \
-		src/tools/execute.c \
+		src/prompt.c \
+		src/tools/exec/execute.c \
 		src/tools/parser/parser.c \
 		src/tools/hash/hash.c \
 		src/tools/hash/insert_hash.c\
@@ -41,6 +41,7 @@ $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools
 	@mkdir -p $(OBJ_DIR)/src/tools/parser
+	@mkdir -p $(OBJ_DIR)/src/tools/exec
 	@mkdir -p $(OBJ_DIR)/src/tools/hash
 	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
 	@mkdir -p $(OBJ_DIR)/src/utils

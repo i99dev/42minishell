@@ -56,7 +56,6 @@ void	free_exit(char **s1, char **s2, char ***table);
 void	execute(t_minishell *msh);
 void	ft_free_minishell(t_minishell *minishell);
 void	free_line(t_minishell *msh);
-void	free_token(t_token *token);
 
 void	ft_tokenizer(char *str, t_minishell *msh);
 void	init_command_table(char *input, t_minishell *msh);

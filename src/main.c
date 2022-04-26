@@ -38,6 +38,10 @@ or we can use a __environ to get env value
 void	init_minishell(t_minishell *minishell, char **env)
 {
 	minishell->env_table = init_table(env);
+	minishell->command_table = NULL;
+	minishell->line = NULL;
+	minishell->user_info = NULL;
+	minishell->token_ls = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
