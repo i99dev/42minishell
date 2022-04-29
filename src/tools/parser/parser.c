@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/29 09:09:23 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/04/29 16:16:47 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,34 @@ char	*ft_strtok(char *input, char delim)
 	return (out);
 }
 
+void	store_command_sequence(char *input, t_minishell *msh)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	temp = malloc(sizeof(char) * 3);
+	while (input[i])
+	{
+		if (input[i] == '|' || input[i] == '>' || input[i] == '<')
+		{
+			temp[j] = input[i];
+			j++;
+		}
+		i++;
+	}
+	temp[j] = 0;
+	msh->command_seq = temp;
+}
+
 /*
 	parses and splits input line into command table
 	TODO:	support characters like "|", ">", "<", etc.
 			handle double and single quotes
 			fix tokenizer and return it.
 */
-
 void	init_command_table(char *input, t_minishell *msh)
 {
 	char	**command_table;
@@ -59,6 +80,7 @@ void	init_command_table(char *input, t_minishell *msh)
 	int		j;
 	char	***ctable;
 
+	store_command_sequence(input, msh);
 	i = 0;
 	j = 0;
 	printf("execution table\n");
@@ -90,5 +112,6 @@ void	init_command_table(char *input, t_minishell *msh)
 		}
 		i++;
 	}
-	msh->command_table = command_table;
+	printf("command_seq : '%s'\n\n", msh->command_seq);
+	msh->command_table = ctable;
 }

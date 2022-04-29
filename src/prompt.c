@@ -82,7 +82,7 @@ void	prompt_commend(t_minishell *minishell)
 		{
 			add_history(minishell->line);
 			init_command_table(minishell->line, minishell);
-			execute(minishell);
+			init_execute(minishell);
 		}
 		else if (ft_strncmp(minishell->line, "exit", 5) == 0)
 			ft_free_minishell(minishell);

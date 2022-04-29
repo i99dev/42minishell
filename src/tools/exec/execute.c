@@ -33,26 +33,80 @@ void	free_exit(char **s1, char **s2, char ***table)
 }
 
 /*
+	TODO : error hamdling for pipe and fork
+*/
+void	execute_pipe(t_minishell *msh)
+{
+	pid_t	pid1;
+	pid_t	pid2;
+	int		fd[2];
+	int		status;
+
+	pipe(fd);
+	pid1 = fork();
+	if (pid1 == 0)
+	{
+		dup2(fd[1], 1);
+		close(fd[0]);
+		execve(msh->command_table[0][0], msh->command_table[0], NULL);
+		exit(1);
+	}
+	pid2 = fork();
+	if (pid2 == 0)
+	{
+		dup2(fd[0], 0);
+		close(fd[1]);
+		execve(msh->command_table[1][0], msh->command_table[1], NULL);
+		exit(1);
+	}
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid1, &status, WUNTRACED);
+	waitpid(pid2, &status, WUNTRACED);
+}
+
+/* 
+	TODO: check whether command is bin,builtin command
+		  check if command_seq is pipe or redirect or single command.
+*/
+void	init_execute(t_minishell *msh)
+{
+	char	*command;
+
+	if (msh->command_table[0][0][0] != '/')
+	{
+		command = NULL;
+		command = ft_strjoin(command, "/bin/");
+		command = ft_strjoin(command, msh->command_table[0][0]);
+	}
+	else
+		command = ft_strdup(msh->line);
+	free(msh->command_table[0][0]);
+	msh->command_table[0][0] = command;
+	if (msh->command_table[1][0][0] != '/')
+	{
+		command = NULL;
+		command = ft_strjoin(command, "/bin/");
+		command = ft_strjoin(command, msh->command_table[1][0]);
+	}
+	else
+		command = ft_strdup(msh->line);
+	free(msh->command_table[1][0]);
+	msh->command_table[1][0] = command;
+	execute_pipe(msh);
+}
+
+/*
 	execute command as child procces in order to keep minishell running
 	TODO:	support characters like "|", ">", "<", etc.
 			supoort cd,export,unset,env
-*/
-
+*/	
 void	execute(t_minishell *msh)
 {
 	pid_t			pid;
 	int				status;
 	struct rusage	ru;
-	char			*command;
 
-	if (msh->line[0] != '/')
-	{
-		command = NULL;
-		command = ft_strjoin(command, "/bin/");
-		command = ft_strjoin(command, msh->command_table[0]);
-	}
-	else
-		command = ft_strdup(msh->line);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -60,10 +114,9 @@ void	execute(t_minishell *msh)
 	}
 	else if (pid == 0)
 	{
-		execve(command, msh->command_table, NULL);
+		execve(msh->command_table[0][0], msh->command_table[0], NULL);
 		perror("command failed");
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
-	free(command);
 }
