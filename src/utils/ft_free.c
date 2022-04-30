@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/29 14:50:48 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/04/30 14:40:13 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_free_prompt(t_minishell *msh)
 		free(msh->line);
 }
 
-void	ft_command_table_free(char ***command_table)
+void	ft_command_table_free(char **command_table)
 {
 	int	i;
 
@@ -73,11 +73,21 @@ void	ft_free_token_ls(t_minishell *msh)
 
 void	ft_free_minishell(t_minishell *minishell)
 {
+	int	i;
+
+	i = 0;
 	ft_free_hash(minishell->env_table);
 	ft_free_prompt(minishell);
 	if (minishell->command_table)
-		ft_command_table_free(minishell->command_table);
+	{
+		while (minishell->command_table[i])
+		{
+			ft_command_table_free(minishell->command_table[i]);
+			i++;
+		}
+	}
 	if (minishell->token_ls)
 		ft_free_token_ls(minishell);
+	free(minishell->command_seq);
 	exit(0);
 }

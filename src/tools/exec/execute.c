@@ -32,10 +32,57 @@ void	free_exit(char **s1, char **s2, char ***table)
 	exit(0);
 }
 
-/*
-	TODO : error hamdling for pipe and fork
+/*  
+source : https://gist.github.com/zed/7835043
 */
-void	execute_pipe(t_minishell *msh)
+void	execute_pipe_recursive(t_minishell *msh, int i, int in_fd)
+{
+	int		fd[2];
+	pid_t	childpid;
+
+	if (msh->command_seq[i] == 0)
+	{ /*last command */
+		if (in_fd != STDIN_FILENO)
+		{
+			if (dup2(in_fd, STDIN_FILENO) != -1)
+				close(in_fd); /*successfully redirected*/
+			else
+				ft_free_minishell(msh);
+		}
+		execve(msh->command_table[i][0], msh->command_table[i], NULL);
+		perror("command failed");
+		exit(1);
+	}
+	else
+	{
+		if ((pipe(fd) == -1) || ((childpid = fork()) == -1))
+			exit(1);
+		if (childpid == 0)
+		{ /* child executes current command */
+			close(fd[0]);
+			if (dup2(in_fd, STDIN_FILENO) == -1) /*read from in_fd */
+				perror("Failed to redirect stdin");
+			if (dup2(fd[1], STDOUT_FILENO) == -1)   /*write to fd[1]*/
+				perror("Failed to redirect stdout");
+			else if ((close(fd[1]) == -1))
+				perror("Failed to close extra pipe descriptors");
+			else
+			{
+				execve(msh->command_table[i][0], msh->command_table[i], NULL);
+				exit(1);
+			}
+		}
+		close(fd[1]);   /* parent executes the rest of commands */
+		close(in_fd);
+		execute_pipe_recursive(msh, i + 1, fd[0]);
+	}
+}
+
+/*
+	TODO : error hamdling for pipe and fork and dup2 functions
+		   make this function recursive !!
+*/
+void	execute_pipe(t_minishell *msh, int i)
 {
 	pid_t	pid1;
 	pid_t	pid2;
@@ -48,7 +95,7 @@ void	execute_pipe(t_minishell *msh)
 	{
 		dup2(fd[1], 1);
 		close(fd[0]);
-		execve(msh->command_table[0][0], msh->command_table[0], NULL);
+		execve(msh->command_table[i][0], msh->command_table[i], NULL);
 		exit(1);
 	}
 	pid2 = fork();
@@ -56,7 +103,7 @@ void	execute_pipe(t_minishell *msh)
 	{
 		dup2(fd[0], 0);
 		close(fd[1]);
-		execve(msh->command_table[1][0], msh->command_table[1], NULL);
+		execve(msh->command_table[i + 1][0], msh->command_table[i + 1], NULL);
 		exit(1);
 	}
 	close(fd[0]);
@@ -65,35 +112,38 @@ void	execute_pipe(t_minishell *msh)
 	waitpid(pid2, &status, WUNTRACED);
 }
 
-/* 
-	TODO: check whether command is bin,builtin command
-		  check if command_seq is pipe or redirect or single command.
-*/
-void	init_execute(t_minishell *msh)
+void	add_bin_path(t_minishell *msh, int i)
 {
 	char	*command;
 
-	if (msh->command_table[0][0][0] != '/')
+	if (msh->command_table[i][0][0] != '/')
 	{
 		command = NULL;
 		command = ft_strjoin(command, "/bin/");
-		command = ft_strjoin(command, msh->command_table[0][0]);
+		command = ft_strjoin(command, msh->command_table[i][0]);
 	}
 	else
-		command = ft_strdup(msh->line);
-	free(msh->command_table[0][0]);
-	msh->command_table[0][0] = command;
-	if (msh->command_table[1][0][0] != '/')
+		command = ft_strdup(msh->command_table[i][0]);
+	free(msh->command_table[i][0]);
+	msh->command_table[i][0] = command;
+}
+
+/* 
+	TODO: check whether command is bin or builtin command
+		  check if command_seq is pipe or redirect or single command.
+		  make recursive
+*/
+void	init_execute(t_minishell *msh)
+{
+	add_bin_path(msh, 0);
+	if (msh->command_seq[0] == 0)
+		execute(msh);
+	if (msh->command_seq[0] == '|')
 	{
-		command = NULL;
-		command = ft_strjoin(command, "/bin/");
-		command = ft_strjoin(command, msh->command_table[1][0]);
+		add_bin_path(msh, 1);
+		add_bin_path(msh, 2);
+		execute_pipe_recursive(msh, 0, STDIN_FILENO);
 	}
-	else
-		command = ft_strdup(msh->line);
-	free(msh->command_table[1][0]);
-	msh->command_table[1][0] = command;
-	execute_pipe(msh);
 }
 
 /*
