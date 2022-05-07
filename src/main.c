@@ -12,33 +12,29 @@
 
 #include "../include/minishell.h"
 
-t_hash_table	*init_table(char **env)
+void	read_line(t_minishell *msh)
 {
-	t_hash_table		*table;
-	int					len;
-
-	len = 0;
-	while (env[len])
-		len++;
-	table = create_hash_table(len * 2);
-	len = 0;
-	while (env[len])
-	{
-		insert_hash(table, env[len]);
-		len++;
-	}
-	return (table);
+	msh->user_info = get_user_info();
+	msh->line = readline(msh->user_info);
+	if (msh->line)
+		add_history(msh->line);
 }
 
-/*
-we can implement a function and attach env value to it by bas **env
-exmaple: int main(int argc, char **argv, char **env)
-or we can use a __environ to get env value
-*/
-void	init_minishell(t_minishell *minishell, char **env)
+static void	minishill_start(t_minishell *msh, char **env)
 {
-	minishell->env_table = init_table(env);
-	minishell->env = env;
+	msh->env_table = init_table(env);
+	while (1)
+	{
+		read_line(msh); /* this line DOne */
+		ft_tokenizer(msh);
+		start_parser(msh);
+		if (msh->line)
+			free(msh->line);
+	}
+}
+
+void	init_minishell(t_minishell *minishell)
+{
 	minishell->command_table = NULL;
 	minishell->line = NULL;
 	minishell->user_info = NULL;
@@ -51,8 +47,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	init_minishell(&minishell, env);
-	prompt_commend(&minishell);
+	init_minishell(&minishell);
+	minishill_start(&minishell, env);
 	ft_free_minishell(&minishell);
 	return (0);
 }

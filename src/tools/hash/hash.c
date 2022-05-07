@@ -12,6 +12,25 @@
 
 #include "../../../include/minishell.h"
 
+
+t_hash_table	*init_table(char **env)
+{
+	t_hash_table		*table;
+	int					len;
+
+	len = 0;
+	while (env[len])
+		len++;
+	table = create_hash_table(len * 2);
+	len = 0;
+	while (env[len])
+	{
+		insert_hash(table, env[len]);
+		len++;
+	}
+	return (table);
+}
+
 /**
  * @brief This function is an implementation of the djb2 hashing algorithm.
  * link: https://github.com/i99dev/42minishell/wiki/Hash-Table

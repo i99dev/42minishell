@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/30 17:25:45 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/07 08:33:45 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,47 +74,19 @@ void	store_command_sequence(char *input, t_minishell *msh)
 			fix tokenizer and return it.
 			fix free msh->command_Table
 */
-void	init_command_table(char *input, t_minishell *msh)
+
+
+
+void	start_parser(t_minishell *msh)
 {
-	char	**command_table;
-	int		i;
-	int		j;
-	char	***ctable;
+	int	i;
 
 	store_command_sequence(input, msh);
 	i = 0;
-	j = 0;
-	printf("\nexecution table\n");
-	printf("--------------\n");
-	command_table = ft_split(input, '|');
-	while (command_table[i])
+	while (i < msh->token_count)
 	{
-		printf("|%s|\n", command_table[i]);
+		printf("|%s|\n", msh->token_ls[i].token);
 		i++;
 	}
-	ctable = malloc(sizeof(char **) * i);
-	while (j < i)
-	{
-		ctable[j] = ft_split(command_table[j], ' ');
-		j++;
-	}
-	ctable[j] = 0;
-	printf("\ncommand table\n");
-	printf("--------------\n");
-	printf("command_seq : '%s'\n", msh->command_seq);
-	printf("--------------\n");
-	i = 0;
-	while (ctable[i] != 0)
-	{
-		j = 0;
-		printf("execution %d :\n", i);
-		while (ctable[i][j] != 0)
-		{
-			printf("command_table[%d][%d] : %s\n", i, j, ctable[i][j]);
-			j++;
-		}
-		i++;
-	}
-	printf("\n");
-	msh->command_table = ctable;
+	execute(msh);
 }

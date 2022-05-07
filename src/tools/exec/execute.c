@@ -175,7 +175,7 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		execve(msh->command_table[i][0], msh->command_table[0], NULL);
+		execve(command, msh->command_table[0], __environ);
 		perror("command failed");
 		exit(1);
 	}
