@@ -12,29 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	*get_user_info(void)
-{
-	char	*user;
-	char	*host;
-	char	*tmp;
-
-	tmp = NULL;
-	user = getenv("USER");
-	if (!user)
-		user = "root";
-	host = getenv("HOSTNAME");
-	if (!host)
-		host = "localhost";
-	tmp = ft_strjoin(tmp, BLUE"["GREEN);
-	tmp = ft_strjoin(tmp, user);
-	tmp = ft_strjoin(tmp, RED"@"GREEN);
-	tmp = ft_strjoin(tmp, host);
-	tmp = ft_strjoin(tmp, BLUE"]");
-	tmp = ft_strjoin(tmp, ":");
-	tmp = ft_strjoin(tmp, RED"> "RESET);
-	return (tmp);
-}
-
 /*
 	signal handler to ignore crtl+c, must type "exit" or ctrl+D to quit minishell.
 	TODO:	fix ctrl+C and ctrl+D should not print anything.
@@ -60,35 +37,9 @@ void	signal_handler(int sig)
 @add history to the history commend line input 
 @rl_bind_key ->when press tab get dir or complete the command
 */
-void	prompt_commend(t_minishell *minishell)
+void	prompt_commend(t_minishell *msh)
 {
+	(void)msh;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	/*
-	ADD check for signal creation error
-	if (signal(SIGINT, &sighandler) == SIG_ERR) {
-        fprintf(stderr, "Could not set signal \n");
-        return EXIT_FAILURE;
-    }
-	*/
-	minishell->user_info = get_user_info();
-	while (1)
-	{
-		minishell->line = readline(minishell->user_info);
-		if (minishell->line == NULL)
-			ft_free_minishell(minishell);
-		if (ft_strlen(minishell->line) > 0 \
-		&& ft_strncmp(minishell->line, "exit", 5) != 0)
-		{
-			add_history(minishell->line);
-			init_command_table(minishell->line, minishell);
-			execute(minishell);
-		}
-		else if (ft_strncmp(minishell->line, "exit", 5) == 0)
-			ft_free_minishell(minishell);
-		else
-		{
-			err_msg("empty command");
-		}
-	}
 }

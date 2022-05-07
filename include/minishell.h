@@ -32,8 +32,9 @@
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
-	char			**command_table;
+	char			***command_table;
 	t_token			*token_ls;
+	int				token_count;
 	char			*user_info;
 	char			*line;
 }	t_minishell;
@@ -48,16 +49,19 @@ typedef struct s_minishell
 # define RESET "\033[0m"
 
 //function
-void	prompt_commend(t_minishell *minishell);
-void	err_msg(char *msg);
-void	signal_handler(int sig);
-char	*get_user_inf(void);
-void	free_exit(char **s1, char **s2, char ***table);
-void	execute(t_minishell *msh);
-void	ft_free_minishell(t_minishell *minishell);
-void	free_line(t_minishell *msh);
+void			prompt_commend(t_minishell *minishell);
+void			err_msg(char *msg);
+void			signal_handler(int sig);
+void			execute(t_minishell *msh);
+void			ft_free_minishell(t_minishell *minishell);
+void			free_line(t_minishell *msh);
 
-void	ft_tokenizer(char *str, t_minishell *msh);
-void	init_command_table(char *input, t_minishell *msh);
+void			ft_tokenizer(t_minishell *msh);
+void			init_command_table(t_minishell *msh);
+char			*get_user_info(void);
+t_hash_table	*init_table(char **env);
+
+//parser functions
+void			start_parser(t_minishell *msh);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/26 06:02:13 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/07 07:28:11 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,17 @@ char	*ft_strtok(char *input, char delim)
 			fix tokenizer and return it.
 */
 
-void	init_command_table(char *input, t_minishell *msh)
+
+
+void	start_parser(t_minishell *msh)
 {
-	char	*token;
-	char	**command_table;
-	int		i;
+	int	i;
 
 	i = 0;
-	printf("--------------\n");
-	printf("COMMAND TABLE\n");
-	token = ft_strtok(input, ' ');
-	while (token)
+	while (i < msh->token_count)
 	{
-		printf("%s\n", token);
-		token = ft_strtok(NULL, ' ');
-	}
-	printf("--------------\n");
-	command_table = ft_split(input, ' ');
-	while (command_table[i])
-	{
-		printf("|%s|\n", command_table[i]);
+		printf("|%s|\n", msh->token_ls[i].token);
 		i++;
 	}
-	msh->command_table = command_table;
+	execute(msh);
 }
