@@ -39,19 +39,30 @@ void	execute_pipe_recursive(t_minishell *msh, int i, int in_fd)
 {
 	int		fd[2];
 	pid_t	childpid;
+	pid_t	finalpid;
+	int		status;
 
 	if (msh->command_seq[i] == 0)
 	{ /*last command */
+		//execute(msh, i);
 		if (in_fd != STDIN_FILENO)
 		{
 			if (dup2(in_fd, STDIN_FILENO) != -1)
-				close(in_fd); /*successfully redirected*/
+				close(in_fd);
 			else
 				ft_free_minishell(msh);
 		}
-		execve(msh->command_table[i][0], msh->command_table[i], NULL);
-		perror("command failed");
-		exit(1);
+		finalpid = fork();
+		if (finalpid==0)
+		{
+			execve(msh->command_table[i][0], msh->command_table[i], NULL);
+			perror("command failed");
+			exit(1);
+		}
+		close(fd[0]);
+		close(in_fd);
+		//close(fd[1]);
+		waitpid(finalpid, &status, WUNTRACED);
 	}
 	else
 	{
@@ -72,8 +83,8 @@ void	execute_pipe_recursive(t_minishell *msh, int i, int in_fd)
 				exit(1);
 			}
 		}
-		close(fd[1]);   /* parent executes the rest of commands */
-		close(in_fd);
+		//close(fd[1]);   /* parent executes the rest of commands */
+		//close(in_fd);
 		execute_pipe_recursive(msh, i + 1, fd[0]);
 	}
 }
@@ -137,12 +148,12 @@ void	init_execute(t_minishell *msh)
 {
 	add_bin_path(msh, 0);
 	if (msh->command_seq[0] == 0)
-		execute(msh);
+		execute(msh,0);
 	if (msh->command_seq[0] == '|')
 	{
 		add_bin_path(msh, 1);
 		add_bin_path(msh, 2);
-		execute_pipe_recursive(msh, 0, STDIN_FILENO);
+		pipe_recursive(msh, 0, STDIN_FILENO);
 	}
 }
 
@@ -151,7 +162,7 @@ void	init_execute(t_minishell *msh)
 	TODO:	support characters like "|", ">", "<", etc.
 			supoort cd,export,unset,env
 */	
-void	execute(t_minishell *msh)
+void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
@@ -164,7 +175,7 @@ void	execute(t_minishell *msh)
 	}
 	else if (pid == 0)
 	{
-		execve(msh->command_table[0][0], msh->command_table[0], NULL);
+		execve(msh->command_table[i][0], msh->command_table[0], NULL);
 		perror("command failed");
 		exit(1);
 	}

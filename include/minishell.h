@@ -56,8 +56,9 @@ void	signal_handler(int sig);
 char	*get_user_inf(void);
 void	free_exit(char **s1, char **s2, char ***table);
 void	init_execute(t_minishell *msh);
-void	execute(t_minishell *msh);
+void	execute(t_minishell *msh, int i);
 void	execute_pipe(t_minishell *msh, int i);
+void	pipe_recursive(t_minishell *msh, int i, int in_fd);
 void	ft_free_minishell(t_minishell *minishell);
 void	free_line(t_minishell *msh);
 

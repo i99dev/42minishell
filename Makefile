@@ -21,6 +21,7 @@ LIBFT = lib/libft/libft.a
 SRC= 	src/main.c		\
 		src/prompt.c \
 		src/tools/exec/execute.c \
+		src/tools/exec/pipe.c \
 		src/tools/parser/parser.c \
 		src/tools/hash/hash.c \
 		src/tools/hash/insert_hash.c\
