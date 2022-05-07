@@ -12,21 +12,144 @@
 
 #include "../../../include/minishell.h"
 
-void	execute(t_minishell *msh)
+/*  
+source : https://gist.github.com/zed/7835043
+*/
+void	execute_pipe_recursive(t_minishell *msh, int i, int in_fd)
+{
+	int		fd[2];
+	pid_t	childpid;
+	pid_t	finalpid;
+	int		status;
+
+	if (msh->command_table[i] == 0)
+	{ /*last command */
+		//execute(msh, i);
+		if (in_fd != STDIN_FILENO)
+		{
+			if (dup2(in_fd, STDIN_FILENO) != -1)
+				close(in_fd);
+			else
+				ft_free_minishell(msh);
+		}
+		finalpid = fork();
+		if (finalpid==0)
+		{
+			execve(msh->command_table[i][0], msh->command_table[i], NULL);
+			perror("command failed");
+			exit(1);
+		}
+		close(fd[0]);
+		close(in_fd);
+		//close(fd[1]);
+		waitpid(finalpid, &status, WUNTRACED);
+	}
+	else
+	{
+		if ((pipe(fd) == -1) || ((childpid = fork()) == -1))
+			exit(1);
+		if (childpid == 0)
+		{ /* child executes current command */
+			close(fd[0]);
+			if (dup2(in_fd, STDIN_FILENO) == -1) /*read from in_fd */
+				perror("Failed to redirect stdin");
+			if (dup2(fd[1], STDOUT_FILENO) == -1)   /*write to fd[1]*/
+				perror("Failed to redirect stdout");
+			else if ((close(fd[1]) == -1))
+				perror("Failed to close extra pipe descriptors");
+			else
+			{
+				execve(msh->command_table[i][0], msh->command_table[i], NULL);
+				exit(1);
+			}
+		}
+		//close(fd[1]);   /* parent executes the rest of commands */
+		//close(in_fd);
+		execute_pipe_recursive(msh, i + 1, fd[0]);
+	}
+}
+
+/*
+	TODO : error hamdling for pipe and fork and dup2 functions
+		   make this function recursive !!
+*/
+void	execute_pipe(t_minishell *msh, int i)
+{
+	pid_t	pid1;
+	pid_t	pid2;
+	int		fd[2];
+	int		status;
+
+	pipe(fd);
+	pid1 = fork();
+	if (pid1 == 0)
+	{
+		dup2(fd[1], 1);
+		close(fd[0]);
+		execve(msh->command_table[i][0], msh->command_table[i], NULL);
+		exit(1);
+	}
+	pid2 = fork();
+	if (pid2 == 0)
+	{
+		dup2(fd[0], 0);
+		close(fd[1]);
+		execve(msh->command_table[i + 1][0], msh->command_table[i + 1], NULL);
+		exit(1);
+	}
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid1, &status, WUNTRACED);
+	waitpid(pid2, &status, WUNTRACED);
+}
+
+void	add_bin_path(t_minishell *msh, int i)
+{
+	char	*command;
+
+	if (msh->command_table[i][0][0] != '/')
+	{
+		command = NULL;
+		command = ft_strjoin(command, "/bin/");
+		command = ft_strjoin(command, msh->command_table[i][0]);
+	}
+	else
+		command = ft_strdup(msh->command_table[i][0]);
+	free(msh->command_table[i][0]);
+	msh->command_table[i][0] = command;
+}
+
+/* 
+	TODO: check whether command is bin or builtin command
+		  check if command_seq is pipe or redirect or single command.
+		  make recursive
+*/
+void	init_execute(t_minishell *msh)
+{
+	(void)msh;
+	/*
+	add_bin_path(msh, 0);
+	if (!msh->command_table[1])
+		execute(msh, 0);
+	else
+	{
+		add_bin_path(msh, 1);
+		add_bin_path(msh, 2);
+		execute_pipe_recursive(msh, 0, STDIN_FILENO);
+	}*/
+}
+
+/*
+	execute command as child procces in order to keep minishell running
+	TODO:	support characters like "|", ">", "<", etc.
+			supoort cd,export,unset,env
+*/	
+void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
 	struct rusage	ru;
-	char			*command;
 
-	if (msh->line[0] != '/')
-	{
-		command = NULL;
-		command = ft_strjoin(command, "/bin/");
-		command = ft_strjoin(command, msh->command_table[0][0]);
-	}
-	else
-		command = ft_strdup(msh->line);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -34,10 +157,9 @@ void	execute(t_minishell *msh)
 	}
 	else if (pid == 0)
 	{
-		execve(command, msh->command_table[0], __environ);
+		execve(msh->command_table[i][0], msh->command_table[0], NULL);
 		perror("command failed");
 		exit(1);
 	}
 	wait4(pid, &status, 0, &ru);
-	free(command);
 }

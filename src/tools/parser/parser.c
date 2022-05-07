@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/07 07:28:11 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/07 09:19:27 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ void	start_parser(t_minishell *msh)
 		printf("|%s|\n", msh->token_ls[i].token);
 		i++;
 	}
-	execute(msh);
+	init_execute(msh);
 }
