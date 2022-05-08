@@ -55,6 +55,11 @@ void	init_command_table(t_minishell *msh)
 	}
 }
 
+void	is_need_toknizer(t_minishell *msh)
+{
+	(void)msh;
+}
+
 void	ft_tokenizer(t_minishell *msh)
 {
 	tokenize(msh);

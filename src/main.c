@@ -48,6 +48,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	init_minishell(&minishell);
+	define_input_signals();
 	minishill_start(&minishell, env);
 	ft_free_minishell(&minishell);
 	return (0);

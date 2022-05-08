@@ -30,6 +30,7 @@ SRC= 	src/main.c		\
 		src/utils/msg.c \
 		src/utils/ft_free.c \
 		src/utils/ft_helper.c \
+		src/utils/signals.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror

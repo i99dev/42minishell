@@ -51,7 +51,7 @@ typedef struct s_minishell
 //function
 void			prompt_commend(t_minishell *minishell);
 void			err_msg(char *msg);
-void			signal_handler(int sig);
+void			define_input_signals(void);
 void			execute(t_minishell *msh, int i);
 void			init_execute(t_minishell *msh);
 void			ft_free_minishell(t_minishell *minishell);
