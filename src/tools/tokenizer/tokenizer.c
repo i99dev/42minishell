@@ -57,11 +57,13 @@ void	init_command_table(t_minishell *msh)
 
 void	is_need_toknizer(t_minishell *msh)
 {
-	(void)msh;
+	if (msh->line[0] == '\0')
+		return ;
 }
 
 void	ft_tokenizer(t_minishell *msh)
 {
 	tokenize(msh);
 	init_command_table(msh);
+	is_need_toknizer(msh);
 }
