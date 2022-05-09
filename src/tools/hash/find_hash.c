@@ -12,21 +12,18 @@
 
 #include "../../../include/minishell.h"
 
-void	find_hash(t_hash_table *table, char *key)
+char	*find_hash(t_hash_table *env_table, char *key)
 {
 	unsigned long	_hash;
-	t_hash			*temp_hash;
+	t_hash			*tmp;
 
-	_hash = hash(key, table->size);
-	temp_hash = table->table[_hash];
-	while (temp_hash)
+	_hash = hash(key, env_table->size);
+	tmp = env_table->table[_hash];
+	while (tmp)
 	{
-		if (ft_strncmp(temp_hash->key, key, ft_strlen(key)) == 0)
-			break ;
-		temp_hash = temp_hash->next;
+		if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
 	}
-	if (temp_hash)
-		ft_putstr_fd(temp_hash->value, 1);
-	else
-		ft_putstr_fd("", 1);
+	return (NULL);
 }

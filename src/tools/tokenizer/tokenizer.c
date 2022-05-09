@@ -55,15 +55,19 @@ void	init_command_table(t_minishell *msh)
 	}
 }
 
-void	is_need_toknizer(t_minishell *msh)
-{
-	if (msh->line[0] == '\0')
-		return ;
-}
+
 
 void	ft_tokenizer(t_minishell *msh)
 {
+	int	i;
+
+	i = 0;
 	tokenize(msh);
+	printf("%s\n", find_hash(msh->env_table, "USER"));
+	while (i < msh->token_count)
+	{
+	
+		i++;
+	}
 	init_command_table(msh);
-	is_need_toknizer(msh);
 }

@@ -69,6 +69,5 @@ t_hash_table	*create_hash_table(unsigned int size)
 		i++;
 	}
 	env_table->size = size;
-	env_table->count = 0;
 	return (env_table);
 }
