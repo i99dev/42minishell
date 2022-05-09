@@ -52,11 +52,14 @@ typedef struct s_minishell
 void			prompt_commend(t_minishell *minishell);
 void			err_msg(char *msg);
 void			define_input_signals(void);
+void			pipe_recursive(t_minishell *msh, int i, int in_fd);
+int				exec_cd(t_minishell *msh, int i);
+int				exec_pwd(void);
+void			execute_pipe(t_minishell *msh, int i);
 void			execute(t_minishell *msh, int i);
 void			init_execute(t_minishell *msh);
 void			ft_free_minishell(t_minishell *minishell);
 void			free_line(t_minishell *msh);
-
 void			ft_tokenizer(t_minishell *msh);
 void			init_command_table(t_minishell *msh);
 char			*get_user_info(void);

@@ -61,8 +61,8 @@ void	ft_tokenizer(t_minishell *msh)
 
 	i = 0;
 	tokenize(msh);
-	printf("token count: %d\n", msh->token_count);
-	printf("find hash $USER is:%s\n", find_hash(msh->env_table, "USER"));
+	//printf("token count: %d\n", msh->token_count);
+	//printf("find hash $USER is:%s\n", find_hash(msh->env_table, "USER"));
 	while (i < msh->token_count)
 	{
 		i++;
