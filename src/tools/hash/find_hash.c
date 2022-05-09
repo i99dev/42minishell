@@ -12,6 +12,14 @@
 
 #include "../../../include/minishell.h"
 
+/**
+ * @brief exmaple if user type echo $USER this function will return USER
+ * 
+ * @param env_table  this table get from structer env under the key "env_table"
+ * @param key its the key we want to find exmaple "HOME" or "PWD"
+ * @return char* value of the key
+ */
+
 char	*find_hash(t_hash_table *env_table, char *key)
 {
 	unsigned long	_hash;
