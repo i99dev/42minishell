@@ -28,7 +28,7 @@ void	tokenize(t_minishell *msh)
 	line = ft_split(msh->line, '|');
 	while (line[msh->token_count])
 		msh->token_count++;
-	msh->token_ls = (t_token *)malloc(sizeof(char *) * msh->token_count);
+	msh->token_ls = (t_token *)malloc(sizeof(t_token) * msh->token_count);
 	while (line[i])
 	{
 		msh->token_ls[i].token = ft_strdup(line[i]);

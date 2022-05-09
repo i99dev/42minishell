@@ -19,12 +19,13 @@ void	execute_pipe_recursive(t_minishell *msh, int i, int in_fd)
 {
 	int		fd[2];
 	pid_t	childpid;
-	pid_t	finalpid;
-	int		status;
+	//pid_t	finalpid;
+	//int		status;
 
-	if (msh->command_table[i] == 0)
+	if (i == msh->token_count - 1)
 	{ /*last command */
-		//execute(msh, i);
+		execute(msh, i);
+		/*
 		if (in_fd != STDIN_FILENO)
 		{
 			if (dup2(in_fd, STDIN_FILENO) != -1)
@@ -32,17 +33,17 @@ void	execute_pipe_recursive(t_minishell *msh, int i, int in_fd)
 			else
 				ft_free_minishell(msh);
 		}
-		finalpid = fork();
-		if (finalpid==0)
-		{
+		//finalpid = fork();
+		//if (finalpid==0)
+		//{
 			execve(msh->command_table[i][0], msh->command_table[i], NULL);
 			perror("command failed");
 			exit(1);
-		}
-		close(fd[0]);
-		close(in_fd);
+		//}
+		//close(fd[0]);
+		//close(in_fd);
 		//close(fd[1]);
-		waitpid(finalpid, &status, WUNTRACED);
+		//waitpid(finalpid, &status, WUNTRACED);*/
 	}
 	else
 	{
@@ -126,14 +127,25 @@ void	add_bin_path(t_minishell *msh, int i)
 */
 void	init_execute(t_minishell *msh)
 {
-	(void)msh;
-	add_bin_path(msh, 0);
-	if (!msh->command_table[1])
+	int	i;
+
+	if (msh->token_count > 0)
+		add_bin_path(msh, 0);
+	if (msh->token_count == 1)
 		execute(msh, 0);
-	else
+	else if (msh->token_count == 2)
 	{
 		add_bin_path(msh, 1);
-		add_bin_path(msh, 2);
+		execute_pipe(msh, 0);
+	}
+	else if (msh->token_count > 2)
+	{
+		i = 1;
+		while (i < msh->token_count)
+		{
+			add_bin_path(msh, i);
+			i++;
+		}
 		execute_pipe_recursive(msh, 0, STDIN_FILENO);
 	}
 }
@@ -151,7 +163,7 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		execve(msh->command_table[i][0], msh->command_table[0], __environ);
+		execve(msh->command_table[i][0], msh->command_table[i], __environ);
 		perror("command failed");
 		exit(1);
 	}
