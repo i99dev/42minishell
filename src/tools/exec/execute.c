@@ -127,7 +127,6 @@ void	add_bin_path(t_minishell *msh, int i)
 void	init_execute(t_minishell *msh)
 {
 	(void)msh;
-	/*
 	add_bin_path(msh, 0);
 	if (!msh->command_table[1])
 		execute(msh, 0);
@@ -136,14 +135,9 @@ void	init_execute(t_minishell *msh)
 		add_bin_path(msh, 1);
 		add_bin_path(msh, 2);
 		execute_pipe_recursive(msh, 0, STDIN_FILENO);
-	}*/
+	}
 }
 
-/*
-	execute command as child procces in order to keep minishell running
-	TODO:	support characters like "|", ">", "<", etc.
-			supoort cd,export,unset,env
-*/	
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;

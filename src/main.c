@@ -23,9 +23,12 @@ void	read_line(t_minishell *msh)
 static void	minishill_start(t_minishell *msh, char **env)
 {
 	msh->env_table = init_table(env);
+	define_input_signals();
 	while (1)
 	{
-		read_line(msh); /* this line DOne */
+		read_line(msh);
+		if (ft_strncmp(msh->line, "exit", 4) == 0)
+			ft_free_minishell(msh);
 		ft_tokenizer(msh);
 		start_parser(msh);
 		if (msh->line)
@@ -48,7 +51,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	init_minishell(&minishell);
-	define_input_signals();
 	minishill_start(&minishell, env);
 	ft_free_minishell(&minishell);
 	return (0);
