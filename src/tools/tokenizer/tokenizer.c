@@ -55,17 +55,16 @@ void	init_command_table(t_minishell *msh)
 	}
 }
 
+bool	ft_check_line(t_minishell *msh)
+{
+	if (msh->line[0] == '\0')
+		return (false);
+	return (true);
+}
+
 void	ft_tokenizer(t_minishell *msh)
 {
-	int	i;
-
-	i = 0;
-	tokenize(msh);
-	//printf("token count: %d\n", msh->token_count);
-	//printf("find hash $USER is:%s\n", find_hash(msh->env_table, "USER"));
-	while (i < msh->token_count)
-	{
-		i++;
-	}
+	if (ft_check_line(msh))
+		tokenize(msh);
 	init_command_table(msh);
 }
