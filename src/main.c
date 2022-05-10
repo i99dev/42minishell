@@ -18,6 +18,7 @@ void	read_line(t_minishell *msh)
 	msh->line = readline(msh->user_info);
 	if (msh->line)
 		add_history(msh->line);
+	free(msh->user_info);
 }
 
 static void	minishill_start(t_minishell *msh, char **env)

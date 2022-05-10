@@ -35,22 +35,24 @@ void	tokenize(t_minishell *msh)
 		msh->token_ls[i].type = 0;
 		i++;
 	}
+	i = 0;
+	while (line[i])
+	{
+		free(line[i]);
+		i++;
+	}
 	free(line);
 }
 
 void	init_command_table(t_minishell *msh)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	msh->command_table = (char ***)malloc(sizeof(char **) * msh->token_count);
 	while (i < msh->token_count)
 	{
-		j = 0;
 		msh->command_table[i] = ft_split(msh->token_ls[i].token, ' ');
-		while (msh->command_table[i][j])
-			j++;
 		i++;
 	}
 }
