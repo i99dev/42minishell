@@ -18,6 +18,7 @@ void	ft_check_command_table(t_minishell *msh, int i)
 
 	index = 0;
 	msh->token_ls[i] = (t_token *)malloc(sizeof(t_token));
+	msh->token_ls[i]->token = NULL;
 	while (msh->command_table[i][index])
 	{
 		if (ft_strncmp(msh->command_table[i][index], "<", 1) == 0)
@@ -28,9 +29,12 @@ void	ft_check_command_table(t_minishell *msh, int i)
 			msh->token_ls[i]->token = ft_strdup(">>");
 		else if (ft_strncmp(msh->command_table[i][index], "<<", 2) == 0)
 			msh->token_ls[i]->token = ft_strdup("<<");
-		else
-			msh->token_ls[i] = NULL;
 		index++;
+	}
+	if (msh->token_ls[i]->token == NULL)
+	{
+		free(msh->token_ls[i]);
+		msh->token_ls[i] = NULL;
 	}
 }
 

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//usr/bin/env clang++ $0 -o ${o=`mktemp`} && exec $o $*
+
 #include "../include/minishell.h"
 
 void	read_line(t_minishell *msh)
