@@ -7,7 +7,8 @@
         "readline.h": "c",
         "history.h": "c",
         "*.c": "c",
-        "hash.h": "c"
+        "hash.h": "c",
+        "wait.h": "c"
     },
     "C_Cpp.formatting": "Disabled",
     "editor.detectIndentation": true,

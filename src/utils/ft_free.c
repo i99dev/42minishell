@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/10 13:49:09 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/11 07:01:26 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_free_token_ls(t_minishell *msh)
 	i = 0;
 	while (i < msh->token_count)
 	{
-		free(msh->token_ls[i].token);
+		free(msh->token_ls[i]->token);
 		i++;
 	}
 	free(msh->token_ls);
