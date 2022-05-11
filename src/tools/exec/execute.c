@@ -36,7 +36,7 @@ int	check_command_type(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	while (i < msh->token_count)
+	while (i < msh->command_count)
 	{
 		if (ft_strncmp(msh->command_table[i][0], "cd", 2) == 0)
 		{
@@ -63,11 +63,11 @@ void	init_execute(t_minishell *msh)
 {
 	if (!check_command_type(msh))
 		return ;
-	if (msh->token_count == 1)
+	if (msh->command_count == 1)
 		execute(msh, 0);
-	else if (msh->token_count == 2)
+	else if (msh->command_count == 2)
 		execute_pipe(msh, 0);
-	else if (msh->token_count > 2)
+	else if (msh->command_count > 2)
 		pipe_recursive(msh, 0, STDIN_FILENO);
 }
 
@@ -77,6 +77,7 @@ void	execute(t_minishell *msh, int i)
 	int				status;
 	struct rusage	ru;
 
+	printf("command is :%s\n", msh->command_table[0][0]);
 	pid = fork();
 	if (pid < 0)
 	{

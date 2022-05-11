@@ -12,61 +12,36 @@
 
 #include "../../../include/minishell.h"
 
-/**
- * @brief tokenizes handel it input line and split it into command table
- * 
- * @param msh 
- */
-
-void	tokenize(t_minishell *msh)
-{
-	char	**line;
-	int		i;
-
-	i = 0;
-	msh->token_count = 0;
-	line = ft_split(msh->line, '|');
-	while (line[msh->token_count])
-		msh->token_count++;
-	msh->token_ls = (t_token *)malloc(sizeof(t_token) * msh->token_count);
-	while (line[i])
-	{
-		msh->token_ls[i].token = ft_strdup(line[i]);
-		msh->token_ls[i].type = 0;
-		i++;
-	}
-	i = 0;
-	while (line[i])
-	{
-		free(line[i]);
-		i++;
-	}
-	free(line);
-}
-
 void	init_command_table(t_minishell *msh)
 {
+	char	**tmp;
+	int		table_count;
 	int		i;
 
 	i = 0;
-	msh->command_table = (char ***)malloc(sizeof(char **) * msh->token_count);
-	while (i < msh->token_count)
+	tmp = ft_split(msh->line, '|');
+	while (tmp[i])
+		i++;
+	table_count = i;
+	msh->command_table = (char ***)malloc(sizeof(char **) * table_count);
+	i = 0;
+	while (tmp[i])
 	{
-		msh->command_table[i] = ft_split(msh->token_ls[i].token, ' ');
+		msh->command_table[i] = ft_split(tmp[i], ' ');
 		i++;
 	}
-}
-
-bool	ft_check_line(t_minishell *msh)
-{
-	if (msh->line[0] == '\0')
-		return (false);
-	return (true);
+	msh->command_count = table_count;
+	msh->command_table[i] = NULL;
+	i = 0;
+	while (tmp[i])
+	{
+		free(tmp[i]);
+		i++;
+	}
+	free(tmp);
 }
 
 void	ft_tokenizer(t_minishell *msh)
 {
-	if (ft_check_line(msh))
-		tokenize(msh);
 	init_command_table(msh);
 }

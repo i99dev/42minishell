@@ -34,6 +34,7 @@ typedef struct s_minishell
 {
 	t_hash_table	*env_table;
 	char			***command_table;
+	int				command_count;
 	t_token			*token_ls;
 	int				token_count;
 	char			*user_info;
@@ -48,6 +49,16 @@ typedef struct s_minishell
 # define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define RESET "\033[0m"
+
+//action
+# define BUILTIN		42
+# define LITERAL		43
+# define REDIRECT		45
+# define HERE_DOC		46
+# define FILE			47
+
+# define SINGLE_QUOTE	'\''
+# define DOUBLE_QUOTE	'\"'
 
 //function
 void			prompt_commend(t_minishell *minishell);
