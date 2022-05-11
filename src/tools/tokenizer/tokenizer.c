@@ -29,7 +29,7 @@ void	ft_check_command_table(t_minishell *msh, int i)
 		else if (ft_strncmp(msh->command_table[i][index], "<<", 2) == 0)
 			msh->token_ls[i]->token = ft_strdup("<<");
 		else
-			free(msh->token_ls[i]);
+			msh->token_ls[i] = NULL;
 		index++;
 	}
 }
