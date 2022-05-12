@@ -6,45 +6,38 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/11 09:25:55 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:28:36 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	ft_handel_token(t_minishell *msh, int i)
+void	ft_handel_token(t_minishell *msh, int index)
 {
-	if (ft_strncmp(msh->token_ls[i]->token, "<", ft_strlen("<")) == 0)
-		return ;
-	if (ft_strncmp(msh->token_ls[i]->token, ">", ft_strlen(">")) == 0)
-		return ;
-	if (ft_strncmp(msh->token_ls[i]->token, ">>", ft_strlen(">>")) == 0)
-		return ;
-	if (ft_strncmp(msh->token_ls[i]->token, "<<", ft_strlen("<<")) == 0)
-		return ;
+	printf("token: %s\n", msh->token_ls[index]->token);
+	msh->fd_std[index][STDIN_FILENO] = dup(STDIN_FILENO);
+	msh->fd_std[index][STDOUT_FILENO] = dup(STDOUT_FILENO);
+	if (ft_strncmp(msh->token_ls[index]->token, "<", ft_strlen("<")) == 0)
+		ft_redirect_in(msh, index);
+	if (ft_strncmp(msh->token_ls[index]->token, ">", ft_strlen(">")) == 0)
+		ft_redirect_out(msh, index);
+	if (ft_strncmp(msh->token_ls[index]->token, ">>", ft_strlen(">>")) == 0)
+		ft_redirect_out(msh, index);
+	if (ft_strncmp(msh->token_ls[index]->token, "<<", ft_strlen("<<")) == 0)
+		ft_doc_input(msh, index);
+	
 }
 
 void	start_parser(t_minishell *msh)
 {
 	int	i;
-	int	j;
 
+	msh->fd_std = (int **)malloc(sizeof(int *) * msh->command_count);
 	i = 0;
 	while (i < msh->command_count)
 	{
-		j = 0;
-		while (msh->command_table[i][j])
-		{
-			/*
-			printf("%s ", msh->command_table[i][j]);
-			*/
-			j++;
-		}
 		if (msh->token_ls[i] != NULL)
 		{
-			// line under me, only for dubg purposes
-			printf("commmend number %d ", i);
-			printf("toke type is :%s\n", msh->token_ls[i]->token);
 			ft_handel_token(msh, i);
 		}
 		printf("\n");

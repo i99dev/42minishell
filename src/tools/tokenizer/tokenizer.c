@@ -21,9 +21,9 @@ void	ft_check_command_table(t_minishell *msh, int i)
 	msh->token_ls[i]->token = NULL;
 	while (msh->command_table[i][index])
 	{
-		if (ft_strncmp(msh->command_table[i][index], "<", 1) == 0)
+		if (ft_strchr(msh->command_table[i][index], '<') != NULL)
 			msh->token_ls[i]->token = ft_strdup("<");
-		else if (ft_strncmp(msh->command_table[i][index], ">", 1) == 0)
+		else if (ft_strchr(msh->command_table[i][index], '>') != NULL)
 			msh->token_ls[i]->token = ft_strdup(">");
 		else if (ft_strncmp(msh->command_table[i][index], ">>", 2) == 0)
 			msh->token_ls[i]->token = ft_strdup(">>");
@@ -46,7 +46,7 @@ void	init_command_table(t_minishell *msh)
 
 	i = 0;
 	tmp = ft_split(msh->line, '|');
-	while (tmp[i])
+	while (tmp[i] != NULL)
 		i++;
 	table_count = i;
 	msh->command_table = (char ***)malloc(sizeof(char **) * table_count);
@@ -59,6 +59,7 @@ void	init_command_table(t_minishell *msh)
 		i++;
 	}
 	msh->command_count = table_count;
+	printf("table number :%d\n", table_count);
 	msh->command_table[i] = NULL;
 	i = 0;
 	while (tmp[i])

@@ -21,6 +21,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include <sys/resource.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -39,6 +40,7 @@ typedef struct s_minishell
 	int				token_count;
 	char			*user_info;
 	char			*line;
+	int				**fd_std;
 }	t_minishell;
 
 //color 
@@ -84,5 +86,8 @@ t_hash_table	*init_table(char **env);
 
 //parser functions
 void			start_parser(t_minishell *msh);
+void			ft_redirect_in(t_minishell *msh, int index);
+void			ft_redirect_out(t_minishell *msh, int index);
+void			ft_doc_input(t_minishell *msh, int index);
 
 #endif

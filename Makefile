@@ -24,6 +24,7 @@ SRC= 	src/main.c		\
 		src/tools/exec/pipe.c \
 		src/tools/exec/built_ins.c \
 		src/tools/parser/parser.c \
+		src/tools/parser/redirect_parser.c \
 		src/tools/hash/hash.c \
 		src/tools/hash/insert_hash.c\
 		src/tools/hash/find_hash.c\
