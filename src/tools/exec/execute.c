@@ -79,6 +79,7 @@ void	execute(t_minishell *msh, int i)
 
 	printf("command is :%s\n", msh->command_table[0][0]);
 	pid = fork();
+	define_input_signals();
 	if (pid < 0)
 	{
 		err_msg("fork failed");
