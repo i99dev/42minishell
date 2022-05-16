@@ -1,0 +1,1 @@
+docker run --rm --init -p 80:3000/tcp -e "BASE_DOMAIN=squaredfinancial.cn" 640003498020.dkr.ecr.ap-east-1.amazonaws.com/squaredfinancial.cn:latest

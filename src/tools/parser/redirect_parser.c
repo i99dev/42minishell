@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/16 05:25:12 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/16 07:53:48 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_redirect_in(t_minishell *msh, int index)
 		err_msg("minishell: no such file or directory: \n");
 		return ;
 	}
-	dup2(fd, msh->fd_std[index][STDIN_FILENO]);
+	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 
@@ -67,7 +67,7 @@ void	ft_redirect_out(t_minishell *msh, int index)
 		err_msg("minishell: no such file or directory: \n");
 		return ;
 	}
-	dup2(fd, msh->fd_std[index][STDOUT_FILENO]);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
