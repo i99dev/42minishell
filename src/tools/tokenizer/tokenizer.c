@@ -73,4 +73,5 @@ void	init_command_table(t_minishell *msh)
 void	ft_tokenizer(t_minishell *msh)
 {
 	init_command_table(msh);
+	define_type(msh);
 }

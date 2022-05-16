@@ -1,22 +1,0 @@
-
-command is :/bin/echo
-"Obaid" > yy.txt
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-[?2004ltable number :0
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m^C[?2004l
-[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m[?2004h^C[?2004l
-[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m[?2004h[?2004l

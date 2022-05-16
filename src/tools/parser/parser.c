@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/16 05:07:27 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/16 09:03:10 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	ft_handel_token(t_minishell *msh, int index)
 {
 	printf("token: %s\n", msh->token_ls[index]->token);
-	msh->fd_std[index][STDIN_FILENO] = dup(STDIN_FILENO);
-	msh->fd_std[index][STDOUT_FILENO] = dup(STDOUT_FILENO);
 	if (ft_strncmp(msh->token_ls[index]->token, "<", ft_strlen("<")) == 0)
 		ft_redirect_in(msh, index);
 	if (ft_strncmp(msh->token_ls[index]->token, ">", ft_strlen(">")) == 0)

@@ -30,6 +30,7 @@ SRC= 	src/main.c		\
 		src/tools/hash/find_hash.c\
 		src/tools/hash/print_hash.c\
 		src/tools/tokenizer/tokenizer.c \
+		src/tools/tokenizer/define_type.c \
 		src/utils/msg.c \
 		src/utils/ft_free.c \
 		src/utils/ft_helper.c \

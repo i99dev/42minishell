@@ -36,6 +36,7 @@ typedef struct s_minishell
 	t_hash_table	*env_table;
 	char			***command_table;
 	int				command_count;
+	int				*command_type;
 	t_token			**token_ls;
 	int				token_count;
 	char			*user_info;
@@ -89,5 +90,8 @@ void			start_parser(t_minishell *msh);
 void			ft_redirect_in(t_minishell *msh, int index);
 void			ft_redirect_out(t_minishell *msh, int index);
 void			here_doc(t_minishell *msh, int index);
+
+//tokenizer functions
+void			define_type(t_minishell *msh);
 
 #endif
