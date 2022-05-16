@@ -46,13 +46,13 @@ void	init_command_table(t_minishell *msh)
 
 	i = 0;
 	tmp = ft_split(msh->line, '|');
-	while (tmp[i] != NULL)
+	while (tmp && tmp[i] != NULL)
 		i++;
 	table_count = i;
 	msh->command_table = (char ***)malloc(sizeof(char **) * table_count);
 	msh->token_ls = (t_token **)malloc(sizeof(t_token *) * table_count);
 	i = 0;
-	while (tmp[i])
+	while (tmp && tmp[i])
 	{
 		msh->command_table[i] = ft_split(tmp[i], ' ');
 		ft_check_command_table(msh, i);
@@ -62,7 +62,7 @@ void	init_command_table(t_minishell *msh)
 	printf("table number :%d\n", table_count);
 	msh->command_table[i] = NULL;
 	i = 0;
-	while (tmp[i])
+	while (tmp && tmp[i])
 	{
 		free(tmp[i]);
 		i++;
