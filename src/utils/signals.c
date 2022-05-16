@@ -6,31 +6,41 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 11:09:46 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/08 11:17:39 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/16 04:14:50 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	signal_handler(int sig)
+void	interrupt_process(int signal)
 {
-	char	*info;
+	(void)signal;
+	write(1, "\n", 1);
+}
 
-	info = get_user_info();
-	if (sig == SIGINT)
-	{
-		ft_putstr_fd("\n", 1);
-		ft_putstr_fd(info, 1);
-	}
-	else if (sig == SIGINT)
-	{
-		rl_replace_line(info, 1); /* this one not work on 42 lab*/
-	}
-	free(info);
+static void	redisplay_prompt(int signal)
+{
+	(void)signal;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+static void	quit_process(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("Quit (core dumped)\n", 1);
+}
+
+void	define_exec_signals(void)
+{
+	signal(SIGINT, interrupt_process);
+	signal(SIGQUIT, quit_process);
 }
 
 void	define_input_signals(void)
 {
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGINT, redisplay_prompt);
+	signal(SIGQUIT, SIG_IGN);
 }

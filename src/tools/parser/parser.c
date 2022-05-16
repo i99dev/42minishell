@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/12 14:28:36 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/16 05:07:27 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ void	ft_handel_token(t_minishell *msh, int index)
 	if (ft_strncmp(msh->token_ls[index]->token, ">>", ft_strlen(">>")) == 0)
 		ft_redirect_out(msh, index);
 	if (ft_strncmp(msh->token_ls[index]->token, "<<", ft_strlen("<<")) == 0)
-		ft_doc_input(msh, index);
-	
+		here_doc(msh, index);
 }
 
 void	start_parser(t_minishell *msh)
 {
 	int	i;
 
-	msh->fd_std = (int **)malloc(sizeof(int *) * msh->command_count);
+	msh->fd_std = (int **)malloc(sizeof(int *) * msh->command_count + 1);
 	i = 0;
 	while (i < msh->command_count)
 	{

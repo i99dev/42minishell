@@ -88,6 +88,6 @@ t_hash_table	*init_table(char **env);
 void			start_parser(t_minishell *msh);
 void			ft_redirect_in(t_minishell *msh, int index);
 void			ft_redirect_out(t_minishell *msh, int index);
-void			ft_doc_input(t_minishell *msh, int index);
+void			here_doc(t_minishell *msh, int index);
 
 #endif

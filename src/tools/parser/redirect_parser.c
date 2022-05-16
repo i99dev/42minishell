@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/12 14:35:38 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/16 05:25:12 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,28 @@ void	ft_redirect_in(t_minishell *msh, int index)
 		err_msg("minishell: no such file or directory: \n");
 		return ;
 	}
-	msh->fd_std[index][STDIN_FILENO] = dup(STDIN_FILENO);
+	dup2(fd, msh->fd_std[index][STDIN_FILENO]);
 	close(fd);
 }
 
 void	ft_redirect_out(t_minishell *msh, int index)
 {
-	(void)msh;
-	(void)index;
+	int		fd;
+	char	*file;
+
+	file = check_file_name(msh->command_table[index], ">");
+	printf("file: %s\n", file);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		err_msg("minishell: no such file or directory: \n");
+		return ;
+	}
+	dup2(fd, msh->fd_std[index][STDOUT_FILENO]);
+	close(fd);
 }
 
-void	ft_doc_input(t_minishell *msh, int index)
+void	here_doc(t_minishell *msh, int index)
 {
 	(void)msh;
 	(void)index;
