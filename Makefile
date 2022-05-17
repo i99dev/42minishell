@@ -22,6 +22,7 @@ SRC= 	src/main.c		\
 		src/prompt.c \
 		src/tools/exec/execute.c \
 		src/tools/exec/pipe.c \
+		src/tools/exec/path.c \
 		src/tools/exec/built_ins.c \
 		src/tools/parser/parser.c \
 		src/tools/parser/redirect_parser.c \

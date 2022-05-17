@@ -26,7 +26,6 @@ void	read_line(t_minishell *msh)
 static void	minishill_start(t_minishell *msh, char **env)
 {
 	msh->env_table = init_table(env);
-	define_input_signals();
 	while (1)
 	{
 		read_line(msh);

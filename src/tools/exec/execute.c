@@ -31,6 +31,7 @@ void	add_bin_path(t_minishell *msh, int i)
 /*
 TODO: add support for builtin commands
 */
+/*
 int	check_command_type(t_minishell *msh)
 {
 	int	i;
@@ -54,13 +55,54 @@ int	check_command_type(t_minishell *msh)
 	}
 	return (1);
 }
+*/
+
+void	execute(t_minishell *msh, int i)
+{
+	pid_t			pid;
+	int				status;
+	char			*cmd;
+
+	cmd = get_path(msh, i);
+	printf("cmd is :%s\n", cmd);
+	printf("command_table is :%s\n", msh->command_table[i][1]);
+	pid = fork();
+	if (pid < 0)
+	{
+		err_msg("fork failed");
+	}
+	else if (pid == 0)
+	{
+		execve(cmd, msh->command_table[i], __environ);
+		perror("command failed");
+	}
+	waitpid(pid, &status, 0);
+}
 
 /* 
 	TODO: check whether command is bin or builtin command
 		  check if is pipe or redirect or single command.
 */
+
+bool	check_command_type(t_minishell *msh, int index)
+{
+	if (msh->command_type[index] == BUILTIN)
+		return (true);
+	else
+		return (false);
+}
+
 void	init_execute(t_minishell *msh)
 {
+	int	i;
+
+	i = 1;
+	while (i < msh->command_count)
+	{
+		execute(msh, i);
+		i++;
+	}
+	/*
 	if (!check_command_type(msh))
 		return ;
 	if (msh->command_count == 1)
@@ -69,25 +111,5 @@ void	init_execute(t_minishell *msh)
 		execute_pipe(msh, 0);
 	else if (msh->command_count > 2)
 		pipe_recursive(msh, 0, STDIN_FILENO);
-}
-
-void	execute(t_minishell *msh, int i)
-{
-	pid_t			pid;
-	int				status;
-	struct rusage	ru;
-
-	printf("command is :%s\n", msh->command_table[0][0]);
-	pid = fork();
-	define_input_signals();
-	if (pid < 0)
-	{
-		err_msg("fork failed");
-	}
-	else if (pid == 0)
-	{
-		execve(msh->command_table[i][0], msh->command_table[i], __environ);
-		perror("command failed");
-	}
-	wait4(pid, &status, 0, &ru);
+		*/
 }

@@ -56,14 +56,16 @@ typedef struct s_minishell
 //action
 # define BUILTIN		42
 # define LITERAL		43
-# define REDIRECT_IN	45
-# define HERE_DOC		46
+# define OPERATOR		44
+# define REDIRECT		45
+# define HER_DOC		46
 # define FILE			47
 # define PIPE			48
 # define AND			49
 # define OR				50
 # define SEMICOLON		51
 # define DOUBLE_AND		52
+# define SINGLE			53
 
 # define SINGLE_QUOTE	'\''
 # define DOUBLE_QUOTE	'\"'
@@ -93,5 +95,8 @@ void			here_doc(t_minishell *msh, int index);
 
 //tokenizer functions
 void			define_type(t_minishell *msh);
+
+//exec functions
+char			*get_path(t_minishell *msh, int command_table_index);
 
 #endif
