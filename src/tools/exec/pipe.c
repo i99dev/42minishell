@@ -55,6 +55,8 @@ void	execute_pipe(t_minishell *msh, int i)
 	int		status;
 
 	pipe(fd);
+	while (msh->command_table[i])
+	{}
 	pid1 = fork();
 	if (pid1 == 0)
 	{

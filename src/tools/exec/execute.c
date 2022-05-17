@@ -12,56 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-void	add_bin_path(t_minishell *msh, int i)
-{
-	char	*command;
-
-	if (msh->command_table[i][0][0] != '/')
-	{
-		command = NULL;
-		command = ft_strjoin(command, "/bin/");
-		command = ft_strjoin(command, msh->command_table[i][0]);
-	}
-	else
-		command = ft_strdup(msh->command_table[i][0]);
-	free(msh->command_table[i][0]);
-	msh->command_table[i][0] = command;
-}
-
-/*
-TODO: add support for builtin commands
-*/
-/*
-int	check_command_type(t_minishell *msh)
-{
-	int	i;
-
-	i = 0;
-	while (i < msh->command_count)
-	{
-		if (ft_strncmp(msh->command_table[i][0], "cd", 2) == 0)
-		{
-			exec_cd(msh, i);
-			return (0);
-		}
-		if (ft_strncmp(msh->command_table[i][0], "pwd", 3) == 0)
-		{
-			exec_pwd();
-			return (0);
-		}
-		else
-			add_bin_path(msh, i);
-		i++;
-	}
-	return (1);
-}
-*/
-
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
 	char			*cmd;
+	struct rusage	ru;
 
 	cmd = get_path(msh, i);
 	printf("cmd is :%s\n", cmd);
@@ -76,13 +32,8 @@ void	execute(t_minishell *msh, int i)
 		execve(cmd, msh->command_table[i], __environ);
 		perror("command failed");
 	}
-	waitpid(pid, &status, 0);
+	wait4(pid, &status, 0, &ru);
 }
-
-/* 
-	TODO: check whether command is bin or builtin command
-		  check if is pipe or redirect or single command.
-*/
 
 bool	check_command_type(t_minishell *msh, int index)
 {
@@ -96,20 +47,19 @@ void	init_execute(t_minishell *msh)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (i < msh->command_count)
 	{
-		execute(msh, i);
-		i++;
+		if (check_command_type(msh, i))
+		{
+			return ;
+		}
+		if (msh->command_type[i] == SINGLE)
+			execute(msh, i);
+		else if (msh->command_type[i] == PIPE)
+			execute_pipe(msh, i);
+		else if (msh->command_count > 1)
+			pipe_recursive(msh, i, STDIN_FILENO);
+	i++;
 	}
-	/*
-	if (!check_command_type(msh))
-		return ;
-	if (msh->command_count == 1)
-		execute(msh, 0);
-	else if (msh->command_count == 2)
-		execute_pipe(msh, 0);
-	else if (msh->command_count > 2)
-		pipe_recursive(msh, 0, STDIN_FILENO);
-		*/
 }

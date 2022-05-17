@@ -63,11 +63,10 @@ void	define_type(t_minishell *msh)
 					msh->command_type[i] = OPERATOR;
 			}
 			else
-				msh->command_type[i] = LITERAL;
+				msh->command_type[i] = PIPE;
 			j++;
 		}
 		i++;
 	}
-	if (msh->command_count == 1)
-		msh->command_type[0] = SINGLE;
+	msh->command_type[0] = SINGLE;
 }
