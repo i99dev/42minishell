@@ -68,5 +68,5 @@ void	define_type(t_minishell *msh)
 		}
 		i++;
 	}
-	msh->command_type[0] = SINGLE;
+	// msh->command_type[0] = SINGLE;
 }

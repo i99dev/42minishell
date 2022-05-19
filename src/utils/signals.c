@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 11:09:46 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/16 04:14:50 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/19 08:47:36 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	redisplay_prompt(int signal)
 {
 	(void)signal;
 	write(1, "\n", 1);
-	rl_replace_line("", 0);
+	// rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }

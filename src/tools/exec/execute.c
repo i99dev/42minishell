@@ -29,7 +29,7 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		execve(cmd, msh->command_table[i], __environ);
+		execve(cmd, msh->command_table[i], NULL);
 		perror("command failed");
 	}
 	wait4(pid, &status, 0, &ru);
@@ -57,7 +57,7 @@ void	init_execute(t_minishell *msh)
 		if (msh->command_type[i] == SINGLE)
 			execute(msh, i);
 		else if (msh->command_type[i] == PIPE)
-			execute_pipe(msh, i);
+			multi_pipe(msh, i);
 		else if (msh->command_count > 1)
 			pipe_recursive(msh, i, STDIN_FILENO);
 	i++;

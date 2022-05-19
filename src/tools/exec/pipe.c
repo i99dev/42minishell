@@ -44,37 +44,55 @@ void	pipe_recursive(t_minishell *msh, int i, int in_fd)
 	}
 }
 
-/*
- temporary function 
- */
-void	execute_pipe(t_minishell *msh, int i)
+void	close_pipe(int fd[2])
 {
-	pid_t	pid1;
-	pid_t	pid2;
-	int		fd[2];
-	int		status;
-
-	pipe(fd);
-	while (msh->command_table[i])
-	{}
-	pid1 = fork();
-	if (pid1 == 0)
-	{
-		dup2(fd[1], 1);
-		close(fd[0]);
-		execve(msh->command_table[i][0], msh->command_table[i], NULL);
-		exit(1);
-	}
-	pid2 = fork();
-	if (pid2 == 0)
-	{
-		dup2(fd[0], 0);
-		close(fd[1]);
-		execve(msh->command_table[i + 1][0], msh->command_table[i + 1], NULL);
-		exit(1);
-	}
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, &status, WUNTRACED);
-	waitpid(pid2, &status, WUNTRACED);
+}
+
+// multi pips with loop and control pips close and open
+void	multi_pipe(t_minishell *msh, int i)
+{
+	int		**fd;
+	pid_t	pid;
+
+	fd = (int **)malloc(sizeof(int *) * (msh->command_count - 1));
+	while (i < msh->command_count)
+	{
+		fd[i] = (int *)malloc(sizeof(int) * 2);
+		if (pipe(fd[i]) == -1)
+			perror("pipe");
+		pid = fork();
+		if (pid == -1)
+			perror("fork");
+		else if (pid == 0)
+		{
+			if(i != msh->command_count - 1)
+			{
+				dup2(fd[i][1], 1);
+				close(fd[i][1]);
+				close(fd[i][0]);
+				printf("YES");
+			}
+			if(i != 0)
+			{
+				dup2(fd[i-1][0], 0);
+				close(fd[i-1][0]);
+			}
+			execve(get_path(msh, i), msh->command_table[i], NULL);
+			if (i > 0)
+				close(fd[i - 1][1]);
+			perror("command failed");
+		}
+		else
+		{
+			if(i <= msh->command_count - 1)
+				close(fd[i][1]);
+			if(i != 0)
+				close(fd[i-1][0]);
+		}
+		i++;
+	}
+		printf("test\n");
+
 }

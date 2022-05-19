@@ -18,6 +18,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <signal.h>
 # include <dirent.h>
 # include <stdbool.h>
@@ -77,7 +78,7 @@ void			define_input_signals(void);
 void			pipe_recursive(t_minishell *msh, int i, int in_fd);
 int				exec_cd(t_minishell *msh, int i);
 int				exec_pwd(void);
-void			execute_pipe(t_minishell *msh, int i);
+void			multi_pipe(t_minishell *msh, int i);
 void			execute(t_minishell *msh, int i);
 void			init_execute(t_minishell *msh);
 void			ft_free_minishell(t_minishell *minishell);
