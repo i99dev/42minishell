@@ -1,0 +1,2 @@
+
+[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0mYES;34m[;32mDokcer;31m@;32m42MINISHELL;34m]:;31m> m

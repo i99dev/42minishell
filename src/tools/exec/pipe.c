@@ -79,7 +79,7 @@ void	multi_pipe(t_minishell *msh, int i)
 				dup2(fd[i-1][0], 0);
 				close(fd[i-1][0]);
 			}
-			execve(get_path(msh, i), msh->command_table[i], NULL);
+			execve(get_path(msh, i), msh->command_table[i], __environ);
 			if (i > 0)
 				close(fd[i - 1][1]);
 			perror("command failed");
@@ -93,6 +93,5 @@ void	multi_pipe(t_minishell *msh, int i)
 		}
 		i++;
 	}
-		printf("test\n");
-
+	waitpid(pid, NULL, 0);
 }

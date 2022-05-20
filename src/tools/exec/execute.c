@@ -48,18 +48,13 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	while (i < msh->command_count)
+	if (check_command_type(msh, i))
 	{
-		if (check_command_type(msh, i))
-		{
-			return ;
-		}
-		if (msh->command_type[i] == SINGLE)
-			execute(msh, i);
-		else if (msh->command_type[i] == PIPE)
-			multi_pipe(msh, i);
-		else if (msh->command_count > 1)
-			pipe_recursive(msh, i, STDIN_FILENO);
-	i++;
+		return ;
 	}
+	if (msh->command_count == 1)
+		execute(msh, i);
+	else if (msh->command_type[i] == PIPE)
+		multi_pipe(msh, i);
+
 }
