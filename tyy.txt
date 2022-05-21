@@ -1,5 +1,0 @@
-
-/workspaces/42minishell
-[?2004h[0;34m[[0;32mDokcer[0;31m@[0;32m42MINISHELL[0;34m]:[0;31m> [0m
-
-ls | grep makefile | wc -l

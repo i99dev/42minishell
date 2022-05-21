@@ -29,6 +29,13 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
+		if (msh->token_ls[0] != NULL)
+			{
+				if (ft_strncmp(msh->token_ls[i]->token, ">", 1) == 0)
+					ft_redirect_out(msh, i);
+				if (ft_strncmp(msh->token_ls[i]->token, "<", 1) == 0)
+					ft_redirect_in(msh, i);
+			}
 		execve(cmd, msh->command_table[i], NULL);
 		perror("command failed");
 	}
@@ -52,9 +59,12 @@ void	init_execute(t_minishell *msh)
 	{
 		return ;
 	}
-	if (msh->command_count == 1)
-		execute(msh, i);
-	else if (msh->command_type[i] == PIPE)
-		multi_pipe(msh, i);
-
+	if (msh->command_count>1)
+	{
+	multi_pipe(msh, i);
+	}
+	else
+	{
+		execute(msh,0);
+	}
 }

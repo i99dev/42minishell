@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/16 11:58:04 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/21 16:05:23 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_redirect_in(t_minishell *msh, int index)
 	int		fd;
 	char	*file;
 
-	file = check_file_name(msh->command_table[index], "<");
+	file = msh->filename_ls[index];
 	printf("file: %s\n", file);
 	fd = open(file, O_RDONLY | O_CREAT);
 	if (fd == -1)
@@ -50,7 +50,8 @@ void	ft_redirect_in(t_minishell *msh, int index)
 		err_msg("minishell: no such file or directory: \n");
 		return ;
 	}
-	msh->fd_std[index][0] = dup2(fd, STDIN_FILENO);
+	msh->last_fd=fd;
+	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 
@@ -59,7 +60,7 @@ void	ft_redirect_out(t_minishell *msh, int index)
 	int		fd;
 	char	*file;
 
-	file = check_file_name(msh->command_table[index], ">");
+	file = msh->filename_ls[index];
 	printf("file: %s\n", file);
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
