@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/21 16:05:23 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/21 16:45:18 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_redirect_in(t_minishell *msh, int index)
 		err_msg("minishell: no such file or directory: \n");
 		return ;
 	}
-	msh->last_fd=fd;
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
