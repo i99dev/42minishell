@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/21 16:45:18 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/21 23:07:57 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ char	*check_file_name(char **str, char *token)
 	return (str[i - 1]);
 }
 
-void	ft_redirect_in(t_minishell *msh, int index)
+void	ft_redirect_in(t_minishell *msh, int index,int token)
 {
 	int		fd;
 	char	*file;
 
-	file = msh->filename_ls[index];
+	file = msh->filename_ls[index][token];
 	printf("file: %s\n", file);
 	fd = open(file, O_RDONLY | O_CREAT);
 	if (fd == -1)
@@ -54,21 +54,20 @@ void	ft_redirect_in(t_minishell *msh, int index)
 	close(fd);
 }
 
-void	ft_redirect_out(t_minishell *msh, int index)
+void	ft_redirect_out(t_minishell *msh, int index, int token)
 {
-	int		fd;
 	char	*file;
 
-	file = msh->filename_ls[index];
+	file = msh->filename_ls[index][token];
 	printf("file: %s\n", file);
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
+	msh->rd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (msh->rd == -1)
 	{
 		err_msg("minishell: no such file or directory: \n");
 		return ;
 	}
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	dup2(msh->rd, STDOUT_FILENO);
+	close(msh->rd);
 }
 
 void	here_doc(t_minishell *msh, int index)

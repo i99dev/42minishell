@@ -17,6 +17,7 @@ void	free_pipe(int ***fd, pid_t **pid)
 
 void	execute_pipe(t_minishell *msh, int i, int **fd)
 {
+	/*
 	if (i == 0 && msh->token_ls[i] != NULL)
 	{
 		if (ft_strncmp(msh->token_ls[i]->token, "<", 1) == 0)
@@ -26,7 +27,7 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	{
 		if (ft_strncmp(msh->token_ls[i]->token, ">", 1) == 0)
 			ft_redirect_out(msh, i);
-	}
+	}*/
 	if (i != msh->command_count - 1)
 	{
 		dup2(fd[i][1], 1);
