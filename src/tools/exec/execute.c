@@ -31,9 +31,9 @@ void	execute(t_minishell *msh, int i)
 	{
 		if (msh->token_ls[0] != NULL)
 		{
-			if (ft_strncmp(msh->token_ls[i]->token, ">", 1) == 0)
+			if (ft_strchr(msh->token_ls[i]->token, '>'))
 				ft_redirect_out(msh, i);
-			if (ft_strncmp(msh->token_ls[i]->token, "<", 1) == 0)
+			if (ft_strchr(msh->token_ls[i]->token, '<'))
 				ft_redirect_in(msh, i);
 		}
 		execve(cmd, msh->command_table[i], NULL);
@@ -55,12 +55,26 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	if (check_command_type(msh, i))
+	if (msh->token_count[i] > 0)
+		printf("operator\n");
+	while (i < msh->command_count)
 	{
-		return ;
+		int j=0;
+		while (msh->command_table[i][j])
+		{
+			printf("%s\n", msh->command_table[i][j]);
+			j++;
+		}
+		printf("token:%s\n",msh->token_ls[i]->token);
+		i++;
 	}
-	if (msh->command_count > 1)
-		multi_pipe(msh, i);
-	else
+	i=0;
+	if (msh->command_count == 1)
+	{
 		execute(msh, 0);
+	}
+	else
+	{
+		multi_pipe(msh, i);
+	}
 }
