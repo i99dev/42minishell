@@ -35,6 +35,7 @@
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
+	char			**env;
 	char			***command_table;
 	int				command_count;
 	int				*command_type;

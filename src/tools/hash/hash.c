@@ -71,3 +71,26 @@ t_hash_table	*create_hash_table(unsigned int size)
 	env_table->size = size;
 	return (env_table);
 }
+
+char	**env2d(t_hash_table *env_table)
+{
+	char			**env;
+	t_hash			*tmp;
+	unsigned int	i;
+
+	i = 0;
+	env = (char **)malloc(sizeof(char *) * (env_table->count + 1));
+	while (i < env_table->count)
+	{
+		tmp = env_table->table[i];
+		while (tmp)
+		{
+			env[i] = ft_strjoin(tmp->key, "=");
+			env[i] = ft_strjoin(env[i], tmp->value);
+			tmp = tmp->next;
+		}
+			i++;
+	}
+	env[i] = NULL;
+	return (env);
+}

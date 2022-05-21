@@ -29,7 +29,7 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		execve(cmd, msh->command_table[i], NULL);
+		execve(cmd, msh->command_table[i], msh->env);
 		perror("command failed");
 	}
 	wait4(pid, &status, 0, &ru);

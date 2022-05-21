@@ -67,28 +67,28 @@ void	multi_pipe(t_minishell *msh, int i)
 			perror("fork");
 		else if (pid == 0)
 		{
-			if(i != msh->command_count - 1)
+			if (i != msh->command_count - 1)
 			{
 				dup2(fd[i][1], 1);
 				close(fd[i][1]);
 				close(fd[i][0]);
 				printf("YES");
 			}
-			if(i != 0)
+			if (i != 0)
 			{
 				dup2(fd[i-1][0], 0);
 				close(fd[i-1][0]);
 			}
-			execve(get_path(msh, i), msh->command_table[i], __environ);
+			execve(get_path(msh, i), msh->command_table[i], msh->env);
 			if (i > 0)
 				close(fd[i - 1][1]);
 			perror("command failed");
 		}
 		else
 		{
-			if(i <= msh->command_count - 1)
+			if (i <= msh->command_count - 1)
 				close(fd[i][1]);
-			if(i != 0)
+			if (i != 0)
 				close(fd[i-1][0]);
 		}
 		i++;

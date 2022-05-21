@@ -32,5 +32,6 @@ t_hash_table		*create_hash_table(unsigned int size);
 void				insert_hash(t_hash_table *table, char *env);
 char				*find_hash(t_hash_table *env_table, char *key);
 void				print_hash(t_hash_table *table);
+char				**env2d(t_hash_table *env_table);
 
 #endif
