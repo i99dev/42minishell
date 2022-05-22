@@ -25,6 +25,7 @@ void	get_io_filename(t_minishell *msh, int i, char *token,int index)
 
 	//printf("filename: %s\n", check_file_name(msh->command_table[i],token));
 }
+
 void	ft_check_command_table(t_minishell *msh, int i)
 {
 	int		index;
@@ -73,11 +74,35 @@ void	ft_check_command_table(t_minishell *msh, int i)
 	}
 }
 
+char *clean_str_space(char *str)
+{
+	int i;
+	int j;
+	char *new_str;
+
+	i = 0;
+	j = 0;
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str[i])
+	{
+		if (str[i] != ' ')
+		{
+			printf("char is:%c\n", str[i]);
+			new_str[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new_str[j] = '\0';
+	return (new_str);
+}
+
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
 	int		table_count;
 	int		i;
+
 	i = 0;
 	tmp = ft_split(msh->line, '|');
 	while (tmp && tmp[i] != NULL)
@@ -91,12 +116,12 @@ void	init_command_table(t_minishell *msh)
 	msh->command_count = table_count;
 	while (tmp && tmp[i])
 	{
+		tmp[i] = clean_str_space(tmp[i]);
 		msh->command_table[i] = ft_split(tmp[i], ' ');
 		ft_check_command_table(msh, i);
 		i++;
 	}
-	printf("table number :%d\n", table_count);
-	//msh->command_table[i] = NULL;
+	ft_check_quotes(msh);
 	i = 0;
 	while (tmp && tmp[i])
 	{
