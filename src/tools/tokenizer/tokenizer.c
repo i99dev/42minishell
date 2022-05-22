@@ -12,8 +12,14 @@
 
 #include "../../../include/minishell.h"
 /* init filename */
-void	get_io_filename(t_minishell *msh, int i, char *token)
+void	get_io_filename(t_minishell *msh, int i, char *token,int index)
 {
+	if(ft_strlen(msh->command_table[i][index])== 1)
+	{
+		printf("redirect with space\n");
+		msh->filename_ls[i][msh->token_count[i]]=ft_strdup(msh->command_table[i][index+1]);
+	}
+	else
 	msh->filename_ls[i][msh->token_count[i]]=ft_strdup(check_file_name(msh->command_table[i],token));
 	//msh->command_table[i][index]=NULL;
 
@@ -41,7 +47,7 @@ void	ft_check_command_table(t_minishell *msh, int i)
 		else if (ft_strchr(msh->command_table[i][index], '<') != NULL)
 		{
 			msh->token_ls[i]->token = strcat(temp,"<");
-			get_io_filename(msh,i,"<");
+			get_io_filename(msh,i,"<",index);
 			msh->token_count[i]++;
 			if(msh->token_count[i]==1)
 			wordindex=index;
@@ -49,7 +55,7 @@ void	ft_check_command_table(t_minishell *msh, int i)
 		else if (ft_strchr(msh->command_table[i][index], '>') != NULL)
 		{
 			msh->token_ls[i]->token = strcat(temp,">");
-			get_io_filename(msh,i,">");
+			get_io_filename(msh,i,">",index);
 			msh->token_count[i]++;
 			if(msh->token_count[i]==1)
 			wordindex=index;
