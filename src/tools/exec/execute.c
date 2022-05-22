@@ -21,7 +21,7 @@ void	execute(t_minishell *msh, int i)
 
 	cmd = get_path(msh, i);
 	printf("cmd is :%s\n", cmd);
-	printf("command_table is :%s\n", msh->command_table[i][1]);
+	printf("command_table is :%s\n", msh->command_table[i][0]);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -29,9 +29,27 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		execve(cmd, msh->command_table[i], msh->env);
+		if (msh->token_count[i] != 0)
+		{
+			int j=0;
+			while(j< msh->token_count[i])
+			{
+				printf("token count:%d\n",j);
+			if (msh->token_ls[i]->token[j] == '>')
+			{
+				ft_redirect_out(msh, i, j);
+			}
+			else if (msh->token_ls[i]->token[j] == '<')
+			{
+				ft_redirect_in(msh, i, j);
+			}
+			j++;
+			}
+		}
+		execve(cmd, msh->command_table[i], NULL);
 		perror("command failed");
 	}
+	//close(msh->rd);
 	wait4(pid, &status, 0, &ru);
 }
 
@@ -48,13 +66,26 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	if (check_command_type(msh, i))
+	if (msh->token_count[i] > 0)
+		printf("operator\n");
+	while (i < msh->command_count)
 	{
-		return ;
+		int j=0;
+		while (msh->command_table[i][j])
+		{
+			printf("%s\n", msh->command_table[i][j]);
+			j++;
+		}
+		printf("token:%s\n",msh->token_ls[i]->token);
+		i++;
 	}
+	i=0;
 	if (msh->command_count == 1)
-		execute(msh, i);
-	else if (msh->command_type[i] == PIPE)
+	{
+		execute(msh, 0);
+	}
+	else
+	{
 		multi_pipe(msh, i);
-
+	}
 }

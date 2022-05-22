@@ -40,10 +40,12 @@ typedef struct s_minishell
 	int				command_count;
 	int				*command_type;
 	t_token			**token_ls;
-	int				token_count;
+	char			***filename_ls;
+	int				*token_count;
 	char			*user_info;
 	char			*line;
 	int				**fd_std;
+	int				rd;
 }	t_minishell;
 
 //color 
@@ -88,11 +90,12 @@ void			ft_tokenizer(t_minishell *msh);
 void			init_command_table(t_minishell *msh);
 char			*get_user_info(void);
 t_hash_table	*init_table(char **env);
+char			*check_file_name(char **str, char *token);
 
 //parser functions
 void			start_parser(t_minishell *msh);
-void			ft_redirect_in(t_minishell *msh, int index);
-void			ft_redirect_out(t_minishell *msh, int index);
+void			ft_redirect_in(t_minishell *msh, int index, int token);
+void			ft_redirect_out(t_minishell *msh, int index, int token);
 void			here_doc(t_minishell *msh, int index);
 
 //tokenizer functions
