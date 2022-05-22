@@ -11,31 +11,32 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-/* init filename */
-void	get_io_filename(t_minishell *msh, int i, char *token,int index)
+
+/* init filename_ls */
+void	get_io_filename(t_minishell *msh, int i, char *token, int index)
 {
-	if(ft_strlen(msh->command_table[i][index])== 1)
+	if (ft_strlen(msh->command_table[i][index]) == 1)
 	{
 		printf("redirect with space\n");
-		msh->filename_ls[i][msh->token_count[i]]=ft_strdup(msh->command_table[i][index+1]);
+		msh->filename_ls[i][msh->token_count[i]]
+			= ft_strdup(msh->command_table[i][index + 1]);
 	}
 	else
-	msh->filename_ls[i][msh->token_count[i]]=ft_strdup(check_file_name(msh->command_table[i],token));
-	//msh->command_table[i][index]=NULL;
-
-	//printf("filename: %s\n", check_file_name(msh->command_table[i],token));
+	msh->filename_ls[i][msh->token_count[i]]
+			= ft_strdup(check_file_name(msh->command_table[i], token));
 }
+
 void	ft_check_command_table(t_minishell *msh, int i)
 {
 	int		index;
 	int		wordindex;
 	char	temp[300];
 
-	temp[0]=0;
+	temp[0] = 0;
 	index = 0;
 	msh->token_ls[i] = (t_token *)malloc(sizeof(t_token));
 	msh->token_ls[i]->token = NULL;
-	msh->token_count[i]=0;
+	msh->token_count[i] = 0;
 	msh->filename_ls[i] = (char **)malloc(sizeof(char *) * 2);
 
 	while (msh->command_table[i][index])
@@ -46,26 +47,26 @@ void	ft_check_command_table(t_minishell *msh, int i)
 			msh->token_ls[i]->token = ft_strdup("<<");
 		else if (ft_strchr(msh->command_table[i][index], '<') != NULL)
 		{
-			msh->token_ls[i]->token = strcat(temp,"<");
-			get_io_filename(msh,i,"<",index);
+			msh->token_ls[i]->token = strcat(temp, "<");
+			get_io_filename(msh, i, "<", index);
 			msh->token_count[i]++;
-			if(msh->token_count[i]==1)
-			wordindex=index;
+			if (msh->token_count[i] == 1)
+			wordindex = index;
 		}
 		else if (ft_strchr(msh->command_table[i][index], '>') != NULL)
 		{
-			msh->token_ls[i]->token = strcat(temp,">");
-			get_io_filename(msh,i,">",index);
+			msh->token_ls[i]->token = strcat(temp, ">");
+			get_io_filename(msh, i, ">", index);
 			msh->token_count[i]++;
-			if(msh->token_count[i]==1)
-			wordindex=index;
+			if (msh->token_count[i] == 1)
+			wordindex = index;
 		}
-		msh->token_ls[i]->token=ft_strdup(temp);
+		msh->token_ls[i]->token = ft_strdup(temp);
 		index++;
 	}
-	if (msh->token_count[i]>0)
-	msh->command_table[i][wordindex]=NULL;
-	printf(" token count %d\n",msh->token_count[0]);
+	if (msh->token_count[i] > 0)
+		msh->command_table[i][wordindex] = NULL;
+	printf(" token count %d\n", msh->token_count[0]);
 	if (msh->token_ls[i]->token == NULL)
 	{
 		free(msh->token_ls[i]);
@@ -78,6 +79,7 @@ void	init_command_table(t_minishell *msh)
 	char	**tmp;
 	int		table_count;
 	int		i;
+
 	i = 0;
 	tmp = ft_split(msh->line, '|');
 	while (tmp && tmp[i] != NULL)
