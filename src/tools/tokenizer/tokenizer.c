@@ -53,7 +53,7 @@ void	ft_check_command_table(t_minishell *msh, int i)
 	index = 0;
 	int j=0;
 	msh->token_ls[i] = (t_token **)malloc(sizeof(t_token*)*msh->token_count[i]);
-	msh->filename_ls[i] = (char **)malloc(sizeof(char *) * 2);
+	msh->filename_ls[i] = (char **)malloc(sizeof(char *) * msh->token_count[i]);
 /*set_tokens
  go through every argument and check if token*/
 	while (msh->command_table[i][index] && j< msh->token_count[i])
@@ -64,6 +64,7 @@ void	ft_check_command_table(t_minishell *msh, int i)
 			msh->token_ls[i][j]->token = ft_strdup("<<");
 		else if (ft_strchr(msh->command_table[i][index], '<') != NULL)
 		{
+			msh->token_ls[i][j] = (t_token *)malloc(sizeof(t_token));
 			msh->token_ls[i][j]->token = ft_strdup("<");
 			get_io_filename(msh, i, "<", index,j);
 			j++;
@@ -72,12 +73,14 @@ void	ft_check_command_table(t_minishell *msh, int i)
 		}
 		else if (ft_strchr(msh->command_table[i][index], '>') != NULL)
 		{
+			msh->token_ls[i][j] = (t_token *)malloc(sizeof(t_token));
 			msh->token_ls[i][j]->token = ft_strdup(">");
 			get_io_filename(msh, i, ">", index,j);
 			j++;
 			if (j == 1)
 			wordindex = index;
 		}
+		/* else if */
 		index++;
 	}
 	if (msh->token_count[i] > 0)
@@ -93,7 +96,6 @@ void	ft_check_command_table(t_minishell *msh, int i)
 /*
 	make ***token
 	token count is amount of found tokens
-	args count is how many arguments found
 	each command arg has token
 	type either -1, >, <,$, >>, <<
 

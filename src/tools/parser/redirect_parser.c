@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/22 07:51:54 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/22 17:19:26 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,31 @@ void	ft_redirect_in(t_minishell *msh, int index,int token)
 
 void	ft_redirect_out(t_minishell *msh, int index, int token)
 {
+	int		fd;
 	char	*file;
 
 	file = msh->filename_ls[index][token];
 	printf("file: %s\n", file);
-	msh->rd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (msh->rd == -1)
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
 	{
 		err_msg("minishell: no such file or directory: \n");
 		return ;
+	}/*
+	if(msh->rd>0)
+	{
+		dup2(fd, msh->last_fd);
+		close(fd);
+		msh->last_fd=fd;
+		msh->rd++;
 	}
-	dup2(msh->rd, STDOUT_FILENO);
-	close(msh->rd);
+	else
+	{
+		*/
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	msh->rd++;
+	
 }
 
 void	here_doc(t_minishell *msh, int index)

@@ -45,6 +45,7 @@ typedef struct s_minishell
 	char			*line;
 	int				**fd_std;
 	int				rd;
+	int				last_fd;
 }	t_minishell;
 
 //color 
