@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/11 08:00:28 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/22 09:56:07 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	free_line(t_minishell *msh)
 
 void	ft_free_token_ls(t_minishell *msh)
 {
+	(void)msh;
+	/*
 	int		i;
 
 
@@ -80,7 +82,7 @@ void	ft_free_token_ls(t_minishell *msh)
 		free(msh->token_ls[i]);
 		i++;
 	}
-	free(msh->token_ls);
+	free(msh->token_ls);*/
 }
 
 void	ft_free_minishell(t_minishell *minishell)

@@ -35,11 +35,11 @@ void	execute(t_minishell *msh, int i)
 			while(j< msh->token_count[i])
 			{
 				printf("token count:%d\n",j);
-			if (msh->token_ls[i]->token[j] == '>')
+			if (ft_strncmp(msh->token_ls[i][j]->token,">",2)==0)
 			{
 				ft_redirect_out(msh, i, j);
 			}
-			else if (msh->token_ls[i]->token[j] == '<')
+			else if (ft_strncmp(msh->token_ls[i][j]->token,">",2)==0)
 			{
 				ft_redirect_in(msh, i, j);
 			}
@@ -74,9 +74,9 @@ void	init_execute(t_minishell *msh)
 		while (msh->command_table[i][j])
 		{
 			printf("%s\n", msh->command_table[i][j]);
+			printf("token:%s\n",msh->token_ls[i][j]->token);
 			j++;
 		}
-		printf("token:%s\n",msh->token_ls[i]->token);
 		i++;
 	}
 	i=0;

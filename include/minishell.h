@@ -38,7 +38,7 @@ typedef struct s_minishell
 	char			***command_table;
 	int				command_count;
 	int				*command_type;
-	t_token			**token_ls;
+	t_token			***token_ls;
 	char			***filename_ls;
 	int				*token_count;
 	char			*user_info;
