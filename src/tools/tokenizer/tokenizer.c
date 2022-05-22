@@ -116,7 +116,7 @@ void	init_command_table(t_minishell *msh)
 	msh->command_count = table_count;
 	while (tmp && tmp[i])
 	{
-		tmp[i] = clean_str_space(tmp[i]);
+		// tmp[i] = clean_str_space(tmp[i]);
 		msh->command_table[i] = ft_split(tmp[i], ' ');
 		ft_check_command_table(msh, i);
 		i++;
