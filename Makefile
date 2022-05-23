@@ -21,14 +21,24 @@ LIBFT = lib/libft/libft.a
 SRC= 	src/main.c		\
 		src/prompt.c \
 		src/tools/exec/execute.c \
+		src/tools/exec/pipe.c \
+		src/tools/exec/path.c \
+		src/tools/exec/built_ins.c \
 		src/tools/parser/parser.c \
+		src/tools/parser/redirect_parser.c \
 		src/tools/hash/hash.c \
 		src/tools/hash/insert_hash.c\
 		src/tools/hash/find_hash.c\
+		src/tools/hash/update_hash.c\
 		src/tools/hash/print_hash.c\
 		src/tools/tokenizer/tokenizer.c \
+		src/tools/tokenizer/define_type.c \
+		src/tools/tokenizer/quotes.c \
+		src/tools/tokenizer/special_case.c \
 		src/utils/msg.c \
 		src/utils/ft_free.c \
+		src/utils/ft_helper.c \
+		src/utils/signals.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror

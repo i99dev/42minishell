@@ -18,8 +18,11 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <signal.h>
 # include <dirent.h>
+# include <stdbool.h>
+# include <fcntl.h>
 # include <sys/resource.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -32,10 +35,18 @@
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
-	char			**command_table;
-	t_token			*token_ls;
+	char			**env;
+	char			***command_table;
+	int				command_count;
+	int				*command_type;
+	t_token			***token_ls;
+	char			***filename_ls;
+	int				*token_count;
 	char			*user_info;
 	char			*line;
+	int				**fd_std;
+	int				rd;
+	int				last_fd;
 }	t_minishell;
 
 //color 
@@ -47,17 +58,52 @@ typedef struct s_minishell
 # define CYAN "\033[0;36m"
 # define RESET "\033[0m"
 
-//function
-void	prompt_commend(t_minishell *minishell);
-void	err_msg(char *msg);
-void	signal_handler(int sig);
-char	*get_user_inf(void);
-void	free_exit(char **s1, char **s2, char ***table);
-void	execute(t_minishell *msh);
-void	ft_free_minishell(t_minishell *minishell);
-void	free_line(t_minishell *msh);
+//action
+# define BUILTIN		42
+# define LITERAL		43
+# define OPERATOR		44
+# define REDIRECT		45
+# define HER_DOC		46
+# define FILE			47
+# define PIPE			48
+# define AND			49
+# define OR				50
+# define SEMICOLON		51
+# define DOUBLE_AND		52
+# define SINGLE			53
 
-void	ft_tokenizer(char *str, t_minishell *msh);
-void	init_command_table(char *input, t_minishell *msh);
+# define SINGLE_QUOTE	'\''
+# define DOUBLE_QUOTE	'\"'
+
+//function
+void			prompt_commend(t_minishell *minishell);
+void			err_msg(char *msg);
+void			define_input_signals(void);
+void			pipe_recursive(t_minishell *msh, int i, int in_fd);
+int				exec_cd(t_minishell *msh, int i);
+int				exec_pwd(void);
+void			multi_pipe(t_minishell *msh, int i);
+void			execute(t_minishell *msh, int i);
+void			init_execute(t_minishell *msh);
+void			ft_free_minishell(t_minishell *minishell);
+void			free_line(t_minishell *msh);
+void			ft_tokenizer(t_minishell *msh);
+void			init_command_table(t_minishell *msh);
+char			*get_user_info(void);
+t_hash_table	*init_table(char **env);
+char			*check_file_name(char **str, char *token);
+
+//parser functions
+void			start_parser(t_minishell *msh);
+void			ft_redirect_in(t_minishell *msh, int index, int token);
+void			ft_redirect_out(t_minishell *msh, int index, int token);
+void			here_doc(t_minishell *msh, int index);
+
+//tokenizer functions
+void			define_type(t_minishell *msh);
+void			ft_check_quotes(t_minishell *msh);
+
+//exec functions
+char			*get_path(t_minishell *msh, int command_table_index);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/26 13:00:57 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/22 09:56:07 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,27 @@ void	ft_free_hash(t_hash_table *table)
 
 void	ft_free_prompt(t_minishell *msh)
 {
-	if (msh->user_info)
-		free(msh->user_info);
 	if (msh->line)
 		free(msh->line);
 }
 
-void	ft_command_table_free(char **command_table)
+void	ft_command_table_free(t_minishell *msh)
 {
-	int	i;
+	int		i;
+	int		j;
 
 	i = 0;
-	while (command_table[i])
+	while (i < msh->command_count)
 	{
-		free(command_table[i]);
+		j = 0;
+		while (msh->command_table[i][j])
+		{
+			free(msh->command_table[i][j]);
+			j++;
+		}
+		free(msh->command_table[i]);
 		i++;
 	}
-	free(command_table);
 }
 
 void	free_line(t_minishell *msh)
@@ -63,12 +67,22 @@ void	free_line(t_minishell *msh)
 
 void	ft_free_token_ls(t_minishell *msh)
 {
-	if (msh->token_ls)
+	(void)msh;
+	/*
+	int		i;
+
+
+	i = 0;
+	while (i < msh->command_count)
 	{
-		free(msh->token_ls->token);
-		free(msh->token_ls);
-		msh->token_ls = NULL;
+		if (msh->token_ls[i])
+		{
+			free(msh->token_ls[i]->token);
+		}
+		free(msh->token_ls[i]);
+		i++;
 	}
+	free(msh->token_ls);*/
 }
 
 void	ft_free_minishell(t_minishell *minishell)
@@ -76,7 +90,7 @@ void	ft_free_minishell(t_minishell *minishell)
 	ft_free_hash(minishell->env_table);
 	ft_free_prompt(minishell);
 	if (minishell->command_table)
-		ft_command_table_free(minishell->command_table);
+		ft_command_table_free(minishell);
 	if (minishell->token_ls)
 		ft_free_token_ls(minishell);
 	exit(0);

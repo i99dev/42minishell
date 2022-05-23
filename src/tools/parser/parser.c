@@ -3,76 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/26 06:02:13 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/21 19:51:57 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-char	*ft_strtok(char *input, char delim)
-{
-	static char	*temp;
-	char		*out;
-
-	if (!input)
-		input = temp;
-	if (!input)
-		return (NULL);
-	while (*input)
-	{
-		if (*input == delim)
-			input++;
-		else
-			break ;
-	}
-	if (!*input)
-		return (NULL);
-	out = input;
-	while (*input)
-	{
-		if (*input == delim)
-		{
-			*input = '\0';
-			temp = input + 1;
-			return (out);
-		}
-		input++;
-	}
-	temp = input;
-	return (out);
-}
-
 /*
-	parses and splits input line into command table
-	TODO:	support characters like "|", ">", "<", etc.
-			handle double and single quotes
-			fix tokenizer and return it.
-*/
-
-void	init_command_table(char *input, t_minishell *msh)
+void	ft_handel_token(t_minishell *msh, int index)
 {
-	char	*token;
-	char	**command_table;
-	int		i;
+	msh->fd_std[index] = (int *)malloc(sizeof(int) * 2);
+	printf("token: %s\n", msh->token_ls[index]->token);
+	if (ft_strncmp(msh->token_ls[index]->token, "<", ft_strlen("<")) == 0)
+		ft_redirect_in(msh, index);
+	if (ft_strncmp(msh->token_ls[index]->token, ">", ft_strlen(">")) == 0)
+		ft_redirect_out(msh, index);
+	if (ft_strncmp(msh->token_ls[index]->token, ">>", ft_strlen(">>")) == 0)
+		ft_redirect_out(msh, index);
+	if (ft_strncmp(msh->token_ls[index]->token, "<<", ft_strlen("<<")) == 0)
+		here_doc(msh, index);
+}
+*/
+void	start_parser(t_minishell *msh)
+{
+	int	i;
 
+	msh->fd_std = (int **)malloc(sizeof(int *) * msh->command_count + 1);
 	i = 0;
-	printf("--------------\n");
-	printf("COMMAND TABLE\n");
-	token = ft_strtok(input, ' ');
-	while (token)
+	while (i < msh->command_count)
 	{
-		printf("%s\n", token);
-		token = ft_strtok(NULL, ' ');
-	}
-	printf("--------------\n");
-	command_table = ft_split(input, ' ');
-	while (command_table[i])
-	{
-		printf("|%s|\n", command_table[i]);
+		if (msh->token_ls[i] != NULL)
+		{
+			//ft_handel_token(msh, i);
+		}
+		printf("\n");
 		i++;
 	}
-	msh->command_table = command_table;
 }

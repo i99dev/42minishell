@@ -58,4 +58,6 @@ void	insert_hash(t_hash_table *table, char *env)
 	table->table[_hash] = malloc(sizeof(t_hash));
 	table->table[_hash]->key = key;
 	table->table[_hash]->value = value;
+	table->table[_hash]->next = NULL;
+	table->count++;
 }
