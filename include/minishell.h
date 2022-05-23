@@ -21,6 +21,7 @@
 # include <string.h>
 # include <signal.h>
 # include <dirent.h>
+# include <stdio.h>
 # include <stdbool.h>
 # include <fcntl.h>
 # include <sys/resource.h>

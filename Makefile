@@ -42,7 +42,7 @@ SRC= 	src/main.c		\
 		src/utils/signals.c \
 
 CC = gcc -g
-CC_FLAG = -Wall -Wextra -Werror
+CC_FLAG = -Wall -Wextra -Werror -I /usr/local/opt/readline/include
 
 OBJ_DIR = obj/
 OBJS = $(SRC:.c=.o)
@@ -63,7 +63,7 @@ $(LIBFT):
 	make re -C $(LIBDIR)
 	
 $(NAME): $(OBJECTS_PREFIXED) $(LIBFT)
-	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -lreadline
+	@$(CC) $(CC_FLAG) $(OBJECTS_PREFIXED) $(LIBFT) -o $(NAME) -L /usr/local/opt/readline/lib -lreadline
 	@echo "minishell Done !"
 
 leak: #only use to check leak with valgrind
