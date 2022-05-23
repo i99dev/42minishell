@@ -28,10 +28,36 @@ jobs:
         run: python3 -m pip install norminette
       - name: Run norminette
         run: |
-          LOGS=$(mktemp)
           norminette $(find -regex '.*/.*\.\(c\|h\)$' -not -path '*/test/*') | tee $LOGS
-          echo "ERRORS=$(grep -E 'Error|Warning|KO!' $LOGS | wc -l)" >> $GITHUB_ENV
-      - name: Checks norminette linter result
-        run: |
-          echo "Norminette Result"
-          [[ $ERRORS == 0 ]]
+      - name: Createa an issue if norminette found errors
+        if:
+          - failed
+          - with:
+              name: Run norminette
+              message: |
+                Norminette found errors in your code.
+              labels:
+                - Norminette
+                - Code-Review/Required
+              summary: |
+                Norminette found errors in your code.
+              description: |
+                ```
+                $ cat $LOGS
+                ```
+      - name: Create an issue if norminette found warnings
+        if:
+          - failed
+          - with:
+              name: Run norminette
+              message: |
+                Norminette found warnings in your code.
+              labels:
+                - Norminette
+                - Code-Review/Required
+              summary: |
+                Norminette found warnings in your code.
+              description: |
+                ```
+                $ cat $LOGS
+                ```
