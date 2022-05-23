@@ -28,7 +28,8 @@
         "github.copilot",
         "ms-vscode.makefile-tools",
         "mhutchie.git-graph",
-        "aaron-bond.better-comments"
+        "aaron-bond.better-comments",
+        "ms-vsliveshare.vsliveshare-pack"
     ],
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
