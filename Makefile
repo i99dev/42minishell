@@ -48,6 +48,7 @@ OBJ_DIR = obj/
 OBJS = $(SRC:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJ_DIR), $(OBJS))
 
+
 $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src
 	@mkdir -p $(OBJ_DIR)/src/tools

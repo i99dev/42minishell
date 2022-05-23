@@ -27,11 +27,7 @@ char	*find_hash(t_hash_table *env_table, char *key)
 
 	_hash = hash(key, env_table->size);
 	tmp = env_table->table[_hash];
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
-			return (tmp->value);
-		tmp = tmp->next;
-	}
+	if (tmp)
+		return (tmp->value);
 	return (NULL);
 }
