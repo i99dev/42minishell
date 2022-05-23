@@ -33,16 +33,36 @@
 # include "./hash.h"
 # include "./tokenizer.h"
 
+typedef struct s_cmdt
+{
+	char			**cmd;
+	char			**exec_table;
+	t_token			*tok;
+	char			**filename;
+	int				command_type;
+	int				token_count;
+}	t_cmdt;
+/*
+line = "grep src > file"
+msh->cmd_table[0]->cmd = {"grep", "src", ">", "file"}
+msh->cmd_table[0]->tok = {["grep", -1 ],["src", -1],["RDOUT", '>']}
+msh->cmd_table[0]->exec = {"grep", "src"}
+msh->cmd_table[0]->filename = {"file"}
+msh->token_count = 1
+msh->command_type = BIN or BUILTIN
+*/
+
 typedef struct s_minishell
 {
 	t_hash_table	*env_table;
 	char			**env;
-	char			***command_table;
+	t_cmdt			*cmd_table;
+	//char			***command_table;
 	int				command_count;
-	int				*command_type;
-	t_token			***token_ls;
-	char			***filename_ls;
-	int				*token_count;
+	//int				*command_type;
+	//t_token			***token_ls;
+	//char			***filename_ls;
+	//int				*token_count;
 	char			*user_info;
 	char			*line;
 	int				**fd_std;

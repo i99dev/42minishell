@@ -58,15 +58,15 @@ void	ft_check_quotes(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->command_table[i][j])
+		while (msh->cmd_table[i].cmd[j])
 		{
 			k = 0;
-			while (msh->command_table[i][j][k])
+			while (msh->cmd_table[i].cmd[j][k])
 			{
-				if (msh->command_table[i][j][k] == DOUBLE_QUOTE)
+				if (msh->cmd_table[i].cmd[j][k] == DOUBLE_QUOTE)
 					count++;
 				if (count == 2)
-					ft_handle_double_quotes(msh, &msh->command_table[i][j]);
+					ft_handle_double_quotes(msh, &msh->cmd_table[i].cmd[j]);
 				k++;
 			}
 			j++;

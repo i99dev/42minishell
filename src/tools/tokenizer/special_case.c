@@ -21,13 +21,13 @@ void	ft_special_case(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->command_table[i][j] && msh->command_count > 1)
+		while (msh->cmd_table[i].cmd[j] && msh->command_count > 1)
 		{
-			if (ft_strncmp(msh->command_table[i][j], "~", 1) == 0)
+			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
 				return ;
-			else if (ft_strncmp(msh->command_table[i][j], "$", 1) == 0)
+			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) == 0)
 				return ;
-			else if (ft_strncmp(msh->command_table[i][j], "$$", 3) == 0)
+			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
 				return ;
 			j++;
 		}

@@ -41,7 +41,7 @@ static void	minishill_start(t_minishell *msh, char **env)
 
 void	init_minishell(t_minishell *minishell)
 {
-	minishell->command_table = NULL;
+	minishell->cmd_table = NULL;
 	minishell->line = NULL;
 	minishell->user_info = NULL;
 }

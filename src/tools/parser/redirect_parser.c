@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/22 17:19:26 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/23 16:43:12 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_redirect_in(t_minishell *msh, int index,int token)
 	int		fd;
 	char	*file;
 
-	file = msh->filename_ls[index][token];
+	file = msh->cmd_table[index].filename[token];
 	printf("file: %s\n", file);
 	fd = open(file, O_RDONLY | O_CREAT);
 	if (fd == -1)
@@ -59,7 +59,7 @@ void	ft_redirect_out(t_minishell *msh, int index, int token)
 	int		fd;
 	char	*file;
 
-	file = msh->filename_ls[index][token];
+	file = msh->cmd_table[index].filename[token];
 	printf("file: %s\n", file);
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)

@@ -12,7 +12,7 @@ int	exec_cd(t_minishell *msh, int i)
 
 	getcwd(cwd, sizeof(cwd));
 	strcat(cwd, "/");
-	strcat(cwd, msh->command_table[i][1]);
+	strcat(cwd,  msh->cmd_table[i].exec_table[1]);
 	chdir(cwd);
 	return (0);
 }

@@ -39,7 +39,7 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
-	execve(get_path(msh, i), msh->command_table[i], msh->env);
+	execve(get_path(msh, i), msh->cmd_table[i].exec_table, msh->env);
 	if (i > 0)
 		close(fd[i - 1][1]);
 	perror("command failed");

@@ -46,10 +46,12 @@ char	**tk_split_pip(t_minishell *msh)
 	while (tmp && tmp[i] != NULL)
 		i++;
 	table_count = i;
+	msh->cmd_table = (t_cmdt *)malloc(sizeof(t_cmdt) * table_count);
+	/*
 	msh->command_table = (char ***)malloc(sizeof(char **) * table_count);
 	msh->filename_ls = (char ***)malloc(sizeof(char **) * table_count);
 	msh->token_ls = (t_token ***)malloc(sizeof(t_token **) * table_count);
-	msh->token_count = (int *)malloc(sizeof(int));
+	msh->token_count = (int *)malloc(sizeof(int));*/
 	msh->command_count = table_count;
 	return (tmp);
 }
@@ -63,7 +65,7 @@ void	init_command_table(t_minishell *msh)
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{
-		msh->command_table[i] = ft_split(tmp[i], ' ');
+		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
 		check_command_table(msh, i);
 		i++;
 	}

@@ -38,7 +38,7 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	while (tmp != NULL && tmp[i])
 	{
 		cmd = ft_strjoin(tmp[i], "/");
-		cmd = ft_strjoin(cmd, msh->command_table[command_table_index][0]);
+		cmd = ft_strjoin(cmd, msh->cmd_table[command_table_index].exec_table[0]);
 		if (is_executable(cmd))
 			break ;
 		i++;

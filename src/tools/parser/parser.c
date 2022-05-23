@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 06:21:40 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/23 13:20:39 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:41:37 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_handel_token(t_minishell *msh, int index)
 */
 void	start_parser(t_minishell *msh)
 {
+	(void)msh;
+	/*
 	int	i;
 
 	msh->fd_std = (int **)malloc(sizeof(int *) * msh->command_count + 1);
@@ -40,5 +42,5 @@ void	start_parser(t_minishell *msh)
 		}
 		printf("\n");
 		i++;
-	}
+	}*/
 }

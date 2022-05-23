@@ -18,10 +18,11 @@ void	execute(t_minishell *msh, int i)
 	int				status;
 	char			*cmd;
 	struct rusage	ru;
+	int				j;
 
 	cmd = get_path(msh, i);
 	printf("cmd is :%s\n", cmd);
-	printf("command_table is :%s\n", msh->command_table[i][0]);
+	printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -29,25 +30,25 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		msh->rd=0;
-		if (msh->token_count[i] != 0)
+		msh->rd = 0;
+		if (msh->cmd_table[i].token_count != 0)
 		{
-			int j=0;
-			while(j< msh->token_count[i])
+			j = 0;
+			while (j < msh->cmd_table[i].token_count)
 			{
-				printf("token count:%d\n",j);
-			if (ft_strncmp(msh->token_ls[i][j]->token,">",2)==0)
-			{
-				ft_redirect_out(msh, i, j);
-			}
-			else if (ft_strncmp(msh->token_ls[i][j]->token,"<",2)==0)
-			{
-				ft_redirect_in(msh, i, j);
-			}
+				printf("token count:%d\n", j);
+				if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 2))
+				{
+					ft_redirect_out(msh, i, j);
+				}
+				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 2))
+				{ 
+					ft_redirect_in(msh, i, j);
+				}
 			j++;
 			}
 		}
-		execve(cmd, msh->command_table[i], NULL);
+		execve(cmd, msh->cmd_table[i].exec_table, NULL);
 		perror("command failed");
 	}
 	//close(msh->rd);
@@ -56,7 +57,7 @@ void	execute(t_minishell *msh, int i)
 
 bool	check_command_type(t_minishell *msh, int index)
 {
-	if (msh->command_type[index] == BUILTIN)
+	if (msh->cmd_table[index].command_type == BUILTIN)
 		return (true);
 	else
 		return (false);
@@ -67,20 +68,20 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	if (msh->token_count[i] > 0)
+	if (msh->cmd_table[i].token_count > 0)
 		printf("operator\n");
 	while (i < msh->command_count)
 	{
 		int j=0;
-		while (msh->command_table[i][j])
+		while (msh->cmd_table[i].exec_table[j])
 		{
-			printf("%s\n", msh->command_table[i][j]);
+			printf("%s\n", msh->cmd_table[i].exec_table[j]);
 			j++;
 		}
 		j=0;
-		while(j<msh->token_count[i])
+		while(j<msh->cmd_table[i].token_count)
 		{
-		printf("token:%s\nfilename:%s\n",msh->token_ls[i][j]->token,msh->filename_ls[i][j]);
+		printf("token:%s\nfilename:%s\n",msh->cmd_table[i].tok[j].token,msh->cmd_table[i].filename[j]);
 		j++;
 		}
 		i++;

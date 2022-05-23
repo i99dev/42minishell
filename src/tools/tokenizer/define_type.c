@@ -47,23 +47,23 @@ void	define_type(t_minishell *msh)
 	int	j;
 
 	i = 0;
-	msh->command_type = (int *)malloc(sizeof(int ) * msh->command_count);
+	//msh->command_type = (int *)malloc(sizeof(int ) * msh->command_count);
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->command_table[i][j] && msh->command_count > 1)
+		while (msh->cmd_table[i].cmd[j] && msh->command_count > 1)
 		{
-			if (is_builtin(msh->command_table[i][j]))
-				msh->command_type[i] = BUILTIN;
-			else if (is_operator(msh->command_table[i][j]))
+			if (is_builtin(msh->cmd_table[i].cmd[j]))
+				msh->cmd_table[i].command_type = BUILTIN;
+			else if (is_operator(msh->cmd_table[i].cmd[j]))
 			{
-				if (is_her_doc(msh->command_table[i][j]))
-					msh->command_type[i] = HER_DOC;
+				if (is_her_doc(msh->cmd_table[i].cmd[j]))
+					msh->cmd_table[i].command_type = HER_DOC;
 				else
-					msh->command_type[i] = OPERATOR;
+					msh->cmd_table[i].command_type = OPERATOR;
 			}
 			else
-				msh->command_type[i] = PIPE;
+				msh->cmd_table[i].command_type = PIPE;
 			j++;
 		}
 		i++;

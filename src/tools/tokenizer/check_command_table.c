@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_table.c                                    :+:      :+:    :+:   */
+/*   check_command_table.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/23 03:43:34 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:18:20 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 {
-	if (ft_strlen(msh->command_table[i][index]) == 1)
+	if (ft_strlen(msh->cmd_table[i].cmd[index]) == 1)
 	{
 		printf("redirect with space\n");
-		return (ft_strdup(msh->command_table[i][index + 1]));
+		return (ft_strdup(msh->cmd_table[i].cmd[index + 1]));
 	}
 	else
-		return (ft_strdup(check_file_name(msh->command_table[i], token)));
+		return (ft_strdup(check_file_name(msh->cmd_table[i].cmd, token)));
 }
 
 void	count_token(t_minishell *msh, int i)
@@ -28,22 +28,22 @@ void	count_token(t_minishell *msh, int i)
 	int		index;
 
 	index = 0;
-	msh->token_count[i] = 0;
-	while (msh->command_table[i][index])
+	msh->cmd_table[i].token_count = 0;
+	while (msh->cmd_table[i].cmd[index])
 	{
-		if (ft_strchr(msh->command_table[i][index], '<') != NULL)
+		if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
 		{
-			msh->token_count[i]++;
+			msh->cmd_table[i].token_count++;
 		}
-		else if (ft_strchr(msh->command_table[i][index], '>') != NULL)
+		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
 		{
-			msh->token_count[i]++;
+			msh->cmd_table[i].token_count++;
 		}
 		index++;
 	}
-	msh->token_ls[i] = (t_token **)malloc(sizeof(t_token *) * \
-	msh->token_count[i]);
-	msh->filename_ls[i] = (char **)malloc(sizeof(char *) * msh->token_count[i]);
+	msh->cmd_table[i].tok = (t_token *)malloc(sizeof(t_token ) * \
+	msh->cmd_table[i].token_count);
+	msh->cmd_table[i].filename = (char **)malloc(sizeof(char *) * msh->cmd_table[i].token_count);
 }
 
 static int	tk_handle_redirect_in(t_minishell *msh, int i, int *j, int index)
@@ -51,9 +51,9 @@ static int	tk_handle_redirect_in(t_minishell *msh, int i, int *j, int index)
 	int		wordindex;
 
 	wordindex = 0;
-	msh->token_ls[i][*j] = (t_token *)malloc(sizeof(t_token));
-	msh->token_ls[i][*j]->token = ft_strdup("<");
-	msh->filename_ls[i][*j] = \
+	//msh->token_ls[i][*j] = (t_token *)malloc(sizeof(t_token));
+	msh->cmd_table[i].tok[*j].token = ft_strdup("<");
+	msh->cmd_table[i].filename[*j] = \
 	get_io_filename(msh, i, "<", index);
 	(*j)++;
 	if (*j == 1)
@@ -66,9 +66,9 @@ static int	tk_handle_redirect_out(t_minishell *msh, int i, int *j, int index)
 	int		wordindex;
 
 	wordindex = 0;
-	msh->token_ls[i][*j] = (t_token *)malloc(sizeof(t_token));
-	msh->token_ls[i][*j]->token = ft_strdup(">");
-	msh->filename_ls[i][*j] = \
+	//msh->cmd_table[i].tok[i][*j] = (t_token *)malloc(sizeof(t_token));
+	msh->cmd_table[i].tok[*j].token = ft_strdup(">");
+	msh->cmd_table[i].filename[*j] = \
 	get_io_filename(msh, i, ">", index);
 	(*j)++;
 	if (*j == 1)
@@ -86,18 +86,21 @@ void	check_command_table(t_minishell *msh, int i)
 	j = 0;
 	wordindex = 0;
 	count_token(msh, i);
-	while (msh->command_table[i][index] && j < msh->token_count[i])
+	while (msh->cmd_table[i].cmd[index] && j < msh->cmd_table[i].token_count)
 	{
-		if (ft_strncmp(msh->command_table[i][index], ">>", 2) == 0)
-			msh->token_ls[i][j]->token = ft_strdup(">>");
-		else if (ft_strncmp(msh->command_table[i][index], "<<", 2) == 0)
-			msh->token_ls[i][j]->token = ft_strdup("<<");
-		else if (ft_strchr(msh->command_table[i][index], '<') != NULL)
+		if (ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
+			msh->cmd_table[i].tok[j].token = ft_strdup(">>");
+		else if (ft_strncmp(msh->cmd_table[i].cmd[index], "<<", 2) == 0)
+			msh->cmd_table[i].tok[j].token = ft_strdup("<<");
+		else if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
 			wordindex += tk_handle_redirect_in(msh, i, &j, index);
-		else if (ft_strchr(msh->command_table[i][index], '>') != NULL)
+		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
 			wordindex += tk_handle_redirect_out(msh, i, &j, index);
+		/*check for comamand token and set token, and make type -1*/
 		index++;
 	}
-	if (msh->token_count[i] > 0)
-		msh->command_table[i][wordindex] = NULL;
+	//set_command_table();
+	if (msh->cmd_table[i].token_count > 0)
+		msh->cmd_table[i].cmd[wordindex] = NULL;
+	msh->cmd_table[i].exec_table=msh->cmd_table[i].cmd;
 }
