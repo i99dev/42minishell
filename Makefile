@@ -32,6 +32,7 @@ SRC= 	src/main.c		\
 		src/tools/hash/update_hash.c\
 		src/tools/hash/print_hash.c\
 		src/tools/tokenizer/tokenizer.c \
+		src/tools/tokenizer/command_table.c \
 		src/tools/tokenizer/define_type.c \
 		src/tools/tokenizer/quotes.c \
 		src/tools/tokenizer/special_case.c \
