@@ -5,13 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Push_Swap", //I named it Pusk because i can 
+            "name": "42 lab",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minishell",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/Applications/Xcode.app/Contents/Developer/usr/bin/lldb-mi",
+            "preLaunchTask": "build",
+        },
+        {
+            "name": "docker", //I named it Pusk because i can 
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/minishell", //path to your programs exe and exe name
-            "args": [
-                "5 4 3 2 1 10 6"
-            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
