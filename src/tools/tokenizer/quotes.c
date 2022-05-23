@@ -44,7 +44,6 @@ void	ft_handle_double_quotes(t_minishell *msh, char **str)
 		*str = ft_strdup(tmp);
 	else
 		*str = ft_strdup("");
-	free(tmp);
 }
 
 void	ft_check_quotes(t_minishell *msh)
