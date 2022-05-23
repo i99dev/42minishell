@@ -5,12 +5,12 @@ on:
     paths:
       - '**.c'
       - '**.h'
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
     paths:
       - '**.c'
       - '**.h'
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   linter:
