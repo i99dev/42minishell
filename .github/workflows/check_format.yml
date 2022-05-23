@@ -28,36 +28,14 @@ jobs:
         run: python3 -m pip install norminette
       - name: Run norminette
         run: |
+          LOGS=$(mktemp)
           norminette $(find -regex '.*/.*\.\(c\|h\)$' -not -path '*/test/*') | tee $LOGS
-      - name: Createa an issue if norminette found errors
+          echo "ERRORS=$(grep -E 'Error|Warning|KO!' $LOGS | wc -l)" >> $GITHUB_ENV
+      - name: create an issue if there are errors
         if:
-          - failed
-          - with:
-              name: Run norminette
-              message: |
-                Norminette found errors in your code.
-              labels:
-                - Norminette
-                - Code-Review/Required
-              summary: |
-                Norminette found errors in your code.
-              description: |
-                ```
-                $ cat $LOGS
-                ```
-      - name: Create an issue if norminette found warnings
-        if:
-          - failed
-          - with:
-              name: Run norminette
-              message: |
-                Norminette found warnings in your code.
-              labels:
-                - Norminette
-                - Code-Review/Required
-              summary: |
-                Norminette found warnings in your code.
-              description: |
-                ```
-                $ cat $LOGS
-                ```
+          - $ERRORS > 0
+        run: |
+          echo "::set-output name=error_message::$(grep -E 'Error|Warning|KO!' $LOGS | head -n 1)"
+          echo "::set-output name=error_count::$ERRORS"
+          echo "::set-output name=error_log::$LOGS"
+          echo "::set-output name=error_url::
