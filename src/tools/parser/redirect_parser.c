@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/23 16:43:12 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/24 11:01:38 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*check_file_name(char **str, char *token)
 	return (str[i - 1]);
 }
 
-void	ft_redirect_in(t_minishell *msh, int index,int token)
+void	ft_redirect_in(t_minishell *msh, int index, int token)
 {
 	int		fd;
 	char	*file;
@@ -66,21 +66,10 @@ void	ft_redirect_out(t_minishell *msh, int index, int token)
 	{
 		err_msg("minishell: no such file or directory: \n");
 		return ;
-	}/*
-	if(msh->rd>0)
-	{
-		dup2(fd, msh->last_fd);
-		close(fd);
-		msh->last_fd=fd;
-		msh->rd++;
 	}
-	else
-	{
-		*/
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	msh->rd++;
-	
 }
 
 void	here_doc(t_minishell *msh, int index)

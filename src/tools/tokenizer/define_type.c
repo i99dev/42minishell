@@ -47,7 +47,6 @@ void	define_type(t_minishell *msh)
 	int	j;
 
 	i = 0;
-	//msh->command_type = (int *)malloc(sizeof(int ) * msh->command_count);
 	while (i < msh->command_count)
 	{
 		j = 0;
@@ -68,5 +67,4 @@ void	define_type(t_minishell *msh)
 		}
 		i++;
 	}
-	// msh->command_type[0] = SINGLE;
 }

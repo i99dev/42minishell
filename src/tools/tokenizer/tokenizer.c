@@ -83,4 +83,5 @@ void	ft_tokenizer(t_minishell *msh)
 {
 	init_command_table(msh);
 	define_type(msh);
+	ft_special_case(msh);
 }

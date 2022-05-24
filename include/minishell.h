@@ -124,6 +124,7 @@ void			here_doc(t_minishell *msh, int index);
 void			define_type(t_minishell *msh);
 void			ft_check_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
+void			ft_special_case(t_minishell *msh);
 
 //exec functions
 char			*get_path(t_minishell *msh, int command_table_index);

@@ -48,7 +48,7 @@ void	execute(t_minishell *msh, int i)
 			j++;
 			}
 		}
-		execve(cmd, msh->cmd_table[i].exec_table, NULL);
+		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
 	//close(msh->rd);
