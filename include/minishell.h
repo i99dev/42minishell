@@ -41,6 +41,7 @@ typedef struct s_cmdt
 	char			**filename;
 	int				command_type;
 	int				token_count;
+	int				arg_count;
 }	t_cmdt;
 /*
 line = "grep src > file"

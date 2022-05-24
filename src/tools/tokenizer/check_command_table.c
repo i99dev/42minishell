@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/23 17:18:20 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/24 17:45:05 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,23 @@ char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 		return (ft_strdup(check_file_name(msh->cmd_table[i].cmd, token)));
 }
 
+void	allocate_memory(t_minishell *msh,
+	int i, char ***exec, t_token **tok, char ***filename)
+{
+	*exec = (char **)malloc(sizeof(char *) * (msh->cmd_table[i].arg_count + 1));
+	*tok = (t_token *)malloc(sizeof(t_token) * msh->cmd_table[i].token_count);
+	*filename = (char **)malloc(sizeof(char *) * msh->cmd_table[i].token_count);
+}
 void	count_token(t_minishell *msh, int i)
 {
 	int		index;
 
 	index = 0;
 	msh->cmd_table[i].token_count = 0;
+	msh->cmd_table[i].arg_count = 0;
 	while (msh->cmd_table[i].cmd[index])
 	{
-		if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
+		if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL )
 		{
 			msh->cmd_table[i].token_count++;
 		}
@@ -39,11 +47,12 @@ void	count_token(t_minishell *msh, int i)
 		{
 			msh->cmd_table[i].token_count++;
 		}
+		else
+			msh->cmd_table[i].arg_count++;
 		index++;
 	}
-	msh->cmd_table[i].tok = (t_token *)malloc(sizeof(t_token ) * \
-	msh->cmd_table[i].token_count);
-	msh->cmd_table[i].filename = (char **)malloc(sizeof(char *) * msh->cmd_table[i].token_count);
+	allocate_memory(msh,i,&msh->cmd_table[i].exec_table, &msh->cmd_table[i].tok, &msh->cmd_table[i].filename);
+	msh->cmd_table[i].exec_table[msh->cmd_table[i].arg_count] = NULL;
 }
 
 static int	tk_handle_redirect_in(t_minishell *msh, int i, int *j, int index)
@@ -81,26 +90,33 @@ void	check_command_table(t_minishell *msh, int i)
 	int		index;
 	int		wordindex;
 	int		j;
+	int		k;
 
 	index = 0;
 	j = 0;
+	k = 0;
 	wordindex = 0;
 	count_token(msh, i);
-	while (msh->cmd_table[i].cmd[index] && j < msh->cmd_table[i].token_count)
+	while (msh->cmd_table[i].cmd[index])
 	{
 		if (ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
 			msh->cmd_table[i].tok[j].token = ft_strdup(">>");
 		else if (ft_strncmp(msh->cmd_table[i].cmd[index], "<<", 2) == 0)
 			msh->cmd_table[i].tok[j].token = ft_strdup("<<");
-		else if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
+		else if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL && j < msh->cmd_table[i].token_count)
 			wordindex += tk_handle_redirect_in(msh, i, &j, index);
-		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
+		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL && j < msh->cmd_table[i].token_count)
 			wordindex += tk_handle_redirect_out(msh, i, &j, index);
-		/*check for comamand token and set token, and make type -1*/
+		else if (j < msh->cmd_table[i].arg_count)
+		{
+			//handel exec
+			msh->cmd_table[i].exec_table[k] = ft_strdup(msh->cmd_table[i].cmd[index]);
+			k++;
+		}
 		index++;
 	}
 	//set_command_table();
-	if (msh->cmd_table[i].token_count > 0)
-		msh->cmd_table[i].cmd[wordindex] = NULL;
-	msh->cmd_table[i].exec_table=msh->cmd_table[i].cmd;
+	//if (msh->cmd_table[i].token_count > 0)
+		//msh->cmd_table[i].cmd[wordindex] = NULL;
+	//msh->cmd_table[i].exec_table=msh->cmd_table[i].cmd;
 }

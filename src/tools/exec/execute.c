@@ -21,8 +21,8 @@ void	execute(t_minishell *msh, int i)
 	int				j;
 
 	cmd = get_path(msh, i);
-	printf("cmd is :%s\n", cmd);
-	printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
+	//printf("cmd is :%s\n", cmd);
+	//printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -48,6 +48,7 @@ void	execute(t_minishell *msh, int i)
 			j++;
 			}
 		}
+		
 		execve(cmd, msh->cmd_table[i].exec_table, NULL);
 		perror("command failed");
 	}
@@ -70,6 +71,7 @@ void	init_execute(t_minishell *msh)
 	i = 0;
 	if (msh->cmd_table[i].token_count > 0)
 		printf("operator\n");
+		/*
 	while (i < msh->command_count)
 	{
 		int j=0;
@@ -85,7 +87,7 @@ void	init_execute(t_minishell *msh)
 		j++;
 		}
 		i++;
-	}
+	}*/
 	i=0;
 	if (msh->command_count == 1)
 	{
