@@ -33,6 +33,8 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	int		i;
 
 	i = 0;
+	if (msh->cmd_table[command_table_index].cmd[0][0] == '/')
+		return (ft_strdup(msh->cmd_table[command_table_index].cmd[0]));
 	all_path = find_hash(msh->env_table, "PATH");
 	tmp = ft_split(all_path, ':');
 	while (tmp != NULL && tmp[i])
