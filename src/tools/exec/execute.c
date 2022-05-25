@@ -11,27 +11,10 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-void	execute(t_minishell *msh, int i)
+void	ft_redirect(t_minishell *msh, int i)
 {
-	pid_t			pid;
-	int				status;
-	struct rusage	ru;
-	int				j;
-	char			*cmd;
-	printf("token count:: %d\n", msh->cmd_table[i].token_count);
-	
-	//printf("cmd is :%s\n", cmd);
-	//printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
-	pid = fork();
-	if (pid < 0)
-	{
-		err_msg("fork failed");
-	}
-	else if (pid == 0)
-	{
-		//msh->rd = 0;
-		if (msh->cmd_table[i].token_count != 0)
+	int	j;
+	if (msh->cmd_table[i].token_count != 0)
 		{
 			j = 0;
 			while (j < msh->cmd_table[i].token_count)
@@ -48,6 +31,26 @@ void	execute(t_minishell *msh, int i)
 			j++;
 			}
 		}
+}
+void	execute(t_minishell *msh, int i)
+{
+	pid_t			pid;
+	int				status;
+	struct rusage	ru;
+	char			*cmd;
+	printf("token count:: %d\n", msh->cmd_table[i].token_count);
+	
+	//printf("cmd is :%s\n", cmd);
+	//printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
+	pid = fork();
+	if (pid < 0)
+	{
+		err_msg("fork failed");
+	}
+	else if (pid == 0)
+	{
+		//msh->rd = 0;
+		ft_redirect(msh,i);
 		cmd = get_path(msh,i);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
@@ -65,6 +68,7 @@ bool	check_command_type(t_minishell *msh, int index)
 
 void	execute_builtin(t_minishell *msh, int i)
 {
+	ft_redirect(msh,i);
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"echo", ft_strlen("echo")))
 		ft_echo(msh, i);
