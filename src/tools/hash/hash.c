@@ -85,8 +85,8 @@ char	**env2d(t_hash_table *env_table)
 		tmp = env_table->table[i];
 		while (tmp)
 		{
-			env[i] = ft_strjoin(tmp->key, "=");
-			env[i] = ft_strjoin(env[i], tmp->value);
+			env[i] = ft_strjoin(ft_strdup(tmp->key), "=");
+			env[i] = ft_strjoin(ft_strdup(env[i]), tmp->value);
 			tmp = tmp->next;
 		}
 			i++;

@@ -108,6 +108,9 @@ char			*get_user_info(void);
 t_hash_table	*init_table(char **env);
 char			*check_file_name(char **str, char *token, int index);
 
+//function hash
+void			update_hash(t_minishell *msh, char *key, char *value);
+
 //parser functions
 void			start_parser(t_minishell *msh);
 void			ft_redirect_in(t_minishell *msh, int index, int token);
@@ -130,7 +133,7 @@ void			ft_env(t_minishell *msh, int i);
 void			ft_export(t_minishell *msh, int i);
 int				ft_pwd(void);
 void			ft_unset(t_minishell *msh, int i);
-int				ft_cd(t_minishell *msh, int i);
+void			ft_cd(t_minishell *msh, int i);
 
 
 //exec functions

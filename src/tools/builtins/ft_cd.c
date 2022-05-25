@@ -12,13 +12,51 @@
 
 #include "../../../include/minishell.h"
 
-int	ft_cd(t_minishell *msh, int i)
+void	_2path(t_minishell *msh, char *path)
 {
-	char	cwd[256];
+	char	*pwd;
 
-	getcwd(cwd, sizeof(cwd));
-	strcat(cwd, "/");
-	strcat(cwd, msh->cmd_table[i].exec_table[1]);
-	chdir(cwd);
-	return (0);
+	pwd = getcwd(NULL, 0);
+	printf("%s\n", path);
+	update_hash(msh, "OLDPWD", pwd);
+	if (chdir(path) == -1)
+	{
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+		ft_putendl_fd(path, 2);
+		return ;
+	}
+	pwd = getcwd(NULL, 0);
+	update_hash(msh, "PWD", pwd);
+}
+
+void	cd_to_home(t_minishell *msh)
+{
+	char	*path;
+
+	path = ft_strdup(find_hash(msh->env_table, "HOME"));
+	if (path == NULL)
+	{
+		ft_putstr_fd("cd: HOME not set\n", 2);
+		return ;
+	}
+	_2path(msh, path);
+}
+
+void	ft_cd(t_minishell *msh, int i)
+{
+	printf("is cd\n");
+	if (msh->cmd_table[i].cmd[1] == NULL || \
+	!ft_strncmp(msh->line, "~", ft_strlen("~")))
+		cd_to_home(msh);
+	else if (!ft_strncmp(msh->cmd_table[i].cmd[1], "-", ft_strlen("-")))
+	{
+		if (find_hash(msh->env_table, "OLDPWD") == NULL)
+		{
+			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+			return ;
+		}
+		_2path(msh, find_hash(msh->env_table, "OLDPWD"));
+	}
+	else
+		_2path(msh, msh->cmd_table[i].cmd[1]);
 }
