@@ -40,7 +40,7 @@ char	*get_key_vlaue(char *str)
 	i = 0;
 	while (str[i] != '=')
 		i++;
-	key = ft_strsub(str, 1, i);
+	key = ft_strsub(str, 0, i);
 	return (key);
 }
 
