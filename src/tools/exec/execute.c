@@ -18,8 +18,8 @@ void	execute(t_minishell *msh, int i)
 	int				status;
 	struct rusage	ru;
 	int				j;
+	char			*cmd;
 	printf("token count:: %d\n", msh->cmd_table[i].token_count);
-	cmd = get_path(msh, i);
 	
 	//printf("cmd is :%s\n", cmd);
 	//printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
@@ -48,7 +48,8 @@ void	execute(t_minishell *msh, int i)
 			j++;
 			}
 		}
-		execve(get_path(msh, 0), msh->cmd_table[i].exec_table, msh->env);
+		cmd = get_path(msh,i);
+		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
 	wait4(pid, &status, 0, &ru);
