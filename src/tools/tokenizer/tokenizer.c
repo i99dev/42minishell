@@ -47,11 +47,6 @@ char	**tk_split_pip(t_minishell *msh)
 		i++;
 	table_count = i;
 	msh->cmd_table = (t_cmdt *)malloc(sizeof(t_cmdt) * table_count);
-	/*
-	msh->command_table = (char ***)malloc(sizeof(char **) * table_count);
-	msh->filename_ls = (char ***)malloc(sizeof(char **) * table_count);
-	msh->token_ls = (t_token ***)malloc(sizeof(t_token **) * table_count);
-	msh->token_count = (int *)malloc(sizeof(int));*/
 	msh->command_count = table_count;
 	return (tmp);
 }
