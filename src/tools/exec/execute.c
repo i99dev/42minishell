@@ -63,6 +63,7 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
+	/*
 	if (msh->cmd_table[i].token_count > 0)
 		printf("operator\n");
 	while (i < msh->command_count)
@@ -81,8 +82,9 @@ void	init_execute(t_minishell *msh)
 		}
 		i++;
 	}
-	i=0;
-	if (msh->command_count == 1)
+	i = 0;
+	*/
+	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
 	{
 		execute(msh, 0);
 	}

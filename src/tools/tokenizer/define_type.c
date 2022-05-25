@@ -50,7 +50,7 @@ void	define_type(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j] && msh->command_count > 1)
+		while (msh->cmd_table[i].cmd[j])
 		{
 			if (is_builtin(msh->cmd_table[i].cmd[j]))
 				msh->cmd_table[i].command_type = BUILTIN;
@@ -61,7 +61,7 @@ void	define_type(t_minishell *msh)
 				else
 					msh->cmd_table[i].command_type = OPERATOR;
 			}
-			else
+			else if (msh->command_count > 1)
 				msh->cmd_table[i].command_type = PIPE;
 			j++;
 		}
