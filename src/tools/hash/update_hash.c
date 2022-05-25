@@ -31,14 +31,14 @@ void	update_hash(t_minishell *msh, char *key, char *value)
 	{
 		free(msh->env_table->table[i]->key);
 		free(msh->env_table->table[i]->value);
-		msh->env_table->table[i]->key = key;
-		msh->env_table->table[i]->value = value;
+		msh->env_table->table[i]->key = ft_strdup(key);
+		msh->env_table->table[i]->value = ft_strdup(value);
 	}
 	else
 	{
 		msh->env_table->table[i] = malloc(sizeof(t_hash));
-		msh->env_table->table[i]->key = key;
-		msh->env_table->table[i]->value = value;
+		msh->env_table->table[i]->key = ft_strdup(key);
+		msh->env_table->table[i]->value = ft_strdup(value);
 	}
 	msh->env = env2d(msh->env_table);
 }

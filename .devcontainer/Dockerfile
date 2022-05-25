@@ -52,6 +52,4 @@ RUN apt install gh
 ENV USER=Dokcer
 ENV HOSTNAME=42MINISHELL
 
-WORKDIR /app
-
 COPY ../ .
