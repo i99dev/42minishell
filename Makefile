@@ -24,6 +24,12 @@ SRC= 	src/main.c		\
 		src/tools/exec/pipe.c \
 		src/tools/exec/path.c \
 		src/tools/exec/built_ins.c \
+		src/tools/builtins/ft_echo.c \
+		src/tools/builtins/ft_cd.c \
+		src/tools/builtins/ft_env.c \
+		src/tools/builtins/ft_pwd.c \
+		src/tools/builtins/ft_export.c \
+		src/tools/builtins/ft_unset.c \
 		src/tools/parser/parser.c \
 		src/tools/parser/here_doc.c \
 		src/tools/parser/redirect_parser.c \
@@ -55,6 +61,7 @@ $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src/tools
 	@mkdir -p $(OBJ_DIR)/src/tools/parser
 	@mkdir -p $(OBJ_DIR)/src/tools/exec
+	@mkdir -p $(OBJ_DIR)/src/tools/builtins
 	@mkdir -p $(OBJ_DIR)/src/tools/hash
 	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
 	@mkdir -p $(OBJ_DIR)/src/utils

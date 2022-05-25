@@ -125,6 +125,15 @@ void			ft_check_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
 
+//builtin functions
+void			ft_echo(t_minishell *msh, int i);
+void			ft_env(t_minishell *msh, int i);
+void			ft_export(t_minishell *msh, int i);
+void			ft_pwd(t_minishell *msh, int i);
+void			ft_unset(t_minishell *msh, int i);
+void			ft_cd(t_minishell *msh, int i);
+
+
 //exec functions
 char			*get_path(t_minishell *msh, int command_table_index);
 

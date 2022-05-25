@@ -58,36 +58,39 @@ bool	check_command_type(t_minishell *msh, int index)
 		return (false);
 }
 
+void	execute_builtin(t_minishell *msh, int i)
+{
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"echo", ft_strlen("echo")))
+		ft_echo(msh, i);
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"cd", ft_strlen("cd")))
+		ft_cd(msh, i);
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"pwd", ft_strlen("pwd")))
+		ft_pwd(msh, i);
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"export", ft_strlen("export")))
+		ft_export(msh, i);
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"unset", ft_strlen("unset")))
+		ft_unset(msh, i);
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"env", ft_strlen("env")))
+		ft_env(msh, i);
+}
+
 void	init_execute(t_minishell *msh)
 {
 	int	i;
 
 	i = 0;
-	/*
-	if (msh->cmd_table[i].token_count > 0)
-		printf("operator\n");
-	while (i < msh->command_count)
-	{
-		int j=0;
-		while (msh->cmd_table[i].exec_table[j])
-		{
-			printf("%s\n", msh->cmd_table[i].exec_table[j]);
-			j++;
-		}
-		j=0;
-		while(j<msh->cmd_table[i].token_count)
-		{
-		printf("token:%s\nfilename:%s\n",msh->cmd_table[i].tok[j].token,msh->cmd_table[i].filename[j]);
-		j++;
-		}
-		i++;
-	}
-	i = 0;
-	*/
 	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
 	{
 		execute(msh, 0);
 	}
+	else if (msh->cmd_table[i].command_type == BUILTIN)
+		execute_builtin(msh, i);
 	else
 	{
 		multi_pipe(msh, i);
