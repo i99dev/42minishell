@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_ins.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 10:59:53 by oal-tena          #+#    #+#             */
+/*   Updated: 2022/05/24 11:00:07 by oal-tena         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 /*
 	Testing development!
@@ -12,7 +24,7 @@ int	exec_cd(t_minishell *msh, int i)
 
 	getcwd(cwd, sizeof(cwd));
 	strcat(cwd, "/");
-	strcat(cwd,  msh->cmd_table[i].exec_table[1]);
+	strcat(cwd, msh->cmd_table[i].exec_table[1]);
 	chdir(cwd);
 	return (0);
 }

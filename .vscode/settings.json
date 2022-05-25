@@ -8,7 +8,8 @@
         "history.h": "c",
         "*.c": "c",
         "hash.h": "c",
-        "wait.h": "c"
+        "wait.h": "c",
+        "stddef.h": "c"
     },
     "C_Cpp.formatting": "Disabled",
     "editor.detectIndentation": true,

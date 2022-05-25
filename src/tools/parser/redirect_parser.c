@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/23 16:43:12 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/25 04:45:43 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*check_file_name(char **str, char *token, int index)
 	return (NULL);
 }
 
-void	ft_redirect_in(t_minishell *msh, int index,int token)
+void	ft_redirect_in(t_minishell *msh, int index, int token)
 {
 	int		fd;
 	char	*file;
@@ -63,25 +63,26 @@ void	ft_redirect_out(t_minishell *msh, int index, int token)
 	{
 		err_msg("minishell: no such file or directory: \n");
 		return ;
-	}/*
-	if(msh->rd>0)
-	{
-		dup2(fd, msh->last_fd);
-		close(fd);
-		msh->last_fd=fd;
-		msh->rd++;
 	}
-	else
-	{
-		*/
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	msh->rd++;
-	
 }
 
-void	here_doc(t_minishell *msh, int index)
+void	here_doc(t_minishell *msh)
 {
-	(void)msh;
-	(void)index;
+	int		tmp_fd;
+	char	*eof;
+
+	tmp_fd = open("/tmp/minishell_tmp", \
+	O_RDWR | O_CREAT | O_TRUNC, 0644);
+	eof = doc_get_heredoc(msh->line);
+	if (tmp_fd == -1)
+	{
+		err_msg("minishell: no such file or directory: \n");
+		return ;
+	}
+	dup2(msh->fd_std[1], STDOUT_FILENO);
+	doc_line_doc(tmp_fd, eof);
+	doc_tmp_file();
 }

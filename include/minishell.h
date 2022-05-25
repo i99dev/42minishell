@@ -58,15 +58,10 @@ typedef struct s_minishell
 	t_hash_table	*env_table;
 	char			**env;
 	t_cmdt			*cmd_table;
-	//char			***command_table;
 	int				command_count;
-	//int				*command_type;
-	//t_token			***token_ls;
-	//char			***filename_ls;
-	//int				*token_count;
 	char			*user_info;
 	char			*line;
-	int				**fd_std;
+	int				*fd_std;
 	int				rd;
 	int				last_fd;
 }	t_minishell;
@@ -119,12 +114,17 @@ char			*check_file_name(char **str, char *token, int index);
 void			start_parser(t_minishell *msh);
 void			ft_redirect_in(t_minishell *msh, int index, int token);
 void			ft_redirect_out(t_minishell *msh, int index, int token);
-void			here_doc(t_minishell *msh, int index);
+void			here_doc(t_minishell *msh);
+//function for here_doc
+void			doc_line_doc(int temp_fd, char *eof);
+char			*doc_get_heredoc(char *str);
+void			doc_tmp_file(void);
 
 //tokenizer functions
 void			define_type(t_minishell *msh);
 void			ft_check_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
+void			ft_special_case(t_minishell *msh);
 
 //exec functions
 char			*get_path(t_minishell *msh, int command_table_index);

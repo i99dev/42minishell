@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 11:00:17 by oal-tena          #+#    #+#             */
+/*   Updated: 2022/05/24 11:00:17 by oal-tena         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 void	close_pipe(t_minishell *msh, int **fd, int i, pid_t *pid)
@@ -17,17 +29,6 @@ void	free_pipe(int ***fd, pid_t **pid)
 
 void	execute_pipe(t_minishell *msh, int i, int **fd)
 {
-	/*
-	if (i == 0 && msh->token_ls[i] != NULL)
-	{
-		if (ft_strncmp(msh->token_ls[i]->token, "<", 1) == 0)
-			ft_redirect_in(msh, i);
-	}
-	if (i == msh->command_count - 1 && msh->token_ls[i] != NULL)
-	{
-		if (ft_strncmp(msh->token_ls[i]->token, ">", 1) == 0)
-			ft_redirect_out(msh, i);
-	}*/
 	if (i != msh->command_count - 1)
 	{
 		dup2(fd[i][1], 1);

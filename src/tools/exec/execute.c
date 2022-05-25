@@ -16,7 +16,6 @@ void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
-	char			*cmd;
 	struct rusage	ru;
 	int				j;
 	printf("token count:: %d\n", msh->cmd_table[i].token_count);
@@ -39,21 +38,19 @@ void	execute(t_minishell *msh, int i)
 			{
 				printf("token count:%d\n", j);
 				if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 2))
-				{
 					ft_redirect_out(msh, i, j);
-				}
+				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">>", 3))
+					ft_redirect_out(msh, i, j);
 				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 2))
-				{ 
 					ft_redirect_in(msh, i, j);
-				}
+				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<<", 3))
+					here_doc(msh);
 			j++;
 			}
 		}
-		
-		execve(cmd, msh->cmd_table[i].exec_table, NULL);
+		execve(get_path(msh, 0), msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
-	//close(msh->rd);
 	wait4(pid, &status, 0, &ru);
 }
 
@@ -70,6 +67,7 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
+	/*
 	if (msh->cmd_table[i].token_count > 0)
 		printf("operator\n");
 		
@@ -91,8 +89,9 @@ void	init_execute(t_minishell *msh)
 		}
 		i++;
 	}
-	i=0;
-	if (msh->command_count == 1)
+	i = 0;
+	*/
+	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
 	{
 		execute(msh, 0);
 	}
