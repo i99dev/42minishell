@@ -41,6 +41,7 @@ typedef struct s_cmdt
 	char			**filename;
 	int				command_type;
 	int				token_count;
+	int				arg_count;
 }	t_cmdt;
 /*
 line = "grep src > file"
@@ -105,7 +106,7 @@ void			ft_tokenizer(t_minishell *msh);
 void			init_command_table(t_minishell *msh);
 char			*get_user_info(void);
 t_hash_table	*init_table(char **env);
-char			*check_file_name(char **str, char *token);
+char			*check_file_name(char **str, char *token, int index);
 
 //parser functions
 void			start_parser(t_minishell *msh);
