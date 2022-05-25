@@ -68,7 +68,7 @@ void	execute_builtin(t_minishell *msh, int i)
 		ft_cd(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"pwd", ft_strlen("pwd")))
-		ft_pwd(msh, i);
+		ft_pwd();
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"export", ft_strlen("export")))
 		ft_export(msh, i);

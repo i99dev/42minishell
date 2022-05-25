@@ -12,8 +12,13 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_cd(t_minishell *msh, int i)
+int	ft_cd(t_minishell *msh, int i)
 {
-	(void)msh;
-	(void)i;
+	char	cwd[256];
+
+	getcwd(cwd, sizeof(cwd));
+	strcat(cwd, "/");
+	strcat(cwd, msh->cmd_table[i].exec_table[1]);
+	chdir(cwd);
+	return (0);
 }

@@ -12,8 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_pwd(t_minishell *msh, int i)
+int	ft_pwd(void)
 {
-	(void)msh;
-	(void)i;
+	char	cwd[256];
+
+	getcwd(cwd, sizeof(cwd));
+	ft_putstr_fd(cwd, 1);
+	ft_putstr_fd("\n", 1);
+	return (0);
 }

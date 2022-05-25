@@ -96,8 +96,6 @@ void			prompt_commend(t_minishell *minishell);
 void			err_msg(char *msg);
 void			define_input_signals(void);
 void			pipe_recursive(t_minishell *msh, int i, int in_fd);
-int				exec_cd(t_minishell *msh, int i);
-int				exec_pwd(void);
 void			multi_pipe(t_minishell *msh, int i);
 void			execute(t_minishell *msh, int i);
 void			init_execute(t_minishell *msh);
@@ -129,9 +127,9 @@ void			ft_special_case(t_minishell *msh);
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);
 void			ft_export(t_minishell *msh, int i);
-void			ft_pwd(t_minishell *msh, int i);
+int				ft_pwd(void);
 void			ft_unset(t_minishell *msh, int i);
-void			ft_cd(t_minishell *msh, int i);
+int				ft_cd(t_minishell *msh, int i);
 
 
 //exec functions

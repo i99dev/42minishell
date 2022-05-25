@@ -14,6 +14,22 @@
 
 void	ft_echo(t_minishell *msh, int i)
 {
-	(void)msh;
-	(void)i;
+	bool	flag;
+	int		j;
+
+	flag = false;
+	j = 1;
+	if (msh->cmd_table[i].cmd[1] && \
+	!ft_strncmp(msh->cmd_table[i].cmd[1], "-n", ft_strlen("-n")))
+	{
+		flag = true;
+		j++;
+	}
+	while (msh->cmd_table[i].cmd[j])
+	{
+		printf("%s ", msh->cmd_table[i].cmd[j]);
+		j++;
+	}
+	if (!flag)
+		printf("\n");
 }

@@ -14,8 +14,9 @@
 
 void	replace_tild(t_minishell *msh)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
 	while (i < msh->command_count)
@@ -24,8 +25,13 @@ void	replace_tild(t_minishell *msh)
 		while (msh->cmd_table[i].cmd[j])
 		{
 			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
-				msh->cmd_table[i].cmd[j] = \
-				ft_strdup(find_hash(msh->env_table, "HOME"));
+			{
+				tmp = find_hash(msh->env_table, "HOME");
+				if (tmp)
+					msh->cmd_table[i].cmd[j] = ft_strdup(tmp);
+				else
+					msh->cmd_table[i].cmd[j] = ft_strdup("/");
+			}
 			j++;
 		}
 		i++;
