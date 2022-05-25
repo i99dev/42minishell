@@ -14,7 +14,7 @@
 
 void	read_line(t_minishell *msh)
 {
-	msh->user_info = get_user_info();
+	msh->user_info = get_user_info(msh);
 	msh->line = readline(msh->user_info);
 	if (msh->line)
 		add_history(msh->line);

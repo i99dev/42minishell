@@ -104,7 +104,7 @@ void			ft_free_minishell(t_minishell *minishell);
 void			free_line(t_minishell *msh);
 void			ft_tokenizer(t_minishell *msh);
 void			init_command_table(t_minishell *msh);
-char			*get_user_info(void);
+char			*get_user_info(t_minishell *msh);
 t_hash_table	*init_table(char **env);
 char			*check_file_name(char **str, char *token, int index);
 
