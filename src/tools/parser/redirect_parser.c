@@ -12,29 +12,26 @@
 
 #include "../../../include/minishell.h"
 
-char	*check_file_name(char **str, char *token)
+char	*check_file_name(char **str, char *token, int index)
 {
-	int		i;
 	int		j;
 
-	i = 0;
-	while (str[i] != NULL)
+	j = 0;
+	if (ft_strncmp(str[index], token, ft_strlen(token)) == 0)
 	{
-		if (ft_strncmp(str[i], token, ft_strlen(token)) == 0)
-		{
-			j = 0;
-			while (ft_strncmp(&str[i][j], token, ft_strlen(token)) == 0)
-				j++;
-			while (str[i][j] == ' ' || str[i][j] == '\t')
-				j++;
-			if (str[i][j])
-				return (&str[i][j]);
-		}
-		i++;
+		j++;
+		/*
+		while (ft_strncmp(&str[index][j], token, ft_strlen(token)) == 0)
+		j++;*/
+		while (str[index][j] == ' ' || str[index][j] == '\t')
+			j++;
+		if (str[index][j])
+			return (&str[index][j]);
 	}
+	/*
 	if (str[1] == NULL)
-		return (ft_strchr(str[0], token[0]) + 1);
-	return (str[i - 1]);
+		return (ft_strchr(str[0], token[0]) + 1);*/
+	return (NULL);
 }
 
 void	ft_redirect_in(t_minishell *msh, int index,int token)

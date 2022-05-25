@@ -20,7 +20,7 @@ char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 		return (ft_strdup(msh->cmd_table[i].cmd[index + 1]));
 	}
 	else
-		return (ft_strdup(check_file_name(msh->cmd_table[i].cmd, token)));
+		return (ft_strdup(check_file_name(msh->cmd_table[i].cmd, token, index)));
 }
 
 void	allocate_memory(t_minishell *msh,
@@ -107,7 +107,7 @@ void	check_command_table(t_minishell *msh, int i)
 			wordindex += tk_handle_redirect_in(msh, i, &j, index);
 		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL && j < msh->cmd_table[i].token_count)
 			wordindex += tk_handle_redirect_out(msh, i, &j, index);
-		else if (j < msh->cmd_table[i].arg_count)
+		else if (k < msh->cmd_table[i].arg_count)
 		{
 			//handel exec
 			msh->cmd_table[i].exec_table[k] = ft_strdup(msh->cmd_table[i].cmd[index]);
