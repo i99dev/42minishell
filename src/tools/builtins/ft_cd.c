@@ -55,7 +55,7 @@ void	ft_cd(t_minishell *msh, int i)
 			ft_putstr_fd("cd: OLDPWD not set\n", 2);
 			return ;
 		}
-		_2path(msh, find_hash(msh->env_table, "OLDPWD"));
+		_2path(msh, ft_strdup(find_hash(msh->env_table, "OLDPWD")));
 	}
 	else
 		_2path(msh, msh->cmd_table[i].cmd[1]);
