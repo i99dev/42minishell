@@ -113,6 +113,7 @@ void			update_hash(t_minishell *msh, char *key, char *value);
 
 //parser functions
 void			start_parser(t_minishell *msh);
+void			ft_redirect(t_minishell *msh, int i);
 void			ft_redirect_in(t_minishell *msh, int index, int token);
 void			ft_redirect_out(t_minishell *msh, int index, int token);
 void			here_doc(t_minishell *msh, int i, int index);

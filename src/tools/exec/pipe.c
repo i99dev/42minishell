@@ -29,6 +29,7 @@ void	free_pipe(int ***fd, pid_t **pid)
 
 void	execute_pipe(t_minishell *msh, int i, int **fd)
 {
+	ft_redirect(msh, i);
 	if (i != msh->command_count - 1)
 	{
 		dup2(fd[i][1], 1);
