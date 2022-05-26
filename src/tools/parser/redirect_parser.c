@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/25 17:29:55 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/26 15:11:22 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,25 @@ void	ft_redirect_append(t_minishell *msh, int index, int token)
 	char	*file;
 
 	file = msh->cmd_table[index].filename[token];
-	printf("file: %s\n", file);
-	fd = open(file, O_WRONLY | O_APPEND, 0644);
+	fd = open(file, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		err_msg("minishell: no such file or directory: \n");
-		return ;
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd == -1)
+		{
+			err_msg("minishell: no such file or directory: \n");
+			return ;
+		}
+	}
+	else
+	{
+		printf("file: %s\n", file);
+		fd = open(file, O_WRONLY | O_APPEND, 0644);
+		if (fd == -1)
+		{
+			err_msg("minishell: no such file or directory: \n");
+			return ;
+		}
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);

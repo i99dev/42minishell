@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command_table.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/26 07:44:26 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/05/26 15:05:19 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	check_command_table(t_minishell *msh, int i)
 			wordindex += tk_handle_redirect_in(msh, i, &j, index);
 		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
 			wordindex += tk_handle_redirect_out(msh, i, &j, index);
-		else if (j > 0 && ft_strncmp(msh->cmd_table[i].cmd[index],msh->cmd_table[i].filename[j - 1],ft_strlen(msh->cmd_table[i].cmd[index])))
+		else if (j==0 || (j > 0 && ft_strncmp(msh->cmd_table[i].cmd[index],msh->cmd_table[i].filename[j - 1],ft_strlen(msh->cmd_table[i].cmd[index]))))
 		{
 			msh->cmd_table[i].exec_table[k] = ft_strdup(msh->cmd_table[i].cmd[index]);
 			k++;

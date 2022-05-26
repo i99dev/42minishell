@@ -24,12 +24,12 @@ void	ft_redirect(t_minishell *msh, int i)
 		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">>", 2))
 		{
 			printf("double");
-			ft_redirect_out(msh, i, j);
+			ft_redirect_append(msh, i, j);
 		}
-				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 1))
-					ft_redirect_in(msh, i, j);
-				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 1))
-					ft_redirect_out(msh, i, j);
+		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 1))
+			ft_redirect_in(msh, i, j);
+		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 1))
+			ft_redirect_out(msh, i, j);
 			j++;
 			}
 }
