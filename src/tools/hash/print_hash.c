@@ -21,7 +21,7 @@ void	print_hash(t_hash_table *table)
 	{
 		if (table->table[i])
 		{
-			printf("|%s=%s|\n", table->table[i]->key, table->table[i]->value);
+			printf("%s=%s\n", table->table[i]->key, table->table[i]->value);
 		}
 		i++;
 	}
