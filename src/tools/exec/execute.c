@@ -30,8 +30,8 @@ void	ft_redirect(t_minishell *msh, int i)
 			ft_redirect_in(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 1))
 			ft_redirect_out(msh, i, j);
-			j++;
-			}
+		j++;
+	}
 }
 void	execute(t_minishell *msh, int i)
 {
