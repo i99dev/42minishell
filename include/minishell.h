@@ -117,6 +117,7 @@ void			start_parser(t_minishell *msh);
 void			ft_redirect_in(t_minishell *msh, int index, int token);
 void			ft_redirect_out(t_minishell *msh, int index, int token);
 void			here_doc(t_minishell *msh);
+void			ft_redirect_append(t_minishell *msh, int index, int token);
 //function for here_doc
 void			doc_line_doc(int temp_fd, char *eof);
 char			*doc_get_heredoc(char *str);
@@ -127,6 +128,7 @@ void			define_type(t_minishell *msh);
 void			ft_check_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
+bool			is_token(char *str);
 
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);

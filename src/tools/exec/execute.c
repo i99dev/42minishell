@@ -11,18 +11,38 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+void	ft_redirect(t_minishell *msh, int i)
+{
+	int	j;
 
+	j = 0;
+	while (j < msh->cmd_table[i].token_count)
+	{
+		printf("token count:%d%s\n", j,msh->cmd_table[i].tok[j].token);
+		if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<<", 2))
+			here_doc(msh);
+		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">>", 2))
+		{
+			printf("double");
+			ft_redirect_append(msh, i, j);
+		}
+		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 1))
+			ft_redirect_in(msh, i, j);
+		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 1))
+			ft_redirect_out(msh, i, j);
+			j++;
+			}
+}
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
 	struct rusage	ru;
-	int				j;
 	char			*cmd;
 	printf("token count:: %d\n", msh->cmd_table[i].token_count);
 	
 	//printf("cmd is :%s\n", cmd);
-	//printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
+	printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -31,24 +51,9 @@ void	execute(t_minishell *msh, int i)
 	else if (pid == 0)
 	{
 		//msh->rd = 0;
-		if (msh->cmd_table[i].token_count != 0)
-		{
-			j = 0;
-			while (j < msh->cmd_table[i].token_count)
-			{
-				printf("token count:%d\n", j);
-				if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 2))
-					ft_redirect_out(msh, i, j);
-				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">>", 3))
-					ft_redirect_out(msh, i, j);
-				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 2))
-					ft_redirect_in(msh, i, j);
-				else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<<", 3))
-					here_doc(msh);
-			j++;
-			}
-		}
+		ft_redirect(msh,i);
 		cmd = get_path(msh,i);
+		//printf("\n%s\n",cmd);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
@@ -65,6 +70,7 @@ bool	check_command_type(t_minishell *msh, int index)
 
 void	execute_builtin(t_minishell *msh, int i)
 {
+	ft_redirect(msh,i);
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"echo", ft_strlen("echo")))
 		ft_echo(msh, i);
@@ -93,30 +99,6 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	/*
-	if (msh->cmd_table[i].token_count > 0)
-		printf("operator\n");
-		
-	while (i < msh->command_count)
-	{
-		
-		int j=0;
-		while (msh->cmd_table[i].exec_table[j])
-		{
-			printf("%s\n", msh->cmd_table[i].exec_table[j]);
-			j++;
-		}
-		printf("\n");
-		j=0;
-		while(j<msh->cmd_table[i].token_count)
-		{
-		printf("token:%s\nfilename:%s\n",msh->cmd_table[i].tok[j].token,msh->cmd_table[i].filename[j]);
-		j++;
-		}
-		i++;
-	}
-	i = 0;
-	*/
 	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
 	{
 		execute(msh, 0);
