@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
 void	ft_redirect(t_minishell *msh, int i)
 {
 	int	j;
@@ -18,9 +19,8 @@ void	ft_redirect(t_minishell *msh, int i)
 	j = 0;
 	while (j < msh->cmd_table[i].token_count)
 	{
-		printf("token count:%d%s\n", j,msh->cmd_table[i].tok[j].token);
 		if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<<", 2))
-			here_doc(msh);
+			here_doc(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">>", 2))
 		{
 			printf("double");
@@ -30,19 +30,17 @@ void	ft_redirect(t_minishell *msh, int i)
 			ft_redirect_in(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">", 1))
 			ft_redirect_out(msh, i, j);
-			j++;
-			}
+		j++;
+	}
 }
+
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
 	struct rusage	ru;
 	char			*cmd;
-	printf("token count:: %d\n", msh->cmd_table[i].token_count);
-	
-	//printf("cmd is :%s\n", cmd);
-	printf("command_table is :%s\n", msh->cmd_table[i].exec_table[0]);
+
 	pid = fork();
 	if (pid < 0)
 	{
@@ -50,10 +48,8 @@ void	execute(t_minishell *msh, int i)
 	}
 	else if (pid == 0)
 	{
-		//msh->rd = 0;
-		ft_redirect(msh,i);
-		cmd = get_path(msh,i);
-		//printf("\n%s\n",cmd);
+		ft_redirect(msh, i);
+		cmd = get_path(msh, i);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
@@ -70,7 +66,7 @@ bool	check_command_type(t_minishell *msh, int index)
 
 void	execute_builtin(t_minishell *msh, int i)
 {
-	ft_redirect(msh,i);
+	ft_redirect(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"echo", ft_strlen("echo")))
 		ft_echo(msh, i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/26 15:11:22 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:25:06 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,13 @@ char	*check_file_name(char **str, char *token, int index)
 	j = 0;
 	if (ft_strncmp(str[index], token, ft_strlen(token)) == 0)
 	{
-		while (is_token(&str[index][j]))//ft_strncmp(&str[index][j], token, ft_strlen(token)) == 0)
+		while (is_token(&str[index][j]))
 		j++;
 		while (str[index][j] == ' ' || str[index][j] == '\t')
 			j++;
 		if (str[index][j])
 			return (&str[index][j]);
 	}
-	/*
-	if (str[1] == NULL)
-		return (ft_strchr(str[0], token[0]) + 1);*/
 	return (NULL);
 }
 
@@ -97,14 +94,15 @@ void	ft_redirect_out(t_minishell *msh, int index, int token)
 	msh->rd++;
 }
 
-void	here_doc(t_minishell *msh)
+void	here_doc(t_minishell *msh, int i, int index)
 {
 	int		tmp_fd;
 	char	*eof;
 
 	tmp_fd = open("/tmp/minishell_tmp", \
 	O_RDWR | O_CREAT | O_TRUNC, 0644);
-	eof = doc_get_heredoc(msh->line);
+	eof = msh->cmd_table[i].filename[index];
+	printf("eof:%s\n",eof);
 	if (tmp_fd == -1)
 	{
 		err_msg("minishell: no such file or directory: \n");
