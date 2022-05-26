@@ -14,6 +14,6 @@
 
 void	ft_env(t_minishell *msh, int i)
 {
-	(void)msh;
 	(void)i;
+	print_hash(msh->env_table);
 }

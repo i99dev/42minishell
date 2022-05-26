@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_hash.c                                       :+:      :+:    :+:   */
+/*   remove_hash.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/24 10:44:20 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/04/24 10:44:39 by oal-tena         ###   ########.fr       */
+/*   Created: 2022/05/26 09:50:38 by oal-tena          #+#    #+#             */
+/*   Updated: 2022/05/26 09:51:25 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	print_hash(t_hash_table *table)
+void	remove_hash(t_minishell *msh, char *key)
 {
 	unsigned int	i;
 
-	i = 0;
-	while (i < table->size)
+	i = hash(key, msh->env_table->size);
+	if (msh->env_table->table[i])
 	{
-		if (table->table[i])
-		{
-			printf("%s=%s\n", table->table[i]->key, table->table[i]->value);
-		}
-		i++;
+		free(msh->env_table->table[i]->key);
+		free(msh->env_table->table[i]->value);
+		msh->env_table->table[i] = NULL;
 	}
+	msh->env = env2d(msh->env_table);
 }
