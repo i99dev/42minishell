@@ -99,6 +99,7 @@ void			define_input_signals(void);
 void			pipe_recursive(t_minishell *msh, int i, int in_fd);
 void			multi_pipe(t_minishell *msh, int i);
 void			execute(t_minishell *msh, int i);
+void			execute_builtin(t_minishell *msh, int i);
 void			init_execute(t_minishell *msh);
 void			ft_free_minishell(t_minishell *minishell);
 void			free_line(t_minishell *msh);
