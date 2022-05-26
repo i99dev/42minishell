@@ -37,6 +37,7 @@ SRC= 	src/main.c		\
 		src/tools/hash/insert_hash.c\
 		src/tools/hash/find_hash.c\
 		src/tools/hash/update_hash.c\
+		src/tools/hash/remove_hash.c\
 		src/tools/hash/print_hash.c\
 		src/tools/tokenizer/tokenizer.c \
 		src/tools/tokenizer/check_command_table.c \

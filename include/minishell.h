@@ -110,6 +110,7 @@ char			*check_file_name(char **str, char *token, int index);
 
 //function hash
 void			update_hash(t_minishell *msh, char *key, char *value);
+void			remove_hash(t_minishell *msh, char *key);
 
 //parser functions
 void			start_parser(t_minishell *msh);
