@@ -30,6 +30,7 @@ SRC= 	src/main.c		\
 		src/tools/builtins/ft_pwd.c \
 		src/tools/builtins/ft_export.c \
 		src/tools/builtins/ft_unset.c \
+		src/tools/builtins/ft_exit.c \
 		src/tools/parser/parser.c \
 		src/tools/parser/here_doc.c \
 		src/tools/parser/redirect_parser.c \

@@ -83,6 +83,9 @@ void	execute_builtin(t_minishell *msh, int i)
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"env", ft_strlen("env")))
 		ft_env(msh, i);
+	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	"exit", ft_strlen("exit")))
+		ft_exit(msh, i);
 }
 
 void	init_execute(t_minishell *msh)

@@ -32,8 +32,6 @@ static void	minishill_start(t_minishell *msh, char **env)
 		ft_tokenizer(msh);
 		start_parser(msh);
 		init_execute(msh);
-		if (msh->line && ft_strncmp(msh->line, "exit", 4) == 0)
-			ft_free_minishell(msh);
 		if (msh->line)
 			free(msh->line);
 	}

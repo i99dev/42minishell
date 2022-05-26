@@ -135,6 +135,7 @@ void			ft_export(t_minishell *msh, int i);
 int				ft_pwd(void);
 void			ft_unset(t_minishell *msh, int i);
 void			ft_cd(t_minishell *msh, int i);
+void			ft_exit(t_minishell *msh, int i);
 
 
 //exec functions
