@@ -30,7 +30,16 @@ char	*ft_without_quotes(char *str)
 	}
 	return (new);
 }
+char *expand_parameters(char *str)
+{
+	int i;
 
+	i=0;
+	if(ft_strchr(msh->cmd_table[i].cmd[j],'$'))
+	{
+		tmp = find_hash(msh->env_table, &str[i+1]);
+	}
+}
 void	ft_handle_double_quotes(t_minishell *msh)
 {
 	//char	*tmp;
@@ -55,6 +64,7 @@ void	ft_handle_double_quotes(t_minishell *msh)
 				printf("found quote:%s\n",temp);
 				msh->cmd_table[i].cmd[j]=NULL;
 				msh->cmd_table[i].cmd[j]=ft_strdup(msh->quotes[k]);
+				//find_dollarsigns
 				printf("after expand:%s i:%d j:%d\n",msh->cmd_table[i].cmd[j],i,j);
 				k++;
 				}
