@@ -30,16 +30,76 @@ char	*ft_without_quotes(char *str)
 	}
 	return (new);
 }
-char *expand_parameters(char *str)
+//ft_strcut(char *str, char *in,int index)
+void ft_strinsert(t_minishell *msh,char *str, char *in)
+{
+	(void)in;
+	char *temp;
+	char *tok;
+	int i;
+	int j;
+	int k;
+	/*
+quote=$USER
+unquote=DOCKER
+msh->quote="$USER $HOME"*/
+//copy everything before $
+while(str[i] != '$')
+{
+	temp[i]=str[i];
+	i++;
+}
+j=0;
+//copy in
+while(in[j])
+{
+	temp[i]=in[j];
+	j++;
+}
+tok=ft_strchr(str,'$');
+tok=ft_strtrim(tok,"$");
+temp=find_hash(msh->env_table, tok);
+printf("param %s\n",temp);
+}
+char *expand_parameters(t_minishell *msh, char *str)
 {
 	int i;
+	char *temp_quote;
+	char temp_param[100];
 
-	i=0;
-	if(ft_strchr(msh->cmd_table[i].cmd[j],'$'))
+	i = 0;
+	temp_quote=ft_strchr(str,'$');
+	while(temp_quote)
 	{
-		tmp = find_hash(msh->env_table, &str[i+1]);
+		i=0;
+		//take everthing after $ and before ' ' or tab and replace it.
+		//temp_param=temp_quote;
+		while(temp_quote[i] != 0)
+		{
+			if (temp_quote[i] == ' ') // or tab
+			break;
+			if(i>0)
+				temp_param[i-1]=temp_quote[i];
+			i++;
+		}
+		temp_param[i-1]=0;
+		//printf("FOUND %s param : %s len:%d\n",temp_quote, find_hash(msh->env_table, temp_param), i);
+		temp_quote++;
+		temp_quote=ft_strchr(temp_quote,'$');
 	}
+	return NULL;
+	/*
+	tmp = ft_strdup(*str);
+	tmp = ft_without_quotes(tmp);
+	free(*str);
+	printf("tmp: %s\n", &tmp[1]);
+	tmp = find_hash(msh->env_table, &tmp[1]);
+	if (tmp)
+		*str = ft_strdup(tmp);
+	else
+		*str = ft_strdup("");*/
 }
+
 void	ft_handle_double_quotes(t_minishell *msh)
 {
 	//char	*tmp;
@@ -50,7 +110,7 @@ void	ft_handle_double_quotes(t_minishell *msh)
 	k=0;
 	i=0;
 	//go through every cmd_table and check if any ""
-	while(msh->cmd_table[i].cmd != 0)
+	while(i < msh->command_count)
 	{
 		j=0;
 		while(msh->cmd_table[i].cmd[j])
@@ -63,8 +123,8 @@ void	ft_handle_double_quotes(t_minishell *msh)
 				{
 				printf("found quote:%s\n",temp);
 				msh->cmd_table[i].cmd[j]=NULL;
+				expand_parameters(msh,msh->quotes[k]);
 				msh->cmd_table[i].cmd[j]=ft_strdup(msh->quotes[k]);
-				//find_dollarsigns
 				printf("after expand:%s i:%d j:%d\n",msh->cmd_table[i].cmd[j],i,j);
 				k++;
 				}
