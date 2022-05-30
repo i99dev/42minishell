@@ -58,6 +58,8 @@ typedef struct s_minishell
 	t_hash_table	*env_table;
 	char			**env;
 	t_cmdt			*cmd_table;
+	char			**quotes;
+	int				quote_count;
 	int				command_count;
 	char			*user_info;
 	char			*line;
@@ -128,6 +130,7 @@ void			doc_tmp_file(void);
 //tokenizer functions
 void			define_type(t_minishell *msh);
 void			ft_check_quotes(t_minishell *msh);
+void			ft_handle_double_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
 bool			is_token(char *str);

@@ -57,14 +57,15 @@ void	init_command_table(t_minishell *msh)
 	int		i;
 
 	i = 0;
+	ft_check_quotes(msh);
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
+		ft_handle_double_quotes(msh);
 		check_command_table(msh, i);
 		i++;
 	}
-	ft_check_quotes(msh);
 	i = 0;
 	while (tmp && tmp[i])
 	{
