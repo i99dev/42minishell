@@ -30,36 +30,41 @@ char	*ft_without_quotes(char *str)
 	}
 	return (new);
 }
-//ft_strcut(char *str, char *in,int index)
-void ft_strinsert(t_minishell *msh,char *str, char *in)
+
+char *ft_strinsert(t_minishell *msh,char *str, char *in)
 {
-	(void)in;
-	char *temp;
-	char *tok;
+	char temp[100];
 	int i;
 	int j;
 	int k;
-	/*
-quote=$USER
-unquote=DOCKER
-msh->quote="$USER $HOME"*/
-//copy everything before $
+
+i=0;
 while(str[i] != '$')
 {
 	temp[i]=str[i];
 	i++;
 }
+k=i;
 j=0;
-//copy in
 while(in[j])
 {
 	temp[i]=in[j];
 	j++;
+	i++;
 }
-tok=ft_strchr(str,'$');
-tok=ft_strtrim(tok,"$");
-temp=find_hash(msh->env_table, tok);
-printf("param %s\n",temp);
+while(str[k]!= ' ' && str[k])
+	k++;
+while(str[k])
+{
+	temp[i]=str[k];
+	k++;
+	i++;
+}
+temp[i]=0;
+(void)msh;
+str=temp;
+return str;
+
 }
 char *expand_parameters(t_minishell *msh, char *str)
 {
@@ -72,8 +77,6 @@ char *expand_parameters(t_minishell *msh, char *str)
 	while(temp_quote)
 	{
 		i=0;
-		//take everthing after $ and before ' ' or tab and replace it.
-		//temp_param=temp_quote;
 		while(temp_quote[i] != 0)
 		{
 			if (temp_quote[i] == ' ') // or tab
@@ -83,21 +86,11 @@ char *expand_parameters(t_minishell *msh, char *str)
 			i++;
 		}
 		temp_param[i-1]=0;
-		//printf("FOUND %s param : %s len:%d\n",temp_quote, find_hash(msh->env_table, temp_param), i);
+		str=ft_strinsert(msh,str,find_hash(msh->env_table, temp_param));
 		temp_quote++;
 		temp_quote=ft_strchr(temp_quote,'$');
 	}
-	return NULL;
-	/*
-	tmp = ft_strdup(*str);
-	tmp = ft_without_quotes(tmp);
-	free(*str);
-	printf("tmp: %s\n", &tmp[1]);
-	tmp = find_hash(msh->env_table, &tmp[1]);
-	if (tmp)
-		*str = ft_strdup(tmp);
-	else
-		*str = ft_strdup("");*/
+	return (str);
 }
 
 void	ft_handle_double_quotes(t_minishell *msh)
@@ -115,15 +108,15 @@ void	ft_handle_double_quotes(t_minishell *msh)
 		j=0;
 		while(msh->cmd_table[i].cmd[j])
 		{
-			printf("finding quote\n");
+			//printf("finding quote\n");
 			if(ft_strchr(msh->cmd_table[i].cmd[j],'\"'))
 			{
 				temp=ft_strchr(msh->cmd_table[i].cmd[j],'\"');
 				if(temp[1] =='\"')
 				{
-				printf("found quote:%s\n",temp);
+				//printf("found quote:%s\n",temp);
 				msh->cmd_table[i].cmd[j]=NULL;
-				expand_parameters(msh,msh->quotes[k]);
+				msh->cmd_table[i].cmd[j]=ft_strdup(expand_parameters(msh,msh->quotes[k]));
 				msh->cmd_table[i].cmd[j]=ft_strdup(msh->quotes[k]);
 				printf("after expand:%s i:%d j:%d\n",msh->cmd_table[i].cmd[j],i,j);
 				k++;
@@ -186,13 +179,13 @@ int remove_quotes(t_minishell *msh, int start, int end, int q_index)
 		j++;
 	}
 	temp[j]=0;
-	printf("start%d, end%d  ",start, end);
+	//printf("start%d, end%d  ",start, end);
 	//printf("\n new :%d\n",ft_strlen(msh->line)-(end-start)+2);
-	printf("NEW LINE:%s strlen: %d\n",temp,ft_strlen(temp));
-	printf("QUOTE:%s strlen: %d\n",msh->quotes[q_index],len_q);
+	//printf("NEW LINE:%s strlen: %d\n",temp,ft_strlen(temp));
+	//printf("QUOTE:%s strlen: %d\n",msh->quotes[q_index],len_q);
 	free(msh->line);
 	msh->line=temp;
-	printf("return:%d\n",ret);
+	//printf("return:%d\n",ret);
 	return (ret);
 
 }
@@ -230,7 +223,7 @@ void	ft_check_quotes(t_minishell *msh)
 	msh->quote_count=count_quotes(msh);
 	msh->quotes=malloc(sizeof(char *)*msh->quote_count+1);
 	msh->quotes[msh->quote_count]=0;
-	printf("Quote count: %d\n",msh->quote_count);
+	//printf("Quote count: %d\n",msh->quote_count);
 	i = 0;
 	j = 0;
 	count = 0;
