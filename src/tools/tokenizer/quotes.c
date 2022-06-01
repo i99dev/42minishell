@@ -12,26 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-/*
-char	*ft_without_quotes(char *str)
-{
-	int		i;
-	int		j;
-	char	*new;
-
-	i = 0;
-	j = 0;
-	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1 - 2));
-	while (str[i])
-	{
-		if (str[i] == '\"')
-			i++;
-		else
-			new[j++] = str[i++];
-	}
-	return (new);
-}
-*/
 char	*ft_strinsert(char *str, char *in)
 {
 	char	*temp;
@@ -54,7 +34,7 @@ char	*ft_strinsert(char *str, char *in)
 		j++;
 		i++;
 	}
-	while (str[k] != ' ' && str[k])
+	while (str[k] && str[k] != ' ' && str[k] != SINGLE_QUOTE)
 		k++;
 	while (str[k])
 	{
@@ -77,7 +57,7 @@ char	*expand_parameters(t_minishell *msh, char *str)
 	while (temp_quote)
 	{
 		i = 0;
-		while (temp_quote[i] && temp_quote[i] != ' ')
+		while (temp_quote[i] && temp_quote[i] != ' ' && temp_quote[i] != SINGLE_QUOTE)
 			i++;
 		temp_param = malloc(sizeof(char) * i);
 		ft_strlcpy(temp_param, ++temp_quote, i);
@@ -92,7 +72,8 @@ char	*expand_parameters(t_minishell *msh, char *str)
 
 void	ft_handle_double_quotes(t_minishell *msh)
 {
-	char	*temp;
+	char	*temp_d;
+	char	*temp_s;
 	int		i;
 	int		j;
 	int		k;
@@ -106,11 +87,24 @@ void	ft_handle_double_quotes(t_minishell *msh)
 		{
 			if (ft_strchr(msh->cmd_table[i].cmd[j], '\"'))
 			{
-				temp = ft_strchr(msh->cmd_table[i].cmd[j], '\"');
-				if (temp[1] == '\"')
+				temp_d = ft_strchr(msh->cmd_table[i].cmd[j], '\"');
+				if (temp_d[1] == '\"')
 				{
 					free(msh->cmd_table[i].cmd[j]);
-					msh->cmd_table[i].cmd[j] = ft_strdup(expand_parameters(msh, msh->quotes[k]));
+					//if (quotes[k])
+						msh->cmd_table[i].cmd[j] = ft_strdup(expand_parameters(msh, msh->quotes[k]));
+					//else if (!quotes[k] && ft_strlen(msh->cmd_table[i].cmd[j]) != 2)
+						//msh->cmd_table[i].cmd[j] + 2;
+				k++;
+				}
+			}
+			if (ft_strchr(msh->cmd_table[i].cmd[j], '\''))
+			{
+				temp_s = ft_strchr(msh->cmd_table[i].cmd[j], '\'');
+				if (temp_s[1] == '\'')
+				{
+					free(msh->cmd_table[i].cmd[j]);
+					msh->cmd_table[i].cmd[j] = ft_strdup(msh->quotes[k]);
 				k++;
 				}
 			}
@@ -143,7 +137,7 @@ int	remove_quotes(t_minishell *msh, int start, int end, int q_index)
 	j = i;
 	msh->quotes[q_index] = malloc(sizeof(char) * len_q + 1);
 	k = 0;
-	while (msh->line[i] != DOUBLE_QUOTE)
+	while (i<end)
 	{
 		msh->quotes[q_index][k] = msh->line[i];
 		i++;
@@ -166,22 +160,25 @@ int	remove_quotes(t_minishell *msh, int start, int end, int q_index)
 int	count_quotes(t_minishell *msh)
 {
 	int		i;
-	int		count;
+	int		first_quote;
 	int		q_count;
 
 	i = 0;
-	count = 0;
 	q_count = 0;
+	first_quote = 0;
 	while (msh->line[i])
 	{
-		if (msh->line[i] == DOUBLE_QUOTE)
-			count++;
-		if (count == 2)
+		if (msh->line[i] == DOUBLE_QUOTE && first_quote == 0)
+			first_quote = DOUBLE_QUOTE;
+		else if (msh->line[i] == SINGLE_QUOTE && first_quote == 0)
+			first_quote = SINGLE_QUOTE;
+		i++;
+		if (msh->line[i] && msh->line[i] == first_quote)
 		{
 			q_count++;
-			count = 0;
+			first_quote = 0;
+			i++;
 		}
-		i++;
 	}
 	return (q_count);
 }
@@ -190,37 +187,40 @@ void	ft_check_quotes(t_minishell *msh)
 {
 	int	i;
 	int	start;
-	int	end;
-	int	count;
+	//int	end;
+	int	first_quote;
 	int	j;
 
 	msh->quote_count = count_quotes(msh);
+	//printf("%d\n",msh->quote_count);
 	msh->quotes = malloc(sizeof(char *) * msh->quote_count + 1);
 	msh->quotes[msh->quote_count] = 0;
 	i = 0;
 	j = 0;
-	count = 0;
+	first_quote = 0;
 	while (msh->line[i])
 	{
-		if (msh->line[i] == DOUBLE_QUOTE)
+		if ((msh->line[i] == DOUBLE_QUOTE || msh->line[i] == SINGLE_QUOTE) && first_quote == 0)
 		{
+			first_quote = msh->line[i];
 			start = i;
-			i++;
-			while (msh->line[i] != DOUBLE_QUOTE)
-				i++;
-			if (msh->line[i] == DOUBLE_QUOTE)
+			/*
+			if (msh->line[i + 1] && msh->line[i + 1] == first_quote)
 			{
-				end = i;
-				count++;
-			}
-			count++;
-		}
-		if (count == 2)
-		{
-			i = remove_quotes(msh, start, end, j);
-			j++;
-			count = 0;
+				i = remove_quotes(msh, start, i, j);
+				j++;
+				first_quote = 0;
+				continue;
+			}*/
 		}
 		i++;
+		if (msh->line[i] && msh->line[i] == first_quote)
+		{
+			i = remove_quotes(msh, start, i, j);
+			j++;
+			first_quote = 0;
+			i++;
+		}
 	}
+	printf("line: %s\n",msh->line);
 }
