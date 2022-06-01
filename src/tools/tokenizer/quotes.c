@@ -46,11 +46,11 @@ while(str[i] != '$')
 }
 k=i;
 j=0;
-while(in[j])
+while(in && in[j])
 {
 	temp[i]=in[j];
-	j++;
 	i++;
+	j++;
 }
 while(str[k]!= ' ' && str[k])
 	k++;
@@ -66,6 +66,7 @@ str=temp;
 return str;
 
 }
+
 char *expand_parameters(t_minishell *msh, char *str)
 {
 	int i;
@@ -92,7 +93,6 @@ char *expand_parameters(t_minishell *msh, char *str)
 	}
 	return (str);
 }
-
 void	ft_handle_double_quotes(t_minishell *msh)
 {
 	//char	*tmp;
@@ -138,6 +138,7 @@ void	ft_handle_double_quotes(t_minishell *msh)
 	else
 		*str = ft_strdup("");*/
 }
+
 int remove_quotes(t_minishell *msh, int start, int end, int q_index)
 {
 	//(void)msh;
@@ -189,6 +190,7 @@ int remove_quotes(t_minishell *msh, int start, int end, int q_index)
 	return (ret);
 
 }
+
 int		count_quotes(t_minishell *msh)
 {
 	int i;
@@ -212,6 +214,7 @@ int		count_quotes(t_minishell *msh)
 	}
 	return (q_count);
 }
+
 void	ft_check_quotes(t_minishell *msh)
 {
 	int	i;

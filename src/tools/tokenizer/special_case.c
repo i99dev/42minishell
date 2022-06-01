@@ -38,6 +38,59 @@ void	replace_tild(t_minishell *msh)
 	}
 }
 
+void	handle_sign_dollar(t_minishell *msh)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (i < msh->command_count)
+	{
+		j = 0;
+		while (msh->cmd_table[i].cmd[j])
+		{
+			if (msh->cmd_table[i].cmd[j][0] == '$')
+			{
+				tmp = find_hash(msh->env_table, msh->cmd_table[i].cmd[j] + 1);
+				if (tmp)
+					msh->cmd_table[i].cmd[j] = ft_strdup(tmp);
+				else
+					msh->cmd_table[i].cmd[j] = ft_strdup("");
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void handle_double_dollar(t_minishell *msh)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (i < msh->command_count)
+	{
+		j = 0;
+		while (msh->cmd_table[i].cmd[j])
+		{
+			if (msh->cmd_table[i].cmd[j][0] == '$' && \
+			msh->cmd_table[i].cmd[j][1] == '$')
+			{
+				tmp = find_hash(msh->env_table, msh->cmd_table[i].cmd[j] + 2);
+				if (tmp)
+					msh->cmd_table[i].cmd[j] = ft_itoa(getpid());
+				else
+					msh->cmd_table[i].cmd[j] = ft_strdup("");
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_special_case(t_minishell *msh)
 {
 	int	i;
@@ -51,10 +104,10 @@ void	ft_special_case(t_minishell *msh)
 		{
 			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
 				replace_tild(msh);
-			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) == 0)
-				return ;
 			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
-				return ;
+				handle_double_dollar(msh);
+			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) == 0)
+				handle_sign_dollar(msh);
 			j++;
 		}
 		i++;

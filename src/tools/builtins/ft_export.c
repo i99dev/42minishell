@@ -38,7 +38,7 @@ char	*get_key_vlaue(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i])
 		i++;
 	key = ft_strsub(str, 0, i);
 	return (key);
