@@ -117,7 +117,7 @@ void	ft_handle_double_quotes(t_minishell *msh)
 				//printf("found quote:%s\n",temp);
 				msh->cmd_table[i].cmd[j]=NULL;
 				msh->cmd_table[i].cmd[j]=ft_strdup(expand_parameters(msh,msh->quotes[k]));
-				msh->cmd_table[i].cmd[j]=ft_strdup(msh->quotes[k]);
+				// msh->cmd_table[i].cmd[j]=ft_strdup(msh->quotes[k]);
 				printf("after expand:%s i:%d j:%d\n",msh->cmd_table[i].cmd[j],i,j);
 				k++;
 				}
