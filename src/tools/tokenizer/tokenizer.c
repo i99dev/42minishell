@@ -25,7 +25,7 @@ char	*clean_str_space(char *str)
 	{
 		if (str[i] != ' ')
 		{
-			printf("char is:%c\n", str[i]);
+			//printf("char is:%c\n", str[i]);
 			new_str[j] = str[i];
 			j++;
 		}

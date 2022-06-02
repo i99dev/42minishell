@@ -85,34 +85,36 @@ void	ft_handle_double_quotes(t_minishell *msh)
 		j = 0;
 		while (msh->cmd_table[i].cmd[j])
 		{
-			while(ft_strchr(msh->cmd_table[i].cmd[j], '\"') || ft_strchr(msh->cmd_table[i].cmd[j], '\''))
+			while(k<msh->quote_count && (ft_strchr(msh->cmd_table[i].cmd[j], '\"') || ft_strchr(msh->cmd_table[i].cmd[j], '\'')))
 			{
-				if (ft_strlen(ft_strchr(msh->cmd_table[i].cmd[j], '\"')))
+				if (ft_strchr(msh->cmd_table[i].cmd[j], '\"'))
 				{
 					temp_d = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[j], '\"'));
-					if (ft_strlen(temp_d) && temp_d[1] == '\"')
+					if (temp_d[1] && temp_d[1] == '\"')
 					{
-						printf("MIDDLE\n");
-						printf("hi\"\"   quote:%s   expand:%s\n",msh->quotes[k],expand_parameters(msh, msh->quotes[k]));
-						msh->cmd_table[i].cmd[j][ft_strlen(msh->cmd_table[i].cmd[j])-ft_strlen(temp_d)] = 0;
+						msh->cmd_table[i].cmd[j][ft_strlen(msh->cmd_table[i].cmd[j]) - ft_strlen(temp_d)] = 0;
 						msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j],expand_parameters(msh, msh->quotes[k]));
-						printf("new cmd:%s\n",msh->cmd_table[i].cmd[j]);
-						printf("temp_d:%s\n",temp_d);
 						msh->cmd_table[i].cmd[j]=ft_strjoin(msh->cmd_table[i].cmd[j],temp_d+2);
-						printf("new cmd:%s\n",msh->cmd_table[i].cmd[j]);
 						free(temp_d);
 						k++;
 					}
+					else
+					break;
 				}
-				if (ft_strchr(msh->cmd_table[i].cmd[j], '\''))
+				else if (ft_strchr(msh->cmd_table[i].cmd[j], '\''))
 				{
-					temp_s = ft_strchr(msh->cmd_table[i].cmd[j], '\'');
-					if (temp_s[1] == '\'')
+					temp_s = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[j], '\''));
+					if (temp_s[1] && temp_s[1] == '\'')
 					{
-						free (msh->cmd_table[i].cmd[j]);
-						msh->cmd_table[i].cmd[j] = ft_strdup(msh->quotes[k]);
+						msh->cmd_table[i].cmd[j][ft_strlen(msh->cmd_table[i].cmd[j]) - ft_strlen(temp_s)] = 0;
+						if(msh->quotes)
+						msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], msh->quotes[k]);
+						msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], temp_s + 2);
+						free (temp_s);
 					k++;
 					}
+					else
+					break;
 				}
 			}
 			j++;
@@ -212,14 +214,6 @@ void	ft_check_quotes(t_minishell *msh)
 		{
 			first_quote = msh->line[i];
 			start = i;
-			/*
-			if (msh->line[i + 1] && msh->line[i + 1] == first_quote)
-			{
-				i = remove_quotes(msh, start, i, j);
-				j++;
-				first_quote = 0;
-				continue;
-			}*/
 		}
 		i++;
 		if (msh->line[i] && msh->line[i] == first_quote)

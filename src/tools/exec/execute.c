@@ -24,7 +24,7 @@ void	ft_redirect(t_minishell *msh, int i)
 			here_doc(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, ">>", 2))
 		{
-			printf("double");
+			//printf("double");
 			ft_redirect_append(msh, i, j);
 		}
 		else if (!ft_strncmp(msh->cmd_table[i].tok[j].token, "<", 1))
@@ -51,7 +51,7 @@ void	execute(t_minishell *msh, int i)
 	{
 		ft_redirect(msh, i);
 		cmd = get_path(msh, i);
-		printf("path %s\n",cmd);
+		//printf("path %s\n",cmd);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
@@ -99,8 +99,8 @@ void	init_execute(t_minishell *msh)
 	i = 0;
 	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
 	{
-		printf("1 command\n");
-		printf("%s\n%s\n",msh->cmd_table[i].exec_table[0],msh->cmd_table[i].exec_table[1]);
+		//printf("1 command\n");
+		//printf("%s\n%s\n",msh->cmd_table[i].exec_table[0],msh->cmd_table[i].exec_table[1]);
 		execute(msh, 0);
 	}
 	else if (msh->cmd_table[i].command_type == BUILTIN)

@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/26 17:25:06 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/02 13:21:08 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_redirect_in(t_minishell *msh, int index, int token)
 	char	*file;
 
 	file = msh->cmd_table[index].filename[token];
-	printf("file: %s\n", file);
+	//printf("file: %s\n", file);
 	fd = open(file, O_RDONLY | O_CREAT);
 	if (fd == -1)
 	{
@@ -63,7 +63,7 @@ void	ft_redirect_append(t_minishell *msh, int index, int token)
 	}
 	else
 	{
-		printf("file: %s\n", file);
+		//printf("file: %s\n", file);
 		fd = open(file, O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
@@ -82,7 +82,7 @@ void	ft_redirect_out(t_minishell *msh, int index, int token)
 	char	*file;
 
 	file = msh->cmd_table[index].filename[token];
-	printf("file: %s\n", file);
+	//printf("file: %s\n", file);
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -102,7 +102,7 @@ void	here_doc(t_minishell *msh, int i, int index)
 	tmp_fd = open("/tmp/minishell_tmp", \
 	O_RDWR | O_CREAT | O_TRUNC, 0644);
 	eof = msh->cmd_table[i].filename[index];
-	printf("eof:%s\n",eof);
+	//printf("eof:%s\n",eof);
 	if (tmp_fd == -1)
 	{
 		err_msg("minishell: no such file or directory: \n");
