@@ -20,7 +20,7 @@ void	ft_echo(t_minishell *msh, int i)
 	flag = false;
 	j = 1;
 	if (msh->cmd_table[i].exec_table[1] && \
-	!ft_strncmp(msh->cmd_table[i].exec_table[1], "-n", ft_strlen("-n")))
+	!ft_strncmp(msh->cmd_table[i].exec_table[1], "-n", 3) && msh->cmd_table[i].exec_table[2] && strlen(msh->cmd_table[i].exec_table[2]))
 	{
 		flag = true;
 		j++;
