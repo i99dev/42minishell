@@ -100,7 +100,12 @@ void	init_execute(t_minishell *msh)
 	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
 	{
 		//printf("1 command\n");
-		//printf("%s\n%s\n",msh->cmd_table[i].exec_table[0],msh->cmd_table[i].exec_table[1]);
+		int j=0;
+		while(msh->cmd_table[i].exec_table[j])
+		{
+		//printf("%s\n%s\n",msh->cmd_table[i].exec_table[j],msh->cmd_table[i].exec_table[j]);
+		j++;
+		}
 		execute(msh, 0);
 	}
 	else if (msh->cmd_table[i].command_type == BUILTIN)
