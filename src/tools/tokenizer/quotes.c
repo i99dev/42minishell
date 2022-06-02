@@ -85,27 +85,34 @@ void	ft_handle_double_quotes(t_minishell *msh)
 		j = 0;
 		while (msh->cmd_table[i].cmd[j])
 		{
-			if (ft_strchr(msh->cmd_table[i].cmd[j], '\"'))
+			while(ft_strchr(msh->cmd_table[i].cmd[j], '\"') || ft_strchr(msh->cmd_table[i].cmd[j], '\''))
 			{
-				temp_d = ft_strchr(msh->cmd_table[i].cmd[j], '\"');
-				if (temp_d[1] == '\"')
+				if (ft_strlen(ft_strchr(msh->cmd_table[i].cmd[j], '\"')))
 				{
-					free(msh->cmd_table[i].cmd[j]);
-					//if (quotes[k])
-						msh->cmd_table[i].cmd[j] = ft_strdup(expand_parameters(msh, msh->quotes[k]));
-					//else if (!quotes[k] && ft_strlen(msh->cmd_table[i].cmd[j]) != 2)
-						//msh->cmd_table[i].cmd[j] + 2;
-				k++;
+					temp_d = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[j], '\"'));
+					if (ft_strlen(temp_d) && temp_d[1] == '\"')
+					{
+						printf("MIDDLE\n");
+						printf("hi\"\"   quote:%s   expand:%s\n",msh->quotes[k],expand_parameters(msh, msh->quotes[k]));
+						msh->cmd_table[i].cmd[j][ft_strlen(msh->cmd_table[i].cmd[j])-ft_strlen(temp_d)] = 0;
+						msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j],expand_parameters(msh, msh->quotes[k]));
+						printf("new cmd:%s\n",msh->cmd_table[i].cmd[j]);
+						printf("temp_d:%s\n",temp_d);
+						msh->cmd_table[i].cmd[j]=ft_strjoin(msh->cmd_table[i].cmd[j],temp_d+2);
+						printf("new cmd:%s\n",msh->cmd_table[i].cmd[j]);
+						free(temp_d);
+						k++;
+					}
 				}
-			}
-			if (ft_strchr(msh->cmd_table[i].cmd[j], '\''))
-			{
-				temp_s = ft_strchr(msh->cmd_table[i].cmd[j], '\'');
-				if (temp_s[1] == '\'')
+				if (ft_strchr(msh->cmd_table[i].cmd[j], '\''))
 				{
-					free(msh->cmd_table[i].cmd[j]);
-					msh->cmd_table[i].cmd[j] = ft_strdup(msh->quotes[k]);
-				k++;
+					temp_s = ft_strchr(msh->cmd_table[i].cmd[j], '\'');
+					if (temp_s[1] == '\'')
+					{
+						free (msh->cmd_table[i].cmd[j]);
+						msh->cmd_table[i].cmd[j] = ft_strdup(msh->quotes[k]);
+					k++;
+					}
 				}
 			}
 			j++;
@@ -144,6 +151,7 @@ int	remove_quotes(t_minishell *msh, int start, int end, int q_index)
 		k++;
 	}
 	msh->quotes[q_index][k] = 0;
+	//printf("quote%d:%s\n",q_index,msh->quotes[q_index]);
 	i = end;
 	while (msh->line[i])
 	{
@@ -154,6 +162,7 @@ int	remove_quotes(t_minishell *msh, int start, int end, int q_index)
 	temp[j] = 0;
 	free(msh->line);
 	msh->line = temp;
+	//printf("msh->line:%s start%d end%d ret%d\n ",temp,start,end,ret);
 	return (ret);
 }
 
@@ -192,7 +201,6 @@ void	ft_check_quotes(t_minishell *msh)
 	int	j;
 
 	msh->quote_count = count_quotes(msh);
-	//printf("%d\n",msh->quote_count);
 	msh->quotes = malloc(sizeof(char *) * msh->quote_count + 1);
 	msh->quotes[msh->quote_count] = 0;
 	i = 0;
@@ -219,8 +227,6 @@ void	ft_check_quotes(t_minishell *msh)
 			i = remove_quotes(msh, start, i, j);
 			j++;
 			first_quote = 0;
-			i++;
 		}
 	}
-	printf("line: %s\n",msh->line);
 }
