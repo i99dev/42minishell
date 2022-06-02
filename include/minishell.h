@@ -66,6 +66,7 @@ typedef struct s_minishell
 	int				*fd_std;
 	int				rd;
 	int				last_fd;
+	int				exit_status;
 }	t_minishell;
 
 //color 

@@ -56,6 +56,8 @@ void	execute(t_minishell *msh, int i)
 		perror("command failed");
 	}
 	wait4(pid, &status, 0, &ru);
+	//printf("%d\n",status);
+	msh->exit_status=status;
 }
 
 bool	check_command_type(t_minishell *msh, int index)
