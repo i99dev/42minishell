@@ -63,6 +63,7 @@ void	init_command_table(t_minishell *msh)
 	{
 		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
 		ft_handle_double_quotes(msh);
+		ft_special_case(msh);
 		check_command_table(msh, i);
 		i++;
 	}
@@ -79,5 +80,4 @@ void	ft_tokenizer(t_minishell *msh)
 {
 	init_command_table(msh);
 	define_type(msh);
-	ft_special_case(msh);
 }

@@ -56,7 +56,7 @@ void	handle_sign_dollar(t_minishell *msh)
 				if (tmp)
 					msh->cmd_table[i].cmd[j] = ft_strdup(tmp);
 				else
-					msh->cmd_table[i].cmd[j] = ft_strdup("");
+					msh->cmd_table[i].cmd[j] = ft_strdup(" ");
 			}
 			j++;
 		}
