@@ -17,7 +17,7 @@ void	_2path(t_minishell *msh, char *path)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	printf("%s\n", path);
+	//printf("%s\n", path);
 	update_hash(msh, "OLDPWD", pwd);
 	if (chdir(path) == -1)
 	{
@@ -44,7 +44,7 @@ void	cd_to_home(t_minishell *msh)
 
 void	ft_cd(t_minishell *msh, int i)
 {
-	printf("is cd\n");
+	//printf("is cd\n");
 	if (msh->cmd_table[i].cmd[1] == NULL || \
 	!ft_strncmp(msh->line, "~", ft_strlen("~")))
 		cd_to_home(msh);

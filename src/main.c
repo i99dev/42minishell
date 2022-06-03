@@ -42,6 +42,7 @@ void	init_minishell(t_minishell *minishell)
 	minishell->cmd_table = NULL;
 	minishell->line = NULL;
 	minishell->user_info = NULL;
+	minishell->exit_status = 0;
 }
 
 int	main(int argc, char **argv, char **env)

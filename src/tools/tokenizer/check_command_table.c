@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/26 17:26:06 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/02 18:32:56 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 	if (is_token(msh->cmd_table[i].cmd[index]) && \
 	ft_strlen(msh->cmd_table[i].cmd[index]) <= 2)
 	{
-		printf("redirect with space\n");
+		//printf("redirect with space\n");
 		return (ft_strdup(msh->cmd_table[i].cmd[index + 1]));
 	}
 	else
@@ -116,31 +116,47 @@ void	check_command_table(t_minishell *msh, int i)
 	count_token(msh, i);
 	while (msh->cmd_table[i].cmd[index])
 	{
-		if (ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
+		if (!ft_strncmp(msh->cmd_table[i].cmd[index], "$?", 3))
+		{
+			free(msh->cmd_table[i].cmd[index]);
+			msh->cmd_table[i].cmd[index]= ft_strdup(ft_itoa(msh->exit_status));
+			//printf("%s\n",msh->cmd_table[i].cmd[index]);
+		}
+		else if (ft_strncmp(msh->cmd_table[i].cmd[index], "$", 1) == 0 && ft_strlen(msh->cmd_table[i].cmd[index])>1)
+		{
+			if(find_hash(msh->env_table,msh->cmd_table[i].cmd[index]+1))
+			msh->cmd_table[i].cmd[index]=ft_strdup(find_hash(msh->env_table,msh->cmd_table[i].cmd[index]+1));
+			else if(ft_isalnum(msh->cmd_table[i].cmd[index][1]))
+				msh->cmd_table[i].cmd[index]=NULL;
+		}
+		if (msh->cmd_table[i].cmd[index] && ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
 		{
 			msh->cmd_table[i].tok[j].token = ft_strdup(">>");
 			msh->cmd_table[i].filename[j] = \
 				get_io_filename(msh, i, ">>", index);
 			j++;
 		}
-		else if (ft_strncmp(msh->cmd_table[i].cmd[index], "<<", 2) == 0)
+		else if (msh->cmd_table[i].cmd[index] && ft_strncmp(msh->cmd_table[i].cmd[index], "<<", 2) == 0)
 		{
 			msh->cmd_table[i].tok[j].token = ft_strdup("<<");
 			msh->cmd_table[i].filename[j] = \
 			get_io_filename(msh, i, "<<", index);
 			j++;
 		}
-		else if (ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
+		else if (msh->cmd_table[i].cmd[index] && ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
 			tk_handle_redirect_in(msh, i, &j, index);
-		else if (ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
+		else if (msh->cmd_table[i].cmd[index] && ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
 			tk_handle_redirect_out(msh, i, &j, index);
 		else if ((j == 0) || (ft_strncmp(msh->cmd_table[i].cmd[index], \
 			msh->cmd_table[i].filename[j - 1], \
 			ft_strlen(msh->cmd_table[i].cmd[index]))))
 		{
+			if(msh->cmd_table[i].cmd[index])
+			{
 			msh->cmd_table[i].exec_table[k] = \
 			ft_strdup(msh->cmd_table[i].cmd[index]);
 			k++;
+			}
 		}
 		index++;
 	}
