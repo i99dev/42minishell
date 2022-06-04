@@ -43,6 +43,7 @@ void	execute(t_minishell *msh, int i)
 	char			*cmd;
 
 	pid = fork();
+	define_exec_signals(msh);
 	if (pid < 0)
 	{
 		err_msg("fork failed");
@@ -51,13 +52,12 @@ void	execute(t_minishell *msh, int i)
 	{
 		ft_redirect(msh, i);
 		cmd = get_path(msh, i);
-		//printf("path %s\n",cmd);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		perror("command failed");
 	}
 	wait4(pid, &status, 0, &ru);
-	//printf("%d\n",status);
-	msh->exit_status=status;
+	if (WIFEXITED(status))
+		msh->exit_status = WIFEXITED(status);
 }
 
 bool	check_command_type(t_minishell *msh, int index)

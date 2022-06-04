@@ -98,7 +98,9 @@ typedef struct s_minishell
 //function
 void			prompt_commend(t_minishell *minishell);
 void			err_msg(char *msg);
-void			define_input_signals(void);
+void			define_input_signals(t_minishell *msh);
+void			define_exec_signals(t_minishell *msh);
+void			interrupt_here_document(int signal);
 void			pipe_recursive(t_minishell *msh, int i, int in_fd);
 void			multi_pipe(t_minishell *msh, int i);
 void			execute(t_minishell *msh, int i);

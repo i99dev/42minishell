@@ -48,6 +48,7 @@ void	doc_line_doc(int temp_fd, char *eof)
 {
 	char	*input;
 
+	signal(SIGINT, interrupt_here_document);
 	while (1)
 	{
 		input = readline("> ");

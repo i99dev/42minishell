@@ -16,6 +16,7 @@ void	read_line(t_minishell *msh)
 {
 	msh->user_info = get_user_info(msh);
 	msh->line = readline(msh->user_info);
+	define_input_signals(msh);
 	if (msh->line)
 		add_history(msh->line);
 	free(msh->user_info);
@@ -25,7 +26,6 @@ static void	minishill_start(t_minishell *msh, char **env)
 {
 	msh->env_table = init_table(env);
 	msh->env = env2d(msh->env_table);
-	define_input_signals();
 	while (1)
 	{
 		read_line(msh);

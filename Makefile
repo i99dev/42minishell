@@ -49,6 +49,7 @@ SRC= 	src/main.c		\
 		src/utils/ft_free.c \
 		src/utils/ft_helper.c \
 		src/utils/signals.c \
+		src/utils/here_doc_signal.c \
 
 CC = gcc -g
 CC_FLAG = -Wall -Wextra -Werror -I /usr/local/opt/readline/include

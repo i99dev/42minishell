@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 11:09:46 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/23 13:03:02 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:50:27 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,18 @@ static void	quit_process(int signal)
 	ft_putstr_fd("Quit (core dumped)\n", 1);
 }
 
-void	define_exec_signals(void)
+void	define_exec_signals(t_minishell *msh)
 {
-	signal(SIGINT, interrupt_process);
-	signal(SIGQUIT, quit_process);
+	if (signal(SIGINT, interrupt_process))
+		msh->exit_status = 130;
+	if (signal(SIGQUIT, quit_process))
+		msh->exit_status = 131;
 }
 
-void	define_input_signals(void)
+void	define_input_signals(t_minishell *msh)
 {
-	signal(SIGINT, redisplay_prompt);
-	signal(SIGQUIT, SIG_IGN);
+	if (signal(SIGINT, redisplay_prompt))
+		msh->exit_status = 130;
+	if (signal(SIGQUIT, SIG_IGN))
+		msh->exit_status = 131;
 }
