@@ -6,20 +6,52 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/05 05:47:24 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:55:58 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+bool	is_case(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (true);
+	if (c >= 'a' && c <= 'z')
+		return (true);
+	return (false);
+}
+
+char	*get_key(char *str)
+{
+	char	*key;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	key = malloc(sizeof(char) * 200);
+	while (str[i] != '$')
+		i++;
+	i++;
+	while (is_case(str[i]))
+	{
+		key[j] = str[i];
+		i++;
+		j++;
+	}
+	key[j] = 0;
+	return (key);
+}
 
 char	*expand_parameters(t_minishell *msh, char *str)
 {
 	int		i;
 	char	*temp_quote;
 	char	*temp_param;
+	char   *key;
 
 	i = 0;
-	temp_quote = ft_strchr(str, '$');
+	temp_quote = ft_strchr(ft_strdup(str), '$');
 	while (temp_quote)
 	{
 		i = 0;
@@ -27,12 +59,14 @@ char	*expand_parameters(t_minishell *msh, char *str)
 		&& temp_quote[i] != SINGLE_QUOTE)
 			i++;
 		temp_param = malloc(sizeof(char) * i);
-		ft_strlcpy(temp_param, ++temp_quote, i);
-		str = ft_strinsert(str, find_hash(msh->env_table, temp_param));
+		key = get_key(temp_quote);
+		str = ft_strdup(ft_strinsert(str, ft_strdup(find_hash(msh->env_table, key)), key));
 		free(temp_param);
 		temp_quote++;
 		temp_quote = ft_strchr(temp_quote, '$');
 	}
+	if (ft_strncmp(str, "$", 1) == 0)
+		str = expand_parameters(msh, str);
 	return (str);
 }
 

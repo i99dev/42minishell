@@ -140,7 +140,8 @@ bool			is_token(char *str);
 int				q_remove_quotes(t_minishell *msh, int start, \
 				int end, int q_index);
 int				q_count_quotes(t_minishell *msh);
-char			*ft_strinsert(char *str, char *in);
+char			*ft_strinsert(char *str, char *in, char *key);
+char			*expand_parameters(t_minishell *msh, char *str);
 
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);

@@ -6,42 +6,64 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 05:25:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/05 05:26:04 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:33:27 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-char	*ft_strinsert(char *str, char *in)
+char	*ft_strinsert(char *str, char *env, char *key)
 {
 	char	*temp;
+	char	*temp2;
 	int		i;
 	int		j;
-	int		k;
+	//int		k;
 
-	temp = malloc(sizeof(char) * 200);
+	(void)key;
+	temp = malloc(sizeof(char) * ft_strlen(env) + ft_strlen(str) + 1);
 	i = 0;
-	while (str[i] != '$')
+	if (str[i] == '$')
 	{
-		temp[i] = str[i];
-		i++;
+		while (env[i])
+		{
+			temp[i] = env[i];
+			i++;
+			if (env[i] == '\0')
+				free(env);
+		}
+		temp2 = ft_strdup(&str[ft_strlen(key) + 1]);
 	}
-	k = i;
+	else
+	{
+		while (str[i] != '$' && str[i])
+		{
+			temp[i] = str[i];
+			i++;
+		}
+		temp2 = ft_strdup(&str[i]);
+	}
 	j = 0;
-	while (in[j])
+	if (ft_strncmp(temp2, "$", 1))
 	{
-		temp[i] = in[j];
-		j++;
-		i++;
+		while (temp2[j])
+		{
+			temp[i] = temp2[j];
+			i++;
+			j++;
+		}
 	}
-	while (str[k] && str[k] != ' ' && str[k] != SINGLE_QUOTE)
-		k++;
-	while (str[k])
+	else 
 	{
-		temp[i] = str[k];
-		k++;
-		i++;
+		while (env[j])
+		{
+			temp[i] = env[j];
+			i++;
+			j++;
+		}
 	}
-	temp[i] = 0;
+	temp[i] = '\0';
+	free(temp2);
+	free(str);
 	return (temp);
 }

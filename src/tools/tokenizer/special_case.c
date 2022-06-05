@@ -42,7 +42,6 @@ void	handle_sign_dollar(t_minishell *msh)
 {
 	int		i;
 	int		j;
-	char	*tmp;
 
 	i = 0;
 	while (i < msh->command_count)
@@ -50,14 +49,9 @@ void	handle_sign_dollar(t_minishell *msh)
 		j = 0;
 		while (msh->cmd_table[i].cmd[j])
 		{
-			if (msh->cmd_table[i].cmd[j][0] == '$')
-			{
-				tmp = find_hash(msh->env_table, msh->cmd_table[i].cmd[j] + 1);
-				if (tmp)
-					msh->cmd_table[i].cmd[j] = ft_strdup(tmp);
-				else
-					msh->cmd_table[i].cmd[j] = ft_strdup(" ");
-			}
+			if (ft_strchr(msh->cmd_table[i].cmd[j], '$'))
+				msh->cmd_table[i].cmd[j] = expand_parameters(msh, \
+				msh->cmd_table[i].cmd[j]);
 			j++;
 		}
 		i++;
