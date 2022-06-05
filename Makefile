@@ -45,6 +45,9 @@ SRC= 	src/main.c		\
 		src/tools/tokenizer/define_type.c \
 		src/tools/tokenizer/quotes.c \
 		src/tools/tokenizer/special_case.c \
+		src/tools/tokenizer/quotes_remove_quotes.c \
+		src/tools/tokenizer/ft_handle_quotes.c \
+		src/tools/tokenizer/ft_quotes_str.c \
 		src/utils/msg.c \
 		src/utils/ft_free.c \
 		src/utils/ft_helper.c \

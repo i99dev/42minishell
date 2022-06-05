@@ -62,7 +62,7 @@ void	init_command_table(t_minishell *msh)
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
-		ft_handle_double_quotes(msh);
+		ft_handle_quotes(msh);
 		ft_special_case(msh);
 		check_command_table(msh, i);
 		i++;

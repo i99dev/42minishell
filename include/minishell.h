@@ -133,10 +133,14 @@ void			doc_tmp_file(void);
 //tokenizer functions
 void			define_type(t_minishell *msh);
 void			ft_check_quotes(t_minishell *msh);
-void			ft_handle_double_quotes(t_minishell *msh);
+void			ft_handle_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
 bool			is_token(char *str);
+int				q_remove_quotes(t_minishell *msh, int start, \
+				int end, int q_index);
+int				q_count_quotes(t_minishell *msh);
+char			*ft_strinsert(char *str, char *in);
 
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
