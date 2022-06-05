@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/05 05:30:37 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/05 05:47:24 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	q_handle_d(t_minishell *msh, int i, int j, int *k)
 		msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], \
 		tmp + 2);
 		free(tmp);
-		k++;
+		*k += 1;
 		return (true);
 	}
 	else
@@ -72,7 +72,7 @@ bool	q_handle_s(t_minishell *msh, int i, int j, int *k)
 		msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], \
 		tmp + 2);
 		free (tmp);
-		k++;
+		*k += 1;
 		return (true);
 	}
 	else
