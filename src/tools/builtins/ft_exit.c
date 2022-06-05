@@ -17,7 +17,7 @@ bool	is_string_number(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (!ft_isdigit(str[i]))
 			return (false);
@@ -28,15 +28,9 @@ bool	is_string_number(char *str)
 
 void	ft_with_arg(t_minishell *msh, char **argv)
 {
-	if (is_string_number(argv[1]))
+	if (argv[1] && is_string_number(argv[1]))
 	{
 		msh->exit_status = ft_atoi(argv[1]);
-	}
-	else
-	{
-		ft_putstr_fd("exit: numeric argument required", 2);
-		msh->exit_status = 2;
-		exit(msh->exit_status);
 	}
 }
 
@@ -44,7 +38,7 @@ void	ft_exit(t_minishell *msh, int i)
 {
 	(void)i;
 	ft_with_arg(msh, msh->cmd_table[i].cmd);
-	if (msh->cmd_table[i].cmd[2])
+	if (msh->command_count > 1)
 	{
 		ft_putendl_fd("exit: TOO_MANY_ARGS.", 2);
 		msh->exit_status = 1;
