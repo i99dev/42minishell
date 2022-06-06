@@ -27,7 +27,9 @@ void	ft_echo(t_minishell *msh, int i)
 	}
 	while (msh->cmd_table[i].exec_table[j])
 	{
-		printf("%s ", msh->cmd_table[i].exec_table[j]);
+		printf("%s", msh->cmd_table[i].exec_table[j]);
+		if (msh->cmd_table[i].exec_table[j + 1])
+			printf(" ");
 		j++;
 	}
 	if (!flag)

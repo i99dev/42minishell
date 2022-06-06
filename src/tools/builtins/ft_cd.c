@@ -17,11 +17,10 @@ void	_2path(t_minishell *msh, char *path)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	//printf("%s\n", path);
 	update_hash(msh, "OLDPWD", pwd);
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: no such file or directory: ", 2);
+		error_message(msh, "cd: no such file or directory", 1);
 		ft_putendl_fd(path, 2);
 		return ;
 	}
@@ -36,7 +35,7 @@ void	cd_to_home(t_minishell *msh)
 	path = ft_strdup(find_hash(msh->env_table, "HOME"));
 	if (path == NULL)
 	{
-		ft_putstr_fd("cd: HOME not set\n", 2);
+		error_message(msh, "cd: no home directory", 1);
 		return ;
 	}
 	_2path(msh, path);
@@ -52,7 +51,7 @@ void	ft_cd(t_minishell *msh, int i)
 	{
 		if (find_hash(msh->env_table, "OLDPWD") == NULL)
 		{
-			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+			error_message(msh, "cd: OLDPWD not set", 1);
 			return ;
 		}
 		_2path(msh, ft_strdup(find_hash(msh->env_table, "OLDPWD")));

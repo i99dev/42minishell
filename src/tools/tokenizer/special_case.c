@@ -38,6 +38,23 @@ void	replace_tild(t_minishell *msh)
 	}
 }
 
+bool	special_char_with_dollar(char *word)
+{
+	int		i;
+
+	i = 0;
+	while (word[i])
+	{
+		if (word[i] == '$' && word[i + 1] && \
+		(word[i + 1] == '=' || word[i + 1] == '+' || word[i + 1] == '?'))
+			return (true);
+		i++;
+	}
+	if (i == 1)
+		return (true);
+	return (false);
+}
+
 void	handle_sign_dollar(t_minishell *msh)
 {
 	int		i;
@@ -49,7 +66,8 @@ void	handle_sign_dollar(t_minishell *msh)
 		j = 0;
 		while (msh->cmd_table[i].cmd[j])
 		{
-			if (ft_strchr(msh->cmd_table[i].cmd[j], '$'))
+			if (ft_strchr(msh->cmd_table[i].cmd[j], '$') && \
+			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
 				msh->cmd_table[i].cmd[j] = expand_cmd(msh, \
 				msh->cmd_table[i].cmd[j]);
 			j++;
@@ -58,7 +76,7 @@ void	handle_sign_dollar(t_minishell *msh)
 	}
 }
 
-void handle_double_dollar(t_minishell *msh)
+void	handle_double_dollar(t_minishell *msh)
 {
 	int		i;
 	int		j;
@@ -100,7 +118,8 @@ void	ft_special_case(t_minishell *msh)
 				replace_tild(msh);
 			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
 				handle_double_dollar(msh);
-			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) == 0)
+			else if (!ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) && \
+			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
 				handle_sign_dollar(msh);
 			j++;
 		}

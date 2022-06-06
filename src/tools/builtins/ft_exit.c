@@ -30,7 +30,7 @@ void	ft_with_arg(t_minishell *msh, char **argv)
 {
 	if (argv[1] && is_string_number(argv[1]))
 	{
-		msh->exit_status = ft_atoi(argv[1]);
+		error_message(msh, "exit: numeric argument required", 2);
 	}
 }
 
@@ -40,7 +40,7 @@ void	ft_exit(t_minishell *msh, int i)
 	ft_with_arg(msh, msh->cmd_table[i].cmd);
 	if (msh->command_count > 1)
 	{
-		ft_putendl_fd("exit: TOO_MANY_ARGS.", 2);
+		error_message(msh, "exit: too many arguments", 1);
 		msh->exit_status = 1;
 		return ;
 	}
