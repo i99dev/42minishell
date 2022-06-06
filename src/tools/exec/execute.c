@@ -55,7 +55,6 @@ void	execute(t_minishell *msh, int i)
 	{
 		ft_redirect(msh, i);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
-		ft_free_hash(msh->env_table);
 	}
 	wait4(pid, &status, 0, &ru);
 		error_message(msh,"NOT FOUND", 127);
