@@ -126,7 +126,7 @@ void			ft_redirect_out(t_minishell *msh, int index, int token);
 void			here_doc(t_minishell *msh, int i, int index);
 void			ft_redirect_append(t_minishell *msh, int index, int token);
 //function for here_doc
-void			doc_line_doc(int temp_fd, char *eof);
+void			doc_line_doc(t_minishell *msh, int temp_fd, char *eof);
 char			*doc_get_heredoc(char *str);
 void			doc_tmp_file(void);
 
@@ -148,7 +148,7 @@ char			*expand_cmd(t_minishell *msh, char *str);
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);
 void			ft_export(t_minishell *msh, int i);
-int				ft_pwd(void);
+void			ft_pwd(t_minishell *msh);
 void			ft_unset(t_minishell *msh, int i);
 void			ft_cd(t_minishell *msh, int i);
 void			ft_exit(t_minishell *msh, int i);
@@ -156,5 +156,9 @@ void			ft_exit(t_minishell *msh, int i);
 
 //exec functions
 char			*get_path(t_minishell *msh, int command_table_index);
+
+//function for utils
+void			error_message(t_minishell *msh, char *error_message, \
+int status);
 
 #endif

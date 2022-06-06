@@ -39,12 +39,14 @@ void	doc_tmp_file(void)
 	int		tmp_fd;
 
 	tmp_fd = open("/tmp/minishell_tmp", O_RDONLY);
+	if (tmp_fd == -1)
+		error_message(NULL, "doc_tmp_file: no such file or directory", 1);
 	unlink("/tmp/minishell_tmp");
 	dup2(tmp_fd, STDIN_FILENO);
 	close(tmp_fd);
 }
 
-void	doc_line_doc(int temp_fd, char *eof)
+void	doc_line_doc(t_minishell *msh, int temp_fd, char *eof)
 {
 	char	*input;
 
@@ -52,6 +54,11 @@ void	doc_line_doc(int temp_fd, char *eof)
 	while (1)
 	{
 		input = readline("> ");
+		if (!input)
+		{
+			error_message(msh, "here-document delimited by end-of-file", 0);
+			exit(0);
+		}
 		if (ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 		{
 			close(temp_fd);

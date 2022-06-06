@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 06:14:42 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/25 06:14:42 by oal-tena         ###   ########.fr       */
+/*   Created: 2022/06/06 14:43:08 by oal-tena          #+#    #+#             */
+/*   Updated: 2022/06/06 14:45:02 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../include/minishell.h"
 
-void	ft_pwd(t_minishell *msh)
+void	error_message(t_minishell *msh, char *error_message, int status)
 {
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-		printf("%s\n", cwd);
-	else
-		error_message(msh, "pwd: no such file or directory", 1);
-	free(cwd);
+	ft_putendl_fd(error_message, 2);
+	msh->exit_status = status;
 }

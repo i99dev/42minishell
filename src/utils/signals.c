@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 11:09:46 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/04 17:50:27 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:00:22 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ static void	quit_process(int signal)
 
 void	define_exec_signals(t_minishell *msh)
 {
-	if (signal(SIGINT, interrupt_process))
-		msh->exit_status = 130;
-	if (signal(SIGQUIT, quit_process))
-		msh->exit_status = 131;
+	(void)msh;
+	signal(SIGINT, interrupt_process);
+	signal(SIGQUIT, quit_process);
 }
 
 void	define_input_signals(t_minishell *msh)
 {
-	if (signal(SIGINT, redisplay_prompt))
-		msh->exit_status = 130;
-	if (signal(SIGQUIT, SIG_IGN))
-		msh->exit_status = 131;
+	(void)msh;
+	signal(SIGINT, redisplay_prompt);
+	signal(SIGQUIT, SIG_IGN);
 }

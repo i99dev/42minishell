@@ -40,7 +40,6 @@ void	execute(t_minishell *msh, int i)
 	pid_t			pid;
 	int				status;
 	struct rusage	ru;
-	char			*cmd;
 
 	pid = fork();
 	define_exec_signals(msh);
@@ -51,9 +50,8 @@ void	execute(t_minishell *msh, int i)
 	else if (pid == 0)
 	{
 		ft_redirect(msh, i);
-		cmd = get_path(msh, i);
-		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
-		perror("command failed");
+		execve(get_path(msh, i), msh->cmd_table[i].exec_table, msh->env);
+		error_message(msh, "command not found", 127);
 	}
 	wait4(pid, &status, 0, &ru);
 	if (WIFEXITED(status))
@@ -79,7 +77,7 @@ void	execute_builtin(t_minishell *msh, int i)
 		ft_cd(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"pwd", ft_strlen("pwd")))
-		ft_pwd();
+		ft_pwd(msh);
 	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
 	"export", ft_strlen("export")))
 		ft_export(msh, i);
