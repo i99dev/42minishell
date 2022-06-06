@@ -160,5 +160,7 @@ char			*get_path(t_minishell *msh, int command_table_index);
 //function for utils
 void			error_message(t_minishell *msh, char *error_message, \
 int status);
+void			free_loop(t_minishell *msh);
+void			ft_free_hash(t_hash_table *table);
 
 #endif

@@ -40,7 +40,11 @@ void	execute(t_minishell *msh, int i)
 	pid_t			pid;
 	int				status;
 	struct rusage	ru;
+	char			*cmd;
 
+	cmd = get_path(msh, i);
+	if (!cmd)
+		return ;
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)
@@ -50,12 +54,11 @@ void	execute(t_minishell *msh, int i)
 	else if (pid == 0)
 	{
 		ft_redirect(msh, i);
-		execve(get_path(msh, i), msh->cmd_table[i].exec_table, msh->env);
-		error_message(msh, "command not found", 127);
+		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
+		ft_free_hash(msh->env_table);
 	}
 	wait4(pid, &status, 0, &ru);
-	if (WIFEXITED(status))
-		msh->exit_status = WIFEXITED(status);
+		error_message(msh,"NOT FOUND", 127);
 }
 
 bool	check_command_type(t_minishell *msh, int index)

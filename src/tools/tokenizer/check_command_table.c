@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/06 14:39:29 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:17:00 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	check_command_table(t_minishell *msh, int i)
 		{
 			free(msh->cmd_table[i].cmd[index]);
 			msh->cmd_table[i].cmd[index] = ft_itoa(msh->exit_status);
+			msh->exit_status = 0;
 		}
 		if (msh->cmd_table[i].cmd[index] && ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
 		{
