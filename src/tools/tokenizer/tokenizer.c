@@ -78,8 +78,8 @@ void	ft_tokenizer(t_minishell *msh)
 	int	i;
 
 	init_command_table(msh);
-	ft_handle_quotes(msh);
 	ft_special_case(msh);
+	ft_handle_quotes(msh);
 	i = 0;
 	while (i < msh->command_count)
 	{

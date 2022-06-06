@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/06 04:30:32 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/06 20:38:07 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ bool	q_handle_d(t_minishell *msh, int i, int j, int *k)
 	{
 		msh->cmd_table[i].cmd[j][ft_strlen(msh->cmd_table[i].cmd[j]) - \
 		ft_strlen(tmp)] = 0;
+		if (msh->quotes[*k])
 		msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], \
 		expand_parameters(msh, msh->quotes[*k]));
 		msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], \
@@ -98,7 +99,7 @@ bool	q_handle_s(t_minishell *msh, int i, int j, int *k)
 	{
 		msh->cmd_table[i].cmd[j][ft_strlen(msh->cmd_table[i].cmd[j]) - \
 		ft_strlen(tmp)] = 0;
-		if (msh->quotes)
+		if (msh->quotes[*k])
 			msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], \
 			msh->quotes[*k]);
 		msh->cmd_table[i].cmd[j] = ft_strjoin(msh->cmd_table[i].cmd[j], \

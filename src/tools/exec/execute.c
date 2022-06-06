@@ -57,7 +57,7 @@ void	execute(t_minishell *msh, int i)
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 	}
 	wait4(pid, &status, 0, &ru);
-		error_message(msh,"NOT FOUND", 127);
+		//error_message(msh,"NOT FOUND", 127);
 }
 
 bool	check_command_type(t_minishell *msh, int index)
