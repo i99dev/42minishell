@@ -50,7 +50,7 @@ void	handle_sign_dollar(t_minishell *msh)
 		while (msh->cmd_table[i].cmd[j])
 		{
 			if (ft_strchr(msh->cmd_table[i].cmd[j], '$'))
-				msh->cmd_table[i].cmd[j] = expand_parameters(msh, \
+				msh->cmd_table[i].cmd[j] = expand_cmd(msh, \
 				msh->cmd_table[i].cmd[j]);
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/05 17:55:58 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/06 04:30:32 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*expand_parameters(t_minishell *msh, char *str)
 	int		i;
 	char	*temp_quote;
 	char	*temp_param;
-	char   *key;
 
 	i = 0;
 	temp_quote = ft_strchr(ft_strdup(str), '$');
@@ -59,14 +58,13 @@ char	*expand_parameters(t_minishell *msh, char *str)
 		&& temp_quote[i] != SINGLE_QUOTE)
 			i++;
 		temp_param = malloc(sizeof(char) * i);
-		key = get_key(temp_quote);
-		str = ft_strdup(ft_strinsert(str, ft_strdup(find_hash(msh->env_table, key)), key));
+		str = ft_strdup(expand_cmd(msh, str));
 		free(temp_param);
 		temp_quote++;
 		temp_quote = ft_strchr(temp_quote, '$');
 	}
 	if (ft_strncmp(str, "$", 1) == 0)
-		str = expand_parameters(msh, str);
+		str = expand_cmd(msh, str);
 	return (str);
 }
 

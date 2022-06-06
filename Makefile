@@ -48,6 +48,7 @@ SRC= 	src/main.c		\
 		src/tools/tokenizer/quotes_remove_quotes.c \
 		src/tools/tokenizer/ft_handle_quotes.c \
 		src/tools/tokenizer/ft_quotes_str.c \
+		src/tools/tokenizer/expand_parameters.c \
 		src/utils/msg.c \
 		src/utils/ft_free.c \
 		src/utils/ft_helper.c \
