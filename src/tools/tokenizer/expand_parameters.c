@@ -67,6 +67,7 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	start = ft_strchr(str, '$');
 	if (!start)
 		return (str);
+	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
 	res = (char *)malloc(sizeof(char) * 1024);
 	while (ft_strchr(start, '$'))

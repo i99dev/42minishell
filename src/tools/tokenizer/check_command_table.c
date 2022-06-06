@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/05 18:02:37 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:39:29 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void	check_command_table(t_minishell *msh, int i)
 	count_token(msh, i);
 	while (msh->cmd_table[i].cmd[index])
 	{
-		if (!ft_strncmp(msh->cmd_table[i].cmd[index], "$?", 3))
+		if (!ft_strncmp(msh->cmd_table[i].cmd[index], "$?", 2))
 		{
 			free(msh->cmd_table[i].cmd[index]);
-			msh->cmd_table[i].cmd[index]= ft_strdup(ft_itoa(msh->exit_status));
+			msh->cmd_table[i].cmd[index] = ft_itoa(msh->exit_status);
 		}
 		if (msh->cmd_table[i].cmd[index] && ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
 		{
