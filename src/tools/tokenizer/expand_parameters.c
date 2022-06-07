@@ -36,6 +36,10 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 
 	i = 0;
 	key = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if ( str[i] == ' ')
+	{
+		key = ft_strdup("$");
+	}
 	while (is_case_alph(str[i]))
 	{
 		key[i] = str[i];
@@ -77,6 +81,8 @@ char	*expand_cmd(t_minishell *msh, char *str)
 		tmp = ft_strjoin(ft_substr(start, 0, i), \
 		get_key_from_str(msh, &start[i + 1]));
 		start = ft_strdup(tmp);
+		if (get_key_from_str(msh, &start[i + 1])[0] =='$')
+			start = &start[i + 2];
 	}
 	i = 0;
 	while (i < len)
