@@ -47,7 +47,7 @@ char	*get_path(t_minishell *msh, int command_table_index)
 			break ;
 		i++;
 	}
-	if (is_executable(cmd))
+	if (!is_executable(cmd))
 	{
 		error_message(msh, "NOT_FOUND", 127);
 		return (NULL);

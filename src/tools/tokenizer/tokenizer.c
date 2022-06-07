@@ -51,6 +51,45 @@ char	**tk_split_pip(t_minishell *msh)
 	return (tmp);
 }
 
+char **split_first_word(char *str)
+{
+	char **tmp;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	tmp = (char **)malloc(sizeof(char *) * 2);
+	tmp[0] = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str[i] == ' ')
+		i++;
+	while (str[i] && str[i] != ' ')
+	{
+		tmp[0][j] = str[i];
+		j++;
+		i++;
+	}
+	while (str[i] == ' ')
+		i++;
+	tmp[0][j] = '\0';
+	if (&str[i] == NULL)
+		tmp[1] = NULL;
+	else
+	{
+		tmp[1] = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+		j = 0;
+		while (str[i])
+		{
+			tmp[1][j] = str[i];
+			j++;
+			i++;
+		}
+		tmp[1][j] = '\0';
+	}
+	tmp[2] = NULL;
+	return (tmp);
+}
+
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
@@ -61,7 +100,7 @@ void	init_command_table(t_minishell *msh)
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{
-		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
+		msh->cmd_table[i].cmd = split_first_word(tmp[i]);
 		ft_handle_quotes(msh);
 		ft_special_case(msh);
 		check_command_table(msh, i);
