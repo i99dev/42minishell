@@ -57,7 +57,7 @@ void	init_command_table(t_minishell *msh)
 	int		i;
 
 	i = 0;
-	ft_check_quotes(msh);
+	ft_quotes_strategy(msh);
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{

@@ -69,6 +69,21 @@ typedef struct s_minishell
 	int				exit_status;
 }	t_minishell;
 
+typedef struct s_quotes_strategy
+{
+	bool	has_quote;
+	bool	has_dollar;
+	bool	has_qs_before;
+	bool	has_qs_after;
+	bool	add_d_quote;
+	bool	expand;
+	bool	remove_me;
+	bool	clean_quote;
+	bool	add_s_quote;
+	int		quote_count;
+	int		word_count;
+}	t_qs;
+
 //color 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -143,6 +158,7 @@ int				q_count_quotes(t_minishell *msh);
 char			*ft_strinsert(char *str, char *in, char *key);
 char			*expand_parameters(t_minishell *msh, char *str);
 char			*expand_cmd(t_minishell *msh, char *str);
+void			ft_quotes_strategy(t_minishell *msh);
 
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
@@ -163,4 +179,13 @@ int status);
 void			free_loop(t_minishell *msh);
 void			ft_free_hash(t_hash_table *table);
 
+//function for new strategy
+void			ft_quotes_strategy(t_minishell *msh);
+void			qs_handle(t_minishell *msh, t_qs **qs, char **str, int k);
+void			qs_check(t_qs **qs, char **str, int k);
+void			qs_init(t_qs **qs);
+void			qs_print(t_qs **qs, char *str);
+char			*qs_remove_single_quote(char *str);
+char			*qs_remove_space(char *str);
+bool			valid_dollar_sign(char *str, int i);
 #endif

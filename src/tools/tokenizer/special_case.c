@@ -120,7 +120,7 @@ void	ft_special_case(t_minishell *msh)
 				handle_double_dollar(msh);
 			else if (!ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) && \
 			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
-				handle_sign_dollar(msh);
+				return ;
 			j++;
 		}
 		i++;
