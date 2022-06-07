@@ -51,6 +51,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	rl_outstream = stderr;
 	init_minishell(&minishell);
 	minishill_start(&minishell, env);
 	ft_free_minishell(&minishell);

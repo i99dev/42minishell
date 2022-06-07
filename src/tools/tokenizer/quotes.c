@@ -47,11 +47,12 @@ void	ft_check_quotes(t_minishell *msh)
 		}
 	}
 	printf("%s\n",msh->line);
-	printf("%d\n", msh->quote_count);
+	printf("qcount:%d\n", msh->quote_count);
 	i=0;
-	while(i< msh->quote_count)
+	//while(i< msh->quote_count)
 	{
-		printf("quote:%s\n",msh->quotes[i]);
-		i++;
+		//printf("quote:%s\n",msh->quotes[i]);
+		//i++;
 	}
+	//printf("%s\n",msh->line);
 }
