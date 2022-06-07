@@ -71,6 +71,7 @@ char	*expand_parameters(t_minishell *msh, char *str)
 bool	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 {
 	char	*tmp;
+	int		pos;
 
 	tmp = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[*j], DOUBLE_QUOTE));
 	if (tmp[1] && tmp[1] == DOUBLE_QUOTE && ft_strlen(msh->quotes[*k]))
@@ -80,8 +81,11 @@ bool	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 		//if (msh->quotes[*k])
 		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
 		expand_parameters(msh, msh->quotes[*k]));
+		pos=strlen(msh->cmd_table[i].cmd[*j]) - 1;
+		printf("position insert:%d",pos);
 		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
 		tmp + 2);
+		
 		if(!ft_strchr(tmp+2, SINGLE_QUOTE) && !ft_strchr(tmp+2, DOUBLE_QUOTE))
 		{
 		printf("switching to next\n");
@@ -104,6 +108,7 @@ bool	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 bool	q_handle_s(t_minishell *msh, int i, int *j, int *k)
 {
 	char	*tmp;
+	int     pos;
 
 	tmp = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[*j], SINGLE_QUOTE));
 	if (tmp[1] && tmp[1] == SINGLE_QUOTE && ft_strlen(msh->quotes[*k]))
@@ -113,10 +118,11 @@ bool	q_handle_s(t_minishell *msh, int i, int *j, int *k)
 		//if (msh->quotes[*k])
 		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
 			msh->quotes[*k]);
+		pos=strlen(msh->cmd_table[i].cmd[*j])-1;
+		printf("position insert:%d",pos);
 		if(ft_strlen(msh->cmd_table[i].cmd[*j]) > ft_strlen(tmp))
 		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
 		tmp + 2);
-		
 		if(!ft_strchr(tmp+2, SINGLE_QUOTE) && !ft_strchr(tmp+2, DOUBLE_QUOTE))
 		{
 			printf("switching to next\n");
