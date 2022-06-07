@@ -55,9 +55,9 @@ void	execute(t_minishell *msh, int i)
 	{
 		ft_redirect(msh, i);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
+		error_message(msh, "NOT FOUND", 127);
 	}
 	wait4(pid, &status, 0, &ru);
-		//error_message(msh,"NOT FOUND", 127);
 }
 
 bool	check_command_type(t_minishell *msh, int index)
@@ -71,27 +71,29 @@ bool	check_command_type(t_minishell *msh, int index)
 void	execute_builtin(t_minishell *msh, int i)
 {
 	ft_redirect(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"echo", ft_strlen("echo")))
 		ft_echo(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"cd", ft_strlen("cd")))
 		ft_cd(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"pwd", ft_strlen("pwd")))
 		ft_pwd(msh);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"export", ft_strlen("export")))
 		ft_export(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"unset", ft_strlen("unset")))
 		ft_unset(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"env", ft_strlen("env")))
 		ft_env(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i].cmd[0], \
+	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"exit", ft_strlen("exit")))
 		ft_exit(msh, i);
+	else
+		msh->exit_status=127;
 }
 
 void	init_execute(t_minishell *msh)

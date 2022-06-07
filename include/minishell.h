@@ -64,6 +64,7 @@ typedef struct s_minishell
 	char			*user_info;
 	char			*line;
 	int				*fd_std;
+	int				q_pos;
 	int				rd;
 	int				last_fd;
 	int				exit_status;
