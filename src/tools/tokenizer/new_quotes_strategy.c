@@ -32,10 +32,11 @@ char	*qs_remove_addtional_space(char *str)
 	return (str);
 }
 
-void	qs_add_rules(t_qs **qs)
+void	qs_add_rules(t_qs **qs, int len)
 {
-	if ((((*qs)->has_dollar && (!(*qs)->has_qs_before && !(*qs)->has_qs_after))) || \
-	((*qs)->has_dollar && (*qs)->has_quote))
+	if (((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len > 1) || \
+	((*qs)->has_dollar && !(*qs)->has_quote && !(*qs)->has_qs_before &&!(*qs)->has_qs_after) || \
+	(!(*qs)->has_dollar && !(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after))
 		(*qs)->expand = true;
 	if (((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count == 0))
 		(*qs)->remove_me = true;
@@ -44,11 +45,14 @@ void	qs_add_rules(t_qs **qs)
 	if (!(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after)
 		(*qs)->add_d_quote = true;
 	if (((*qs)->quote_count == 1 && (*qs)->word_count == 0) || \
-	((*qs)->quote_count == 3 && (*qs)->word_count > 0))
+	((*qs)->quote_count == 3 && (*qs)->word_count > 0) || \
+	((*qs)->has_dollar && (*qs)->has_quote && ((*qs)->has_qs_after || (*qs)->has_qs_before)) || \
+	((*qs)->has_quote && !(*qs)->has_qs_after && !(*qs)->has_qs_before && (*qs)->word_count > 0 && (*qs)->quote_count > 2) || \
+	((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len == 1))
 		(*qs)->clean_quote = true;
 }
 
-void	qs_check(t_qs **qs, char **str, int k)
+void	qs_check(t_qs **qs, char **str, int k, int len)
 {
 	int	i;
 
@@ -70,7 +74,7 @@ void	qs_check(t_qs **qs, char **str, int k)
 			(*qs)->word_count++;
 		i++;
 	}
-	qs_add_rules(qs);
+	qs_add_rules(qs, len);
 }
 
 void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
@@ -99,22 +103,38 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = qs_remove_addtional_space(str[k]);
 }
 
+
+char	*get_cmd(char *line)
+{
+	char	*cmd;
+	int		i;
+
+	i = 0;
+	while (line[i] && line[i] != ' ')
+		i++;
+	cmd = ft_substr(line, 0, i);
+	return (cmd);
+}
+
+
 void	ft_quotes_strategy(t_minishell *msh)
 {
 	char	**d_quotes;
 	t_qs	**qs;
 	int		i;
+	int  	len;
 
 	d_quotes = ft_split(msh->line, DOUBLE_QUOTE);
 	i = 0;
 	while (d_quotes[i])
 		i++;
-	qs = (t_qs **)malloc(sizeof(t_qs *) * i);
+	len = i;
+	qs = (t_qs **)malloc(sizeof(t_qs *) * len);
 	i = 0;
 	while (d_quotes[i])
 	{
 		qs_init(&qs[i]);
-		qs_check(&qs[i], d_quotes, i);
+		qs_check(&qs[i], d_quotes, i, len);
 		// qs_print(&qs[i], d_quotes[i]);
 		i++;
 	}
@@ -127,15 +147,25 @@ void	ft_quotes_strategy(t_minishell *msh)
 	i = 0;
 	while (d_quotes[i])
 	{
-		if (i == 0)
+		if (i == 0 && !qs[i]->remove_me)
 		{
 			free(msh->line);
-			msh->line = ft_strdup(d_quotes[i]);
-			if (d_quotes[i + 1])
-				msh->line = ft_strjoin(msh->line, ft_strdup(" "));
+			msh->line = ft_strdup(get_cmd(d_quotes[i]));
+			if (&d_quotes[ft_strlen(get_cmd(d_quotes[i]) + 1)] != NULL)
+			{
+				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
+				msh->line = ft_strjoin(msh->line, ft_strdup(&d_quotes[i][ft_strlen(get_cmd(d_quotes[i])) + 1]));
+			}
 		}
 		else if (d_quotes[i] != NULL && !qs[i]->remove_me)
-			msh->line = ft_strjoin(msh->line, d_quotes[i]);
+		{
+			if (d_quotes[i][0] == '\0')
+				msh->line = ft_strjoin(msh->line, ft_strdup(" "));
+			else
+				msh->line = ft_strjoin(msh->line, d_quotes[i]);
+			if (d_quotes[i + 1] != NULL)
+				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
+		}
 		i++;
 	}
 }

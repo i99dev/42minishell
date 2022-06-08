@@ -90,7 +90,7 @@ void	init_command_table(t_minishell *msh)
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{
-		msh->cmd_table[i].cmd = split_first_word(tmp[i]);
+		msh->cmd_table[i].cmd = ft_split(tmp[i], '\n');
 		ft_handle_quotes(msh);
 		ft_special_case(msh);
 		check_command_table(msh, i);
