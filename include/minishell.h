@@ -80,6 +80,7 @@ typedef struct s_quotes_strategy
 	bool	remove_me;
 	bool	clean_quote;
 	bool	add_s_quote;
+	bool	special_case;
 	int		quote_count;
 	int		word_count;
 }	t_qs;

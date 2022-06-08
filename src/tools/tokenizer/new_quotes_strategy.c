@@ -12,31 +12,62 @@
 
 #include "../../../include/minishell.h"
 
-char	*qs_remove_addtional_space(char *str)
+char *qs_special_case(t_minishell *msh, char *str)
 {
 	char	**tmp;
 	int		i;
 
-	tmp = ft_split(str, ' ');
-	str = ft_strdup("");
 	i = 0;
+	tmp = ft_split(str, '\'');
 	while (tmp[i])
 	{
-		if (i != 0)
-			str = ft_strjoin(str, ft_strdup(" "));
+		if (tmp[i][0] != '$')
+			tmp[i] = expand_cmd(msh, tmp[i]);
+		else
+		{
+			tmp[i] = ft_strjoin(ft_strdup("'"), tmp[i]);
+			tmp[i] = ft_strjoin(tmp[i], ft_strdup("'"));
+		}
+		i++;
+	}
+	i = 0;
+	free(str);
+	str = ft_strdup("");
+	while (tmp[i])
+	{
 		str = ft_strjoin(str, tmp[i]);
 		i++;
 	}
-	str = ft_strdup(str);
-	free(tmp);
 	return (str);
+}
+
+char	*qs_remove_addtional_space(char *str)
+{
+	char *new_string;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	new_string = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str[i])
+	{
+		if (str[i] == ' ' && str[i + 1] == ' ')
+			i++;
+		else
+			new_string[j++] = str[i++];
+	}
+	new_string[j] = '\0';
+	free(str);
+	return (new_string);
 }
 
 void	qs_add_rules(t_qs **qs, int len)
 {
 	if (((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len > 1) || \
 	((*qs)->has_dollar && !(*qs)->has_quote && !(*qs)->has_qs_before &&!(*qs)->has_qs_after) || \
-	(!(*qs)->has_dollar && !(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after))
+	(!(*qs)->has_dollar && !(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after) || \
+	((*qs)->has_dollar && (*qs)->has_quote && !(*qs)->has_qs_before && !(*qs)->has_qs_after && len == 1 && (*qs)->quote_count > 2) )
 		(*qs)->expand = true;
 	if (((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count == 0))
 		(*qs)->remove_me = true;
@@ -47,9 +78,13 @@ void	qs_add_rules(t_qs **qs, int len)
 	if (((*qs)->quote_count == 1 && (*qs)->word_count == 0) || \
 	((*qs)->quote_count == 3 && (*qs)->word_count > 0) || \
 	((*qs)->has_dollar && (*qs)->has_quote && ((*qs)->has_qs_after || (*qs)->has_qs_before)) || \
-	((*qs)->has_quote && !(*qs)->has_qs_after && !(*qs)->has_qs_before && (*qs)->word_count > 0 && (*qs)->quote_count > 2) || \
-	((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len == 1))
+	((*qs)->has_quote && !(*qs)->has_qs_after && !(*qs)->has_qs_before && (*qs)->word_count > 0 && (*qs)->quote_count == 2 && !(*qs)->expand) || \
+	((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len == 1) || \
+	((*qs)->has_quote && (*qs)->has_qs_after && (*qs)->quote_count == 2 && (*qs)->word_count == 0) || \
+	((*qs)->has_dollar && (*qs)->has_quote && !(*qs)->has_qs_before && !(*qs)->has_qs_after && len == 1 && (*qs)->quote_count > 2))
 		(*qs)->clean_quote = true;
+	if ((*qs)->has_dollar && (*qs)->has_quote && len == 1 && (*qs)->quote_count > 2)
+		(*qs)->special_case = true;
 }
 
 void	qs_check(t_qs **qs, char **str, int k, int len)
@@ -79,7 +114,9 @@ void	qs_check(t_qs **qs, char **str, int k, int len)
 
 void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 {
-	if ((*qs)->expand)
+	if ((*qs)->special_case)
+		str[k] = qs_special_case(msh, str[k]);
+	if ((*qs)->expand && !(*qs)->special_case)
 		str[k] = expand_cmd(msh, str[k]);
 	if ((*qs)->add_d_quote)
 	{
@@ -98,8 +135,8 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = ft_strjoin(str[k], ft_strdup("'"));
 		str[k] = qs_remove_space(str[k]);
 	}
-	if (!(*qs)->has_dollar && !(*qs)->has_qs_after && !(*qs)->has_qs_before && \
-	!(*qs)->has_quote && !(*qs)->expand)
+	if ((!(*qs)->has_dollar && !(*qs)->has_qs_after && !(*qs)->has_qs_before && \
+	!(*qs)->has_quote && !(*qs)->expand) || (*qs)->special_case)
 		str[k] = qs_remove_addtional_space(str[k]);
 }
 

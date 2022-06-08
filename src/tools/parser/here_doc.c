@@ -56,8 +56,8 @@ void	doc_line_doc(t_minishell *msh, int temp_fd, char *eof)
 		input = readline("> ");
 		if (!input)
 		{
-			error_message(msh, "here-document delimited by end-of-file", 0);
-			exit(0);
+			error_message(msh, "here-document delimited by end-of-file", 2);
+			ft_free_minishell(msh);
 		}
 		if (ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 		{

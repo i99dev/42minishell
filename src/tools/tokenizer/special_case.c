@@ -115,7 +115,7 @@ void	ft_special_case(t_minishell *msh)
 		while (msh->cmd_table[i].cmd[j])
 		{
 			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
-				replace_tild(msh);
+				return ;
 			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
 				handle_double_dollar(msh);
 			else if (!ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) && \

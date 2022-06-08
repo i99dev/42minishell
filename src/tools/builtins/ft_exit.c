@@ -29,14 +29,11 @@ bool	is_string_number(char *str)
 void	ft_with_arg(t_minishell *msh, char **argv)
 {
 	if (argv[1] && is_string_number(argv[1]))
-	{
 		error_message(msh, "exit: numeric argument required", 2);
-	}
 }
 
 void	ft_exit(t_minishell *msh, int i)
 {
-	(void)i;
 	ft_with_arg(msh, msh->cmd_table[i].cmd);
 	if (msh->command_count > 1)
 	{
@@ -44,5 +41,5 @@ void	ft_exit(t_minishell *msh, int i)
 		msh->exit_status = 1;
 		return ;
 	}
-	exit(msh->exit_status);
+	ft_free_minishell(msh);
 }

@@ -39,7 +39,6 @@ void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
-	struct rusage	ru;
 	char			*cmd;
 
 	cmd = get_path(msh, i);
@@ -47,18 +46,13 @@ void	execute(t_minishell *msh, int i)
 		return ;
 	pid = fork();
 	define_exec_signals(msh);
-	if (pid < 0)
-	{
-		err_msg("fork failed");
-	}
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		ft_redirect(msh, i);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
-		exit(0);
 	}
-	wait4(pid, &status, 0, &ru);
-	msh->exit_status = WEXITSTATUS(status);
+	if (waitpid(pid, &status, 0))
+		msh->exit_status = WEXITSTATUS(status);
 }
 
 bool	check_command_type(t_minishell *msh, int index)

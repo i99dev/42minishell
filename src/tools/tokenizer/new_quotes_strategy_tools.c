@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 08:56:03 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/08 08:53:28 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:37:47 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	qs_init(t_qs **qs)
 	(*qs)->remove_me = false;
 	(*qs)->clean_quote = false;
 	(*qs)->add_s_quote = false;
+	(*qs)->special_case = false;
 	(*qs)->quote_count = 0;
 	(*qs)->word_count = 0;
 }
@@ -31,7 +32,7 @@ void	qs_init(t_qs **qs)
 void	qs_print(t_qs **qs, char *str)
 {
 	printf("--------------------\n");
-	printf("str is %s\n", str);
+	printf("str is |%s|\n", str);
 	printf("has_quote: %d\n", (*qs)->has_quote);
 	printf("has_dollar: %d\n", (*qs)->has_dollar);
 	printf("has_qs_before: %d\n", (*qs)->has_qs_before);
