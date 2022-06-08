@@ -136,7 +136,7 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = qs_remove_space(str[k]);
 	}
 	if ((!(*qs)->has_dollar && !(*qs)->has_qs_after && !(*qs)->has_qs_before && \
-	!(*qs)->has_quote && !(*qs)->expand) || (*qs)->special_case)
+	!(*qs)->has_quote && !(*qs)->expand) || ((*qs)->special_case && (*qs)->quote_count == 4))
 		str[k] = qs_remove_addtional_space(str[k]);
 }
 

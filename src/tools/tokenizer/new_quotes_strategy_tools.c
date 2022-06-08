@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 08:56:03 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/08 19:37:47 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:13:43 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	qs_print(t_qs **qs, char *str)
 	printf("has_qs_before: %d\n", (*qs)->has_qs_before);
 	printf("has_qs_after: %d\n", (*qs)->has_qs_after);
 	printf("need expand: %d\n", (*qs)->expand);
+	printf("special case: %d\n", (*qs)->special_case);
 	printf("quote_count: %d\n", (*qs)->quote_count);
 	printf("word_count: %d\n", (*qs)->word_count);
 	printf("add_d_quote: %d\n", (*qs)->add_d_quote);
