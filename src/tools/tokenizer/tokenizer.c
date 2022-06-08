@@ -25,7 +25,6 @@ char	*clean_str_space(char *str)
 	{
 		if (str[i] != ' ')
 		{
-			//printf("char is:%c\n", str[i]);
 			new_str[j] = str[i];
 			j++;
 		}
@@ -51,9 +50,9 @@ char	**tk_split_pip(t_minishell *msh)
 	return (tmp);
 }
 
-char **split_first_word(char *str)
+char	**split_first_word(char *str)
 {
-	char **tmp;
+	char	**tmp;
 	int		i;
 	int		j;
 
@@ -66,27 +65,17 @@ char **split_first_word(char *str)
 	while (str[i] && str[i] != ' ')
 	{
 		tmp[0][j] = str[i];
-		j++;
 		i++;
+		j++;
 	}
+	tmp[0] = ft_strdup(tmp[0]);
 	while (str[i] == ' ')
 		i++;
-	tmp[0][j] = '\0';
-	if (&str[i] == NULL)
-		tmp[1] = NULL;
-	else
+	if (str[i])
 	{
-		tmp[1] = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-		j = 0;
-		while (str[i])
-		{
-			tmp[1][j] = str[i];
-			j++;
-			i++;
-		}
-		tmp[1][j] = '\0';
+		tmp[1] = ft_strdup(&str[i]);
+		tmp[2] = NULL;
 	}
-	tmp[2] = NULL;
 	return (tmp);
 }
 
