@@ -27,6 +27,8 @@ char	*qs_remove_addtional_space(char *str)
 		str = ft_strjoin(str, tmp[i]);
 		i++;
 	}
+	str = ft_strdup(str);
+	free(tmp);
 	return (str);
 }
 
@@ -92,6 +94,9 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = ft_strjoin(str[k], ft_strdup("'"));
 		str[k] = qs_remove_space(str[k]);
 	}
+	if (!(*qs)->has_dollar && !(*qs)->has_qs_after && !(*qs)->has_qs_before && \
+	!(*qs)->has_quote && !(*qs)->expand)
+		str[k] = qs_remove_addtional_space(str[k]);
 }
 
 void	ft_quotes_strategy(t_minishell *msh)
@@ -126,6 +131,8 @@ void	ft_quotes_strategy(t_minishell *msh)
 		{
 			free(msh->line);
 			msh->line = ft_strdup(d_quotes[i]);
+			if (d_quotes[i + 1])
+				msh->line = ft_strjoin(msh->line, ft_strdup(" "));
 		}
 		else if (d_quotes[i] != NULL && !qs[i]->remove_me)
 			msh->line = ft_strjoin(msh->line, d_quotes[i]);
