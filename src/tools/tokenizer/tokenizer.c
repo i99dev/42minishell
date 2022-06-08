@@ -68,6 +68,7 @@ char	**split_first_word(char *str)
 		i++;
 		j++;
 	}
+	tmp[0][j] = '\0';
 	tmp[0] = ft_strdup(tmp[0]);
 	while (str[i] == ' ')
 		i++;

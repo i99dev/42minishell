@@ -17,8 +17,7 @@ void	qs_add_rules(t_qs **qs)
 	if ((((*qs)->has_dollar && (!(*qs)->has_qs_before && !(*qs)->has_qs_after))) || \
 	((*qs)->has_dollar && (*qs)->has_quote))
 		(*qs)->expand = true;
-	if (((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count == 0) || \
-	(!(*qs)->has_quote && (*qs)->quote_count == 0 && (*qs)->word_count == 0))
+	if (((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count == 0))
 		(*qs)->remove_me = true;
 	if ((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count > 0)
 		(*qs)->clean_quote = true;
@@ -56,11 +55,14 @@ void	qs_check(t_qs **qs, char **str, int k)
 
 void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 {
-	// printf("tmp is:%s\n", str[k]);
 	if ((*qs)->expand)
+	{
 		str[k] = expand_cmd(msh, str[k]);
+	}
+	// printf("%d to |%s|\n", k, str[k]);
 	if ((*qs)->add_d_quote)
 	{
+		str[k] = qs_remove_space(str[k]);
 		str[k] = qs_remove_single_quote(ft_strdup(str[k]));
 		str[k] = ft_strjoin(ft_strdup("\""), ft_strdup(str[k]));
 		str[k] = ft_strjoin(str[k], ft_strdup("\""));
@@ -75,9 +77,8 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = qs_remove_single_quote(str[k]);
 		str[k] = ft_strjoin(ft_strdup("'"), str[k]);
 		str[k] = ft_strjoin(str[k], ft_strdup("'"));
-		// str[k] = qs_remove_space(str[k]);
+		str[k] = qs_remove_space(str[k]);
 	}
-	// printf("update is:%s\n", str[k]);
 }
 
 void	ft_quotes_strategy(t_minishell *msh)
