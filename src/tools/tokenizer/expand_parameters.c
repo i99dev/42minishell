@@ -46,10 +46,12 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 	{
 		value = find_hash(msh->env_table, key);
 		if (value)
+		{
 			key = ft_strdup(value);
+			key = ft_strjoin(key, &str[i]);
+		}
 		else
 			key = ft_strdup("");
-		key = ft_strjoin(key, &str[i]);
 	}
 	else
 		key = ft_strdup(str);

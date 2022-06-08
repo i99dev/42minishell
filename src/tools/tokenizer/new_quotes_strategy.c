@@ -12,6 +12,24 @@
 
 #include "../../../include/minishell.h"
 
+char	*qs_remove_addtional_space(char *str)
+{
+	char	**tmp;
+	int		i;
+
+	tmp = ft_split(str, ' ');
+	str = ft_strdup("");
+	i = 0;
+	while (tmp[i])
+	{
+		if (i != 0)
+			str = ft_strjoin(str, ft_strdup(" "));
+		str = ft_strjoin(str, tmp[i]);
+		i++;
+	}
+	return (str);
+}
+
 void	qs_add_rules(t_qs **qs)
 {
 	if ((((*qs)->has_dollar && (!(*qs)->has_qs_before && !(*qs)->has_qs_after))) || \
@@ -56,10 +74,7 @@ void	qs_check(t_qs **qs, char **str, int k)
 void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 {
 	if ((*qs)->expand)
-	{
 		str[k] = expand_cmd(msh, str[k]);
-	}
-	// printf("%d to |%s|\n", k, str[k]);
 	if ((*qs)->add_d_quote)
 	{
 		str[k] = qs_remove_space(str[k]);
@@ -69,9 +84,7 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = qs_remove_space(str[k]);
 	}
 	if ((*qs)->clean_quote)
-	{
 		str[k] = qs_remove_single_quote(str[k]);
-	}
 	if ((*qs)->add_s_quote)
 	{
 		str[k] = qs_remove_single_quote(str[k]);
