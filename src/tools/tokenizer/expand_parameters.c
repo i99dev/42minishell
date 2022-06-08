@@ -36,17 +36,13 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 
 	i = 0;
 	key = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if ( str[i] == ' ')
-	{
-		key = ft_strdup("$");
-	}
-	while (is_case_alph(str[i]))
+	while (isalpha(str[i]))
 	{
 		key[i] = str[i];
 		i++;
 	}
 	key[i] = '\0';
-	if (key[0] != '\0')
+	if (key[0] != '\0' && !isdigit(str[i]))
 	{
 		value = find_hash(msh->env_table, key);
 		if (value)
@@ -55,11 +51,28 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 			key = ft_strdup("");
 		key = ft_strjoin(key, &str[i]);
 	}
+	else if (isdigit(str[i]) && i==0)
+		return ft_strdup(str + 1);
+	else if(isdigit(str[i]))
+		return ft_strdup("");
 	else
 		key = ft_strdup(str);
 	return (key);
 }
+bool is_parameter(char *str)
+{
+	char *tmp;
 
+	tmp=ft_strchr(str, '$');
+	if(tmp)
+	{
+	if (tmp[1] && !is_case_alph(tmp[1]))
+	return false;
+	}
+	else
+	return false;
+	return true;
+}
 char	*expand_cmd(t_minishell *msh, char *str)
 {
 	char	*tmp;
@@ -74,15 +87,13 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
 	res = (char *)malloc(sizeof(char) * 1024);
-	while (ft_strchr(start, '$'))
+	while (is_parameter(start))
 	{
 		while (start[i] != '$')
 			i++;
 		tmp = ft_strjoin(ft_substr(start, 0, i), \
 		get_key_from_str(msh, &start[i + 1]));
 		start = ft_strdup(tmp);
-		if (get_key_from_str(msh, &start[i + 1])[0] =='$')
-			start = &start[i + 2];
 	}
 	i = 0;
 	while (i < len)

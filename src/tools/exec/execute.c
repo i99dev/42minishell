@@ -90,7 +90,7 @@ void	execute_builtin(t_minishell *msh, int i)
 	"env", ft_strlen("env")))
 		ft_env(msh, i);
 	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
-	"exit", ft_strlen("exit")))
+	"exit", 5))
 		ft_exit(msh, i);
 	else
 		msh->exit_status=127;

@@ -49,8 +49,11 @@ void	ft_echo(t_minishell *msh, int i)
 		return ;
 	while (msh->cmd_table[i].exec_table[j])
 	{
+		if (strncmp(msh->cmd_table[i].exec_table[j],"\n",2) && strncmp(msh->cmd_table[i].exec_table[j],"\t",2))
+		{
 		printf("%s", msh->cmd_table[i].exec_table[j]);
-		if (msh->cmd_table[i].exec_table[j + 1])
+		}
+		if (msh->cmd_table[i].exec_table[j + 1] && strncmp(msh->cmd_table[i].exec_table[j + 1],"\n",2))
 			printf(" ");
 		j++;
 	}

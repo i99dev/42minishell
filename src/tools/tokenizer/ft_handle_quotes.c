@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/07 19:32:20 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/08 19:28:42 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,19 @@ int	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 	}
 	else if (tmp[1] && tmp[1] == DOUBLE_QUOTE && !ft_strlen(msh->quotes[*k]))
 	{
+		if(tmp[2]==0 && ft_strlen(msh->cmd_table[i].cmd[*j]) == 2)
+		{
+			msh->cmd_table[i].cmd[*j] =  ft_strdup("\t");
+		}
+		else
+		{
 			msh->cmd_table[i].cmd[*j][ft_strlen(msh->cmd_table[i].cmd[*j]) - \
 			ft_strlen(tmp)] = 0;
 			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
 			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
 			msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
 			tmp + 2);
-
+		}
 		*k +=1;
 		return (true);
 	}
@@ -120,7 +126,14 @@ bool		q_handle_s(t_minishell *msh, int i, int *j, int *k)
 		return (true);
 	}
 	else if (tmp[1] && tmp[1] == SINGLE_QUOTE && !ft_strlen(msh->quotes[*k]))
-	{/*
+	{
+		if(tmp[2]==0 && ft_strlen(msh->cmd_table[i].cmd[*j]) == 2)
+		{
+			msh->cmd_table[i].cmd[*j] =  ft_strdup("\t");
+		}
+		else
+		{
+		/*
 		if (msh->cmd_table[i].cmd[*j][0] != '\'' && msh->cmd_table[i].cmd[*j][1] != '\'')
 		{*/
 			msh->cmd_table[i].cmd[*j][ft_strlen(msh->cmd_table[i].cmd[*j]) - \
@@ -129,6 +142,7 @@ bool		q_handle_s(t_minishell *msh, int i, int *j, int *k)
 			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
 			msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
 		tmp + 2);
+		}
 		/*
 		}
 		else

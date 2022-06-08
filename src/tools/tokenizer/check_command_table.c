@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command_table.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/06 16:34:15 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:25:51 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,13 @@ void	check_command_table(t_minishell *msh, int i)
 			k++;
 			}
 		}
+		index++;
+	}
+	index=0;
+	while (msh->cmd_table[i].exec_table[index])
+	{
+		if(*msh->cmd_table[i].exec_table[index] == 0)
+			msh->cmd_table[i].exec_table[index] = "\n";
 		index++;
 	}
 }
