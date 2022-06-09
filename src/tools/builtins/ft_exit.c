@@ -38,13 +38,14 @@ void	ft_exit(t_minishell *msh, int i)
 {
 	(void)i;
 	(void)msh;
-	//ft_with_arg(msh, msh->cmd_table[i].cmd);
-	/*
+	ft_with_arg(msh, msh->cmd_table[i].cmd);
+	
 	if (msh->command_count > 1)
 	{
 		error_message(msh, "exit: too many arguments", 1);
 		msh->exit_status = 1;
 		return ;
-	}*/
-	exit(1);
-}
+	}
+	msh->exit_status = 1;
+	ft_free_minishell(msh);
+	}
