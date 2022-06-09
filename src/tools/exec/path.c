@@ -40,17 +40,19 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	i = 0;
 	while (tmp != NULL && tmp[i])
 	{
-		cmd = ft_strjoin(tmp[i], "/");
+		cmd = ft_strjoin(tmp[i], ft_strdup("/"));
 		cmd = ft_strjoin(cmd, \
 		msh->cmd_table[command_table_index].exec_table[0]);
 		if (is_executable(cmd))
 			break ;
 		i++;
+		free(cmd);
+		cmd = NULL;
 	}
-	if (!is_executable(cmd))
+	if (cmd == NULL)
 	{
-		error_message(msh, "NOT_FOUND", 127);
-		exit(EXIT_FAILURE);
+		error_message(msh, "command not found", 127);
+		return (NULL);
 	}
 	return (cmd);
 }
