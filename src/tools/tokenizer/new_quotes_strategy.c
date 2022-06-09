@@ -205,18 +205,82 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = qs_remove_addtional_space(str[k]);
 }
 
+
 char	*get_cmd(char *line)
 {
 	char	*cmd;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
+	while (line[j] && line[j] == ' ')
+		j++;
+	i = j;
 	while (line[i] && line[i] != ' ')
 		i++;
-	cmd = ft_substr(line, 0, i);
+	cmd = ft_substr(line, j, i);
 	return (cmd);
 }
 
+char	*join_all_line(char **str)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = ft_strdup("");
+	while (str[i])
+	{
+		tmp = ft_strjoin(tmp, str[i]);
+		i++;
+	}
+	return (tmp);
+}
+
+
+
+void	close_task(t_minishell *msh, t_qs **qs, char **d_quotes)
+{
+	int		i;
+	int		start;
+	char	*cmd;
+	char    *tmp;
+
+	i = 0;
+	start = 0;
+	d_quotes = ft_split(join_all_line(d_quotes), '|');
+	tmp = ft_strdup("");
+	while (d_quotes[i])
+	{
+		if (!(*qs)->remove_me && start == 0)
+		{
+			if (&d_quotes[ft_strlen(cmd + 1)] != NULL)
+			{
+				cmd = get_cmd(d_quotes[i]);
+				msh->line = ft_strdup(cmd);
+				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
+				msh->line = ft_strjoin(msh->line, ft_strdup(&d_quotes[i][ft_strlen(get_cmd(d_quotes[i])) + 1]));
+			}
+			start = 1;
+		}
+		else if (d_quotes[i] != NULL)
+		{
+			if (d_quotes[i][0] == '\0')
+				msh->line = ft_strjoin(msh->line, ft_strdup(" "));
+			else
+				msh->line = ft_strjoin(msh->line, d_quotes[i]);
+			if (d_quotes[i + 1] != NULL)
+				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
+		}
+		msh->line = ft_strjoin(msh->line, "|");
+		i++;
+		start = 0;
+		tmp = ft_strjoin(tmp, msh->line);
+	}
+	free(msh->line);
+	msh->line = ft_strdup(tmp);
+}
 
 void	ft_quotes_strategy(t_minishell *msh)
 {
@@ -245,28 +309,6 @@ void	ft_quotes_strategy(t_minishell *msh)
 		qs_handle(msh, &qs[i], d_quotes, i);
 		i++;
 	}
-	i = 0;
-	while (d_quotes[i])
-	{
-		if (i == 0 && !qs[i]->remove_me)
-		{
-			free(msh->line);
-			msh->line = ft_strdup(get_cmd(d_quotes[i]));
-			if (&d_quotes[ft_strlen(get_cmd(d_quotes[i]) + 1)] != NULL)
-			{
-				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
-				msh->line = ft_strjoin(msh->line, ft_strdup(&d_quotes[i][ft_strlen(get_cmd(d_quotes[i])) + 1]));
-			}
-		}
-		else if (d_quotes[i] != NULL && !qs[i]->remove_me)
-		{
-			if (d_quotes[i][0] == '\0')
-				msh->line = ft_strjoin(msh->line, ft_strdup(" "));
-			else
-				msh->line = ft_strjoin(msh->line, d_quotes[i]);
-			if (d_quotes[i + 1] != NULL)
-				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
-		}
-		i++;
-	}
+	free(msh->line);
+	close_task(msh, qs, d_quotes);
 }

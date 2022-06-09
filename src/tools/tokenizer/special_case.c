@@ -103,26 +103,20 @@ void	handle_double_dollar(t_minishell *msh)
 	}
 }
 
-void	ft_special_case(t_minishell *msh)
+void	ft_special_case(t_minishell *msh, int i)
 {
-	int	i;
 	int	j;
 
-	i = 0;
-	while (i < msh->command_count)
+	j = 0;
+	while (msh->cmd_table[i].cmd[j])
 	{
-		j = 0;
-		while (msh->cmd_table[i].cmd[j])
-		{
-			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
-				return ;
-			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
-				handle_double_dollar(msh);
-			else if (!ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) && \
-			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
-				return ;
-			j++;
-		}
-		i++;
+		if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
+			return ;
+		else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
+			handle_double_dollar(msh);
+		else if (!ft_strncmp(msh->cmd_table[i].cmd[j], "$", 1) && \
+		!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
+			return ;
+		j++;
 	}
 }
