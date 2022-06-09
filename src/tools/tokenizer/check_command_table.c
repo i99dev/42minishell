@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/09 07:25:11 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:50:39 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,28 @@ bool	is_token(char *str)
 	else if (ft_strchr(str, '>') != NULL)
 		return (true);
 	return (false);
+}
+
+char *clean_all_space(char *str)
+{
+	int		i;
+	int		j;
+	char	*new_str;
+
+	i = 0;
+	j = 0;
+	new_str = (char *)malloc(sizeof(char) * ft_strlen(str));
+	while (str[i])
+	{
+		if (str[i] != ' ')
+		{
+			new_str[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new_str[j] = '\0';
+	return (new_str);
 }
 
 void	count_token(t_minishell *msh, int i)
@@ -147,7 +169,7 @@ void	check_command_table(t_minishell *msh, int i)
 			if(msh->cmd_table[i].cmd[index])
 			{
 			msh->cmd_table[i].exec_table[k] = \
-			ft_strdup(msh->cmd_table[i].cmd[index]);
+			clean_all_space(ft_strdup(msh->cmd_table[i].cmd[index]));
 			k++;
 			}
 		}

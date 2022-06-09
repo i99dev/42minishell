@@ -206,21 +206,36 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 }
 
 
-char	*get_cmd(char *line)
+char	*get_cmd_from_line(char *line)
 {
-	char	*cmd;
 	int		i;
 	int		j;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
+	tmp = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
 	while (line[j] && line[j] == ' ')
 		j++;
-	i = j;
-	while (line[i] && line[i] != ' ')
+	while (line[j + i] && line[j + i] != ' ')
+	{
+		tmp[i] = line[j + i];
 		i++;
-	cmd = ft_substr(line, j, i);
-	return (cmd);
+	}
+	tmp[i] = '\0';
+	return (tmp);
+}
+
+char *get_next_cmd(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && !ft_isprint(line[i]))
+		i++;
+	if (line[i] == '\0')
+		return (&line[i]);
+	return (&line[i]);
 }
 
 char	*join_all_line(char **str)
@@ -257,10 +272,10 @@ void	close_task(t_minishell *msh, t_qs **qs, char **d_quotes)
 		{
 			if (&d_quotes[ft_strlen(cmd + 1)] != NULL)
 			{
-				cmd = get_cmd(d_quotes[i]);
-				msh->line = ft_strdup(cmd);
-				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
-				msh->line = ft_strjoin(msh->line, ft_strdup(&d_quotes[i][ft_strlen(get_cmd(d_quotes[i])) + 1]));
+				cmd = get_cmd_from_line(d_quotes[i]);
+				msh->line = ft_strjoin(cmd, ft_strdup("\n"));
+				msh->line = ft_strjoin(msh->line, ft_strdup(get_next_cmd(\
+				&d_quotes[i][ft_strlen(msh->line)])));
 			}
 			start = 1;
 		}
@@ -273,7 +288,8 @@ void	close_task(t_minishell *msh, t_qs **qs, char **d_quotes)
 			if (d_quotes[i + 1] != NULL)
 				msh->line = ft_strjoin(msh->line, ft_strdup("\n"));
 		}
-		msh->line = ft_strjoin(msh->line, "|");
+		if (d_quotes[i + 1])
+			msh->line = ft_strjoin(msh->line, "|");
 		i++;
 		start = 0;
 		tmp = ft_strjoin(tmp, msh->line);

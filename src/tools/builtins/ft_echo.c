@@ -53,14 +53,14 @@ void	ft_echo(t_minishell *msh, int i)
 
 	flag = false;
 	j = 1;
-	while (msh->cmd_table[i].exec_table[j])
+	while (msh->cmd_table[i].cmd[j])
 	{
 		k = 0;
-		msh->cmd_table[i].exec_table[1] = \
-		is_n(msh->cmd_table[i].exec_table[1], &flag);
-		while (msh->cmd_table[i].exec_table[j][k] == ' ' && flag)
+		msh->cmd_table[i].cmd[1] = \
+		is_n(msh->cmd_table[i].cmd[1], &flag);
+		while (msh->cmd_table[i].cmd[j][k] == ' ' && flag)
 			k++;
-		ft_putstr_fd(&msh->cmd_table[i].exec_table[j][k], 1);
+		ft_putstr_fd(&msh->cmd_table[i].cmd[j][k], 1);
 		j++;
 	}
 	if (flag == false)
