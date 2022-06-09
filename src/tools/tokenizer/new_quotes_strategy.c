@@ -43,9 +43,9 @@ char *qs_special_case(t_minishell *msh, char *str)
 
 char	*qs_remove_addtional_space(char *str)
 {
-	char *new_string;
-	int i;
-	int j;
+	char	*new_string;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -62,14 +62,76 @@ char	*qs_remove_addtional_space(char *str)
 	return (new_string);
 }
 
-void	qs_add_rules(t_qs **qs, int len)
+/**
+ * @brief check qoutes end of string if true thats mean we need remove qoutes
+ * 
+ * @param str 
+ * @return true 
+ * @return false 
+ */
+bool	qs_cqstr_end(char *str)
 {
-	if (((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len > 1) || \
-	((*qs)->has_dollar && !(*qs)->has_quote && !(*qs)->has_qs_before &&!(*qs)->has_qs_after) || \
-	(!(*qs)->has_dollar && !(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after) || \
-	((*qs)->has_dollar && (*qs)->has_quote && !(*qs)->has_qs_before && !(*qs)->has_qs_after && len == 1 && (*qs)->quote_count > 2) )
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+		{	
+			i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+			if (str[i] == '\0')
+				return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+/**
+ * @brief this one only for long string wehn there morethen one qoutes
+ * 
+ * @param qs 
+ * @param str 
+ * @param k 
+ */
+
+void	qs_handle_sp_case(t_qs **qs, char **str, int *k)
+{
+	int	i;
+
+	i = 0;
+	if (str[*k] && str[*k + 1] && str[*k + 2])
+	{
+		while (str[*k + 1] && str[*k + 1][i] == ' ')
+			i++;
+		if (ft_strchr(str[*k], SINGLE_QUOTE) && \
+		(!ft_strchr(str[*k + 1], SINGLE_QUOTE) && !str[*k + 1][i]) && \
+		ft_strchr(str[*k + 2], SINGLE_QUOTE))
+		{
+			str[*k] = ft_strjoin(str[*k], ft_strdup("\""));
+			str[*k] = ft_strjoin(str[*k], " ");
+			str[*k + 1] = ft_strjoin(str[*k + 1], ft_strdup("\""));
+			str[*k + 2] = ft_strjoin(ft_strdup("\""), str[*k + 2]);
+			(*qs)->remove_me = false;
+		}
+	}
+}
+
+void	qs_add_rules(t_qs **qs, int len, char **str, int k)
+{
+	if (((*qs)->has_dollar && !(*qs)->has_qs_before && \
+	!(*qs)->has_qs_after && (*qs)->has_quote && len > 1) || \
+	((*qs)->has_dollar && !(*qs)->has_quote && \
+	!(*qs)->has_qs_before &&!(*qs)->has_qs_after) || \
+	(!(*qs)->has_dollar && !(*qs)->has_quote && \
+	(*qs)->has_qs_before && (*qs)->has_qs_after) || \
+	((*qs)->has_dollar && (*qs)->has_quote && !(*qs)->has_qs_before && \
+	!(*qs)->has_qs_after && len == 1 && (*qs)->quote_count > 2))
 		(*qs)->expand = true;
-	if (((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count == 0))
+	if (((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count == 0) || \
+	((*qs)->has_quote && (*qs)->quote_count == 2 && (*qs)->word_count  == 0 && ((*qs)->has_qs_after || (*qs)->has_qs_after)))
 		(*qs)->remove_me = true;
 	if ((*qs)->has_quote && (*qs)->quote_count == 1 && (*qs)->word_count > 0)
 		(*qs)->clean_quote = true;
@@ -81,7 +143,8 @@ void	qs_add_rules(t_qs **qs, int len)
 	((*qs)->has_quote && !(*qs)->has_qs_after && !(*qs)->has_qs_before && (*qs)->word_count > 0 && (*qs)->quote_count == 2 && !(*qs)->expand) || \
 	((*qs)->has_dollar && !(*qs)->has_qs_before && !(*qs)->has_qs_after && (*qs)->has_quote && len == 1) || \
 	((*qs)->has_quote && (*qs)->has_qs_after && (*qs)->quote_count == 2 && (*qs)->word_count == 0) || \
-	((*qs)->has_dollar && (*qs)->has_quote && !(*qs)->has_qs_before && !(*qs)->has_qs_after && len == 1 && (*qs)->quote_count > 2))
+	((*qs)->has_dollar && (*qs)->has_quote && !(*qs)->has_qs_before && !(*qs)->has_qs_after && len == 1 && (*qs)->quote_count > 2) || \
+	(!(*qs)->has_dollar && (*qs)->has_quote && (*qs)->quote_count > 2 && (*qs)->word_count > 0 && qs_cqstr_end(str[k])))
 		(*qs)->clean_quote = true;
 	if ((*qs)->has_dollar && (*qs)->has_quote && len == 1 && (*qs)->quote_count > 2)
 		(*qs)->special_case = true;
@@ -109,7 +172,9 @@ void	qs_check(t_qs **qs, char **str, int k, int len)
 			(*qs)->word_count++;
 		i++;
 	}
-	qs_add_rules(qs, len);
+	qs_add_rules(qs, len, str, k);
+	if (len > 6)
+		qs_handle_sp_case(qs, str, &k);
 }
 
 void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
@@ -139,7 +204,6 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 	!(*qs)->has_quote && !(*qs)->expand) || ((*qs)->special_case && (*qs)->quote_count == 4))
 		str[k] = qs_remove_addtional_space(str[k]);
 }
-
 
 char	*get_cmd(char *line)
 {
