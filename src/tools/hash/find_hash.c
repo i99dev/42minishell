@@ -24,10 +24,19 @@ char	*find_hash(t_hash_table *env_table, char *key)
 {
 	unsigned long	_hash;
 	t_hash			*tmp;
+	unsigned int				i;
 
-	_hash = hash(key, env_table->size);
-	tmp = env_table->table[_hash];
-	if (tmp)
-		return (tmp->value);
+	i = 0;
+	while (i < env_table->size)
+	{
+		if (env_table->table[i] && !ft_strncmp(env_table->table[i]->key, key,ft_strlen(env_table->table[i]->key)))
+		{
+			_hash = hash(key, env_table->size);
+			tmp = env_table->table[_hash];
+			if (tmp)
+				return (tmp->value);
+		}
+		i++;
+	}
 	return (NULL);
 }
