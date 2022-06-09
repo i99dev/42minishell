@@ -12,46 +12,57 @@
 
 #include "../../../include/minishell.h"
 
-bool is_n(char *str)
+char	*is_n(char *str, bool *flag)
 {
-	int	i;
-	if (str[0] != '-')
-		return false;
-	i = 1;
-	while (str[i] && str[i] == 'n')
-			i++;
-	if (i == ft_strlen(str) && i > 1)
-		return (true);
-	return (false);
-}
-bool check_n(t_minishell *msh, int i, int *j)
-{
-	while (msh->cmd_table[i].exec_table[*j] && is_n(msh->cmd_table[i].exec_table[*j]))
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		(*j)++;
+		if (((str[0] == '-' && str[1] == 'n' && str[2] == ' ') || \
+			(str[0] == '-' && str[1] == 'n' && str[2] == '\0') || \
+			(str[0] == '-' && str[1] == 'n' && str[2] == 'n')) && !*flag)
+		{
+			i++;
+			while ((str[i] == 'n') || (str[i] == '-' && str[i + 1] != 'n'))
+			{
+				i += 2;
+				j = i;
+				*flag = true;
+			}
+			while ((str[i] == ' ' || str[i] == '-' || str[i] == 'n'))
+			{
+				i++;
+				j = i;
+			}
+		}
+		i++;
 	}
-	if (*j > 1)
-	 return true;
-	return false;
+	if ((j == 0 || ((i - j) <= 1 && !*flag)) || (j == 8 && *flag))
+		return (str);
+	return (&str[j]);
 }
 
 void	ft_echo(t_minishell *msh, int i)
 {
 	bool	flag;
 	int		j;
+	int		k;
 
 	flag = false;
 	j = 1;
-
-	if (check_n(msh, i, &j))
-		flag = true;
-	else if (msh->cmd_table[i].exec_table[1] && !msh->cmd_table[i].exec_table[2] && is_n(msh->cmd_table[i].exec_table[1]))
-		return ;
 	while (msh->cmd_table[i].exec_table[j])
 	{
-		printf("%s", msh->cmd_table[i].exec_table[j]);
+		k = 0;
+		msh->cmd_table[i].exec_table[1] = \
+		is_n(msh->cmd_table[i].exec_table[1], &flag);
+		while (msh->cmd_table[i].exec_table[j][k] == ' ' && flag)
+			k++;
+		ft_putstr_fd(&msh->cmd_table[i].exec_table[j][k], 1);
 		j++;
 	}
-	if (!flag)
-		printf("\n");
+	if (flag == false)
+		ft_putchar_fd('\n', 1);
 }
