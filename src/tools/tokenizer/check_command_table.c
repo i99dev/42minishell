@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/09 18:50:39 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/10 05:12:24 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 		return (ft_strdup(msh->cmd_table[i].cmd[index + 1]));
 	}
 	else
-		return (ft_strdup(check_file_name(msh->cmd_table[i].cmd, token, index)));
+		return (check_file_name(msh->cmd_table[i].cmd, token, index));
 }
 
 void	alloc_cmd(t_minishell *msh, int i, char ***exec, t_token **tok, char ***filename)
