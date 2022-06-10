@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/10 05:12:24 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/10 06:56:09 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 {
 	if (is_token(msh->cmd_table[i].cmd[index]) && \
-	ft_strlen(msh->cmd_table[i].cmd[index]) <= 2)
+	ft_strlen(msh->cmd_table[i].cmd[index]) <= 2 && msh->cmd_table[i].cmd[index + 1])
 	{
 		//printf("redirect with space\n");
 		return (ft_strdup(msh->cmd_table[i].cmd[index + 1]));

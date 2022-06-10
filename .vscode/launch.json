@@ -44,11 +44,6 @@
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true,
-                },
-                {
-                    "description": "Enable Follow Fork Proccess for gdb",
-                    "text": "-gdb-set follow-fork-mode child",
-                    "ignoreFailures": true,
                 }
             ],
             "preLaunchTask": "build",

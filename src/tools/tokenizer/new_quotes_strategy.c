@@ -238,6 +238,40 @@ char *get_next_cmd(char *line)
 	return (&line[i]);
 }
 
+void	add_space_redirect_char(char *line)
+{
+	int i;
+	int j;
+	char *tmp;
+	
+	i = 0;
+	j = 0;
+	tmp = (char *)malloc(sizeof(char) * (ft_strlen(line) + 20));
+	while (line[i])
+	{
+		if ((line[i] == '<' && line[i + 1] != '<') || \
+		(line[i] == '>' && line[i + 1] != '>'))
+		{
+			tmp[j++] = '\n';
+			tmp[j++] = line[i++];
+			tmp[j++] = '\n';
+		}
+		else if ((line[i] == '<' && line[i + 1] == '<') || \
+		(line[i] == '>' && line[i + 1] == '>'))
+		{
+			tmp[j++] = '\n';
+			tmp[j++] = line[i++];
+			tmp[j++] = line[i++];
+			tmp[j++] = '\n';
+		}
+		else
+			tmp[j++] = line[i++];
+	}
+	tmp[j] = '\0';
+	free(line);
+	line = ft_strdup(tmp);
+}
+
 char	*join_all_line(char **str)
 {
 	char	*tmp;
@@ -292,9 +326,9 @@ void	close_task(t_minishell *msh, t_qs **qs, char **d_quotes)
 			msh->line = ft_strjoin(msh->line, "|");
 		i++;
 		start = 0;
+		add_space_redirect_char( msh->line);
 		tmp = ft_strjoin(tmp, msh->line);
 	}
-	free(msh->line);
 	msh->line = ft_strdup(tmp);
 }
 
@@ -328,3 +362,4 @@ void	ft_quotes_strategy(t_minishell *msh)
 	free(msh->line);
 	close_task(msh, qs, d_quotes);
 }
+
