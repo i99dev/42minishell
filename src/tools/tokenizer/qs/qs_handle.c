@@ -89,7 +89,11 @@ void	_handle_qoute(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = qs_remove_space(str[k]);
 	}
 }
+\n
+//"-n" -> -n -> if onley -n aad double quote
+// echo "-n" -> [1]echo\n"-n" -n
 
+echo 
 void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 {
 	_expande_line(msh, qs, str, k);

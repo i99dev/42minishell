@@ -1,7 +1,7 @@
 FROM    debian:latest
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     'build-essential' \
     "valgrind" \
     "gdb" \
@@ -30,6 +30,7 @@ RUN apt-get update \
     'libbsd-dev' \
     'libreadline-dev' \
     'lldb'      \
+    htop \
     xorg    \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
