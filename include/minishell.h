@@ -182,9 +182,13 @@ void			ft_free_hash(t_hash_table *table);
 
 //function for new strategy
 void			ft_quotes_strategy(t_minishell *msh);
+void			qs_add_rules(t_qs **qs, int len, char **str, int k);
 void			qs_handle(t_minishell *msh, t_qs **qs, char **str, int k);
+bool			qs_qstr_end(char *str);
 void			qs_check(t_qs **qs, char **str, int k, int len);
+void			add_space_redirect_char(char *line);
 void			qs_init(t_qs **qs);
+char			*get_cmd_from_line(char *line);
 void			qs_print(t_qs **qs, char *str);
 char			*qs_remove_single_quote(char *str);
 char			*qs_remove_space(char *str);

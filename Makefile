@@ -49,8 +49,13 @@ SRC= 	src/main.c		\
 		src/tools/tokenizer/ft_handle_quotes.c \
 		src/tools/tokenizer/ft_quotes_str.c \
 		src/tools/tokenizer/expand_parameters.c \
-		src/tools/tokenizer/new_quotes_strategy.c \
-		src/tools/tokenizer/new_quotes_strategy_tools.c \
+		src/tools/tokenizer/qs/new_quotes_strategy.c \
+		src/tools/tokenizer/qs/qs_tools_a.c \
+		src/tools/tokenizer/qs/qs_tools_b.c \
+		src/tools/tokenizer/qs/qs_redirect.c \
+		src/tools/tokenizer/qs/qs_handle.c \
+		src/tools/tokenizer/qs/qs_check_line.c \
+		src/tools/tokenizer/qs/qs_add_rules.c \
 		src/utils/msg.c \
 		src/utils/ft_free.c \
 		src/utils/ft_helper.c \
@@ -74,6 +79,7 @@ $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src/tools/builtins
 	@mkdir -p $(OBJ_DIR)/src/tools/hash
 	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer/qs
 	@mkdir -p $(OBJ_DIR)/src/utils
 	@echo "Compiling $@"
 	@$(CC) $(CC_FLAG) -c $< -o $@

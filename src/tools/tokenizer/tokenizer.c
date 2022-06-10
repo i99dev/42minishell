@@ -50,36 +50,6 @@ char	**tk_split_pip(t_minishell *msh)
 	return (tmp);
 }
 
-char	**split_first_word(char *str)
-{
-	char	**tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	tmp = (char **)malloc(sizeof(char *) * 2);
-	tmp[0] = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	while (str[i] == ' ')
-		i++;
-	while (str[i] && str[i] != ' ')
-	{
-		tmp[0][j] = str[i];
-		i++;
-		j++;
-	}
-	tmp[0][j] = '\0';
-	tmp[0] = ft_strdup(tmp[0]);
-	while (str[i] == ' ')
-		i++;
-	if (str[i])
-	{
-		tmp[1] = ft_strdup(&str[i]);
-		tmp[2] = NULL;
-	}
-	return (tmp);
-}
-
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
