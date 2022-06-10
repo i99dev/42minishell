@@ -50,6 +50,8 @@ char	**tk_split_pip(t_minishell *msh)
 	return (tmp);
 }
 
+
+
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
