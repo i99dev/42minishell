@@ -15,8 +15,10 @@
 void	init_quotes(t_minishell *msh)
 {
 	msh->quote_count = q_count_quotes(msh);
-	msh->quotes = malloc(sizeof(char *) * msh->quote_count + 1);
-	msh->quotes[msh->quote_count] = 0;
+	if(msh->quote_count)
+	{
+	msh->quotes = malloc(sizeof(char *) * msh->quote_count);
+	}
 }
 
 void	ft_check_quotes(t_minishell *msh)

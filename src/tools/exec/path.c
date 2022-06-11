@@ -33,6 +33,8 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	int		i;
 
 	i = 0;
+	cmd=strdup("");
+	//check if  exec first
 	if (msh->cmd_table[command_table_index].exec_table[0][0] == '/')
 		return (ft_strdup(msh->cmd_table[command_table_index].exec_table[0]));
 	all_path = find_hash(msh->env_table, "PATH");
@@ -47,11 +49,7 @@ char	*get_path(t_minishell *msh, int command_table_index)
 			break ;
 		i++;
 	}
-	/*
-	if (!is_executable(cmd))
-	{
-		error_message(msh, "NOT_FOUND", 127);
-		return (NULL);
-	}*/
+	if(!cmd)
+	return "";
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/08 19:28:42 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/11 10:39:57 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,8 @@ void	ft_handle_quotes(t_minishell *msh)
 				}
 			}
 			j++;
+			if(j>msh->cmd_table[i].cmd_count)
+			break;
 		}
 		i++;
 	}

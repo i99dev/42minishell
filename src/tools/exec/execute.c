@@ -43,8 +43,6 @@ void	execute(t_minishell *msh, int i)
 	char			*cmd;
 
 	cmd = get_path(msh, i);
-	if (!cmd)
-		return ;
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)
@@ -56,8 +54,10 @@ void	execute(t_minishell *msh, int i)
 		ft_redirect(msh, i);
 		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
 		error_message(msh, "NOT FOUND", 127);
+		exit(127);
 	}
 	wait4(pid, &status, 0, &ru);
+	msh->exit_status=WEXITSTATUS(status);
 }
 
 bool	check_command_type(t_minishell *msh, int index)
@@ -101,19 +101,13 @@ void	init_execute(t_minishell *msh)
 	int	i;
 
 	i = 0;
-	if (msh->command_count == 1 && msh->cmd_table[i].command_type != BUILTIN)
+	//printf("%d\n",msh->cmd_table[i].command_type);
+	if (msh->cmd_table[0].command_type == BUILTIN)
+		execute_builtin(msh, i);
+	else if (msh->command_count == 1)
 	{
-		//printf("1 command\n");
-		int j=0;
-		while(msh->cmd_table[i].exec_table[j])
-		{
-		//printf("%s\n%s\n",msh->cmd_table[i].exec_table[j],msh->cmd_table[i].exec_table[j]);
-		j++;
-		}
 		execute(msh, 0);
 	}
-	else if (msh->cmd_table[i].command_type == BUILTIN)
-		execute_builtin(msh, i);
 	else
 	{
 		multi_pipe(msh, i);

@@ -45,10 +45,10 @@ void	define_type(t_minishell *msh)
 {
 	int	i;
 	int	j;
-
 	i = 0;
 	while (i < msh->command_count)
 	{
+		msh->cmd_table[i].command_type  = 0;
 		j = 0;
 		while (msh->cmd_table[i].cmd[j])
 		{

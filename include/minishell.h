@@ -40,6 +40,7 @@ typedef struct s_cmdt
 	t_token			*tok;
 	char			**filename;
 	int				command_type;
+	int				cmd_count;
 	int				token_count;
 	int				arg_count;
 }	t_cmdt;

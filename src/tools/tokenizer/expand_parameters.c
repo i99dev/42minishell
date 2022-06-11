@@ -96,12 +96,14 @@ char	*expand_cmd(t_minishell *msh, char *str)
 		start = ft_strdup(tmp);
 	}
 	i = 0;
+	str[len]=0;
+	/*
 	while (i < len)
 	{
 		res[i] = str[i];
 		i++;
-	}
-	res = ft_strjoin(res, start);
+	}*/
+	res = ft_strjoin(str, start);
 	res[ft_strlen(res)] = '\0';
 	return (res);
 }

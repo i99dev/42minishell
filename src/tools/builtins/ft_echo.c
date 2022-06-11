@@ -51,13 +51,14 @@ void	ft_echo(t_minishell *msh, int i)
 	{
 		if (strncmp(msh->cmd_table[i].exec_table[j],"\n",2) && strncmp(msh->cmd_table[i].exec_table[j],"\t",2))
 		{
-		printf("%s", msh->cmd_table[i].exec_table[j]);
+		ft_putstr_fd(msh->cmd_table[i].exec_table[j], 1);
 		}
 		if (msh->cmd_table[i].exec_table[j + 1] && strncmp(msh->cmd_table[i].exec_table[j + 1],"\n",2))
-			printf(" ");
+			ft_putchar_fd(' ',1);
 		j++;
 	}
 	if (!flag)
-		printf("\n");
+		ft_putchar_fd('\n',1);
+	msh->exit_status = 0;
 }
 

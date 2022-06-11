@@ -79,8 +79,8 @@ char	**env2d(t_hash_table *env_table)
 	unsigned int	i;
 
 	i = 0;
-	env = (char **)malloc(sizeof(char *) * (env_table->count + 1));
-	while (i < env_table->count)
+	env = (char **)malloc(sizeof(char *) * (env_table->size + 1));
+	while (i < env_table->size)
 	{
 		tmp = env_table->table[i];
 		while (tmp)

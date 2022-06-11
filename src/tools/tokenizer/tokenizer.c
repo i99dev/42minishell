@@ -50,7 +50,17 @@ char	**tk_split_pip(t_minishell *msh)
 	msh->command_count = table_count;
 	return (tmp);
 }
+int count_cmds(char **cmdtable)
+{
+	int i;
 
+	i = 0;
+	while(cmdtable[i])
+	{
+		i++;
+	}
+	return (i);
+}
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
@@ -62,6 +72,7 @@ void	init_command_table(t_minishell *msh)
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
+		msh->cmd_table[i].cmd_count = count_cmds(msh->cmd_table[i].cmd);
 		i++;
 	}
 	i = 0;
