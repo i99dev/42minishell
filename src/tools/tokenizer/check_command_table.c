@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/11 12:18:33 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/11 13:55:39 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 
 char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 {
+	//is  it alone
 	if (is_token(msh->cmd_table[i].cmd[index]) && \
 	ft_strlen(msh->cmd_table[i].cmd[index]) <= 2)
 	{
 		//printf("redirect with space\n");
 		return (ft_strdup(msh->cmd_table[i].cmd[index + 1]));
 	}
+	//it is between a string
+	//it is 
 	else
 		return (ft_strdup(check_file_name(msh->cmd_table[i].cmd, token, index)));
 }
@@ -44,7 +47,11 @@ bool	is_token(char *str)
 		return (true);
 	return (false);
 }
+/*
+support >out>>out1>out2
 
+split str by >
+*/
 void	count_token(t_minishell *msh, int i)
 {
 	int		index;
@@ -114,6 +121,8 @@ void	check_command_table(t_minishell *msh, int i)
 	j = 0;
 	k = 0;
 	count_token(msh, i);
+			printf("tk:%d arg:%d\n",msh->cmd_table[index].token_count,msh->cmd_table[index].arg_count);
+
 	while (msh->cmd_table[i].cmd[index])
 	{
 		if (!ft_strncmp(msh->cmd_table[i].cmd[index], "$?", 2))
@@ -135,9 +144,9 @@ void	check_command_table(t_minishell *msh, int i)
 			get_io_filename(msh, i, "<<", index);
 			j++;
 		}
-		else if (msh->cmd_table[i].cmd[index] && ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
+		else if (msh->cmd_table[i].cmd[index] && ft_strchr(msh->cmd_table[i].cmd[index], '<'))
 			tk_handle_redirect_in(msh, i, &j, index);
-		else if (msh->cmd_table[i].cmd[index] && ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
+		else if (msh->cmd_table[i].cmd[index] && ft_strchr(msh->cmd_table[i].cmd[index], '>'))
 			tk_handle_redirect_out(msh, i, &j, index);
 		else if ((j == 0) || (ft_strncmp(msh->cmd_table[i].cmd[index], \
 			msh->cmd_table[i].filename[j - 1], \

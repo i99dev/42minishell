@@ -49,7 +49,5 @@ char	*get_path(t_minishell *msh, int command_table_index)
 			break ;
 		i++;
 	}
-	if(!cmd)
-	return "";
 	return (cmd);
 }

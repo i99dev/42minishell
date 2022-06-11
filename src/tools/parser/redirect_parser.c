@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/06 15:13:45 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/11 12:55:00 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ char	*check_file_name(char **str, char *token, int index)
 	{
 		while (is_token(&str[index][j]))
 		j++;
-		while (str[index][j] == ' ' || str[index][j] == '\t')
-			j++;
 		if (str[index][j])
 			return (&str[index][j]);
 	}
