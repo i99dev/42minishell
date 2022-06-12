@@ -76,6 +76,8 @@ typedef struct s_quotes_strategy
 	bool	has_qs_before;
 	bool	has_qs_after;
 	bool	add_d_quote;
+	bool	is_echo;
+	bool	keep_space;
 	bool	expand;
 	bool	remove_me;
 	bool	clean_quote;
@@ -187,6 +189,7 @@ void			qs_handle(t_minishell *msh, t_qs **qs, char **str, int k);
 bool			qs_qstr_end(char *str);
 void			qs_check(t_qs **qs, char **str, int k, int len);
 void			add_space_redirect_char(char *line);
+bool			_match_string(char *str, char *match);
 void			qs_init(t_qs **qs);
 char			*get_cmd_from_line(char *line);
 void			qs_print(t_qs **qs, char *str);

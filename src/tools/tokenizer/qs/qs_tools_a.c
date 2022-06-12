@@ -51,3 +51,20 @@ char	*get_cmd_from_line(char *line)
 	tmp[i] = '\0';
 	return (tmp);
 }
+
+bool	_match_string(char *str, char *match)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] != match[j])
+			return (false);
+		i++;
+		j++;
+	}
+	return (true);
+}

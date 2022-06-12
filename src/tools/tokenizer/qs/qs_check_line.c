@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 08:47:59 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/10 09:55:32 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/12 09:42:57 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ void	qs_handle_sp_case(t_qs **qs, char **str, int *k)
 	}
 }
 
+void	is_echo_pipe(t_qs **qs, char **str, int k)
+{
+	char	*tmp;
+
+	tmp = ft_strdup(str[k]);
+	if (_match_string(get_cmd_from_line(tmp), "echo"))
+		(*qs)->is_echo = true;
+	if (k != 0)
+	{
+		if (!ft_strchr(tmp, 124) && qs[-1]->is_echo)
+			(*qs)->is_echo = true;
+		if (ft_strchr(tmp, 124) && qs[-1]->is_echo)
+			(*qs)->keep_space = true;
+	}
+	free(tmp);
+}
+
 void	qs_check(t_qs **qs, char **str, int k, int len)
 {
 	int	i;
@@ -56,6 +73,7 @@ void	qs_check(t_qs **qs, char **str, int k, int len)
 			(*qs)->word_count++;
 		i++;
 	}
+	is_echo_pipe(qs, str, k);
 	qs_add_rules(qs, len, str, k);
 	if (len > 6)
 		qs_handle_sp_case(qs, str, &k);
