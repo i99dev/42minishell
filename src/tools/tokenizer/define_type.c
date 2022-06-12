@@ -44,27 +44,22 @@ bool	is_her_doc(char *cmd)
 void	define_type(t_minishell *msh)
 {
 	int	i;
-	int	j;
+
 	i = 0;
 	while (i < msh->command_count)
 	{
 		msh->cmd_table[i].command_type  = 0;
-		j = 0;
-		while (msh->cmd_table[i].cmd[j])
-		{
-			if (is_builtin(msh->cmd_table[i].cmd[j]))
+			if (is_builtin(msh->cmd_table[i].exec_table[0]))
 				msh->cmd_table[i].command_type = BUILTIN;
-			else if (is_operator(msh->cmd_table[i].cmd[j]))
+			else if (is_operator(msh->cmd_table[i].exec_table[0]))
 			{
-				if (is_her_doc(msh->cmd_table[i].cmd[j]))
+				if (is_her_doc(msh->cmd_table[i].exec_table[0]))
 					msh->cmd_table[i].command_type = HER_DOC;
 				else
 					msh->cmd_table[i].command_type = OPERATOR;
 			}
-			else if (msh->command_count > 1)
+			else if (msh->cmd_table[i].exec_table[0])
 				msh->cmd_table[i].command_type = PIPE;
-			j++;
-		}
 		i++;
 	}
 }

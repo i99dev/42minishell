@@ -6,25 +6,52 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/11 12:55:00 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/12 17:10:46 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-char	*check_file_name(char **str, char *token, int index)
+char	*ft_strldup(const char *s1, int i)
 {
+	char	*str;
+
+	str = malloc(sizeof(char) * (i + 1));
+	if (!str)
+		return (NULL);
+	str[i] = '\0';
+	while (i--)
+	{
+		str[i] = s1[i];
+	}
+	return (str);
+}
+
+char	*check_file_name(char *str, char *token, int index)
+{
+	(void)index;
 	int		j;
+	int		len;
 
 	j = 0;
-	if (ft_strncmp(str[index], token, ft_strlen(token)) == 0)
+	len =0;
+	if (ft_strncmp(str, token, ft_strlen(token)) == 0)
 	{
-		while (is_token(&str[index][j]))
+		while (j< ft_strlen(token))
 		j++;
-		if (str[index][j])
-			return (&str[index][j]);
+		if(str[ft_strlen(token)] && (str[ft_strlen(token)]== '>' || str[ft_strlen(token)]== '<'))
+		{
+			printf("parse error near %c\n",token[ft_strlen(token)]);
+			//set error status and exit to next line
+			return(NULL);
+		}
+		while(str[j] && (str[j]!= '>' && str[j]!= '<'))
+		{
+			len++;
+			j++;
+		}
 	}
-	return (NULL);
+	return (ft_strldup(str+ ft_strlen(token), len));
 }
 
 void	ft_redirect_in(t_minishell *msh, int index, int token)

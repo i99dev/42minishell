@@ -43,7 +43,7 @@ void	execute(t_minishell *msh, int i)
 	char			*cmd;
 
 	cmd = get_path(msh, i);
-	printf("cmd%s\n",cmd);
+	printf("cmd%s\n",msh->cmd_table[i].exec_table[0]);
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)

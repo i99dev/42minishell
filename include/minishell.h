@@ -114,8 +114,8 @@ void			ft_tokenizer(t_minishell *msh);
 void			init_command_table(t_minishell *msh);
 char			*get_user_info(t_minishell *msh);
 t_hash_table	*init_table(char **env);
-char			*check_file_name(char **str, char *token, int index);
-
+char			*check_file_name(char *str, char *token, int index);
+char			*ft_strldup(const char *s1, int i);
 //function hash
 void			update_hash(t_minishell *msh, char *key, char *value);
 void			remove_hash(t_minishell *msh, char *key);

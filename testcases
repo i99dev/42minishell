@@ -1,0 +1,46 @@
+bash outputs:  //all arguments must seperate /n
+
+ls ">out>out"
+ls: cannot access '>out>out': No such file or directory
+
+ls out">out"
+ls: cannot access 'out>out': No such file or directory
+
+ls >s1">s2">s3
+
+ls " src"
+ls: cannot access ' src': No such file or directory
+
+ls "  > out "
+ls: cannot access '  > out ': No such file or directory
+
+ls"src"
+bash: lssrc: command not found
+
+ls">out"                                     this output error
+bash: ls>out: command not found
+
+ls>out                                      this not error
+
+ls " > out" src
+ls: cannot access ' > out': No such file or directory
+src:
+main.c  prompt.c  tools  utils
+
+ls src <Makefile lib
+lib:
+libft  README.md
+src:
+main.c  prompt.c  tools  utils
+
+ls $USER
+ls: cannot access 'Dokcer': No such file or directory
+
+ls   "$USER"
+ls: cannot access 'Dokcer': No such file or directory
+
+ls " $USER"
+ls: cannot access ' Dokcer': No such file or directory
+
+ls " $USER ""$USER"
+ls: cannot access ' Dokcer Dokcer': No such file or directory
