@@ -82,6 +82,19 @@ void	close_task(t_minishell *msh, t_qs **qs, char **d_quotes)
 	msh->line = ft_strdup(tmp);
 }
 
+void	qs_handle_space(t_qs **qs, char **str, int k, int len)
+{
+	(void)len;
+	if ((!(*qs)->has_dollar && !(*qs)->has_qs_after && \
+	!(*qs)->has_qs_before && !(*qs)->has_quote && \
+	(!(*qs)->is_echo && (*qs)->btn_q_word_count > 0) && \
+	!(*qs)->expand) || ((*qs)->special_case && (*qs)->quote_count == 4))
+		str[k] = qs_remove_addtional_space(str[k]);
+	if ((!(*qs)->has_quote && !(*qs)->is_echo && k == 0) || \
+	(k > 0 && (*qs)->has_qs_before && (*qs)->has_qs_after  && !(*qs)->has_quote))
+		str[k] = qs_remove_addtional_space(str[k]);
+}
+
 void	ft_quotes_strategy(t_minishell *msh)
 {
 	char	**d_quotes;
@@ -101,6 +114,12 @@ void	ft_quotes_strategy(t_minishell *msh)
 		qs_init(&qs[i]);
 		qs_check(&qs[i], d_quotes, i, len);
 		// qs_print(&qs[i], d_quotes[i]);
+		i++;
+	}
+	i = 0;
+	while (d_quotes[i])
+	{
+		qs_handle_space(&qs[i], d_quotes, i, len);
 		i++;
 	}
 	i = 0;

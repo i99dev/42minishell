@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 08:47:59 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/12 09:42:57 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/12 11:26:38 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,24 @@ void	is_echo_pipe(t_qs **qs, char **str, int k)
 void	qs_check(t_qs **qs, char **str, int k, int len)
 {
 	int	i;
+	int	index;
 
 	i = 0;
+	index = 1;
 	while (str[k][i])
 	{
 		if (str[k][i] == SINGLE_QUOTE)
 		{
 			(*qs)->has_quote = true;
 			(*qs)->quote_count++;
+			while (str[k][i + index] && str[k][i + index] != SINGLE_QUOTE && \
+			(*qs)->quote_count == 1)
+			{
+				if (str[k][i + index] != DOUBLE_QUOTE || \
+				str[k][i + index] != ' ')
+					index++;
+			}
+			(*qs)->btn_q_word_count = index - 1;
 		}
 		else if (str[k][i] == '$' && valid_dollar_sign(str[k], i))
 			(*qs)->has_dollar = true;

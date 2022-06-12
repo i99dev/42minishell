@@ -85,6 +85,7 @@ typedef struct s_quotes_strategy
 	bool	special_case;
 	int		quote_count;
 	int		word_count;
+	int		btn_q_word_count;
 }	t_qs;
 
 //color 
@@ -189,6 +190,7 @@ void			qs_handle(t_minishell *msh, t_qs **qs, char **str, int k);
 bool			qs_qstr_end(char *str);
 void			qs_check(t_qs **qs, char **str, int k, int len);
 void			add_space_redirect_char(char *line);
+char			*qs_remove_addtional_space(char *str);
 bool			_match_string(char *str, char *match);
 void			qs_init(t_qs **qs);
 char			*get_cmd_from_line(char *line);

@@ -65,8 +65,10 @@ void	_add_qoute(t_qs **qs, int len, char **str, int k)
 	(void)str;
 	(void)k;
 	(void)len;
-	if (!(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after)
-	(*qs)->add_d_quote = true;
+	if ((!(*qs)->has_quote && (*qs)->has_qs_before && (*qs)->has_qs_after))
+		(*qs)->add_d_quote = true;
+	if ((*qs)->has_quote && (*qs)->quote_count == 2 && (*qs)->word_count > 0)
+		(*qs)->add_s_quote = true;
 }
 
 void	qs_add_rules(t_qs **qs, int len, char **str, int k)

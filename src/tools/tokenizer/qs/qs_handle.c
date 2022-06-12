@@ -53,7 +53,16 @@ char	*qs_remove_addtional_space(char *str)
 	while (str[i])
 	{
 		if (str[i] == ' ' && str[i + 1] == ' ')
+		{
+			{
+				if (str[i + 2] != ' ')
+				{
+					new_string[j++] = '\n';
+					i++;
+				}
+			}
 			i++;
+		}
 		else
 			new_string[j++] = str[i++];
 	}
@@ -79,14 +88,11 @@ void	_handle_qoute(t_minishell *msh, t_qs **qs, char **str, int k)
 		str[k] = ft_strjoin(str[k], ft_strdup("\""));
 		str[k] = qs_remove_space(str[k]);
 	}
-	if ((*qs)->clean_quote)
+	if ((k == 0 && (*qs)->has_quote) ||(k > 1 && (*qs)->has_quote && !(*qs)->btn_q_word_count &&  !(*qs)->has_qs_before ) || (*qs)->quote_count == 8 || ((*qs)->has_quote && (*qs)->quote_count == 1) || \
+	(!(*qs)->has_quote && !(*qs)->has_qs_before && (*qs)->quote_count != 3))
 		str[k] = qs_remove_single_quote(str[k]);
 	if ((*qs)->add_s_quote)
 	{
-		str[k] = qs_remove_single_quote(str[k]);
-		str[k] = ft_strjoin(ft_strdup("'"), str[k]);
-		str[k] = ft_strjoin(str[k], ft_strdup("'"));
-		str[k] = qs_remove_space(str[k]);
 	}
 }
 
@@ -96,8 +102,4 @@ void	qs_handle(t_minishell *msh, t_qs **qs, char **str, int k)
 	_handle_qoute(msh, qs, str, k);
 	if ((*qs)->special_case)
 		str[k] = qs_special_case(msh, str[k]);
-	if ((!(*qs)->has_dollar && !(*qs)->has_qs_after && \
-	!(*qs)->has_qs_before && !(*qs)->has_quote && \
-	!(*qs)->expand) || ((*qs)->special_case && (*qs)->quote_count == 4))
-		str[k] = qs_remove_addtional_space(str[k]);
 }

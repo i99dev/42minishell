@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 08:56:03 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/12 08:17:12 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/12 11:11:11 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	qs_init(t_qs **qs)
 	(*qs)->special_case = false;
 	(*qs)->quote_count = 0;
 	(*qs)->word_count = 0;
+	(*qs)->btn_q_word_count = 0;
 }
 
 void	qs_print(t_qs **qs, char *str)
@@ -49,6 +50,7 @@ void	qs_print(t_qs **qs, char *str)
 	printf("remove_me: %d\n", (*qs)->remove_me);
 	printf("add_s_quote: %d\n", (*qs)->add_s_quote);
 	printf("clean_quote: %d\n", (*qs)->clean_quote);
+	printf("btn_q_word_count: %d\n", (*qs)->btn_q_word_count);
 	printf("--------------------\n");
 }
 
