@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 08:47:59 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/12 11:26:38 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/12 15:36:10 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,34 @@ void	is_echo_pipe(t_qs **qs, char **str, int k)
 	free(tmp);
 }
 
+bool	redirect_postion(char *str, int postion_index)
+{
+	int		start_q;
+	int		end_q;
+	int		i;
+
+	(void)postion_index;
+	i = 0;
+	start_q = 0;
+	end_q = 0;
+	while (str[i])
+	{
+		if (str[i] == SINGLE_QUOTE && start_q == 0)
+			start_q = i;
+		if (str[i] == SINGLE_QUOTE && start_q != 0)
+			end_q = i;
+		i++;
+	}
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if ((start_q > postion_index && end_q > postion_index) || \
+	(start_q == 0 && end_q == 0 && postion_index != i))
+		return (true);
+	else
+		return (false);
+}
+
 void	qs_check(t_qs **qs, char **str, int k, int len)
 {
 	int	i;
@@ -75,6 +103,8 @@ void	qs_check(t_qs **qs, char **str, int k, int len)
 		}
 		else if (str[k][i] == '$' && valid_dollar_sign(str[k], i))
 			(*qs)->has_dollar = true;
+		else if (str[k][i] == '>' || str[k][i] == '<')
+			(*qs)->is_redirect = redirect_postion(str[k], i);
 		if (k != 0 && str[k - 1][ft_strlen(str[k - 1]) - 1] == SINGLE_QUOTE)
 			(*qs)->has_qs_before = true;
 		if (str[k + 1] != NULL && str[k + 1][0] == SINGLE_QUOTE)
@@ -88,3 +118,4 @@ void	qs_check(t_qs **qs, char **str, int k, int len)
 	if (len > 6)
 		qs_handle_sp_case(qs, str, &k);
 }
+

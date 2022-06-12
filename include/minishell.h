@@ -83,6 +83,7 @@ typedef struct s_quotes_strategy
 	bool	clean_quote;
 	bool	add_s_quote;
 	bool	special_case;
+	bool	is_redirect;
 	int		quote_count;
 	int		word_count;
 	int		btn_q_word_count;

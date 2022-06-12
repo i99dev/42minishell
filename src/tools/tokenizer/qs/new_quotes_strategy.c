@@ -76,7 +76,8 @@ void	close_task(t_minishell *msh, t_qs **qs, char **d_quotes)
 			msh->line = ft_strjoin(msh->line, "|");
 		i++;
 		start = 0;
-		add_space_redirect_char(msh->line);
+		if ((*qs)->is_redirect)
+			add_space_redirect_char(msh->line);
 		tmp = ft_strjoin(tmp, msh->line);
 	}
 	msh->line = ft_strdup(tmp);
@@ -130,4 +131,4 @@ void	ft_quotes_strategy(t_minishell *msh)
 	}
 	free(msh->line);
 	close_task(msh, qs, d_quotes);
-}
+ }
