@@ -9,9 +9,10 @@
 /*   Updated: 2022/04/24 06:38:11 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef HASH_H
 # define HASH_H
+
+#include "./minishell.h"
 
 typedef struct s_hash
 {
@@ -30,7 +31,6 @@ typedef struct hash_table
 unsigned long int	hash(char *key, unsigned int size);
 t_hash_table		*create_hash_table(unsigned int size);
 void				insert_hash(t_hash_table *table, char *env);
-char				*find_hash(t_hash_table *env_table, char *key);
 void				print_hash(t_hash_table *table);
 char				**env2d(t_hash_table *env_table);
 

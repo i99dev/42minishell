@@ -46,6 +46,5 @@ void	ft_exit(t_minishell *msh, int i)
 		msh->exit_status = 1;
 		return ;
 	}
-	msh->exit_status = 1;
 	ft_free_minishell(msh);
 	}

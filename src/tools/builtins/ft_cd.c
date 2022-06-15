@@ -32,7 +32,7 @@ void	cd_to_home(t_minishell *msh)
 {
 	char	*path;
 
-	path = ft_strdup(find_hash(msh->env_table, "HOME"));
+	path = ft_strdup(find_hash(msh,msh->env_table, "HOME"));
 	if (path == NULL)
 	{
 		error_message(msh, "cd: no home directory", 1);
@@ -49,12 +49,12 @@ void	ft_cd(t_minishell *msh, int i)
 		cd_to_home(msh);
 	else if (!ft_strncmp(msh->cmd_table[i].exec_table[1], "-", ft_strlen("-")))
 	{
-		if (find_hash(msh->env_table, "OLDPWD") == NULL)
+		if (find_hash(msh,msh->env_table, "OLDPWD") == NULL)
 		{
 			error_message(msh, "cd: OLDPWD not set", 1);
 			return ;
 		}
-		_2path(msh, ft_strdup(find_hash(msh->env_table, "OLDPWD")));
+		_2path(msh, ft_strdup(find_hash(msh,msh->env_table, "OLDPWD")));
 	}
 	else
 		_2path(msh, msh->cmd_table[i].exec_table[1]);

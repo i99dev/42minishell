@@ -25,6 +25,8 @@ bool	is_case_alph(char str)
 		return (true);
 	if (str >= '0' && str <= '9')
 		return (true);
+	if (str == '?' || str == '\"' || str == '\'')
+		return true;
 	return (false);
 }
 
@@ -36,15 +38,16 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 
 	i = 0;
 	key = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	while (isalpha(str[i]))
+	while (isalpha(str[i]) || str[i]=='?')
 	{
 		key[i] = str[i];
 		i++;
 	}
 	key[i] = '\0';
-	if (key[0] != '\0' && !isdigit(str[i]))
+	if ((key[0] != '\0' && !isdigit(str[i])))
 	{
-		value = find_hash(msh->env_table, key);
+		value = find_hash(msh,msh->env_table, key);
+		//printf("%s %s\n",value,key);
 		if (value)
 			key = ft_strdup(value);
 		else
@@ -66,7 +69,7 @@ bool is_parameter(char *str)
 	tmp=ft_strchr(str, '$');
 	if(tmp)
 	{
-	if (tmp[1] && !is_case_alph(tmp[1]))
+	if ((tmp[1] && !is_case_alph(tmp[1]))|| ft_strlen(tmp) == 1)
 	return false;
 	}
 	else
@@ -84,6 +87,8 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	start = ft_strchr(str, '$');
 	if (!start)
 		return (str);
+	if(!start[1] || (!is_case_alph(start[1]) && !special_char_with_dollar(start)))
+		return str;
 	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
 	res = (char *)malloc(sizeof(char) * 1024);
@@ -93,6 +98,7 @@ char	*expand_cmd(t_minishell *msh, char *str)
 			i++;
 		tmp = ft_strjoin(ft_substr(start, 0, i), \
 		get_key_from_str(msh, &start[i + 1]));
+		//printf("%s\n",tmp);
 		start = ft_strdup(tmp);
 	}
 	i = 0;

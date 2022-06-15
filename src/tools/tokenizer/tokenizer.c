@@ -61,6 +61,49 @@ int count_cmds(char **cmdtable)
 	}
 	return (i);
 }
+void	_handle_redirect_s_line(char *line, int *i, int *j, char *tmp)
+{
+	if ((line[*i] == '<' && line[*i + 1] != '<') || \
+	(line[*i] == '>' && line[*i + 1] != '>'))
+	{
+		tmp[(*j)++] = ' ';
+		tmp[(*j)++] = line[(*i)++];
+		tmp[(*j)++] = ' ';
+	}
+}
+
+void	_handle_redirect_d_line(char *line, int *i, int *j, char *tmp)
+{
+	if ((line[*i] == '<' && line[*i + 1] == '<') || \
+	(line[*i] == '>' && line[*i + 1] == '>'))
+	{
+		tmp[(*j)++] = ' ';
+		tmp[(*j)++] = line[(*i)++];
+		tmp[(*j)++] = line[(*i)++];
+		tmp[(*j)++] = ' ';
+	}
+}
+
+void	add_space_redirect_char(t_minishell *msh)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	tmp = (char *)malloc(sizeof(char) * (ft_strlen(msh->line) + 20));
+	while (msh->line[i])
+	{
+		_handle_redirect_s_line(msh->line, &i, &j, tmp);
+		_handle_redirect_d_line(msh->line, &i, &j, tmp);
+		tmp[j++] = msh->line[i++];
+	}
+	tmp[j] = '\0';
+	tmp=ft_strdup(tmp);
+	free(msh->line);
+	msh->line = tmp;
+}
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
@@ -68,6 +111,7 @@ void	init_command_table(t_minishell *msh)
 
 	i = 0;
 	ft_check_quotes(msh);
+	add_space_redirect_char(msh);
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{

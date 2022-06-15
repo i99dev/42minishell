@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 05:56:45 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/05/25 11:06:34 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:16:19 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_user_info(t_minishell *msh)
 	char	*tmp;
 
 	tmp = NULL;
-	user = find_hash(msh->env_table, "USER");
+	user = find_hash(msh,msh->env_table, "USER");
 	if (!user)
 		user = "root";
 	host = getenv("HOSTNAME");

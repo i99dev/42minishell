@@ -37,8 +37,8 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	//check if  exec first
 	if (msh->cmd_table[command_table_index].exec_table[0][0] == '/')
 		return (ft_strdup(msh->cmd_table[command_table_index].exec_table[0]));
-	all_path = find_hash(msh->env_table, "PATH");
-	printf("cmd:%s",all_path);
+	all_path = find_hash(msh,msh->env_table, "PATH");
+	//printf("cmd:%s",all_path);
 	tmp = ft_split(all_path, ':');
 	i = 0;
 	while (tmp != NULL && tmp[i])

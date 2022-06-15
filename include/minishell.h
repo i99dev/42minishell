@@ -114,7 +114,7 @@ void			ft_tokenizer(t_minishell *msh);
 void			init_command_table(t_minishell *msh);
 char			*get_user_info(t_minishell *msh);
 t_hash_table	*init_table(char **env);
-char			*check_file_name(char *str, char *token, int index);
+char			*check_file_name(char **str, char *token, int index);
 char			*ft_strldup(const char *s1, int i);
 //function hash
 void			update_hash(t_minishell *msh, char *key, char *value);
@@ -139,13 +139,15 @@ void			ft_handle_quotes(t_minishell *msh);
 void			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
 bool			is_token(char *str);
+bool	special_char_with_dollar(char *word);
 int				q_remove_quotes(t_minishell *msh, int start, \
 				int end, int q_index);
 int				q_count_quotes(t_minishell *msh);
 char			*ft_strinsert(char *str, char *in, char *key);
 char			*expand_parameters(t_minishell *msh, char *str);
 char			*expand_cmd(t_minishell *msh, char *str);
-
+char				*find_hash(t_minishell *msh, t_hash_table *env_table, char *key);
+bool	q_handle_all(t_minishell *msh, int i, int *j, int *k);
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);

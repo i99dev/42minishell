@@ -43,7 +43,7 @@ void	execute(t_minishell *msh, int i)
 	char			*cmd;
 
 	cmd = get_path(msh, i);
-	printf("cmd%s\n",msh->cmd_table[i].exec_table[0]);
+	//printf("cmd%s\n",msh->cmd_table[i].exec_table[0]);
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)
@@ -74,7 +74,7 @@ void	execute_builtin(t_minishell *msh, int i)
 {
 	ft_redirect(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
-	"echo", ft_strlen("echo")))
+	"echo", 5))
 		ft_echo(msh, i);
 	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"cd", ft_strlen("cd")))
