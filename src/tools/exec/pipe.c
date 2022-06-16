@@ -46,7 +46,7 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	}
 	if(msh->cmd_table[i].command_type == BUILTIN)
 	{
-		ft_echo(msh,i);
+		execute_builtin(msh, i);
 		exit(0);
 	}
 	else
