@@ -54,10 +54,16 @@ void	export_env(t_minishell *msh, int i)
 	j = 1;
 	while (msh->cmd_table[i].exec_table[j])
 	{
-		has_export=false;
+		has_export = false;
 		k = 0;
 		while (msh->cmd_table[i].exec_table[j][k])
 		{
+			if (msh->cmd_table[i].exec_table[j][k] == '+')
+			{
+				//ft_putstr_fd("not valid identifier",1);
+				msh->exit_status = 1;
+				return;
+			}
 			if (msh->cmd_table[i].exec_table[j][k] == '=' && k != 0 && msh->cmd_table[i].exec_table[j][k+1])
 			{
 				tmp = ft_strsub(msh->cmd_table[i].exec_table[j], 0, k);
@@ -67,11 +73,11 @@ void	export_env(t_minishell *msh, int i)
 				free(tmp);
 			}
 			else if (msh->cmd_table[i].exec_table[j][k] == '=' && k == 0)
-			msh->exit_status=1;
-			else if (msh->cmd_table[i].exec_table[j][k] == '=' && !msh->cmd_table[i].exec_table[j][k+1])
-			msh->exit_status=1;
+			msh->exit_status = 1;
+			else if (msh->cmd_table[i].exec_table[j][k] == '=' && !msh->cmd_table[i].exec_table[j][k+1] && !has_export)
+			msh->exit_status = 1;
 			else if(msh->cmd_table[i].exec_table[j][k] == '$' && k==0)
-			msh->exit_status=1;
+			msh->exit_status = 1;
 			k++;
 		}
 		if (k==ft_strlen(msh->cmd_table[i].exec_table[j]) && !has_export && j > 1)
@@ -83,6 +89,7 @@ void	export_env(t_minishell *msh, int i)
 
 void	ft_export(t_minishell *msh, int i)
 {
+	msh->exit_status=0;
 	if (msh->cmd_table[i].exec_table[1])
 		export_env(msh, i);
 	else 
