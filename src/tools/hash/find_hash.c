@@ -27,9 +27,7 @@ char	*find_hash(t_minishell *msh,t_hash_table *env_table, char *key)
 	unsigned int				i;
 
 	if(key && key[0]=='?')
-	{
 		return ft_itoa(msh->exit_status);
-	}
 	i = 0;
 	while (i < env_table->size)
 	{

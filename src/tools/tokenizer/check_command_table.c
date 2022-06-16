@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command_table.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/15 18:28:19 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/16 10:25:02 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ void	check_command_table(t_minishell *msh, int i)
 		if (!ft_strncmp(msh->cmd_table[i].cmd[index], "$?", 2))
 		{
 			msh->cmd_table[i].cmd[index] = expand_cmd(msh,msh->cmd_table[i].cmd[index]);
-			msh->exit_status = 0;
 		}
 		if (ft_strlen(msh->cmd_table[i].cmd[index])==2 && ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
 		{

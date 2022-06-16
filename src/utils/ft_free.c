@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/06 16:33:50 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/16 10:48:11 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	ft_free_minishell(t_minishell *minishell)
 		ft_command_table_free(minishell);
 	if (minishell->cmd_table)
 		ft_free_token_ls(minishell);
+	//printf("%d\n",minishell->exit_status);
 	exit(minishell->exit_status);
 }

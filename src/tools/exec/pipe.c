@@ -44,9 +44,17 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
+	if(msh->cmd_table[i].command_type == BUILTIN)
+	{
+		ft_echo(msh,i);
+		exit(0);
+	}
+	else
+	{
 	execve(get_path(msh, i), msh->cmd_table[i].exec_table, msh->env);
 	error_message(msh, "command not found", 127);
 	exit(127);
+	}
 }
 
 // multi pips with loop and control pips close and open

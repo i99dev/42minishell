@@ -59,7 +59,7 @@ void	execute(t_minishell *msh, int i)
 		exit(127);
 	}
 	wait4(pid, &status, 0, &ru);
-	printf("%d",WEXITSTATUS(status));
+	//printf("%d",WEXITSTATUS(status));
 	msh->exit_status=WEXITSTATUS(status);
 }
 
@@ -105,7 +105,7 @@ void	init_execute(t_minishell *msh)
 
 	i = 0;
 	//printf("%d\n",msh->cmd_table[i].command_type);
-	if (msh->cmd_table[0].command_type == BUILTIN)
+	if (msh->cmd_table[0].command_type == BUILTIN && msh->command_count == 1)
 		execute_builtin(msh, i);
 	else if (msh->command_count == 1)
 	{
