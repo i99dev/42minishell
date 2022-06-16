@@ -49,22 +49,33 @@ void	export_env(t_minishell *msh, int i)
 	int		j;
 	int		k;
 	char	*tmp;
+	bool	has_export;
 
 	j = 1;
-	while (msh->cmd_table[i].cmd[j])
+	while (msh->cmd_table[i].exec_table[j])
 	{
+		has_export=false;
 		k = 0;
-		while (msh->cmd_table[i].cmd[j][k])
+		while (msh->cmd_table[i].exec_table[j][k])
 		{
-			if (msh->cmd_table[i].cmd[j][k] == '=')
+			if (msh->cmd_table[i].exec_table[j][k] == '=' && k != 0 && msh->cmd_table[i].exec_table[j][k+1])
 			{
-				tmp = ft_strsub(msh->cmd_table[i].cmd[j], 0, k);
+				tmp = ft_strsub(msh->cmd_table[i].exec_table[j], 0, k);
 				update_hash(msh, get_key_vlaue(tmp), \
-				msh->cmd_table[i].cmd[j] + k + 1);
+				msh->cmd_table[i].exec_table[j] + k + 1);
+				has_export=true;
 				free(tmp);
 			}
+			else if (msh->cmd_table[i].exec_table[j][k] == '=' && k == 0)
+			msh->exit_status=1;
+			else if (msh->cmd_table[i].exec_table[j][k] == '=' && !msh->cmd_table[i].exec_table[j][k+1])
+			msh->exit_status=1;
+			else if(msh->cmd_table[i].exec_table[j][k] == '$' && k==0)
+			msh->exit_status=1;
 			k++;
 		}
+		if (k==ft_strlen(msh->cmd_table[i].exec_table[j]) && !has_export && j > 1)
+		msh->exit_status=1;
 		j++;
 	}
 }
@@ -72,6 +83,8 @@ void	export_env(t_minishell *msh, int i)
 
 void	ft_export(t_minishell *msh, int i)
 {
-	if (msh->cmd_table[i].cmd[1])
+	if (msh->cmd_table[i].exec_table[1])
 		export_env(msh, i);
+	else 
+	ft_env(msh,i);
 }
