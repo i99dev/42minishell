@@ -18,7 +18,8 @@ void	close_pipe(t_minishell *msh, int **fd, int i, pid_t *pid)
 		close(fd[i][1]);
 	if (i != 0)
 		close(fd[i - 1][0]);
-	waitpid(pid[i], NULL, 0);
+	(void) pid;
+	// waitpid(pid[i], NULL, 0);
 }
 
 void	free_pipe(int ***fd, pid_t **pid)
@@ -32,19 +33,20 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	ft_redirect(msh, i);
 	if (i != msh->command_count - 1)
 	{
+		//printf("i != cmdcount-1  command is %s and i = %d\n",msh->cmd_table->exec_table[i], i);
 		dup2(fd[i][1], 1);
 		close(fd[i][1]);
 		close(fd[i][0]);
 	}
 	if (i > 0)
 	{
+		//printf("i>0 command is %s and i = %d\n",msh->cmd_table->exec_table[i], i);
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
 	execve(get_path(msh, i), msh->cmd_table[i].exec_table, msh->env);
-	if (i > 0)
-		close(fd[i - 1][1]);
-	perror("command failed");
+	error_message(msh, "command not found", 127);
+	exit(127);
 }
 
 // multi pips with loop and control pips close and open
@@ -52,9 +54,12 @@ void	multi_pipe(t_minishell *msh, int i)
 {
 	int		**fd;
 	pid_t	*pid;
+	int		x;
+	int		status;
 
 	fd = (int **)malloc(sizeof(int *) * (msh->command_count));
 	pid = (pid_t *)malloc(sizeof(pid_t) * msh->command_count);
+	x = -1;
 	while (i < msh->command_count)
 	{
 		fd[i] = (int *)malloc(sizeof(int) * 2);
@@ -69,5 +74,8 @@ void	multi_pipe(t_minishell *msh, int i)
 			close_pipe(msh, fd, i, pid);
 		i++;
 	}
+	while (++x < msh->command_count)
+		waitpid(pid[x], &status, 0);
+	msh->exit_status = WEXITSTATUS(status);
 	free_pipe(&fd, &pid);
 }

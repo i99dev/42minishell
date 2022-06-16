@@ -59,6 +59,7 @@ void	execute(t_minishell *msh, int i)
 		exit(127);
 	}
 	wait4(pid, &status, 0, &ru);
+	printf("%d",WEXITSTATUS(status));
 	msh->exit_status=WEXITSTATUS(status);
 }
 
