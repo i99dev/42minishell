@@ -30,21 +30,24 @@ void	ft_with_arg(t_minishell *msh, char **argv)
 {
 	if (argv[1] && is_string_number(argv[1]))
 	{
-		error_message(msh, "exit: numeric argument required", 2);
+		msh->exit_status = ft_atoi(argv[1]);
 	}
 }
 
 void	ft_exit(t_minishell *msh, int i)
 {
-	(void)i;
-	(void)msh;
-	ft_with_arg(msh, msh->cmd_table[i].cmd);
-	
-	if (msh->command_count > 1)
+
+	if (msh->cmd_table[i].arg_count > 2)
 	{
 		error_message(msh, "exit: too many arguments", 1);
 		msh->exit_status = 1;
 		return ;
 	}
+	if (msh->cmd_table[i].exec_table[1] && !is_string_number(msh->cmd_table[i].exec_table[1]))
+	{
+		error_message(msh, "exit: numeric argument required", 2);
+		exit(2);
+	}
+	ft_with_arg(msh, msh->cmd_table[i].exec_table);
 	ft_free_minishell(msh);
 	}

@@ -21,7 +21,8 @@ t_hash_table	*init_table(char **env)
 	len = 0;
 	while (env[len])
 		len++;
-	table = create_hash_table(len * 2);
+	table = create_hash_table(50000);
+	table->count=0;
 	len = 0;
 	while (env[len])
 	{
@@ -79,8 +80,8 @@ char	**env2d(t_hash_table *env_table)
 	unsigned int	i;
 
 	i = 0;
-	env = (char **)malloc(sizeof(char *) * (env_table->size + 1));
-	while (i < env_table->size)
+	env = (char **)malloc(sizeof(char *) * (env_table->count + 1));
+	while (i < env_table->count)
 	{
 		tmp = env_table->table[i];
 		while (tmp)

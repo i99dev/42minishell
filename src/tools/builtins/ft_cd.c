@@ -44,6 +44,7 @@ void	cd_to_home(t_minishell *msh)
 void	ft_cd(t_minishell *msh, int i)
 {
 	//printf("is cd\n");
+	msh->exit_status=0;
 	if (msh->cmd_table[i].exec_table[1] == NULL || \
 	!ft_strncmp(msh->line, "~", ft_strlen("~")))
 		cd_to_home(msh);

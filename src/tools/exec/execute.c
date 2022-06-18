@@ -53,10 +53,11 @@ void	execute(t_minishell *msh, int i)
 	else if (pid == 0)
 	{
 		ft_redirect(msh, i);
-		execve(cmd, msh->cmd_table[i].exec_table, msh->env);
-		error_message(msh, "NOT FOUND", 127);
-		//free before
-		exit(127);
+		if (execve(cmd, msh->cmd_table[i].exec_table, NULL)==-1)
+		{
+			error_message(msh, "NOT FOUND", 127);
+			exit(127);
+		}
 	}
 	wait4(pid, &status, 0, &ru);
 	//printf("%d",WEXITSTATUS(status));
@@ -73,13 +74,16 @@ bool	check_command_type(t_minishell *msh, int index)
 
 void	execute_builtin(t_minishell *msh, int i)
 {
+	if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
+	"cd", 3))
+	{
+		ft_cd(msh, i);
+		return;
+	}
 	ft_redirect(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"echo", 5))
 		ft_echo(msh, i);
-	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
-	"cd", ft_strlen("cd")))
-		ft_cd(msh, i);
 	else if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"pwd", ft_strlen("pwd")))
 		ft_pwd(msh);
