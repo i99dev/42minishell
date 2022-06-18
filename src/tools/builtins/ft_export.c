@@ -58,7 +58,7 @@ void	export_env(t_minishell *msh, int i)
 		k = 0;
 		while (msh->cmd_table[i].exec_table[j][k])
 		{
-			if (msh->cmd_table[i].exec_table[j][k] == '+')
+			if (msh->cmd_table[i].exec_table[j][k] == '+' || (!ft_isalpha(msh->cmd_table[i].exec_table[j][k]) && k==0))
 			{
 				//ft_putstr_fd("not valid identifier",1);
 				msh->exit_status = 1;
@@ -81,9 +81,21 @@ void	export_env(t_minishell *msh, int i)
 			k++;
 		}
 		if (k==ft_strlen(msh->cmd_table[i].exec_table[j]) && !has_export && j > 1)
+		{
 		msh->exit_status=1;
+		}
+		else  if (msh->cmd_table[i].exec_table[j]  &&!has_export )
+		{
+				update_hash(msh, msh->cmd_table[i].exec_table[j], "");
+				has_export=true;
+		}
 		j++;
-	}
+		}
+		/*
+		tmp = ft_strsub(msh->cmd_table[i].exec_table[j - 1], 0, k);
+				update_hash(msh, get_key_vlaue(tmp), "");
+				has_export=true;
+				free(tmp);*/
 }
 
 void print_export_vars(t_minishell *msh, int i)
@@ -100,8 +112,11 @@ void print_export_vars(t_minishell *msh, int i)
 			ft_putstr_fd("export ",1);
 			int j=0;
 			ft_putstr_fd(msh->env_table->table[t_i]->key,1);
-			ft_putchar_fd('=',1);
-			ft_putchar_fd('\"',1);
+			if (msh->env_table->table[t_i]->value[j])
+			{
+				ft_putchar_fd('=',1);
+				ft_putchar_fd('\"',1);
+			}
 			while(msh->env_table->table[t_i]->value[j])
 			{
 				if (msh->env_table->table[t_i]->value[j]=='\"')
@@ -113,7 +128,10 @@ void print_export_vars(t_minishell *msh, int i)
 				ft_putchar_fd(msh->env_table->table[t_i]->value[j],1);
 				j++;
 			}
-			ft_putchar_fd('\"',1);
+			if (msh->env_table->table[t_i]->value[0])
+			{
+				ft_putchar_fd('\"',1);
+			}
 			ft_putchar_fd('\n',1);
 		}
 		t_i++;
