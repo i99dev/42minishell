@@ -51,7 +51,7 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	}
 	else
 	{
-	execve(get_path(msh, i), msh->cmd_table[i].exec_table, NULL);
+	execve(get_path(msh, i), msh->cmd_table[i].exec_table, msh->env);
 	error_message(msh, "command not found", 127);
 	exit(127);
 	}

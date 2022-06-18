@@ -22,6 +22,21 @@ void	read_line(t_minishell *msh)
 	free(msh->user_info);
 }
 
+bool check_valid_line(char *str)
+{
+	int	i;
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] != ' ' && str[i] != '|')
+		{
+			return true;
+		}
+		i++;
+	}
+	return false;
+}
+
 static void	minishill_start(t_minishell *msh, char **env)
 {
 	msh->env_table = init_table(env);
@@ -29,6 +44,8 @@ static void	minishill_start(t_minishell *msh, char **env)
 	while (1)
 	{
 		read_line(msh);
+		if (!check_valid_line(msh->line))
+			continue;
 		ft_tokenizer(msh);
 		start_parser(msh);
 		init_execute(msh);
