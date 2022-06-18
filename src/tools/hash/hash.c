@@ -21,7 +21,7 @@ t_hash_table	*init_table(char **env)
 	len = 0;
 	while (env[len])
 		len++;
-	table = create_hash_table(50000);
+	table = create_hash_table(1000);
 	table->count=0;
 	len = 0;
 	while (env[len])

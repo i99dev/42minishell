@@ -59,7 +59,7 @@ bool	special_char_with_dollar(char *word)
 	while (word[i])
 	{
 		if (word[i] == '$' && word[i + 1] && \
-		(word[i + 1] == '=' || word[i + 1] == '+' || word[i + 1] == '?'))
+		(word[i + 1] == '+' || word[i + 1] == '?'))
 			return (true);
 		i++;
 	}
