@@ -46,6 +46,7 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	}
 	if(msh->cmd_table[i].command_type == BUILTIN)
 	{
+		if (ft_strncmp(msh->cmd_table[i].exec_table[0],"cd",3) || ft_strncmp(msh->cmd_table[i].exec_table[0],"exit",5))
 		execute_builtin(msh, i);
 		exit(0);
 	}
@@ -83,7 +84,7 @@ void	multi_pipe(t_minishell *msh, int i)
 		i++;
 	}
 	while (++x < msh->command_count)
-		waitpid(pid[x], &status, 0);
+		waitpid(pid[x], &status, WUNTRACED);
 	msh->exit_status = WEXITSTATUS(status);
 	free_pipe(&fd, &pid);
 }

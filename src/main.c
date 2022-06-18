@@ -52,6 +52,7 @@ static void	minishill_start(t_minishell *msh, char **env)
 	msh->env = env2d(msh->env_table);
 	while (1)
 	{
+		//msh->env = env2d(msh->env_table);
 		read_line(msh);
 		if (!check_valid_line(msh->line))
 			continue;
