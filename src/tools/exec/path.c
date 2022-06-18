@@ -33,7 +33,7 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	int		i;
 
 	i = 0;
-	cmd=strdup("");
+	cmd=ft_strdup("");
 	//check if  exec first
 	if (msh->cmd_table[command_table_index].exec_table[0][0] == '/')
 		return (ft_strdup(msh->cmd_table[command_table_index].exec_table[0]));
@@ -48,6 +48,8 @@ char	*get_path(t_minishell *msh, int command_table_index)
 		msh->cmd_table[command_table_index].exec_table[0]);
 		if (is_executable(cmd))
 			break ;
+		free(cmd);
+		cmd=ft_strdup("");
 		i++;
 	}
 	return (cmd);

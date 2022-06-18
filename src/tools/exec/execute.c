@@ -43,7 +43,6 @@ void	execute(t_minishell *msh, int i)
 	char			*cmd;
 
 	cmd = get_path(msh, i);
-	//printf("cmd%s\n",msh->cmd_table[i].exec_table[0]);
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)
@@ -53,7 +52,7 @@ void	execute(t_minishell *msh, int i)
 	else if (pid == 0)
 	{
 		ft_redirect(msh, i);
-		if (execve(cmd, msh->cmd_table[i].exec_table, msh->env)==-1)
+		if (execve(cmd, msh->cmd_table[i].exec_table, NULL)==-1 )
 		{
 			error_message(msh, "NOT FOUND", 127);
 			exit(127);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command_table.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/16 10:25:02 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:52:44 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static int	tk_handle_redirect_out(t_minishell *msh, int i, int *j, int index)
 	return (wordindex);
 }
 
-void	check_command_table(t_minishell *msh, int i)
+bool	check_command_table(t_minishell *msh, int i)
 {
 	int		index;
 	int		j;
@@ -142,6 +142,8 @@ void	check_command_table(t_minishell *msh, int i)
 		}
 		if (ft_strlen(msh->cmd_table[i].cmd[index])==2 && ft_strncmp(msh->cmd_table[i].cmd[index], ">>", 2) == 0)
 		{
+			if (!msh->cmd_table[i].cmd[index+1])
+				return false;
 			msh->cmd_table[i].tok[j].token = ft_strdup(">>");
 			msh->cmd_table[i].filename[j] = \
 				get_io_filename(msh, i, ">>", index);
@@ -149,15 +151,25 @@ void	check_command_table(t_minishell *msh, int i)
 		}
 		else if (ft_strlen(msh->cmd_table[i].cmd[index])==2  && ft_strncmp(msh->cmd_table[i].cmd[index], "<<", 2) == 0)
 		{
+			if (!msh->cmd_table[i].cmd[index+1])
+				return false;
 			msh->cmd_table[i].tok[j].token = ft_strdup("<<");
 			msh->cmd_table[i].filename[j] = \
 			get_io_filename(msh, i, "<<", index);
 			j++;
 		}
 		else if (ft_strlen(msh->cmd_table[i].cmd[index])==1  && ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
+		{
+			if (!msh->cmd_table[i].cmd[index+1])
+				return false;
 			tk_handle_redirect_in(msh, i, &j, index);
+		}
 		else if (ft_strlen(msh->cmd_table[i].cmd[index])==1  && ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
+		{
+			if (!msh->cmd_table[i].cmd[index+1])
+				return false;
 			tk_handle_redirect_out(msh, i, &j, index);
+		}
 		else if ((j == 0) || (ft_strncmp(msh->cmd_table[i].cmd[index], \
 			msh->cmd_table[i].filename[j - 1], \
 			ft_strlen(msh->cmd_table[i].cmd[index]))))
@@ -178,4 +190,5 @@ void	check_command_table(t_minishell *msh, int i)
 			msh->cmd_table[i].exec_table[index] = "\n";
 		index++;
 	}
+	return true;
 }

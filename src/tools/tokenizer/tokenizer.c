@@ -63,6 +63,8 @@ int count_cmds(char **cmdtable)
 }
 void	_handle_redirect_s_line(char *line, int *i, int *j, char *tmp)
 {
+	if(line[*i]  && line[*i + 1])
+	{
 	if ((line[*i] == '<' && line[*i + 1] != '<') || \
 	(line[*i] == '>' && line[*i + 1] != '>'))
 	{
@@ -70,10 +72,13 @@ void	_handle_redirect_s_line(char *line, int *i, int *j, char *tmp)
 		tmp[(*j)++] = line[(*i)++];
 		tmp[(*j)++] = ' ';
 	}
+	}
 }
 
 void	_handle_redirect_d_line(char *line, int *i, int *j, char *tmp)
 {
+	if(line[*i]  && line[*i + 1])
+	{
 	if ((line[*i] == '<' && line[*i + 1] == '<') || \
 	(line[*i] == '>' && line[*i + 1] == '>'))
 	{
@@ -81,6 +86,7 @@ void	_handle_redirect_d_line(char *line, int *i, int *j, char *tmp)
 		tmp[(*j)++] = line[(*i)++];
 		tmp[(*j)++] = line[(*i)++];
 		tmp[(*j)++] = ' ';
+	}
 	}
 }
 
@@ -92,7 +98,7 @@ void	add_space_redirect_char(t_minishell *msh)
 
 	i = 0;
 	j = 0;
-	tmp = (char *)malloc(sizeof(char) * (ft_strlen(msh->line) + 20));
+	tmp = (char *)malloc(sizeof(char) * (ft_strlen(msh->line) * 2));
 	while (msh->line[i])
 	{
 		_handle_redirect_s_line(msh->line, &i, &j, tmp);
@@ -128,7 +134,7 @@ void	init_command_table(t_minishell *msh)
 	free(tmp);
 }
 
-void	ft_tokenizer(t_minishell *msh)
+bool	ft_tokenizer(t_minishell *msh)
 {
 	int	i;
 
@@ -138,8 +144,18 @@ void	ft_tokenizer(t_minishell *msh)
 	i = 0;
 	while (i < msh->command_count)
 	{
-		check_command_table(msh, i);
+		if (!check_command_table(msh, i))
+			return false;
+		if(!msh->cmd_table[i].arg_count)
+		{
+			if(msh->cmd_table->token_count)
+			{
+				ft_redirect(msh,i);
+				return false;
+			}
+		}
 		i++;
 	}
 	define_type(msh);
+	return true;
 }

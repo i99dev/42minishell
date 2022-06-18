@@ -28,7 +28,16 @@ bool check_valid_line(char *str)
 	i = 0;
 	while(str[i])
 	{
-		if(str[i] != ' ' && str[i] != '|')
+		if (i==0)
+		{
+			while(str[i] == ' ' && (str[i] != '\"' || str[i] != '\"'))
+				i++;
+			if (str[i] == '|')
+			{
+				return false;
+			}
+		}
+		if(isalnum(str[i]))
 		{
 			return true;
 		}
@@ -46,7 +55,8 @@ static void	minishill_start(t_minishell *msh, char **env)
 		read_line(msh);
 		if (!check_valid_line(msh->line))
 			continue;
-		ft_tokenizer(msh);
+		if (!ft_tokenizer(msh))
+			continue;
 		start_parser(msh);
 		init_execute(msh);
 		if (msh->line)
