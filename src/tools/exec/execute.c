@@ -39,9 +39,7 @@ void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
-	struct rusage	ru;
 	char			*cmd;
-
 	cmd = get_path(msh, i);
 	pid = fork();
 	define_exec_signals(msh);
@@ -52,13 +50,19 @@ void	execute(t_minishell *msh, int i)
 	else if (pid == 0)
 	{
 		ft_redirect(msh, i);
-		execve(cmd, msh->cmd_table[i].exec_table, NULL);
+		if(msh->cmd_table[i].command_type == BUILTIN)
 		{
+			execute_builtin(msh, i);
+			exit(0);
+		}
+		else
+		{
+			execve(cmd, msh->cmd_table[i].exec_table, NULL);
 			error_message(msh, "NOT FOUND", 127);
 			exit(127);
 		}
 	}
-	wait4(pid, &status, 0, &ru);
+	waitpid(pid, &status, WUNTRACED);
 	//printf("%d",WEXITSTATUS(status));
 	msh->exit_status=WEXITSTATUS(status);
 }
@@ -79,7 +83,7 @@ void	execute_builtin(t_minishell *msh, int i)
 		ft_cd(msh, i);
 		return;
 	}
-	ft_redirect(msh, i);
+	//ft_redirect(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i].exec_table[0], \
 	"echo", 5))
 		ft_echo(msh, i);
@@ -108,10 +112,11 @@ void	init_execute(t_minishell *msh)
 
 	i = 0;
 	//printf("%d\n",msh->cmd_table[i].command_type);
-	if (msh->cmd_table[0].command_type == BUILTIN && msh->command_count == 1)
-		execute_builtin(msh, i);
-	else if (msh->command_count == 1)
+	if (msh->command_count == 1)
 	{
+		if (!ft_strncmp(msh->cmd_table[i].exec_table[0],"cd",3) || !ft_strncmp(msh->cmd_table[i].exec_table[0],"exit",5))
+			execute_builtin(msh, i);
+		else
 		execute(msh, 0);
 	}
 	else
