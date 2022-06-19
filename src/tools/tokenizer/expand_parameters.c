@@ -41,7 +41,9 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 	while (isalpha(str[i]) || str[i]=='?')
 	{
 		key[i] = str[i];
-		i++;
+		if(str[i++]=='?')
+
+			break ;
 	}
 	key[i] = '\0';
 	if ((key[0] != '\0' && !isdigit(str[i])))
@@ -69,7 +71,10 @@ bool is_parameter(char *str)
 	tmp=ft_strchr(str, '$');
 	if(tmp)
 	{
-	if ((tmp[1] && !is_case_alph(tmp[1]))|| ft_strlen(tmp) == 1)
+		tmp=ft_strdup(tmp);
+	if(tmp[1] && tmp[1]==' ' && ft_strchr(&tmp[1],'$'))
+		return true;
+	if ((tmp[1] && !is_case_alph(tmp[1]) && tmp[1]!= ' ')|| ft_strlen(tmp) == 1)
 	return false;
 	}
 	else
@@ -83,24 +88,41 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	char	*res;
 	int		i;
 	int		len;
+	//int 	last_i;
 
 	start = ft_strchr(str, '$');
 	if (!start)
 		return (str);
-	if(!start[1] || (!is_case_alph(start[1]) && !special_char_with_dollar(start)))
+	if(start[1] && start[1] == ' ')
+			;
+	else if(!start[1] || (!is_case_alph(start[1]) && !special_char_with_dollar(start)))
 		return str;
 	i = 0 ;
+	//last_i = 0;
 	len = ft_strlen(str) - ft_strlen(start);
 	res = (char *)malloc(sizeof(char) * 1024);
-	while (is_parameter(start))
+	while (is_parameter(&start[i]))
 	{
-		while (start[i] != '$')
+		while (start [i] && start[i] != '$')
+		{
 			i++;
+		}
+		if(start[i+1] && start[i+1] == ' ')
+		{
+			if(start[i+2])
+			{
+			i+=2;
+			continue;
+			}
+			else
+			break;
+		}
 		tmp = ft_strjoin(ft_substr(start, 0, i), \
 		get_key_from_str(msh, &start[i + 1]));
 		//printf("%s\n",tmp);
-		start = ft_strdup(tmp);
+		start = tmp;
 	}
+	start=ft_strdup(start);
 	i = 0;
 	str[len]=0;
 	/*
@@ -110,6 +132,5 @@ char	*expand_cmd(t_minishell *msh, char *str)
 		i++;
 	}*/
 	res = ft_strjoin(str, start);
-	res[ft_strlen(res)] = '\0';
 	return (res);
 }

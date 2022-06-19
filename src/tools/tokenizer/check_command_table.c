@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/18 14:52:44 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/19 14:38:11 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ bool	is_token(char *str)
 		return (true);
 	else if (ft_strncmp(str, "<<", 2) == 0)
 		return (true);
-	else if (ft_strchr(str, '<') != NULL)
+	else if (str[0] == '>')
 		return (true);
-	else if (ft_strchr(str, '>') != NULL)
+	else if (str[0] == '<')
 		return (true);
 	return (false);
 }
@@ -158,13 +158,13 @@ bool	check_command_table(t_minishell *msh, int i)
 			get_io_filename(msh, i, "<<", index);
 			j++;
 		}
-		else if (ft_strlen(msh->cmd_table[i].cmd[index])==1  && ft_strchr(msh->cmd_table[i].cmd[index], '<') != NULL)
+		else if (ft_strlen(msh->cmd_table[i].cmd[index])==1  && msh->cmd_table[i].cmd[index][0] == '<')
 		{
 			if (!msh->cmd_table[i].cmd[index+1])
 				return false;
 			tk_handle_redirect_in(msh, i, &j, index);
 		}
-		else if (ft_strlen(msh->cmd_table[i].cmd[index])==1  && ft_strchr(msh->cmd_table[i].cmd[index], '>') != NULL)
+		else if (ft_strlen(msh->cmd_table[i].cmd[index])==1  && msh->cmd_table[i].cmd[index][0] =='>')
 		{
 			if (!msh->cmd_table[i].cmd[index+1])
 				return false;
