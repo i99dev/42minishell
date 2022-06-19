@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/19 14:38:11 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/19 16:24:22 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,11 @@ bool	check_command_table(t_minishell *msh, int i)
 		{
 			if(msh->cmd_table[i].cmd[index])
 			{
-			msh->cmd_table[i].exec_table[k] = \
-			ft_strdup(msh->cmd_table[i].cmd[index]);
-			k++;
+				if(msh->cmd_table[i].cmd[index][0] == '\r')
+				msh->cmd_table[i].cmd[index]=ft_strtrim(msh->cmd_table[i].cmd[index],"\r");
+				msh->cmd_table[i].exec_table[k] = \
+				ft_strdup(msh->cmd_table[i].cmd[index]);
+				k++;
 			}
 		}
 		index++;

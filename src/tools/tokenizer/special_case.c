@@ -59,7 +59,7 @@ bool	special_char_with_dollar(char *word)
 	while (word[i])
 	{
 		if (word[i] == '$' && word[i + 1] && \
-		(word[i + 1] == '+' || word[i + 1] == '?'))
+		(word[i + 1] == '+'))
 			return (true);
 		i++;
 	}
@@ -81,7 +81,13 @@ void	handle_sign_dollar(t_minishell *msh)
 		{
 			if (ft_strchr(msh->cmd_table[i].cmd[j], '$') && \
 			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
+			{
 				msh->cmd_table[i].cmd[j] = expand_cmd(msh, msh->cmd_table[i].cmd[j]);
+				if (is_token(msh->cmd_table[i].cmd[j]))
+				{
+					msh->cmd_table[i].cmd[j] = ft_strjoin(ft_strdup("\r"), msh->cmd_table[i].cmd[j]);
+				}
+			}
 			j++;
 		}
 		i++;
@@ -149,18 +155,15 @@ void	ft_special_case(t_minishell *msh)
 				replace_tild(msh);
 			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
 				handle_double_dollar(msh);
+			//dont need
 			else if ((!ft_strncmp(msh->cmd_table[i].cmd[j], "$\'\'", 3) || !ft_strncmp(msh->cmd_table[i].cmd[j], "$\"\"", 3)))
-				{
-					msh->cmd_table[i].cmd[j]= expand_cmd(msh, msh->cmd_table[i].cmd[j]);;
-				}
+					msh->cmd_table[i].cmd[j] = expand_cmd(msh, msh->cmd_table[i].cmd[j]);
 			else if (ft_strchr(msh->cmd_table[i].cmd[j], '$') && \
 			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
 				handle_sign_dollar(msh);
+			//dont need
 			if(check_dollar_quote(msh,i,j))
-			k++;
-				/*
-			else if (ft_strchr(msh->cmd_table[i].cmd[j], '$') && ft_strchr(msh->cmd_table[i].cmd[j], '$')[1] == '?')
-				ft_handle_question(msh,msh->cmd_table[i].cmd[j]);*/
+				k++;
 			j++;
 		}
 		i++;
