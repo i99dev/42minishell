@@ -37,7 +37,7 @@ typedef struct s_cmdt
 {
 	char			**cmd;
 	char			**exec_table;
-	t_token			*tok;
+	t_token			**tok;
 	char			**filename;
 	int				command_type;
 	int				cmd_count;
@@ -58,7 +58,7 @@ typedef struct s_minishell
 {
 	t_hash_table	*env_table;
 	char			**env;
-	t_cmdt			*cmd_table;
+	t_cmdt			**cmd_table;
 	char			**quotes;
 	int				quote_count;
 	int				command_count;

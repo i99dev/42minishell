@@ -44,15 +44,15 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
-	if(msh->cmd_table[i].command_type == BUILTIN)
+	if(msh->cmd_table[i]->command_type == BUILTIN)
 	{
-		if (ft_strncmp(msh->cmd_table[i].exec_table[0],"cd",3) || ft_strncmp(msh->cmd_table[i].exec_table[0],"exit",5))
+		if (ft_strncmp(msh->cmd_table[i]->exec_table[0],"cd",3) || ft_strncmp(msh->cmd_table[i]->exec_table[0],"exit",5))
 		execute_builtin(msh, i);
 		exit(0);
 	}
 	else
 	{
-	execve(get_path(msh, i), msh->cmd_table[i].exec_table, NULL);
+	execve(get_path(msh, i), msh->cmd_table[i]->exec_table, NULL);
 	error_message(msh, "command not found", 127);
 	exit(127);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/11 10:39:57 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/20 14:25:34 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ int	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 {
 	char	*tmp;
 
-	tmp = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[*j] + msh->q_pos, DOUBLE_QUOTE));
+	tmp = ft_strdup(ft_strchr(msh->cmd_table[i]->cmd[*j] + msh->q_pos, DOUBLE_QUOTE));
 	//printf("tmp: %s\n",tmp);
 	if (tmp[1] && tmp[1] == DOUBLE_QUOTE && ft_strlen(msh->quotes[*k]))
 	{
-		msh->cmd_table[i].cmd[*j][ft_strlen(msh->cmd_table[i].cmd[*j]) - \
+		msh->cmd_table[i]->cmd[*j][ft_strlen(msh->cmd_table[i]->cmd[*j]) - \
 		ft_strlen(tmp)] = 0;
 		//if (msh->quotes[*k])
-		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
+		msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 		expand_parameters(msh, msh->quotes[*k]));
-		msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
-		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
+		msh->q_pos=strlen(msh->cmd_table[i]->cmd[*j]);
+		msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 		tmp + 2);
 		if(!ft_strchr(tmp+2, SINGLE_QUOTE) && !ft_strchr(tmp+2, DOUBLE_QUOTE))
 		{
@@ -76,17 +76,17 @@ int	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 	}
 	else if (tmp[1] && tmp[1] == DOUBLE_QUOTE && !ft_strlen(msh->quotes[*k]))
 	{
-		if(tmp[2]==0 && ft_strlen(msh->cmd_table[i].cmd[*j]) == 2)
+		if(tmp[2]==0 && ft_strlen(msh->cmd_table[i]->cmd[*j]) == 2)
 		{
-			msh->cmd_table[i].cmd[*j] =  ft_strdup("\t");
+			msh->cmd_table[i]->cmd[*j] =  ft_strdup("\t");
 		}
 		else
 		{
-			msh->cmd_table[i].cmd[*j][ft_strlen(msh->cmd_table[i].cmd[*j]) - \
+			msh->cmd_table[i]->cmd[*j][ft_strlen(msh->cmd_table[i]->cmd[*j]) - \
 			ft_strlen(tmp)] = 0;
-			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
-			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
-			msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
+			//msh->q_pos=strlen(msh->cmd_table[i]->cmd[*j]);
+			//msh->q_pos=strlen(msh->cmd_table[i]->cmd[*j]);
+			msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 			tmp + 2);
 		}
 		*k +=1;
@@ -100,22 +100,22 @@ bool		q_handle_s(t_minishell *msh, int i, int *j, int *k)
 {
 	char	*tmp;
 
-	tmp = ft_strdup(ft_strchr(msh->cmd_table[i].cmd[*j]+msh->q_pos, SINGLE_QUOTE));
+	tmp = ft_strdup(ft_strchr(msh->cmd_table[i]->cmd[*j]+msh->q_pos, SINGLE_QUOTE));
 	//printf("tmp: %s\n",tmp);
 	if (tmp[1] && tmp[1] == SINGLE_QUOTE && ft_strlen(msh->quotes[*k]))
 	{
 		
-		msh->cmd_table[i].cmd[*j][ft_strlen(msh->cmd_table[i].cmd[*j]) - \
+		msh->cmd_table[i]->cmd[*j][ft_strlen(msh->cmd_table[i]->cmd[*j]) - \
 		ft_strlen(tmp)] = 0;
-		//printf("%s\n",msh->cmd_table[i].cmd[*j]);
+		//printf("%s\n",msh->cmd_table[i]->cmd[*j]);
 		//if (msh->quotes[*k])
-		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
+		msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 			msh->quotes[*k]);
-			//printf("%s\n",msh->cmd_table[i].cmd[*j]);
-		msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
-		msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
+			//printf("%s\n",msh->cmd_table[i]->cmd[*j]);
+		msh->q_pos=strlen(msh->cmd_table[i]->cmd[*j]);
+		msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 		tmp + 2);
-//printf("%s\n",msh->cmd_table[i].cmd[*j]);
+//printf("%s\n",msh->cmd_table[i]->cmd[*j]);
 		if(!ft_strchr(tmp+2, SINGLE_QUOTE) && !ft_strchr(tmp+2, DOUBLE_QUOTE))
 		{
 			msh->q_pos=0;
@@ -127,26 +127,26 @@ bool		q_handle_s(t_minishell *msh, int i, int *j, int *k)
 	}
 	else if (tmp[1] && tmp[1] == SINGLE_QUOTE && !ft_strlen(msh->quotes[*k]))
 	{
-		if(tmp[2]==0 && ft_strlen(msh->cmd_table[i].cmd[*j]) == 2)
+		if(tmp[2]==0 && ft_strlen(msh->cmd_table[i]->cmd[*j]) == 2)
 		{
-			msh->cmd_table[i].cmd[*j] =  ft_strdup("\t");
+			msh->cmd_table[i]->cmd[*j] =  ft_strdup("\t");
 		}
 		else
 		{
 		/*
-		if (msh->cmd_table[i].cmd[*j][0] != '\'' && msh->cmd_table[i].cmd[*j][1] != '\'')
+		if (msh->cmd_table[i]->cmd[*j][0] != '\'' && msh->cmd_table[i]->cmd[*j][1] != '\'')
 		{*/
-			msh->cmd_table[i].cmd[*j][ft_strlen(msh->cmd_table[i].cmd[*j]) - \
+			msh->cmd_table[i]->cmd[*j][ft_strlen(msh->cmd_table[i]->cmd[*j]) - \
 			ft_strlen(tmp)] = 0;
-			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
-			//msh->q_pos=strlen(msh->cmd_table[i].cmd[*j]);
-			msh->cmd_table[i].cmd[*j] = ft_strjoin(msh->cmd_table[i].cmd[*j], \
+			//msh->q_pos=strlen(msh->cmd_table[i]->cmd[*j]);
+			//msh->q_pos=strlen(msh->cmd_table[i]->cmd[*j]);
+			msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 		tmp + 2);
 		}
 		/*
 		}
 		else
-			msh->cmd_table[i].cmd[*j] = ft_strdup(tmp+2);*/
+			msh->cmd_table[i]->cmd[*j] = ft_strdup(tmp+2);*/
 		*k +=1;
 		return (true);
 	}
@@ -161,10 +161,10 @@ bool	q_handle_all(t_minishell *msh, int i, int *j, int *k)
 
 	tmp1=0;
 	tmp2=0;
-	if(ft_strchr(msh->cmd_table[i].cmd[*j]+msh->q_pos, DOUBLE_QUOTE))
-		tmp1=ft_strlen(ft_strchr(msh->cmd_table[i].cmd[*j]+msh->q_pos, DOUBLE_QUOTE));
-	if(ft_strchr(msh->cmd_table[i].cmd[*j]+msh->q_pos, SINGLE_QUOTE))
-		tmp2=ft_strlen(ft_strchr(msh->cmd_table[i].cmd[*j]+msh->q_pos, SINGLE_QUOTE));
+	if(ft_strchr(msh->cmd_table[i]->cmd[*j]+msh->q_pos, DOUBLE_QUOTE))
+		tmp1=ft_strlen(ft_strchr(msh->cmd_table[i]->cmd[*j]+msh->q_pos, DOUBLE_QUOTE));
+	if(ft_strchr(msh->cmd_table[i]->cmd[*j]+msh->q_pos, SINGLE_QUOTE))
+		tmp2=ft_strlen(ft_strchr(msh->cmd_table[i]->cmd[*j]+msh->q_pos, SINGLE_QUOTE));
 	//printf("tmp1%d tmp2%d\n",tmp1,tmp2);
 	if(!tmp1 && !tmp2)
 		return false;
@@ -200,14 +200,14 @@ void	ft_handle_quotes(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j])
+		while (msh->cmd_table[i]->cmd[j])
 		{
 			msh->q_pos=0;
 			while (k < msh->quote_count && \
-			(ft_strchr(msh->cmd_table[i].cmd[j]+msh->q_pos, DOUBLE_QUOTE) || \
-			ft_strchr(msh->cmd_table[i].cmd[j]+msh->q_pos, SINGLE_QUOTE)))
+			(ft_strchr(msh->cmd_table[i]->cmd[j]+msh->q_pos, DOUBLE_QUOTE) || \
+			ft_strchr(msh->cmd_table[i]->cmd[j]+msh->q_pos, SINGLE_QUOTE)))
 			{
-				//printf("%s\n",msh->cmd_table[i].cmd[j]);
+				//printf("%s\n",msh->cmd_table[i]->cmd[j]);
 				b=q_handle_all(msh, i, &j, &k);
 				if(b)
 				{
@@ -215,7 +215,7 @@ void	ft_handle_quotes(t_minishell *msh)
 				}
 			}
 			j++;
-			if(j>msh->cmd_table[i].cmd_count)
+			if(j>msh->cmd_table[i]->cmd_count)
 			break;
 		}
 		i++;

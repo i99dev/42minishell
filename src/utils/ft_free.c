@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/16 10:48:11 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:25:34 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	ft_command_table_free(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j])
+		while (msh->cmd_table[i]->cmd[j])
 		{
-			free(msh->cmd_table[i].cmd[j]);
+			free(msh->cmd_table[i]->cmd[j]);
 			j++;
 		}
 		free(&msh->cmd_table[i]);

@@ -22,15 +22,15 @@ void	replace_tild(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j])
+		while (msh->cmd_table[i]->cmd[j])
 		{
-			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
+			if (ft_strncmp(msh->cmd_table[i]->cmd[j], "~", 1) == 0)
 			{
 				tmp = find_hash(msh,msh->env_table, "HOME");
 				if (tmp)
-					msh->cmd_table[i].cmd[j] = ft_strdup(tmp);
+					msh->cmd_table[i]->cmd[j] = ft_strdup(tmp);
 				else
-					msh->cmd_table[i].cmd[j] = ft_strdup("/");
+					msh->cmd_table[i]->cmd[j] = ft_strdup("/");
 			}
 			j++;
 		}
@@ -45,8 +45,8 @@ char *ft_handle_question(t_minishell *msh,char *str)
 	printf("helloo");
 	if (!ft_strchr(str, "$?", 2))
 	{
-		free(msh->cmd_table[i].cmd[index]);
-		msh->cmd_table[i].cmd[index] = ft_itoa(msh->exit_status);
+		free(msh->cmd_table[i]->cmd[index]);
+		msh->cmd_table[i]->cmd[index] = ft_itoa(msh->exit_status);
 		msh->exit_status = 0;
 	}
 	return NULL;
@@ -77,15 +77,15 @@ void	handle_sign_dollar(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j])
+		while (msh->cmd_table[i]->cmd[j])
 		{
-			if (ft_strchr(msh->cmd_table[i].cmd[j], '$') && \
-			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
+			if (ft_strchr(msh->cmd_table[i]->cmd[j], '$') && \
+			!special_char_with_dollar(msh->cmd_table[i]->cmd[j]))
 			{
-				msh->cmd_table[i].cmd[j] = expand_cmd(msh, msh->cmd_table[i].cmd[j]);
-				if (is_token(msh->cmd_table[i].cmd[j]))
+				msh->cmd_table[i]->cmd[j] = expand_cmd(msh, msh->cmd_table[i]->cmd[j]);
+				if (is_token(msh->cmd_table[i]->cmd[j]))
 				{
-					msh->cmd_table[i].cmd[j] = ft_strjoin(ft_strdup("\r"), msh->cmd_table[i].cmd[j]);
+					msh->cmd_table[i]->cmd[j] = ft_strjoin(ft_strdup("\r"), msh->cmd_table[i]->cmd[j]);
 				}
 			}
 			j++;
@@ -104,16 +104,16 @@ void	handle_double_dollar(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j])
+		while (msh->cmd_table[i]->cmd[j])
 		{
-			if (msh->cmd_table[i].cmd[j][0] == '$' && \
-			msh->cmd_table[i].cmd[j][1] == '$')
+			if (msh->cmd_table[i]->cmd[j][0] == '$' && \
+			msh->cmd_table[i]->cmd[j][1] == '$')
 			{
-				tmp = find_hash(msh,msh->env_table, msh->cmd_table[i].cmd[j] + 2);
+				tmp = find_hash(msh,msh->env_table, msh->cmd_table[i]->cmd[j] + 2);
 				if (tmp)
-					msh->cmd_table[i].cmd[j] = ft_itoa(getpid());
+					msh->cmd_table[i]->cmd[j] = ft_itoa(getpid());
 				else
-					msh->cmd_table[i].cmd[j] = ft_strdup("");
+					msh->cmd_table[i]->cmd[j] = ft_strdup("");
 			}
 			j++;
 		}
@@ -124,13 +124,13 @@ bool check_dollar_quote(t_minishell *msh,int i,int j)
 {
 	char *temp;
 
-	temp=ft_strchr(msh->cmd_table[i].cmd[j],'\"');
+	temp=ft_strchr(msh->cmd_table[i]->cmd[j],'\"');
 	if(temp )
 	{
 		if(temp[1]=='\"')
 		return true;
 	}
-	temp=ft_strchr(msh->cmd_table[i].cmd[j],'\'');
+	temp=ft_strchr(msh->cmd_table[i]->cmd[j],'\'');
 	if(temp )
 	{
 		if(temp[1]=='\'')
@@ -149,17 +149,17 @@ void	ft_special_case(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		j = 0;
-		while (msh->cmd_table[i].cmd[j])
+		while (msh->cmd_table[i]->cmd[j])
 		{
-			if (ft_strncmp(msh->cmd_table[i].cmd[j], "~", 1) == 0)
+			if (ft_strncmp(msh->cmd_table[i]->cmd[j], "~", 1) == 0)
 				replace_tild(msh);
-			else if (ft_strncmp(msh->cmd_table[i].cmd[j], "$$", 3) == 0)
+			else if (ft_strncmp(msh->cmd_table[i]->cmd[j], "$$", 3) == 0)
 				handle_double_dollar(msh);
 			//dont need
-			else if ((!ft_strncmp(msh->cmd_table[i].cmd[j], "$\'\'", 3) || !ft_strncmp(msh->cmd_table[i].cmd[j], "$\"\"", 3)))
-					msh->cmd_table[i].cmd[j] = expand_cmd(msh, msh->cmd_table[i].cmd[j]);
-			else if (ft_strchr(msh->cmd_table[i].cmd[j], '$') && \
-			!special_char_with_dollar(msh->cmd_table[i].cmd[j]))
+			else if ((!ft_strncmp(msh->cmd_table[i]->cmd[j], "$\'\'", 3) || !ft_strncmp(msh->cmd_table[i]->cmd[j], "$\"\"", 3)))
+					msh->cmd_table[i]->cmd[j] = expand_cmd(msh, msh->cmd_table[i]->cmd[j]);
+			else if (ft_strchr(msh->cmd_table[i]->cmd[j], '$') && \
+			!special_char_with_dollar(msh->cmd_table[i]->cmd[j]))
 				handle_sign_dollar(msh);
 			//dont need
 			if(check_dollar_quote(msh,i,j))

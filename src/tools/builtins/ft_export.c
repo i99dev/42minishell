@@ -52,47 +52,47 @@ void	export_env(t_minishell *msh, int i)
 	bool	has_export;
 
 	j = 1;
-	while (msh->cmd_table[i].exec_table[j])
+	while (msh->cmd_table[i]->exec_table[j])
 	{
 		has_export = false;
 		k = 0;
-		while (msh->cmd_table[i].exec_table[j][k])
+		while (msh->cmd_table[i]->exec_table[j][k])
 		{
-			if (msh->cmd_table[i].exec_table[j][k] == '+' || (!ft_isalpha(msh->cmd_table[i].exec_table[j][k]) && k==0))
+			if (msh->cmd_table[i]->exec_table[j][k] == '+' || (!ft_isalpha(msh->cmd_table[i]->exec_table[j][k]) && k==0))
 			{
 				//ft_putstr_fd("not valid identifier",1);
 				msh->exit_status = 1;
 				return;
 			}
-			if (msh->cmd_table[i].exec_table[j][k] == '=' && k != 0 && msh->cmd_table[i].exec_table[j][k+1])
+			if (msh->cmd_table[i]->exec_table[j][k] == '=' && k != 0 && msh->cmd_table[i]->exec_table[j][k+1])
 			{
-				tmp = ft_strsub(msh->cmd_table[i].exec_table[j], 0, k);
+				tmp = ft_strsub(msh->cmd_table[i]->exec_table[j], 0, k);
 				update_hash(msh, get_key_vlaue(tmp), \
-				msh->cmd_table[i].exec_table[j] + k + 1);
+				msh->cmd_table[i]->exec_table[j] + k + 1);
 				has_export=true;
 				free(tmp);
 			}
-			else if (msh->cmd_table[i].exec_table[j][k] == '=' && k == 0)
+			else if (msh->cmd_table[i]->exec_table[j][k] == '=' && k == 0)
 			msh->exit_status = 1;
-			else if (msh->cmd_table[i].exec_table[j][k] == '=' && !msh->cmd_table[i].exec_table[j][k+1] && !has_export)
+			else if (msh->cmd_table[i]->exec_table[j][k] == '=' && !msh->cmd_table[i]->exec_table[j][k+1] && !has_export)
 			msh->exit_status = 1;
-			else if(msh->cmd_table[i].exec_table[j][k] == '$' && k==0)
+			else if(msh->cmd_table[i]->exec_table[j][k] == '$' && k==0)
 			msh->exit_status = 1;
 			k++;
 		}
-		if (k==ft_strlen(msh->cmd_table[i].exec_table[j]) && !has_export && j > 1)
+		if (k==ft_strlen(msh->cmd_table[i]->exec_table[j]) && !has_export && j > 1)
 		{
 		msh->exit_status=1;
 		}
-		else  if (msh->cmd_table[i].exec_table[j]  &&!has_export )
+		else  if (msh->cmd_table[i]->exec_table[j]  &&!has_export )
 		{
-				update_hash(msh, msh->cmd_table[i].exec_table[j], "");
+				update_hash(msh, msh->cmd_table[i]->exec_table[j], "");
 				has_export=true;
 		}
 		j++;
 		}
 		/*
-		tmp = ft_strsub(msh->cmd_table[i].exec_table[j - 1], 0, k);
+		tmp = ft_strsub(msh->cmd_table[i]->exec_table[j - 1], 0, k);
 				update_hash(msh, get_key_vlaue(tmp), "");
 				has_export=true;
 				free(tmp);*/
@@ -141,7 +141,7 @@ void print_export_vars(t_minishell *msh, int i)
 void	ft_export(t_minishell *msh, int i)
 {
 	msh->exit_status=0;
-	if (msh->cmd_table[i].exec_table[1])
+	if (msh->cmd_table[i]->exec_table[1])
 		export_env(msh, i);
 	else 
 	print_export_vars(msh,i);

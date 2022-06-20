@@ -20,7 +20,7 @@ void	ft_redirect(t_minishell *msh, int i)
 
 	while (j < msh->cmd_table[i]->token_count)
 	{
-		if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, "<<", 2))
+		if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token,cmd_table[index]->, 2))
 			here_doc(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, ">>", 2))
 		{

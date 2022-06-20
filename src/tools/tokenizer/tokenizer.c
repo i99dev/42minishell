@@ -46,7 +46,7 @@ char	**tk_split_pip(t_minishell *msh)
 	while (tmp && tmp[i] != NULL)
 		i++;
 	table_count = i;
-	msh->cmd_table = (t_cmdt *)malloc(sizeof(t_cmdt) * table_count);
+	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *) * table_count);
 	msh->command_count = table_count;
 	return (tmp);
 }
@@ -121,8 +121,9 @@ void	init_command_table(t_minishell *msh)
 	tmp = tk_split_pip(msh);
 	while (tmp && tmp[i])
 	{
-		msh->cmd_table[i].cmd = ft_split(tmp[i], ' ');
-		msh->cmd_table[i].cmd_count = count_cmds(msh->cmd_table[i].cmd);
+		msh->cmd_table[i] = (t_cmdt *)malloc(sizeof(t_cmdt));
+		msh->cmd_table[i]->cmd = ft_split(tmp[i], ' ');
+		msh->cmd_table[i]->cmd_count = count_cmds(msh->cmd_table[i]->cmd);
 		i++;
 	}
 	i = 0;
@@ -146,9 +147,9 @@ bool	ft_tokenizer(t_minishell *msh)
 	{
 		if (!check_command_table(msh, i))
 			return false;
-		if(!msh->cmd_table[i].arg_count)
+		if(!msh->cmd_table[i]->arg_count)
 		{
-			if(msh->cmd_table->token_count)
+			if(msh->cmd_table[i]->token_count)
 			{
 				ft_redirect(msh,i);
 				return false;

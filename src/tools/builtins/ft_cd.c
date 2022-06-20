@@ -45,10 +45,10 @@ void	ft_cd(t_minishell *msh, int i)
 {
 	//printf("is cd\n");
 	msh->exit_status=0;
-	if (msh->cmd_table[i].exec_table[1] == NULL || \
+	if (msh->cmd_table[i]->exec_table[1] == NULL || \
 	!ft_strncmp(msh->line, "~", 2))
 		cd_to_home(msh);
-	else if (!ft_strncmp(msh->cmd_table[i].exec_table[1], "-", ft_strlen("-")))
+	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[1], "-", ft_strlen("-")))
 	{
 		if (find_hash(msh,msh->env_table, "OLDPWD") == NULL)
 		{
@@ -58,5 +58,5 @@ void	ft_cd(t_minishell *msh, int i)
 		_2path(msh, ft_strdup(find_hash(msh,msh->env_table, "OLDPWD")));
 	}
 	else
-		_2path(msh, msh->cmd_table[i].exec_table[1]);
+		_2path(msh, msh->cmd_table[i]->exec_table[1]);
 }

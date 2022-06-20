@@ -24,19 +24,19 @@ void	ft_unset(t_minishell *msh, int i)
 
 	j = 0;
 	k = 0;
-	if (msh->cmd_table[i].cmd[1] == NULL)
+	if (msh->cmd_table[i]->cmd[1] == NULL)
 		ft_putendl_fd("unset: Too few arguments.", 2);
 	else
 	{
-		while (msh->cmd_table[i].cmd[1][j])
+		while (msh->cmd_table[i]->cmd[1][j])
 		{
-			if (msh->cmd_table[i].cmd[1][j] == '$')
+			if (msh->cmd_table[i]->cmd[1][j] == '$')
 				k = 1;
 			j++;
 		}
 		if (k == 1)
 			ft_putendl_fd("unset: Variable name must not contain '$'.", 2);
 		else
-			remove_hash(msh, msh->cmd_table[i].cmd[1]);
+			remove_hash(msh, msh->cmd_table[i]->cmd[1]);
 	}
 }

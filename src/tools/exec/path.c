@@ -35,8 +35,8 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	i = 0;
 	cmd=ft_strdup("");
 	//check if  exec first
-	if (msh->cmd_table[command_table_index].exec_table[0][0] == '/' || msh->cmd_table[command_table_index].exec_table[0][0] == '.')
-		return (ft_strdup(msh->cmd_table[command_table_index].exec_table[0]));
+	if (msh->cmd_table[command_table_index]->exec_table[0][0] == '/' || msh->cmd_table[command_table_index]->exec_table[0][0] == '.')
+		return (ft_strdup(msh->cmd_table[command_table_index]->exec_table[0]));
 	all_path = find_hash(msh,msh->env_table, "PATH");
 	//printf("cmd:%s",all_path);
 	tmp = ft_split(all_path, ':');
@@ -45,7 +45,7 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	{
 		cmd = ft_strjoin(tmp[i], "/");
 		cmd = ft_strjoin(cmd, \
-		msh->cmd_table[command_table_index].exec_table[0]);
+		msh->cmd_table[command_table_index]->exec_table[0]);
 		if (is_executable(cmd))
 			break ;
 		free(cmd);

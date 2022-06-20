@@ -26,7 +26,7 @@ bool is_n(char *str)
 }
 bool check_n(t_minishell *msh, int i, int *j)
 {
-	while (msh->cmd_table[i].exec_table[*j] && is_n(msh->cmd_table[i].exec_table[*j]))
+	while (msh->cmd_table[i]->exec_table[*j] && is_n(msh->cmd_table[i]->exec_table[*j]))
 	{
 		(*j)++;
 	}
@@ -45,15 +45,15 @@ void	ft_echo(t_minishell *msh, int i)
 
 	if (check_n(msh, i, &j))
 		flag = true;
-	else if (msh->cmd_table[i].exec_table[1] && !msh->cmd_table[i].exec_table[2] && is_n(msh->cmd_table[i].exec_table[1]))
+	else if (msh->cmd_table[i]->exec_table[1] && !msh->cmd_table[i]->exec_table[2] && is_n(msh->cmd_table[i]->exec_table[1]))
 		return ;
-	while (msh->cmd_table[i].exec_table[j])
+	while (msh->cmd_table[i]->exec_table[j])
 	{
-		if (strncmp(msh->cmd_table[i].exec_table[j],"\n",2) && strncmp(msh->cmd_table[i].exec_table[j],"\t",2))
+		if (strncmp(msh->cmd_table[i]->exec_table[j],"\n",2) && strncmp(msh->cmd_table[i]->exec_table[j],"\t",2))
 		{
-		ft_putstr_fd(msh->cmd_table[i].exec_table[j], 1);
+		ft_putstr_fd(msh->cmd_table[i]->exec_table[j], 1);
 		}
-		if (msh->cmd_table[i].exec_table[j + 1] && strncmp(msh->cmd_table[i].exec_table[j + 1],"\n",2))
+		if (msh->cmd_table[i]->exec_table[j + 1] && strncmp(msh->cmd_table[i]->exec_table[j + 1],"\n",2))
 			ft_putchar_fd(' ',1);
 		j++;
 	}
