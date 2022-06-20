@@ -23,10 +23,7 @@ void	ft_redirect(t_minishell *msh, int i)
 		if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, "<<", 2))
 			here_doc(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, ">>", 2))
-		{
-			//printf("double");
 			ft_redirect_append(msh, i, j);
-		}
 		else if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, "<", 1))
 			ft_redirect_in(msh, i, j);
 		else if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, ">", 1))
@@ -38,33 +35,31 @@ void	ft_redirect(t_minishell *msh, int i)
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
-	int				status;
+	int  			status;
 	char			*cmd;
+
 	cmd = get_path(msh, i);
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)
-	{
 		err_msg("fork failed");
-	}
 	else if (pid == 0)
 	{
 		ft_redirect(msh, i);
-		if(msh->cmd_table[i]->command_type == BUILTIN)
+		if (msh->cmd_table[i]->command_type == BUILTIN)
 		{
 			execute_builtin(msh, i);
 			exit(0);
 		}
 		else
 		{
-			execve(cmd, msh->cmd_table[i]->exec_table, NULL);
+			execve(cmd, msh->cmd_table[i]->exec_table, msh->env);
 			error_message(msh, "NOT FOUND", 127);
 			exit(127);
-		}
+		}		
 	}
 	waitpid(pid, &status, WUNTRACED);
-	//printf("%d",WEXITSTATUS(status));
-	msh->exit_status=WEXITSTATUS(status);
+	msh->exit_status = WEXITSTATUS(status);
 }
 
 bool	check_command_type(t_minishell *msh, int index)

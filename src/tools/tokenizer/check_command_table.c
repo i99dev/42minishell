@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/20 14:50:36 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/20 13:35:42 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ bool	check_command_table(t_minishell *msh, int i)
 	j = 0;
 	k = 0;
 	count_token(msh, i);
+	msh->cmd_table[i]->tok = (t_token **)malloc(sizeof(t_token *) * msh->cmd_table[i]->token_count);
 	while (msh->cmd_table[i]->cmd[index])
 	{
-		msh->cmd_table[i]->tok = (t_token **)malloc(sizeof(t_token *) * msh->cmd_table[i]->token_count);
 		if (!ft_strncmp(msh->cmd_table[i]->cmd[index], "$?", 2))
 		{
 			msh->cmd_table[i]->cmd[index] = expand_cmd(msh,msh->cmd_table[i]->cmd[index]);
