@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 15:34:57 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:59:17 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ char	*get_key(char *str)
 	return (key);
 }
 
-char	*expand_parameters(t_minishell *msh, char *str)
-{
-	str = expand_cmd(msh, str);
-	return (str);
-}
-
 int	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 {
 	char	*tmp;
@@ -60,7 +54,7 @@ int	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 		msh->cmd_table[i]->cmd[*j][ft_strlen(msh->cmd_table[i]->cmd[*j]) - \
 		ft_strlen(tmp)] = 0;
 		msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
-		expand_parameters(msh, msh->quotes[*k]));
+		expand_cmd(msh, msh->quotes[*k]));
 		msh->q_pos = strlen(msh->cmd_table[i]->cmd[*j]);
 		msh->cmd_table[i]->cmd[*j] = ft_strjoin(msh->cmd_table[i]->cmd[*j], \
 		tmp + 2);

@@ -48,6 +48,7 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 	if ((key[0] != '\0' && !isdigit(str[i])))
 	{
 		value = find_hash(msh, msh->env_table, key);
+		free(key);
 		if (value)
 			key = ft_strdup(value);
 		else

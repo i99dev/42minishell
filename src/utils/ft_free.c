@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 17:23:22 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:37:42 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,32 @@ void _free_2d_array(char **array)
 	free(array);
 }
 
+void _free_t_token(t_token **tok)
+{
+	int i;
+
+	i = 0;
+	while (tok[i])
+	{
+		free(tok[i]->token);
+		free(tok[i]);
+		i++;
+	}
+	free(tok);
+}
+
+
 void	ft_command_table_free(t_minishell *msh)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (i < msh->command_count)
 	{
-		j = 0;
 		_free_2d_array(msh->cmd_table[i]->cmd);
 		_free_2d_array(msh->cmd_table[i]->filename);
 		_free_2d_array(msh->cmd_table[i]->exec_table);
-		while (msh->cmd_table[i]->tok[j])
-		{
-			free(msh->cmd_table[i]->tok[j]->token);
-			free(msh->cmd_table[i]->tok);
-			j++;
-		}
+		_free_t_token(msh->cmd_table[i]->tok);
 		free(msh->quotes);
 		free(msh->cmd_table[i]);
 		i++;
