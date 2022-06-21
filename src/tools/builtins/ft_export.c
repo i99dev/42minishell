@@ -12,127 +12,44 @@
 
 #include "../../../include/minishell.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+void	_print_value(t_minishell *msh, unsigned int t_i, int *j)
 {
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	while (i < len)
+	if (msh->env_table->table[t_i]->value[*j])
 	{
-		str[i] = s[start + i];
-		i++;
+		ft_putchar_fd('=', 1);
+		ft_putchar_fd('\"', 1);
 	}
-	str[i] = '\0';
-	return (str);
-}
-
-char	*get_key_vlaue(char *str)
-{
-	char	*key;
-	int		i;
-
-	i = 0;
-	while (str[i] != '=' && str[i])
-		i++;
-	key = ft_strsub(str, 0, i);
-	return (key);
-}
-
-void	export_env(t_minishell *msh, int i)
-{
-	int		j;
-	int		k;
-	char	*tmp;
-	bool	has_export;
-
-	j = 1;
-	while (msh->cmd_table[i]->exec_table[j])
+	while (msh->env_table->table[t_i]->value[*j])
 	{
-		has_export = false;
-		k = 0;
-		while (msh->cmd_table[i]->exec_table[j][k])
+		if (msh->env_table->table[t_i]->value[*j] == '\"')
 		{
-			if (msh->cmd_table[i]->exec_table[j][k] == '+' || (!ft_isalpha(msh->cmd_table[i]->exec_table[j][k]) && k==0))
-			{
-				//ft_putstr_fd("not valid identifier",1);
-				msh->exit_status = 1;
-				return;
-			}
-			if (msh->cmd_table[i]->exec_table[j][k] == '=' && k != 0 && msh->cmd_table[i]->exec_table[j][k+1])
-			{
-				tmp = ft_strsub(msh->cmd_table[i]->exec_table[j], 0, k);
-				update_hash(msh, get_key_vlaue(tmp), \
-				msh->cmd_table[i]->exec_table[j] + k + 1);
-				has_export=true;
-				free(tmp);
-			}
-			else if (msh->cmd_table[i]->exec_table[j][k] == '=' && k == 0)
-			msh->exit_status = 1;
-			else if (msh->cmd_table[i]->exec_table[j][k] == '=' && !msh->cmd_table[i]->exec_table[j][k+1] && !has_export)
-			msh->exit_status = 1;
-			else if(msh->cmd_table[i]->exec_table[j][k] == '$' && k==0)
-			msh->exit_status = 1;
-			k++;
+			ft_putchar_fd('\\', 1);
+			ft_putchar_fd('\"', 1);
 		}
-		if (k==ft_strlen(msh->cmd_table[i]->exec_table[j]) && !has_export && j > 1)
-		{
-		msh->exit_status=1;
-		}
-		else  if (msh->cmd_table[i]->exec_table[j]  &&!has_export )
-		{
-				update_hash(msh, msh->cmd_table[i]->exec_table[j], "");
-				has_export=true;
-		}
-		j++;
-		}
-		/*
-		tmp = ft_strsub(msh->cmd_table[i]->exec_table[j - 1], 0, k);
-				update_hash(msh, get_key_vlaue(tmp), "");
-				has_export=true;
-				free(tmp);*/
+		else if (msh->env_table->table[t_i]->value[*j])
+			ft_putchar_fd(msh->env_table->table[t_i]->value[*j], 1);
+		*j = *j + 1;
+	}
 }
 
-void print_export_vars(t_minishell *msh, int i)
+void	print_export_vars(t_minishell *msh, int i)
 {
-	(void)i;
-
-	unsigned int t_i;
+	int				j;
+	unsigned int	t_i;
 
 	t_i = 0;
+	(void)i;
 	while (t_i < msh->env_table->size)
 	{
 		if (msh->env_table->table[t_i])
 		{
-			ft_putstr_fd("export ",1);
-			int j=0;
-			ft_putstr_fd(msh->env_table->table[t_i]->key,1);
-			if (msh->env_table->table[t_i]->value[j])
-			{
-				ft_putchar_fd('=',1);
-				ft_putchar_fd('\"',1);
-			}
-			while(msh->env_table->table[t_i]->value[j])
-			{
-				if (msh->env_table->table[t_i]->value[j]=='\"')
-				{
-				ft_putchar_fd('\\',1);
-				ft_putchar_fd('\"',1);
-				}
-				else if (msh->env_table->table[t_i]->value[j])
-				ft_putchar_fd(msh->env_table->table[t_i]->value[j],1);
-				j++;
-			}
+			ft_putstr_fd("export ", 1);
+			j = 0;
+			ft_putstr_fd(msh->env_table->table[t_i]->key, 1);
+			_print_value(msh, t_i, &j);
 			if (msh->env_table->table[t_i]->value[0])
-			{
-				ft_putchar_fd('\"',1);
-			}
-			ft_putchar_fd('\n',1);
+				ft_putchar_fd('\"', 1);
+			ft_putchar_fd('\n', 1);
 		}
 		t_i++;
 	}
@@ -140,9 +57,9 @@ void print_export_vars(t_minishell *msh, int i)
 
 void	ft_export(t_minishell *msh, int i)
 {
-	msh->exit_status=0;
+	msh->exit_status = 0;
 	if (msh->cmd_table[i]->exec_table[1])
-		export_env(msh, i);
-	else 
-	print_export_vars(msh,i);
+		ex_export_env(msh, i);
+	else
+		print_export_vars(msh, i);
 }

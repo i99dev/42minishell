@@ -12,11 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-bool is_n(char *str)
+bool	is_n(char *str)
 {
 	int	i;
+
 	if (str[0] != '-')
-		return false;
+		return (false);
 	i = 1;
 	while (str[i] && str[i] == 'n')
 			i++;
@@ -24,15 +25,17 @@ bool is_n(char *str)
 		return (true);
 	return (false);
 }
-bool check_n(t_minishell *msh, int i, int *j)
+
+bool	check_n(t_minishell *msh, int i, int *j)
 {
-	while (msh->cmd_table[i]->exec_table[*j] && is_n(msh->cmd_table[i]->exec_table[*j]))
+	while (msh->cmd_table[i]->exec_table[*j] && \
+	is_n(msh->cmd_table[i]->exec_table[*j]))
 	{
 		(*j)++;
 	}
 	if (*j > 1)
-	 return true;
-	return false;
+		return (true);
+	return (false);
 }
 
 void	ft_echo(t_minishell *msh, int i)
@@ -42,23 +45,23 @@ void	ft_echo(t_minishell *msh, int i)
 
 	flag = false;
 	j = 1;
-
 	if (check_n(msh, i, &j))
 		flag = true;
-	else if (msh->cmd_table[i]->exec_table[1] && !msh->cmd_table[i]->exec_table[2] && is_n(msh->cmd_table[i]->exec_table[1]))
+	else if (msh->cmd_table[i]->exec_table[1] && \
+	!msh->cmd_table[i]->exec_table[2] \
+	&& is_n(msh->cmd_table[i]->exec_table[1]))
 		return ;
 	while (msh->cmd_table[i]->exec_table[j])
 	{
-		if (strncmp(msh->cmd_table[i]->exec_table[j],"\n",2) && strncmp(msh->cmd_table[i]->exec_table[j],"\t",2))
-		{
-		ft_putstr_fd(msh->cmd_table[i]->exec_table[j], 1);
-		}
-		if (msh->cmd_table[i]->exec_table[j + 1] && strncmp(msh->cmd_table[i]->exec_table[j + 1],"\n",2))
-			ft_putchar_fd(' ',1);
+		if (strncmp(msh->cmd_table[i]->exec_table[j], "\n", 2) && \
+		strncmp(msh->cmd_table[i]->exec_table[j], "\t", 2))
+			ft_putstr_fd(msh->cmd_table[i]->exec_table[j], 1);
+		if (msh->cmd_table[i]->exec_table[j + 1] && \
+		strncmp(msh->cmd_table[i]->exec_table[j + 1], "\n", 2))
+			ft_putchar_fd(' ', 1);
 		j++;
 	}
 	if (!flag)
-		ft_putchar_fd('\n',1);
+		ft_putchar_fd('\n', 1);
 	msh->exit_status = 0;
 }
-

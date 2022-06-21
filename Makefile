@@ -29,6 +29,7 @@ SRC= 	src/main.c		\
 		src/tools/builtins/ft_env.c \
 		src/tools/builtins/ft_pwd.c \
 		src/tools/builtins/ft_export.c \
+		src/tools/builtins/ft_export_tools.c \
 		src/tools/builtins/ft_unset.c \
 		src/tools/builtins/ft_exit.c \
 		src/tools/parser/parser.c \

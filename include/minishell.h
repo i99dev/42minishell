@@ -152,6 +152,7 @@ bool	q_handle_all(t_minishell *msh, int i, int *j, int *k);
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);
 void			ft_export(t_minishell *msh, int i);
+void			ex_export_env(t_minishell *msh, int i);
 void			ft_pwd(t_minishell *msh);
 void			ft_unset(t_minishell *msh, int i);
 void			ft_cd(t_minishell *msh, int i);
