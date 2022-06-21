@@ -22,28 +22,27 @@ void	read_line(t_minishell *msh)
 	free(msh->user_info);
 }
 
-bool check_valid_line(char *str)
+bool	check_valid_line(char *str)
 {
 	int	i;
+
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if (i==0)
+		if (i == 0)
 		{
-			while(str[i] == ' ' && (str[i] != '\"' || str[i] != '\"'))
+			while (str[i] == ' ' && (str[i] != '\"' || str[i] != '\"'))
 				i++;
 			if (str[i] == '|')
 			{
-				return false;
+				return (false);
 			}
 		}
-		if(isalnum(str[i]))
-		{
-			return true;
-		}
+		if (isalnum(str[i]))
+			return (true);
 		i++;
 	}
-	return false;
+	return (false);
 }
 
 static void	minishill_start(t_minishell *msh, char **env)
@@ -52,12 +51,11 @@ static void	minishill_start(t_minishell *msh, char **env)
 	msh->env = env2d(msh->env_table);
 	while (1)
 	{
-		//msh->env = env2d(msh->env_table);
 		read_line(msh);
 		if (!check_valid_line(msh->line))
-			continue;
+			continue ;
 		if (!ft_tokenizer(msh))
-			continue;
+			continue ;
 		init_execute(msh);
 		if (msh->line)
 			free(msh->line);

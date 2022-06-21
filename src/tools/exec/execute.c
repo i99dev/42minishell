@@ -36,14 +36,12 @@ void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
-	char			*cmd;
 
-	cmd = get_path(msh, i);
 	pid = fork();
 	define_exec_signals(msh);
 	if (pid < 0)
 		err_msg("fork failed");
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		ft_redirect(msh, i);
 		if (msh->cmd_table[i]->command_type == BUILTIN)
@@ -53,7 +51,7 @@ void	execute(t_minishell *msh, int i)
 		}
 		else
 		{
-			execve(cmd, msh->cmd_table[i]->exec_table, msh->env);
+			execve(get_path(msh, i), msh->cmd_table[i]->exec_table, msh->env);
 			error_message(msh, "NOT FOUND", 127);
 			exit(127);
 		}		
