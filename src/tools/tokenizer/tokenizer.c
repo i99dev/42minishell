@@ -25,7 +25,6 @@ char	*clean_str_space(char *str)
 	{
 		if (str[i] != ' ')
 		{
-			//printf("char is:%c\n", str[i]);
 			new_str[j] = str[i];
 			j++;
 		}
@@ -50,43 +49,45 @@ char	**tk_split_pip(t_minishell *msh)
 	msh->command_count = table_count;
 	return (tmp);
 }
-int count_cmds(char **cmdtable)
+
+int	count_cmds(char **cmdtable)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(cmdtable[i])
+	while (cmdtable[i])
 	{
 		i++;
 	}
 	return (i);
 }
+
 void	_handle_redirect_s_line(char *line, int *i, int *j, char *tmp)
 {
-	if(line[*i]  && line[*i + 1])
+	if (line[*i] && line[*i + 1])
 	{
-	if ((line[*i] == '<' && line[*i + 1] != '<') || \
-	(line[*i] == '>' && line[*i + 1] != '>'))
-	{
-		tmp[(*j)++] = ' ';
-		tmp[(*j)++] = line[(*i)++];
-		tmp[(*j)++] = ' ';
-	}
+		if ((line[*i] == '<' && line[*i + 1] != '<') || \
+		(line[*i] == '>' && line[*i + 1] != '>'))
+		{
+			tmp[(*j)++] = ' ';
+			tmp[(*j)++] = line[(*i)++];
+			tmp[(*j)++] = ' ';
+		}
 	}
 }
 
 void	_handle_redirect_d_line(char *line, int *i, int *j, char *tmp)
 {
-	if(line[*i]  && line[*i + 1])
+	if (line[*i] && line[*i + 1])
 	{
-	if ((line[*i] == '<' && line[*i + 1] == '<') || \
-	(line[*i] == '>' && line[*i + 1] == '>'))
-	{
-		tmp[(*j)++] = ' ';
-		tmp[(*j)++] = line[(*i)++];
-		tmp[(*j)++] = line[(*i)++];
-		tmp[(*j)++] = ' ';
-	}
+		if ((line[*i] == '<' && line[*i + 1] == '<') || \
+		(line[*i] == '>' && line[*i + 1] == '>'))
+		{
+			tmp[(*j)++] = ' ';
+			tmp[(*j)++] = line[(*i)++];
+			tmp[(*j)++] = line[(*i)++];
+			tmp[(*j)++] = ' ';
+		}
 	}
 }
 
@@ -106,10 +107,11 @@ void	add_space_redirect_char(t_minishell *msh)
 		tmp[j++] = msh->line[i++];
 	}
 	tmp[j] = '\0';
-	tmp=ft_strdup(tmp);
+	tmp = ft_strdup(tmp);
 	free(msh->line);
 	msh->line = tmp;
 }
+
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
@@ -146,17 +148,17 @@ bool	ft_tokenizer(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		if (!check_command_table(msh, i))
-			return false;
-		if(!msh->cmd_table[i]->arg_count)
+			return (false);
+		if (!msh->cmd_table[i]->arg_count)
 		{
-			if(msh->cmd_table[i]->token_count)
+			if (msh->cmd_table[i]->token_count)
 			{
-				ft_redirect(msh,i);
-				return false;
+				ft_redirect(msh, i);
+				return (false);
 			}
 		}
 		i++;
 	}
 	define_type(msh);
-	return true;
+	return (true);
 }

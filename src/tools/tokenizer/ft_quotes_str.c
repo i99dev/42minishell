@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 05:25:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/05 18:33:27 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:53:59 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*ft_strinsert(char *str, char *env, char *key)
 	char	*temp2;
 	int		i;
 	int		j;
-	//int		k;
 
 	(void)key;
 	temp = malloc(sizeof(char) * ft_strlen(env) + ft_strlen(str) + 1);
@@ -53,7 +52,7 @@ char	*ft_strinsert(char *str, char *env, char *key)
 			j++;
 		}
 	}
-	else 
+	else
 	{
 		while (env[j])
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 05:56:45 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/15 16:16:19 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/21 10:04:30 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ char	*get_user_info(t_minishell *msh)
 	tmp = ft_strjoin(tmp, getcwd(NULL, 0));
 	tmp = ft_strjoin(tmp, RED"> "RESET);
 	return (tmp);
+}
+
+bool	is_token(char *str)
+{
+	if (ft_strncmp(str, ">>", 2) == 0)
+		return (true);
+	else if (ft_strncmp(str, "<<", 2) == 0)
+		return (true);
+	else if (str[0] == '>')
+		return (true);
+	else if (str[0] == '<')
+		return (true);
+	return (false);
 }
