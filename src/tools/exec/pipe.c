@@ -19,7 +19,6 @@ void	close_pipe(t_minishell *msh, int **fd, int i, pid_t *pid)
 	if (i != 0)
 		close(fd[i - 1][0]);
 	(void) pid;
-	// waitpid(pid[i], NULL, 0);
 }
 
 void	free_pipe(int ***fd, pid_t **pid)
@@ -33,32 +32,30 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	ft_redirect(msh, i);
 	if (i != msh->command_count - 1)
 	{
-		//printf("i != cmdcount-1  command is %s and i = %d\n",msh->cmd_table->exec_table[i], i);
 		dup2(fd[i][1], 1);
 		close(fd[i][1]);
 		close(fd[i][0]);
 	}
 	if (i > 0)
 	{
-		//printf("i>0 command is %s and i = %d\n",msh->cmd_table->exec_table[i], i);
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
-	if(msh->cmd_table[i]->command_type == BUILTIN)
+	if (msh->cmd_table[i]->command_type == BUILTIN)
 	{
-		if (ft_strncmp(msh->cmd_table[i]->exec_table[0],"cd",3) || ft_strncmp(msh->cmd_table[i]->exec_table[0],"exit",5))
-		execute_builtin(msh, i);
+		if (ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3) || \
+		ft_strncmp(msh->cmd_table[i]->exec_table[0], "exit", 5))
+			execute_builtin(msh, i);
 		exit(0);
 	}
 	else
 	{
-	execve(get_path(msh, i), msh->cmd_table[i]->exec_table, NULL);
-	error_message(msh, "command not found", 127);
-	exit(127);
+		execve(get_path(msh, i), msh->cmd_table[i]->exec_table, NULL);
+		error_message(msh, "command not found", 127);
+		exit(127);
 	}
 }
 
-// multi pips with loop and control pips close and open
 void	multi_pipe(t_minishell *msh, int i)
 {
 	int		**fd;

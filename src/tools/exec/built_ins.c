@@ -6,35 +6,43 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:59:53 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/20 14:25:34 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 04:42:55 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-/*
-	Testing development!
-	TODO:	make dynamic malloc
-			support with pipes and redirects
-			check for path errors and make error msgs
-*/
 
-int	exec_cd(t_minishell *msh, int i)
+void	_execute_builtin(t_minishell *msh, int i)
 {
-	char	cwd[256];
-
-	getcwd(cwd, sizeof(cwd));
-	strcat(cwd, "/");
-	strcat(cwd, msh->cmd_table[i]->exec_table[1]);
-	chdir(cwd);
-	return (0);
+	if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"echo", 5))
+		ft_echo(msh, i);
+	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"pwd", ft_strlen("pwd")))
+		ft_pwd(msh);
+	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"export", 7))
+		ft_export(msh, i);
+	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"unset", ft_strlen("unset")))
+		ft_unset(msh, i);
+	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"env", ft_strlen("env")))
+		ft_env(msh, i);
+	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"exit", 5))
+		ft_exit(msh, i);
+	else
+		msh->exit_status = 127;
 }
 
-int	exec_pwd(void)
+void	execute_builtin(t_minishell *msh, int i)
 {
-	char	cwd[256];
-
-	getcwd(cwd, sizeof(cwd));
-	ft_putstr_fd(cwd, 1);
-	ft_putstr_fd("\n", 1);
-	return (0);
+	if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
+	"cd", 3))
+	{
+		ft_cd(msh, i);
+		return ;
+	}
+	_execute_builtin(msh, i);
 }

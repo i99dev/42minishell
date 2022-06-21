@@ -35,7 +35,7 @@ void	ft_redirect(t_minishell *msh, int i)
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
-	int  			status;
+	int				status;
 	char			*cmd;
 
 	cmd = get_path(msh, i);
@@ -70,52 +70,19 @@ bool	check_command_type(t_minishell *msh, int index)
 		return (false);
 }
 
-void	execute_builtin(t_minishell *msh, int i)
-{
-	if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"cd", 3))
-	{
-		ft_cd(msh, i);
-		return;
-	}
-	//ft_redirect(msh, i);
-	if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"echo", 5))
-		ft_echo(msh, i);
-	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"pwd", ft_strlen("pwd")))
-		ft_pwd(msh);
-	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"export", 7))
-		ft_export(msh, i);
-	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"unset", ft_strlen("unset")))
-		ft_unset(msh, i);
-	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"env", ft_strlen("env")))
-		ft_env(msh, i);
-	else if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
-	"exit", 5))
-		ft_exit(msh, i);
-	else
-		msh->exit_status=127;
-}
-
 void	init_execute(t_minishell *msh)
 {
 	int	i;
 
 	i = 0;
-	//printf("%d\n",msh->cmd_table[i]->command_type);
 	if (msh->command_count == 1)
 	{
-		if (!ft_strncmp(msh->cmd_table[i]->exec_table[0],"cd",3) || !ft_strncmp(msh->cmd_table[i]->exec_table[0],"exit",5))
+		if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3) || \
+		!ft_strncmp(msh->cmd_table[i]->exec_table[0], "exit", 5))
 			execute_builtin(msh, i);
 		else
-		execute(msh, 0);
+			execute(msh, 0);
 	}
 	else
-	{
 		multi_pipe(msh, i);
-	}
 }

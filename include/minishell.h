@@ -139,15 +139,15 @@ void			ft_handle_quotes(t_minishell *msh);
 bool			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
 bool			is_token(char *str);
-bool	special_char_with_dollar(char *word);
+bool			special_char_with_dollar(char *word);
 int				q_remove_quotes(t_minishell *msh, int start, \
 				int end, int q_index);
 int				q_count_quotes(t_minishell *msh);
 char			*ft_strinsert(char *str, char *in, char *key);
 char			*expand_parameters(t_minishell *msh, char *str);
 char			*expand_cmd(t_minishell *msh, char *str);
-char				*find_hash(t_minishell *msh, t_hash_table *env_table, char *key);
-bool	q_handle_all(t_minishell *msh, int i, int *j, int *k);
+char			*find_hash(t_minishell *msh, t_hash_table *env_table, char *key);
+bool			q_handle_all(t_minishell *msh, int i, int *j, int *k);
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);
@@ -161,6 +161,7 @@ void			ft_exit(t_minishell *msh, int i);
 
 //exec functions
 char			*get_path(t_minishell *msh, int command_table_index);
+void			execute_builtin(t_minishell *msh, int i);
 
 //function for utils
 void			error_message(t_minishell *msh, char *error_message, \
