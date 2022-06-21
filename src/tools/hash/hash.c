@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 t_hash_table	*init_table(char **env)
 {
 	t_hash_table		*table;
@@ -22,7 +21,7 @@ t_hash_table	*init_table(char **env)
 	while (env[len])
 		len++;
 	table = create_hash_table(50000);
-	table->count=0;
+	table->count = 0;
 	len = 0;
 	while (env[len])
 	{
@@ -79,7 +78,6 @@ char	**env2d(t_hash_table *env_table)
 	unsigned int	i;
 
 	i = 0;
-	//printf("%d\n",env_table->count);
 	env = (char **)malloc(sizeof(char *) * (env_table->count + 1));
 	while (i < env_table->count)
 	{

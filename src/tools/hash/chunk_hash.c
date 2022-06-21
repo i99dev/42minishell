@@ -16,7 +16,8 @@ t_hash	*chunk_hash(char *key, char *value)
 {
 	t_hash		*new;
 
-	if (!(new = (t_hash *)malloc(sizeof(t_hash))))
+	new = (t_hash *)malloc(sizeof(t_hash));
+	if (new == NULL)
 		return (NULL);
 	new->key = key;
 	new->value = value;
