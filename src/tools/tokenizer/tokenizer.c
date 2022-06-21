@@ -37,16 +37,13 @@ char	*clean_str_space(char *str)
 char	**tk_split_pip(t_minishell *msh)
 {
 	char	**tmp;
-	int		table_count;
 	int		i;
 
 	i = 0;
 	tmp = ft_split(msh->line, '|');
 	while (tmp && tmp[i] != NULL)
 		i++;
-	table_count = i;
-	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *) * table_count);
-	msh->command_count = table_count;
+	msh->command_count = i;
 	return (tmp);
 }
 
@@ -107,8 +104,8 @@ void	add_space_redirect_char(t_minishell *msh)
 		tmp[j++] = msh->line[i++];
 	}
 	tmp[j] = '\0';
-	tmp = ft_strdup(tmp);
 	free(msh->line);
+	msh->line = NULL;
 	msh->line = tmp;
 }
 
@@ -121,6 +118,7 @@ void	init_command_table(t_minishell *msh)
 	ft_check_quotes(msh);
 	add_space_redirect_char(msh);
 	tmp = tk_split_pip(msh);
+	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *));
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i] = (t_cmdt *)malloc(sizeof(t_cmdt));
@@ -128,6 +126,7 @@ void	init_command_table(t_minishell *msh)
 		msh->cmd_table[i]->cmd_count = count_cmds(msh->cmd_table[i]->cmd);
 		i++;
 	}
+	msh->cmd_table[i] = NULL;
 	i = 0;
 	while (tmp && tmp[i])
 	{

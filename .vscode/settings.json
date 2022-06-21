@@ -9,7 +9,8 @@
         "*.c": "c",
         "hash.h": "c",
         "wait.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "tokenizer.h": "c"
     },
     "C_Cpp.formatting": "Disabled",
     "editor.detectIndentation": true,

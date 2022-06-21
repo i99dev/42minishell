@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 05:56:45 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 10:04:30 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:23:30 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_user_info(t_minishell *msh)
 	tmp = ft_strjoin(tmp, host);
 	tmp = ft_strjoin(tmp, BLUE"]");
 	tmp = ft_strjoin(tmp, ":");
-	tmp = ft_strjoin(tmp, getcwd(NULL, 0));
+	// tmp = ft_strjoin(tmp, getcwd(NULL, 0));
 	tmp = ft_strjoin(tmp, RED"> "RESET);
 	return (tmp);
 }

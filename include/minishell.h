@@ -167,5 +167,6 @@ void			error_message(t_minishell *msh, char *error_message, \
 int status);
 void			free_loop(t_minishell *msh);
 void			ft_free_hash(t_hash_table *table);
+void			ft_command_table_free(t_minishell *msh);
 
 #endif

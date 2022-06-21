@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 10:53:26 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:34:57 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	q_handle_d(t_minishell *msh, int i, int *j, int *k)
 		return (true);
 	}
 	msh->q_pos = 0;
+	free(tmp);
 	return (msh->q_pos);
 }
 

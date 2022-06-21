@@ -70,7 +70,6 @@ bool	is_parameter(char *str)
 	tmp = ft_strchr(str, '$');
 	if (tmp)
 	{
-		tmp = ft_strdup(tmp);
 		if (tmp[1] && tmp[1] == ' ' && ft_strchr(&tmp[1], '$'))
 			return (true);
 		if ((tmp[1] && !is_case_alph(tmp[1]) && \
@@ -98,7 +97,6 @@ char	*expand_cmd(t_minishell *msh, char *str)
 		return (str);
 	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
-	res = (char *)malloc(sizeof(char) * 1024);
 	while (is_parameter(&start[i]))
 	{
 		while (start [i] && start[i] != '$')
