@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/20 14:25:34 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/21 05:18:25 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,34 +65,11 @@ void	free_line(t_minishell *msh)
 	}
 }
 
-void	ft_free_token_ls(t_minishell *msh)
-{
-	(void)msh;
-	/*
-	int		i;
-
-
-	i = 0;
-	while (i < msh->command_count)
-	{
-		if (msh->token_ls[i])
-		{
-			free(msh->token_ls[i]->token);
-		}
-		free(msh->token_ls[i]);
-		i++;
-	}
-	free(msh->token_ls);*/
-}
-
 void	ft_free_minishell(t_minishell *minishell)
 {
 	ft_free_hash(minishell->env_table);
 	ft_free_prompt(minishell);
 	if (minishell->cmd_table)
 		ft_command_table_free(minishell);
-	if (minishell->cmd_table)
-		ft_free_token_ls(minishell);
-	//printf("%d\n",minishell->exit_status);
 	exit(minishell->exit_status);
 }
