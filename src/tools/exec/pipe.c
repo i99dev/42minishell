@@ -56,6 +56,21 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	}
 }
 
+void	_handle_loop(t_minishell *msh, int *i, pid_t *pid, int **fd)
+{
+	fd[*i] = (int *)malloc(sizeof(int) * 2);
+	if (pipe(fd[*i]) == -1)
+		perror("pipe");
+	pid[*i] = fork();
+	if (pid[*i] == -1)
+		perror("fork");
+	else if (pid[*i] == 0)
+		execute_pipe(msh, *i, fd);
+	else
+		close_pipe(msh, fd, *i, pid);
+	(*i)++;
+}
+
 void	multi_pipe(t_minishell *msh, int i)
 {
 	int		**fd;
@@ -67,19 +82,7 @@ void	multi_pipe(t_minishell *msh, int i)
 	pid = (pid_t *)malloc(sizeof(pid_t) * msh->command_count);
 	x = -1;
 	while (i < msh->command_count)
-	{
-		fd[i] = (int *)malloc(sizeof(int) * 2);
-		if (pipe(fd[i]) == -1)
-			perror("pipe");
-		pid[i] = fork();
-		if (pid[i] == -1)
-			perror("fork");
-		else if (pid[i] == 0)
-			execute_pipe(msh, i, fd);
-		else
-			close_pipe(msh, fd, i, pid);
-		i++;
-	}
+		_handle_loop(msh, &i, pid, fd);
 	while (++x < msh->command_count)
 		waitpid(pid[x], &status, WUNTRACED);
 	msh->exit_status = WEXITSTATUS(status);

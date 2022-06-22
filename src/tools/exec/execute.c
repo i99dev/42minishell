@@ -17,7 +17,6 @@ void	ft_redirect(t_minishell *msh, int i)
 	int	j;
 
 	j = 0;
-
 	while (j < msh->cmd_table[i]->token_count)
 	{
 		if (!ft_strncmp(msh->cmd_table[i]->tok[j]->token, "<<", 2))
