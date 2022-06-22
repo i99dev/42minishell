@@ -19,7 +19,6 @@ LIBDIR = lib/libft/
 LIBFT = lib/libft/libft.a
 
 SRC= 	src/main.c		\
-		src/prompt.c \
 		src/tools/exec/execute.c \
 		src/tools/exec/pipe.c \
 		src/tools/exec/path.c \
@@ -51,6 +50,7 @@ SRC= 	src/main.c		\
 		src/tools/tokenizer/define_type.c \
 		src/tools/tokenizer/quotes/quotes.c \
 		src/tools/tokenizer/special_case.c \
+		src/tools/tokenizer/special_case_tools.c \
 		src/tools/tokenizer/quotes/quotes_remove_quotes.c \
 		src/tools/tokenizer/quotes/ft_handle_quotes.c \
 		src/tools/tokenizer/quotes/q_handle_s.c \

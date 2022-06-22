@@ -163,6 +163,9 @@ bool			_step_two_cmd(t_minishell *msh, int i, t_counter *cnt);
 bool			_step_three_cmd(t_minishell *msh, int i, t_counter *cnt);
 bool			_step_four_cmd(t_minishell *msh, int i, t_counter *cnt);
 void			_step_five_cmd(t_minishell *msh, int i, t_counter *cnt);
+//special_case_tools
+bool			check_dollar_quote(t_minishell *msh, int i, int j);
+bool			special_char_with_dollar(char *word);
 
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);

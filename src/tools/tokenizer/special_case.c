@@ -38,23 +38,6 @@ void	replace_tild(t_minishell *msh)
 	}
 }
 
-bool	special_char_with_dollar(char *word)
-{
-	int		i;
-
-	i = 0;
-	while (word[i])
-	{
-		if (word[i] == '$' && word[i + 1] && \
-		(word[i + 1] == '+'))
-			return (true);
-		i++;
-	}
-	if (i == 1)
-		return (true);
-	return (false);
-}
-
 void	handle_sign_dollar(t_minishell *msh)
 {
 	int		i;
@@ -109,23 +92,21 @@ void	handle_double_dollar(t_minishell *msh)
 	}
 }
 
-bool	check_dollar_quote(t_minishell *msh, int i, int j)
+void	_check_loop_sc(t_minishell *msh, int i, int j, int *k)
 {
-	char	*temp;
-
-	temp = ft_strchr(msh->cmd_table[i]->cmd[j], '\"');
-	if (temp)
-	{
-		if (temp[1] == '\"')
-			return (true);
-	}
-	temp = ft_strchr(msh->cmd_table[i]->cmd[j], '\'');
-	if (temp)
-	{
-		if (temp[1] == '\'')
-			return (true);
-	}
-	return (false);
+	if (ft_strncmp(msh->cmd_table[i]->cmd[j], "~", 1) == 0)
+		replace_tild(msh);
+	else if (ft_strncmp(msh->cmd_table[i]->cmd[j], "$$", 3) == 0)
+		handle_double_dollar(msh);
+	else if ((!ft_strncmp(msh->cmd_table[i]->cmd[j], "$\'\'", 3) || \
+	!ft_strncmp(msh->cmd_table[i]->cmd[j], "$\"\"", 3)))
+			msh->cmd_table[i]->cmd[j] = \
+			expand_cmd(msh, msh->cmd_table[i]->cmd[j]);
+	else if (ft_strchr(msh->cmd_table[i]->cmd[j], '$') && \
+	!special_char_with_dollar(msh->cmd_table[i]->cmd[j]))
+		handle_sign_dollar(msh);
+	if (check_dollar_quote(msh, i, j))
+		(*k)++;
 }
 
 void	ft_special_case(t_minishell *msh)
@@ -141,19 +122,7 @@ void	ft_special_case(t_minishell *msh)
 		j = 0;
 		while (msh->cmd_table[i]->cmd[j])
 		{
-			if (ft_strncmp(msh->cmd_table[i]->cmd[j], "~", 1) == 0)
-				replace_tild(msh);
-			else if (ft_strncmp(msh->cmd_table[i]->cmd[j], "$$", 3) == 0)
-				handle_double_dollar(msh);
-			//dont need
-			else if ((!ft_strncmp(msh->cmd_table[i]->cmd[j], "$\'\'", 3) || !ft_strncmp(msh->cmd_table[i]->cmd[j], "$\"\"", 3)))
-					msh->cmd_table[i]->cmd[j] = expand_cmd(msh, msh->cmd_table[i]->cmd[j]);
-			else if (ft_strchr(msh->cmd_table[i]->cmd[j], '$') && \
-			!special_char_with_dollar(msh->cmd_table[i]->cmd[j]))
-				handle_sign_dollar(msh);
-			//dont need
-			if(check_dollar_quote(msh,i,j))
-				k++;
+			_check_loop_sc(msh, i, j, &k);
 			j++;
 		}
 		i++;
