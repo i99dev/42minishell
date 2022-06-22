@@ -44,15 +44,12 @@ typedef struct s_cmdt
 	int				token_count;
 	int				arg_count;
 }	t_cmdt;
-/*
-line = "grep src > file"
-msh->cmd_table[0]->cmd = {"grep", "src", ">", "file"}
-msh->cmd_table[0]->tok = {["grep", -1 ],["src", -1],["RDOUT", '>']}
-msh->cmd_table[0]->exec = {"grep", "src"}
-msh->cmd_table[0]->filename = {"file"}
-msh->token_count = 1
-msh->command_type = BIN or BUILTIN
-*/
+
+typedef struct s_counter{
+	int	s_i;
+	int	s_j;
+	int	s_k;
+}	t_counter;
 
 typedef struct s_minishell
 {
@@ -145,8 +142,9 @@ int				q_count_quotes(t_minishell *msh);
 char			*ft_strinsert(char *str, char *in, char *key);
 char			*expand_parameters(t_minishell *msh, char *str);
 char			*expand_cmd(t_minishell *msh, char *str);
-char			*find_hash(t_minishell *msh, t_hash_table *env_table, char *key);
-bool			q_handle_all(t_minishell *msh, int i, int *j, int *k);
+char			*find_hash(t_minishell *msh, \
+t_hash_table *env_table, char *key);
+bool			q_handle_all(t_minishell *msh, t_counter *cnt);
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);

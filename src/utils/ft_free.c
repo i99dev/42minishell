@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 17:37:42 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/22 03:16:50 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_command_table_free(t_minishell *msh)
 		_free_2d_array(msh->cmd_table[i]->filename);
 		_free_2d_array(msh->cmd_table[i]->exec_table);
 		_free_t_token(msh->cmd_table[i]->tok);
-		free(msh->quotes);
+		// _free_2d_array(msh->quotes);
 		free(msh->cmd_table[i]);
 		i++;
 	}

@@ -6,11 +6,11 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 05:25:38 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 10:53:59 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/22 04:00:33 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../../include/minishell.h"
 
 char	*ft_strinsert(char *str, char *env, char *key)
 {

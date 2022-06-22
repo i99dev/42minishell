@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../../../include/minishell.h"
 
 int	q_count_quotes(t_minishell *msh)
 {
