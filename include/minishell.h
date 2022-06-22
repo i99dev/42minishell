@@ -132,7 +132,6 @@ void			doc_tmp_file(void);
 void			define_type(t_minishell *msh);
 void			ft_check_quotes(t_minishell *msh);
 void			ft_handle_quotes(t_minishell *msh);
-bool			check_command_table(t_minishell *msh, int i);
 void			ft_special_case(t_minishell *msh);
 bool			is_token(char *str);
 bool			special_char_with_dollar(char *word);
@@ -143,9 +142,28 @@ char			*expand_parameters(t_minishell *msh, char *str);
 char			*expand_cmd(t_minishell *msh, char *str);
 char			*find_hash(t_minishell *msh, \
 t_hash_table *env_table, char *key);
+void			_handle_redirect_s_line(char *line, int *i, int *j, char *tmp);
+void			_handle_redirect_d_line(char *line, int *i, int *j, char *tmp);
+void			add_space_redirect_char(t_minishell *msh);
+// quotes
 bool			q_handle_all(t_minishell *msh, t_counter *cnt);
 bool			q_handle_s(t_minishell *msh, t_counter *cnt);
 int				q_handle_d(t_minishell *msh, t_counter *cnt);
+// cmd
+bool			check_command_table(t_minishell *msh, int i);
+int				tk_handle_redirect_out(t_minishell *msh, int i, \
+int *j, int index);
+int				tk_handle_redirect_in(t_minishell *msh, int i, \
+int *j, int index);
+char			*get_io_filename(t_minishell *msh, int i, \
+char *token, int index);
+bool			_work_on_loop(t_minishell *msh, int i, t_counter *cnt);
+bool			_step_one_cmd(t_minishell *msh, int i, t_counter *cnt);
+bool			_step_two_cmd(t_minishell *msh, int i, t_counter *cnt);
+bool			_step_three_cmd(t_minishell *msh, int i, t_counter *cnt);
+bool			_step_four_cmd(t_minishell *msh, int i, t_counter *cnt);
+void			_step_five_cmd(t_minishell *msh, int i, t_counter *cnt);
+
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);
@@ -155,7 +173,6 @@ void			ft_pwd(t_minishell *msh);
 void			ft_unset(t_minishell *msh, int i);
 void			ft_cd(t_minishell *msh, int i);
 void			ft_exit(t_minishell *msh, int i);
-
 
 //exec functions
 char			*get_path(t_minishell *msh, int command_table_index);
@@ -167,5 +184,6 @@ int status);
 void			free_loop(t_minishell *msh);
 void			ft_free_hash(t_hash_table *table);
 void			ft_command_table_free(t_minishell *msh);
+bool			is_case_alph(char str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 05:56:45 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 15:23:30 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/22 07:10:55 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ bool	is_token(char *str)
 	else if (str[0] == '>')
 		return (true);
 	else if (str[0] == '<')
+		return (true);
+	return (false);
+}
+
+bool	is_case_alph(char str)
+{
+	if (str >= 'a' && str <= 'z')
+		return (true);
+	if (str >= 'A' && str <= 'Z')
+		return (true);
+	if (str >= '0' && str <= '9')
+		return (true);
+	if (str == '?' || str == '\"' || str == '\'')
 		return (true);
 	return (false);
 }

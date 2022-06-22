@@ -42,7 +42,12 @@ SRC= 	src/main.c		\
 		src/tools/hash/remove_hash.c\
 		src/tools/hash/print_hash.c\
 		src/tools/tokenizer/tokenizer.c \
-		src/tools/tokenizer/check_command_table.c \
+		src/tools/tokenizer/tokenizer_tools.c \
+		src/tools/tokenizer/cmd/check_command_table.c \
+		src/tools/tokenizer/cmd/redirect_in.c \
+		src/tools/tokenizer/cmd/redirect_out.c \
+		src/tools/tokenizer/cmd/cmd_step_1.c \
+		src/tools/tokenizer/cmd/cmd_step_2.c \
 		src/tools/tokenizer/define_type.c \
 		src/tools/tokenizer/quotes/quotes.c \
 		src/tools/tokenizer/special_case.c \
@@ -74,6 +79,7 @@ $(OBJ_DIR)%.o:%.c $(MINISHELL_HEADER)
 	@mkdir -p $(OBJ_DIR)/src/tools/builtins
 	@mkdir -p $(OBJ_DIR)/src/tools/hash
 	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer
+	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer/cmd
 	@mkdir -p $(OBJ_DIR)/src/tools/tokenizer/quotes
 	@mkdir -p $(OBJ_DIR)/src/utils
 	@echo "Compiling $@"
