@@ -65,18 +65,10 @@ int	q_remove_quotes(t_minishell *msh, int start, int end, int q_index)
 	j = start;
 	k = 0;
 	while (start < end)
-	{
-		msh->quotes[q_index][k] = msh->line[start];
-		start++;
-		k++;
-	}
+		msh->quotes[q_index][k++] = msh->line[start++];
 	msh->quotes[q_index][k] = 0;
 	while (msh->line[end])
-	{
-		temp[j] = msh->line[end];
-		end++;
-		j++;
-	}
+		temp[j++] = msh->line[end++];
 	temp[j] = 0;
 	free(msh->line);
 	msh->line = temp;
