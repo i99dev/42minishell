@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 07:30:01 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:00:59 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ bool	q_handle_all(t_minishell *msh, t_counter *cnt)
 		if (!q_handle_s(msh, cnt))
 			return (true);
 	}
+	free(tmp);
 	return (false);
 }
 
@@ -110,4 +111,5 @@ void	ft_handle_quotes(t_minishell *msh)
 		}
 		cnt->s_i++;
 	}
+	free(cnt);
 }
