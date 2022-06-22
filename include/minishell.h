@@ -145,6 +145,8 @@ char			*expand_cmd(t_minishell *msh, char *str);
 char			*find_hash(t_minishell *msh, \
 t_hash_table *env_table, char *key);
 bool			q_handle_all(t_minishell *msh, t_counter *cnt);
+bool			q_handle_s(t_minishell *msh, t_counter *cnt);
+int				q_handle_d(t_minishell *msh, t_counter *cnt);
 //builtin functions
 void			ft_echo(t_minishell *msh, int i);
 void			ft_env(t_minishell *msh, int i);

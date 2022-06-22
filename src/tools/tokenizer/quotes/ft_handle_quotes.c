@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 04:00:27 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/22 04:35:56 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ bool	is_case(char c)
 	if (c >= 'a' && c <= 'z')
 		return (true);
 	return (false);
+}
+
+t_counter	*init_counter(t_minishell *msh)
+{
+	t_counter	*cnt;
+
+	(void)msh;
+	cnt = (t_counter *)malloc(sizeof(t_counter));
+	cnt->s_i = 0;
+	cnt->s_j = 0;
+	cnt->s_k = 0;
+	return (cnt);
 }
 
 char	*get_key(char *str)
@@ -43,118 +55,27 @@ char	*get_key(char *str)
 	return (key);
 }
 
-int	q_handle_d(t_minishell *msh, t_counter *cnt)
-{
-	char	*tmp;
-
-	tmp = ft_strdup(ft_strchr(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + \
-	msh->q_pos, DOUBLE_QUOTE));
-	if (tmp[1] && tmp[1] == DOUBLE_QUOTE && ft_strlen(msh->quotes[cnt->s_k]))
-	{
-		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j][ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) - \
-		ft_strlen(tmp)] = 0;
-		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-		expand_cmd(msh, msh->quotes[cnt->s_k]));
-		msh->q_pos = strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]);
-		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-		tmp + 2);
-		if (!ft_strchr(tmp + 2, SINGLE_QUOTE) && \
-		!ft_strchr(tmp + 2, DOUBLE_QUOTE))
-		{
-			msh->q_pos = 0;
-			cnt->s_j++;
-		}
-		free(tmp);
-		cnt->s_k++;
-		return (true);
-	}
-	else if (tmp[1] && tmp[1] == DOUBLE_QUOTE && !ft_strlen(msh->quotes[cnt->s_k]))
-	{
-		if (tmp[2] == 0 && ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) == 2)
-		{
-			msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strdup("\t");
-		}
-		else
-		{
-			msh->cmd_table[cnt->s_i]->cmd[cnt->s_j][ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) - \
-			ft_strlen(tmp)] = 0;
-			msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-			tmp + 2);
-		}
-		cnt->s_k++;
-		return (true);
-	}
-	msh->q_pos = 0;
-	free(tmp);
-	return (msh->q_pos);
-}
-
-bool	q_handle_s(t_minishell *msh, t_counter *cnt)
-{
-	char	*tmp;
-
-	tmp = ft_strdup(ft_strchr(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] \
-	+ msh->q_pos, SINGLE_QUOTE));
-	if (tmp[1] && tmp[1] == SINGLE_QUOTE && ft_strlen(msh->quotes[cnt->s_k]))
-	{
-		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j][ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) - \
-		ft_strlen(tmp)] = 0;
-		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-			msh->quotes[cnt->s_k]);
-		msh->q_pos = strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]);
-		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-		tmp + 2);
-		if (!ft_strchr(tmp + 2, SINGLE_QUOTE) && \
-		!ft_strchr(tmp + 2, DOUBLE_QUOTE))
-		{
-			msh->q_pos = 0;
-			cnt->s_j++;
-		}
-		free (tmp);
-		cnt->s_k += 1;
-		return (true);
-	}
-	else if (tmp[1] && tmp[1] == SINGLE_QUOTE && !ft_strlen(msh->quotes[cnt->s_k]))
-	{
-		if (tmp[2] == 0 && ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) == 2)
-			msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strdup("\t");
-		else
-		{
-			msh->cmd_table[cnt->s_i]->cmd[cnt->s_j][ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) - \
-			ft_strlen(tmp)] = 0;
-			msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-		tmp + 2);
-		}
-		cnt->s_k += 1;
-		return (true);
-	}
-	msh->q_pos = 0;
-	return (false);
-}
-
 bool	q_handle_all(t_minishell *msh, t_counter *cnt)
 {
-	int	tmp1;
-	int	tmp2;
+	t_counter	*tmp;
 
-	tmp1 = 0;
-	tmp2 = 0;
+	tmp = init_counter(msh);
 	if (ft_strchr(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + \
 	msh->q_pos, DOUBLE_QUOTE))
-		tmp1 = ft_strlen(ft_strchr(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + \
-		msh->q_pos, DOUBLE_QUOTE));
+		tmp->s_i = ft_strlen(ft_strchr(\
+		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + msh->q_pos, DOUBLE_QUOTE));
 	if (ft_strchr(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + \
 	msh->q_pos, SINGLE_QUOTE))
-		tmp2 = ft_strlen(ft_strchr(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + \
-		msh->q_pos, SINGLE_QUOTE));
-	if (!tmp1 && !tmp2)
+		tmp->s_j = ft_strlen(ft_strchr(\
+		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] + msh->q_pos, SINGLE_QUOTE));
+	if (!tmp->s_i && !tmp->s_j)
 		return (false);
-	else if (tmp1 > tmp2)
+	else if (tmp->s_i > tmp->s_j)
 	{
 		if (!q_handle_d(msh, cnt))
 			return (true);
 	}
-	else if (tmp2 > tmp1)
+	else if (tmp->s_j > tmp->s_i)
 	{
 		if (!q_handle_s(msh, cnt))
 			return (true);
@@ -162,23 +83,12 @@ bool	q_handle_all(t_minishell *msh, t_counter *cnt)
 	return (false);
 }
 
-t_counter	*init_counter(t_minishell *msh)
-{
-	t_counter	*cnt;
-
-	msh->q_pos = 0;
-	cnt = (t_counter *)malloc(sizeof(t_counter));
-	cnt->s_i = 0;
-	cnt->s_j = 0;
-	cnt->s_k = 0;
-	return (cnt);
-}
-
 void	ft_handle_quotes(t_minishell *msh)
 {
 	t_counter	*cnt;
 
 	cnt = init_counter(msh);
+	msh->q_pos = 0;
 	while (cnt->s_i < msh->command_count)
 	{
 		cnt->s_j = 0;
