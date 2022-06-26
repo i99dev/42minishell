@@ -50,7 +50,7 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 	else if (isdigit(str[i]))
 		return (ft_strdup(""));
 	else
-		key = ft_strdup(str);
+		key = str;
 	return (key);
 }
 
@@ -92,8 +92,10 @@ char	*_break_loop(t_minishell *msh, char *start, int *i)
 		}
 		tmp = ft_strjoin(ft_substr(start, 0, *i), \
 		get_key_from_str(msh, &start[*i + 1]));
+		free(start);
 		start = tmp;
 	}
+	free(start);
 	return (start);
 }
 
@@ -116,6 +118,6 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	i = 0;
 	str[len] = '\0';
 	str = ft_strjoin(str, start);
-	rl_free(start);
+	free(start);
 	return (str);
 }
