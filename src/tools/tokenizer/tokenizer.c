@@ -46,7 +46,8 @@ void	init_command_table(t_minishell *msh)
 	ft_check_quotes(msh);
 	add_space_redirect_char(msh);
 	tmp = tk_split_pip(msh);
-	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *));
+	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *) * \
+	(count_cmds(tmp) + 1));
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i] = (t_cmdt *)malloc(sizeof(t_cmdt));
@@ -54,7 +55,6 @@ void	init_command_table(t_minishell *msh)
 		msh->cmd_table[i]->cmd_count = count_cmds(msh->cmd_table[i]->cmd);
 		i++;
 	}
-	msh->cmd_table[i] = NULL;
 	i = 0;
 	while (tmp && tmp[i])
 	{

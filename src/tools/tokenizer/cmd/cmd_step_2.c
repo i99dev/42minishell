@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 06:27:59 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 06:30:56 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/26 04:34:34 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	_step_five_cmd(t_minishell *msh, int i, t_counter *cnt)
 		msh->cmd_table[i]->cmd[cnt->s_i] = \
 		ft_strtrim(msh->cmd_table[i]->cmd[cnt->s_i], "\r");
 		msh->cmd_table[i]->exec_table[cnt->s_k] = \
-		ft_strdup(msh->cmd_table[i]->cmd[cnt->s_i]);
+		msh->cmd_table[i]->cmd[cnt->s_i];
 		cnt->s_k++;
 	}
 }

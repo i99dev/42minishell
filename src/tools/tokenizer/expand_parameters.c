@@ -100,7 +100,6 @@ char	*_break_loop(t_minishell *msh, char *start, int *i)
 char	*expand_cmd(t_minishell *msh, char *str)
 {
 	char	*start;
-	char	*res;
 	int		i;
 	int		len;
 
@@ -114,9 +113,9 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
 	start = _break_loop(msh, start, &i);
-	start = ft_strdup(start);
 	i = 0;
-	str[len] = 0;
-	res = ft_strjoin(str, start);
-	return (res);
+	str[len] = '\0';
+	str = ft_strjoin(str, start);
+	rl_free(start);
+	return (str);
 }

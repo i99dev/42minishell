@@ -18,10 +18,7 @@ void	read_line(t_minishell *msh)
 	msh->line = readline(msh->user_info);
 	define_input_signals(msh);
 	if (msh->line)
-	{
-		ft_command_table_free(msh);
 		add_history(msh->line);
-	}
 	free(msh->user_info);
 }
 
@@ -66,7 +63,10 @@ static void	minishill_start(t_minishell *msh, char **env)
 			continue ;
 		init_execute(msh);
 		if (msh->line)
+		{
 			free(msh->line);
+			ft_command_table_free(msh);
+		}
 	}
 }
 
