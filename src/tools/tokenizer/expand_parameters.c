@@ -75,6 +75,7 @@ bool	is_parameter(char *str)
 char	*_break_loop(t_minishell *msh, char *start, int *i)
 {
 	char	*tmp;
+	char	*tmp_free;
 
 	while (is_parameter(&start[*i]))
 	{
@@ -91,11 +92,10 @@ char	*_break_loop(t_minishell *msh, char *start, int *i)
 				break ;
 		}
 		tmp = ft_strjoin(ft_substr(start, 0, *i), \
-		get_key_from_str(msh, &start[*i + 1]));
-		free(start);
+		tmp_free = get_key_from_str(msh, &start[*i + 1]));
 		start = tmp;
 	}
-	free(start);
+	free(tmp_free);
 	return (start);
 }
 

@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:13:48 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 07:30:06 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/28 04:15:51 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ bool	q_handle_s(t_minishell *msh, t_counter *cnt)
 	{
 		_step_two_qs(msh, cnt, tmp);
 		cnt->s_k += 1;
+		free(tmp);
 		return (true);
 	}
+	free(tmp);
 	msh->q_pos = 0;
 	return (false);
 }

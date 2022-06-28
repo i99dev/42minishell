@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:15:22 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 07:30:03 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/28 04:11:45 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	_step_one_qd(t_minishell *msh, t_counter *cnt, char *tmp)
 {
+	char	*tmp_free;
+
+	tmp_free = expand_cmd(msh, msh->quotes[cnt->s_k]);
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j][ft_strlen(\
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) - \
 	ft_strlen(tmp)] = 0;
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(\
-	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-	expand_cmd(msh, msh->quotes[cnt->s_k]));
+	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], tmp_free);
 	msh->q_pos = strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]);
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(\
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
@@ -30,6 +32,7 @@ void	_step_one_qd(t_minishell *msh, t_counter *cnt, char *tmp)
 		msh->q_pos = 0;
 		cnt->s_j++;
 	}
+	free(tmp_free);
 }
 
 void	_step_two_qd(t_minishell *msh, t_counter *cnt, char *tmp)
@@ -67,6 +70,7 @@ int	q_handle_d(t_minishell *msh, t_counter *cnt)
 	{
 		_step_two_qd(msh, cnt, tmp);
 		cnt->s_k++;
+		free(tmp);
 		return (true);
 	}
 	msh->q_pos = 0;

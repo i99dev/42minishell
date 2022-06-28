@@ -40,14 +40,17 @@ int	count_cmds(char **cmdtable)
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
+	int		count_pipe;
 	int		i;
 
 	i = 0;
 	ft_check_quotes(msh);
 	add_space_redirect_char(msh);
 	tmp = tk_split_pip(msh);
-	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *) * \
-	(count_cmds(tmp) + 1));
+	count_pipe = 0;
+	while (tmp[count_pipe])
+		count_pipe++;
+	msh->cmd_table = (t_cmdt **)malloc(sizeof(t_cmdt *) * count_pipe);
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i] = (t_cmdt *)malloc(sizeof(t_cmdt));
@@ -57,10 +60,7 @@ void	init_command_table(t_minishell *msh)
 	}
 	i = 0;
 	while (tmp && tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
+		free(tmp[i++]);
 	free(tmp);
 }
 

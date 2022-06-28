@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/26 07:00:00 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/28 06:06:28 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,27 @@ void	ft_free_prompt(t_minishell *msh)
 		free(msh->line);
 }
 
-void free_2d_array(char **array)
+void	free_2d_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while ((array[i]))
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
+
+void free_quotes(t_minishell *msh)
+{
+	int	i;
+
+	i = 0;
+	while (i < msh->quote_count)
 	{
-		if (ft_strlen(array[i]) > 0 || !array[i])
-			free(array[i]);
+		free(msh->quotes[i]);
 		i++;
 	}
-	free(array);
+	free(msh->quotes);
 }
 
 void	ft_command_table_free(t_minishell *msh)
@@ -59,19 +68,20 @@ void	ft_command_table_free(t_minishell *msh)
 	i = 0;
 	while (i < msh->command_count)
 	{
-		j = 0;
 		free_2d_array(msh->cmd_table[i]->cmd);
-		free(msh->cmd_table[i]->exec_table);
-		free_2d_array(msh->cmd_table[i]->filename);
+		if (msh->cmd_table[i]->filename)
+			free(msh->cmd_table[i]->filename);
+		j = 0;
 		while (j < msh->cmd_table[i]->token_count)
-			free(msh->cmd_table[i]->tok[j++]->token);
+		{
+			free(msh->cmd_table[i]->tok[j]->token);
+			free(msh->cmd_table[i]->tok[j++]);
+		}
 		free(msh->cmd_table[i]->tok);
+		free(msh->cmd_table[i]->exec_table);
 		free(msh->cmd_table[i]);
 		i++;
 	}
-	j = 0;
-	while (j < msh->quote_count)
-		free(msh->quotes[j++]);
 	free(msh->quotes);
 	free(msh->cmd_table);
 }
