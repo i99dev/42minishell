@@ -37,6 +37,33 @@ int	count_cmds(char **cmdtable)
 	return (i);
 }
 
+bool  line_check_quotes(t_minishell *msh)
+{
+	int	i;
+
+	i = 0;
+	while (msh->line[i])
+	{
+		if (msh->line[i] == '\'')
+		{
+			if (msh->line[i + 1] == '\'')
+				i++;
+			else
+				return (false);
+		}
+		else if (msh->line[i] == '\"')
+		{
+			if (msh->line[i + 1] == '\"')
+				i++;
+			else
+				return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
+
 void	init_command_table(t_minishell *msh)
 {
 	char	**tmp;
@@ -44,7 +71,7 @@ void	init_command_table(t_minishell *msh)
 	int		i;
 
 	i = 0;
-	ft_check_quotes(msh);
+	ft_check_quotes(msh); // ;eak in this function 🙄
 	add_space_redirect_char(msh);
 	tmp = tk_split_pip(msh);
 	count_pipe = 0;
