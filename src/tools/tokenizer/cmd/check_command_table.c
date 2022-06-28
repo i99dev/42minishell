@@ -6,7 +6,7 @@
 /*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/26 06:59:41 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/28 07:50:18 by oal-tena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	_loop_n(t_minishell *msh, int i, t_counter *cnt)
 	while (msh->cmd_table[i]->exec_table[cnt->s_i])
 	{
 		if (*msh->cmd_table[i]->exec_table[cnt->s_i] == 0)
-			msh->cmd_table[i]->exec_table[cnt->s_i] = ft_strdup("\n");
+			msh->cmd_table[i]->exec_table[cnt->s_i] = "\n";
 		cnt->s_i++;
 	}
 }

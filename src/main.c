@@ -77,6 +77,7 @@ void	init_minishell(t_minishell *minishell)
 	minishell->user_info = NULL;
 	minishell->exit_status = 0;
 	minishell->quote_count = 0;
+	minishell->quotes = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
