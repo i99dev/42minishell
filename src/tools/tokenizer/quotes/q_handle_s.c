@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:13:48 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/30 07:24:23 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/30 13:15:45 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	_step_two_qs(t_minishell *msh, t_counter *cnt, char *tmp)
 		ft_strlen(tmp)] = 0;
 		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strjoin(\
 		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j], \
-	tmp);
+	tmp + 2);
 	}
 }
 
