@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/30 12:41:39 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/30 13:24:27 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,21 @@ void	free_2d_array(char **array)
 	free(array);
 }
 
+void	free_token(t_token **token)
+{
+	int	i;
+
+	i = 0;
+	while (token[i])
+	{
+		if (token[i]->type)
+			free(token[i]->token);
+		free(token[i]);
+		i++;
+	}
+	free(token);
+}
+
 void	ft_command_table_free(t_minishell *msh)
 {
 	int		i;
@@ -64,7 +79,7 @@ void	ft_command_table_free(t_minishell *msh)
 			free(msh->cmd_table[i]->tok[j]->token);
 			free(msh->cmd_table[i]->tok[j++]);
 		}
-		free(msh->cmd_table[i]->tok);
+		free_token(msh->cmd_table[i]->tok);
 		free(msh->cmd_table[i]->exec_table);
 		free(msh->cmd_table[i]);
 		i++;
