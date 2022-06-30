@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:15:22 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/30 07:24:52 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/06/30 12:36:33 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	_step_one_qd(t_minishell *msh, t_counter *cnt, char *tmp)
 {
 	char	*tmp_free;
 
-	tmp_free = expand_cmd(msh, msh->quotes[cnt->s_k]);
+	tmp_free = expand_cmd(msh, ft_strdup(msh->quotes[cnt->s_k]));
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j][ft_strlen(\
 	msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) - \
 	ft_strlen(tmp)] = 0;
