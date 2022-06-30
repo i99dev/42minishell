@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   q_handle_d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:15:22 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/28 04:11:45 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/06/30 07:24:52 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	_step_two_qd(t_minishell *msh, t_counter *cnt, char *tmp)
 {
 	if (tmp[2] == 0 && ft_strlen(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]) == 2)
 	{
+		free(msh->cmd_table[cnt->s_i]->cmd[cnt->s_j]);
 		msh->cmd_table[cnt->s_i]->cmd[cnt->s_j] = ft_strdup("\t");
 	}
 	else
