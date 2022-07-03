@@ -39,16 +39,24 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 	{
 		value = find_hash(msh, msh->env_table, key);
 		free(key);
-		if (value)
+		if (value && !ft_strchr(str, '?'))
 			key = ft_strdup(value);
+		else if (ft_strchr(str, '?'))
+			key = value;
 		else
 			key = ft_strdup("");
 		key = ft_strjoin(key, &str[i]);
 	}
 	else if (isdigit(str[i]) && i == 0)
+	{
+		free(key);
 		return (ft_strdup(str + 1));
+	}
 	else if (isdigit(str[i]))
+	{
+		free(key);
 		return (ft_strdup(""));
+	}
 	else
 		key = str;
 	return (key);

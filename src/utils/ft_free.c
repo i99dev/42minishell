@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/30 13:24:27 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/03 05:53:42 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,43 @@ void	free_2d_array(char **array)
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (array && array[i])
 		free(array[i++]);
 	free(array);
 }
 
-void	free_token(t_token **token)
+void	free_token(t_cmdt *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (token[i])
+	while (i < cmd->token_count)
 	{
-		if (token[i]->type)
-			free(token[i]->token);
-		free(token[i]);
+		free(cmd->tok[i]->token);
+		free(cmd->tok[i]);
 		i++;
 	}
-	free(token);
+	free(cmd->tok);
+}
+
+void	free_quotes(t_minishell *msh)
+{
+	int	i;
+
+	i = 0;
+	while (i < msh->quote_count)
+	{
+		free(msh->quotes[i]);
+		free(msh->quotes);
+		i++;
+	}
+	msh->quote_count = 0;
+	free(msh->quotes);
 }
 
 void	ft_command_table_free(t_minishell *msh)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (i < msh->command_count)
@@ -73,21 +86,14 @@ void	ft_command_table_free(t_minishell *msh)
 		free_2d_array(msh->cmd_table[i]->cmd);
 		if (msh->cmd_table[i]->filename)
 			free(msh->cmd_table[i]->filename);
-		j = 0;
-		while (j < msh->cmd_table[i]->token_count)
-		{
-			free(msh->cmd_table[i]->tok[j]->token);
-			free(msh->cmd_table[i]->tok[j++]);
-		}
-		free_token(msh->cmd_table[i]->tok);
+		if (msh->cmd_table[i]->token_count)
+			free_token(msh->cmd_table[i]);
+		free(msh->cmd_table[i]->tok);
 		free(msh->cmd_table[i]->exec_table);
 		free(msh->cmd_table[i]);
 		i++;
 	}
-	if (msh->quote_count)
-		free_2d_array(msh->quotes);
-	msh->q_pos = 0;
-	msh->quote_count = 0;
+	free_quotes(msh);
 	free(msh->cmd_table);
 }
 
