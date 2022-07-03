@@ -81,6 +81,7 @@ void	init_command_table(t_minishell *msh)
 	while (tmp && tmp[i])
 	{
 		msh->cmd_table[i] = (t_cmdt *)malloc(sizeof(t_cmdt));
+		msh->cmd_table[i]->is_filename = false;
 		msh->cmd_table[i]->cmd = ft_split(tmp[i], ' ');
 		msh->cmd_table[i]->cmd_count = count_cmds(msh->cmd_table[i]->cmd);
 		i++;

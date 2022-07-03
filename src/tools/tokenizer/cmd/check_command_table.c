@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command_table.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/28 07:50:18 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/07/03 07:08:10 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	*get_io_filename(t_minishell *msh, int i, char *token, int index)
 {
+	msh->cmd_table[i]->is_filename = true;
 	if (is_token(msh->cmd_table[i]->cmd[index]) && \
 	ft_strlen(msh->cmd_table[i]->cmd[index]) <= 2 && \
 	msh->cmd_table[i]->cmd[index + 1])

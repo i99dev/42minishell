@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/03 05:53:42 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/03 07:10:43 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	free_token(t_cmdt *cmd)
 		free(cmd->tok[i]);
 		i++;
 	}
+	cmd->token_count = 0;
 	free(cmd->tok);
 }
 
@@ -67,13 +68,10 @@ void	free_quotes(t_minishell *msh)
 
 	i = 0;
 	while (i < msh->quote_count)
-	{
-		free(msh->quotes[i]);
+		free(msh->quotes[i++]);
+	if (msh->quote_count)
 		free(msh->quotes);
-		i++;
-	}
 	msh->quote_count = 0;
-	free(msh->quotes);
 }
 
 void	ft_command_table_free(t_minishell *msh)
@@ -84,11 +82,10 @@ void	ft_command_table_free(t_minishell *msh)
 	while (i < msh->command_count)
 	{
 		free_2d_array(msh->cmd_table[i]->cmd);
-		if (msh->cmd_table[i]->filename)
-			free(msh->cmd_table[i]->filename);
-		if (msh->cmd_table[i]->token_count)
-			free_token(msh->cmd_table[i]);
-		free(msh->cmd_table[i]->tok);
+		if (msh->cmd_table[i]->is_filename)
+			free_2d_array(msh->cmd_table[i]->filename);
+		free(msh->cmd_table[i]->filename);
+		free_token(msh->cmd_table[i]);
 		free(msh->cmd_table[i]->exec_table);
 		free(msh->cmd_table[i]);
 		i++;

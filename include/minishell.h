@@ -39,6 +39,7 @@ typedef struct s_cmdt
 	char			**cmd;
 	char			**exec_table;
 	t_token			**tok;
+	bool			is_filename;
 	char			**filename;
 	int				command_type;
 	int				cmd_count;

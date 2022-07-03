@@ -58,7 +58,7 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 		return (ft_strdup(""));
 	}
 	else
-		key = str;
+		return (str);
 	return (key);
 }
 
