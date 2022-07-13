@@ -120,12 +120,10 @@ char	*expand_cmd(t_minishell *msh, char *str)
 	int		i;
 	int		len;
 
-	(void)msh;
 	start = ft_strchr(str, '$');
 	if (!start)
 		return (str);
-	if (!start[1] || (!is_case_alph(start[1]) && \
-	!special_char_with_dollar(start)))
+	if (!start[1])
 		return (str);
 	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
