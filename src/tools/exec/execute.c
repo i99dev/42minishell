@@ -46,6 +46,8 @@ void	execute(t_minishell *msh, int i)
 		if (msh->cmd_table[i]->command_type == BUILTIN)
 		{
 			execute_builtin(msh, i);
+			//printf("%s",msh->cmd_table[i]->exec_table[0]);
+			//ft_command_table_free(msh);
 			exit(0);
 		}
 		else

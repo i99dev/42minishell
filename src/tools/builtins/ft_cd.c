@@ -22,10 +22,13 @@ void	_2path(t_minishell *msh, char *path)
 	{
 		error_message(msh, "cd: no such file or directory", 1);
 		ft_putendl_fd(path, 2);
+		free(pwd);
 		return ;
 	}
+	free(pwd);
 	pwd = getcwd(NULL, 0);
 	update_hash(msh, "PWD", pwd);
+	free(pwd);
 }
 
 void	cd_to_home(t_minishell *msh)
@@ -39,6 +42,7 @@ void	cd_to_home(t_minishell *msh)
 		return ;
 	}
 	_2path(msh, path);
+	free(path);
 }
 
 void	ft_cd(t_minishell *msh, int i)
@@ -58,4 +62,5 @@ void	ft_cd(t_minishell *msh, int i)
 	}
 	else
 		_2path(msh, msh->cmd_table[i]->exec_table[1]);
+	//ft_command_table_free(msh);
 }
