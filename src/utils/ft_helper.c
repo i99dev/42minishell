@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 05:56:45 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 07:24:35 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:22:20 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*get_user_info(t_minishell *msh)
 	char	*tmp;
 
 	tmp = NULL;
-	user = find_hash(msh,msh->env_table, "USER");
+	user = find_hash(msh, msh->env_table, "USER");
 	if (!user)
-		user = "root";
+		user = ft_strdup("root");
 	host = getenv("HOSTNAME");
 	if (!host)
 		host = "localhost";
@@ -33,6 +33,7 @@ char	*get_user_info(t_minishell *msh)
 	tmp = ft_strjoin(tmp, ":");
 	// tmp = ft_strjoin(tmp, getcwd(NULL, 0));
 	tmp = ft_strjoin(tmp, RED"> "RESET);
+	free(user);
 	return (tmp);
 }
 

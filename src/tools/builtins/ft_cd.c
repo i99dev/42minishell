@@ -35,7 +35,7 @@ void	cd_to_home(t_minishell *msh)
 {
 	char	*path;
 
-	path = ft_strdup(find_hash(msh, msh->env_table, "HOME"));
+	path = find_hash(msh, msh->env_table, "HOME");
 	if (path == NULL)
 	{
 		error_message(msh, "cd: no home directory", 1);

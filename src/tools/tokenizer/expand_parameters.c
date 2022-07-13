@@ -42,10 +42,11 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 		if (value && !ft_strchr(str, '?'))
 			key = ft_strdup(value);
 		else if (ft_strchr(str, '?'))
-			key = value;
+			key = ft_strdup(value);
 		else
 			key = ft_strdup("");
 		key = ft_strjoin(key, &str[i]);
+		free(value);
 	}
 	else if (isdigit(str[i]) && i == 0)
 	{
@@ -58,7 +59,10 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 		return (ft_strdup(""));
 	}
 	else
-		return (str);
+	{
+		free(key);
+		return (ft_strdup(str));
+	}
 	return (key);
 }
 
@@ -85,6 +89,7 @@ char	*_break_loop(t_minishell *msh, char *start, int *i)
 	char	*tmp;
 	char	*tmp_free;
 
+	tmp = 0;
 	while (is_parameter(&start[*i]))
 	{
 		while (start [*i] && start[*i] != '$')
@@ -99,11 +104,13 @@ char	*_break_loop(t_minishell *msh, char *start, int *i)
 			else
 				break ;
 		}
-		tmp = ft_strjoin(ft_substr(start, 0, *i), \
-		tmp_free = get_key_from_str(msh, &start[*i + 1]));
+		tmp_free = get_key_from_str(msh, &start[*i + 1]);
+		tmp = ft_strjoin(ft_substr(start, 0, *i), tmp_free);
+		free(start);
 		start = tmp;
+		free(tmp_free);
+		//free(tmp);
 	}
-	free(tmp_free);
 	return (start);
 }
 
@@ -122,7 +129,7 @@ char	*expand_cmd(t_minishell *msh, char *str)
 		return (str);
 	i = 0 ;
 	len = ft_strlen(str) - ft_strlen(start);
-	start = _break_loop(msh, start, &i);
+	start = _break_loop(msh, ft_strdup(start), &i);
 	i = 0;
 	str[len] = '\0';
 	str = ft_strjoin(str, start);

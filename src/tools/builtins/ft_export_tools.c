@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 04:12:35 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 04:21:49 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:20:09 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	init_export(t_export *export)
 
 void	_check_export(t_minishell *msh, int i, t_export *ex)
 {
+	char *tmp;
+
 	if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '+' || \
 	(!ft_isalpha(msh->cmd_table[i]->exec_table[ex->j][ex->k]) \
 	&& ex->k == 0))
@@ -75,9 +77,11 @@ void	_check_export(t_minishell *msh, int i, t_export *ex)
 	{
 		ex->tmp = ft_strsub(msh->cmd_table[i]->exec_table[ex->j], \
 		0, ex->k);
-		update_hash(msh, get_key_vlaue(ex->tmp), \
+		tmp = get_key_vlaue(ex->tmp);
+		update_hash(msh, tmp, \
 		msh->cmd_table[i]->exec_table[ex->j] + ex->k + 1);
 		ex->has_export = true;
+		free(tmp);
 		free(ex->tmp);
 	}
 	else if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '=' && ex->k == 0)
@@ -114,4 +118,5 @@ void	ex_export_env(t_minishell *msh, int i)
 		}
 		ex->j++;
 	}
+	free(ex);
 }
