@@ -51,5 +51,7 @@ void	ft_exit(t_minishell *msh, int i)
 		exit(2);
 	}
 	ft_with_arg(msh, msh->cmd_table[i]->exec_table);
+	ft_free_prompt(msh);
+	ft_command_table_free(msh);
 	ft_free_minishell(msh);
 }

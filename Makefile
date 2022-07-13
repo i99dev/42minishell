@@ -95,7 +95,7 @@ $(NAME): $(OBJECTS_PREFIXED) $(LIBFT)
 leak: #only use to check leak with valgrind
 	@echo "leak"
 	@make re
-	@valgrind --leak-check=full --tool=memcheck ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind_filter.supp --tool=memcheck ./$(NAME)
 
 all: $(NAME)
 	@make all -C $(LIBDIR)

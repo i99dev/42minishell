@@ -190,5 +190,7 @@ void			free_loop(t_minishell *msh);
 void			ft_free_hash(t_hash_table *table);
 void			ft_command_table_free(t_minishell *msh);
 bool			is_case_alph(char str);
+void			free_2d_array(char **array);
+void			ft_free_prompt(t_minishell *msh);
 
 #endif

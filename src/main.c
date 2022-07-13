@@ -48,7 +48,8 @@ bool	check_valid_line(char *str)
 static void	minishill_start(t_minishell *msh, char **env)
 {
 	msh->env_table = init_table(env);
-	msh->env = env2d(msh->env_table);
+	//print_hash(msh->env_table);
+	//printf("%s",msh->env[0]);
 	while (1)
 	{
 		read_line(msh);

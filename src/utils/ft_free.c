@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/13 11:47:39 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/13 14:10:02 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 void	ft_free_hash(t_hash_table *table)
 {
 	unsigned int	i;
-	unsigned long	_hash;
 
 	i = 0;
-	while (table->table[i])
+	while (i < table->size)
 	{
-		_hash = hash(table->table[i]->key, table->size);
-		if (table->table[_hash])
+		if (table->table[i])
 		{
-			free(table->table[_hash]->key);
-			free(table->table[_hash]->value);
-			free(table->table[_hash]);
+			free(table->table[i]->key);
+			free(table->table[i]->value);
+			free(table->table[i]);
 		}
 		i++;
 	}
+	free(table->table);
+	free(table);
 }
 
 void	ft_free_prompt(t_minishell *msh)
@@ -42,8 +42,18 @@ void	free_2d_array(char **array)
 	int	i;
 
 	i = 0;
-	while (array && array[i])
-		free(array[i++]);
+	if (array)
+	{
+		while (1)
+		{
+			if (array[i])
+			{
+				free(array[i++]);
+			}
+			else
+				break ;
+		}
+	}
 	free(array);
 }
 
@@ -97,5 +107,6 @@ void	ft_command_table_free(t_minishell *msh)
 void	ft_free_minishell(t_minishell *minishell)
 {
 	ft_free_hash(minishell->env_table);
+	//free_2d_array(minishell->env);
 	exit(minishell->exit_status);
 }
