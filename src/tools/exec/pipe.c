@@ -21,8 +21,16 @@ void	close_pipe(t_minishell *msh, int **fd, int i, pid_t *pid)
 	(void) pid;
 }
 
-void	free_pipe(int ***fd, pid_t **pid)
+void	free_pipe(t_minishell *msh, int ***fd, pid_t **pid)
 {
+	int i;
+
+	i = 0;
+	while (i < msh->command_count)
+	{
+		free((*fd)[i]);
+		i++;
+	}
 	free((*fd));
 	free(*pid);
 }
@@ -86,5 +94,5 @@ void	multi_pipe(t_minishell *msh, int i)
 	while (++x < msh->command_count)
 		waitpid(pid[x], &status, WUNTRACED);
 	msh->exit_status = WEXITSTATUS(status);
-	free_pipe(&fd, &pid);
+	free_pipe(msh, &fd, &pid);
 }
