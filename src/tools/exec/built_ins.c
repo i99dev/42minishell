@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:59:53 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/17 14:27:11 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/23 11:03:27 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	_execute_builtin(t_minishell *msh, int i)
 {
+	ft_redirect(msh, i);
 	if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], \
 	"echo", 5))
 		ft_echo(msh, i);

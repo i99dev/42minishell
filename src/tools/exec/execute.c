@@ -47,10 +47,13 @@ void	execute(t_minishell *msh, int i)
 		if (msh->cmd_table[i]->command_type == BUILTIN)
 		{
 			execute_builtin(msh, i);
-			exit(0);
+			ft_free_prompt(msh);
+			ft_command_table_free(msh);
+			ft_free_minishell(msh);
 		}
 		else
 		{
+			ft_redirect(msh, i);
 			path = get_path(msh, i);
 			execve(path, msh->cmd_table[i]->exec_table, (char *const *)0);
 			error_message(msh, "NOT FOUND", 127);
@@ -80,7 +83,8 @@ void	init_execute(t_minishell *msh)
 	i = 0;
 	if (msh->command_count == 1)
 	{
-		if (msh->cmd_table[i]->command_type == BUILTIN)
+		if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], "exit", 5) \
+		|| !ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3))
 			execute_builtin(msh, i);
 		else
 			execute(msh, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/21 09:57:31 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/07/23 11:12:34 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	ft_redirect_in(t_minishell *msh, int index, int token)
 	char	*file;
 
 	file = msh->cmd_table[index]->filename[token];
-	fd = open(file, O_RDONLY | O_CREAT);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		error_message(msh, "redirect_in: no such file or directory", 1);
+		//exit to next loop
 	if (msh->cmd_table[index]->exec_table[0])
 	{
 		dup2(fd, STDIN_FILENO);

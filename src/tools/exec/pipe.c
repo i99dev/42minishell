@@ -52,7 +52,6 @@ void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
-	ft_redirect(msh, i);
 	if (msh->cmd_table[i]->command_type == BUILTIN)
 	{
 		if (ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3) || \
@@ -65,6 +64,7 @@ void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 	}
 	else
 	{
+		ft_redirect(msh, i);
 		path = get_path(msh, i);
 		execve(path, msh->cmd_table[i]->exec_table, NULL);
 		error_message(msh, "NOT FOUND", 127);
