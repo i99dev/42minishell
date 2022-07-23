@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	close_pipe(t_minishell *msh, int **fd, int i, pid_t *pid)
+void	close_pipe(t_minishell *msh, int (*fd)[2], int i, pid_t *pid)
 {
 	if (i <= msh->command_count - 1)
 		close(fd[i][1]);
@@ -21,23 +21,24 @@ void	close_pipe(t_minishell *msh, int **fd, int i, pid_t *pid)
 	(void) pid;
 }
 
-void	free_pipe(t_minishell *msh, int ***fd, pid_t **pid)
+void	free_pipe(t_minishell *msh, int (*fd)[2], pid_t **pid)
 {
-	int i;
+	(void)msh;
+	// int i;
 
-	i = 0;
-	while (i < msh->command_count)
-	{
-		free((*fd)[i]);
-		i++;
-	}
+	// i = 0;
+	// // while (i < msh->command_count)
+	// // {
+	// // 	if((*fd)[i])
+	// // 		free((*fd)[i]);
+	// // 	i++;
+	// // }
 	free((*fd));
 	free(*pid);
 }
 
-void	execute_pipe(t_minishell *msh, int i, int **fd)
+void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 {
-	ft_redirect(msh, i);
 	if (i != msh->command_count - 1)
 	{
 		dup2(fd[i][1], 1);
@@ -49,12 +50,16 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 		dup2(fd[i - 1][0], 0);
 		close(fd[i - 1][0]);
 	}
+	ft_redirect(msh, i);
 	if (msh->cmd_table[i]->command_type == BUILTIN)
 	{
 		if (ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3) || \
 		ft_strncmp(msh->cmd_table[i]->exec_table[0], "exit", 5))
 			execute_builtin(msh, i);
-		exit(0);
+		free_pipe(msh, fd, &pid);
+		ft_free_prompt(msh);
+		ft_command_table_free(msh);
+		ft_free_minishell(msh);
 	}
 	else
 	{
@@ -64,16 +69,15 @@ void	execute_pipe(t_minishell *msh, int i, int **fd)
 	}
 }
 
-void	_handle_loop(t_minishell *msh, int *i, pid_t *pid, int **fd)
+void	_handle_loop(t_minishell *msh, int *i, pid_t *pid, int (*fd)[2])
 {
-	fd[*i] = (int *)malloc(sizeof(int) * 2);
 	if (pipe(fd[*i]) == -1)
 		perror("pipe");
 	pid[*i] = fork();
 	if (pid[*i] == -1)
 		perror("fork");
 	else if (pid[*i] == 0)
-		execute_pipe(msh, *i, fd);
+		execute_pipe(msh, *i, fd, pid);
 	else
 		close_pipe(msh, fd, *i, pid);
 	(*i)++;
@@ -81,12 +85,12 @@ void	_handle_loop(t_minishell *msh, int *i, pid_t *pid, int **fd)
 
 void	multi_pipe(t_minishell *msh, int i)
 {
-	int		**fd;
+	int		(*fd)[2];
 	pid_t	*pid;
 	int		x;
 	int		status;
 
-	fd = (int **)malloc(sizeof(int *) * (msh->command_count));
+	fd = malloc(sizeof(int [2]) * (msh->command_count));
 	pid = (pid_t *)malloc(sizeof(pid_t) * msh->command_count);
 	x = -1;
 	while (i < msh->command_count)
@@ -94,5 +98,5 @@ void	multi_pipe(t_minishell *msh, int i)
 	while (++x < msh->command_count)
 		waitpid(pid[x], &status, WUNTRACED);
 	msh->exit_status = WEXITSTATUS(status);
-	free_pipe(msh, &fd, &pid);
+	free_pipe(msh, fd, &pid);
 }

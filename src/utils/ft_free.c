@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/17 13:47:02 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/23 10:16:08 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,28 @@ void	free_token(t_cmdt *cmd)
 	int	i;
 
 	i = 0;
-	while (i < cmd->token_count)
+	if (cmd->tok)
 	{
-		//free(cmd->tok[i]->token);
-		free(cmd->tok[i]);
-		i++;
+		while (1)
+		{
+			if (cmd->tok[i])
+			{
+				//free(cmd->tok[i]->token);
+				free(cmd->tok[i]);
+				i++;
+			}
+			else
+			{
+				break ;
+			}
+		}
 	}
+	// while (i < cmd->token_count)
+	// {
+	// 	free(cmd->tok[i]->token);
+	// 	free(cmd->tok[i]);
+	// 	i++;
+	// }
 	free(cmd->tok);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:25:29 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/13 09:04:11 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/23 10:13:14 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	alloc_cmd(t_minishell *msh, int i)
 	msh->cmd_table[i]->exec_table = \
 	(char **)malloc(sizeof(char *) * (msh->cmd_table[i]->arg_count + 1));
 	msh->cmd_table[i]->tok = \
-	(t_token **)malloc(sizeof(t_token *) * msh->cmd_table[i]->token_count);
+	(t_token **)malloc(sizeof(t_token *) * (msh->cmd_table[i]->token_count + 1));
+	msh->cmd_table[i]->tok[msh->cmd_table[i]->token_count] = 0;
 	msh->cmd_table[i]->filename = \
 	(char **)malloc(sizeof(char *) * (msh->cmd_table[i]->token_count + 1));
 	msh->cmd_table[i]->filename[msh->cmd_table[i]->token_count] = 0;

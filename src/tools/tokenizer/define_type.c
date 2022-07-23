@@ -14,13 +14,13 @@
 
 bool	is_builtin(char *cmd)
 {
-	if (ft_strncmp(cmd, "cd", 2) == 0 || ft_strncmp(cmd, "echo", 4) == 0)
+	if (ft_strncmp(cmd, "cd", 2) == 0 || ft_strncmp(cmd, "echo", 5) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "unset", 5) == 0 || ft_strncmp(cmd, "env", 3) == 0)
+	if (ft_strncmp(cmd, "unset", 5) == 0 || ft_strncmp(cmd, "env", 4) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "pwd", 3) == 0 || ft_strncmp(cmd, "export", 6) == 0)
+	if (ft_strncmp(cmd, "pwd", 3) == 0 || ft_strncmp(cmd, "export", 7) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "exit", 4) == 0)
+	if (ft_strncmp(cmd, "exit", 5) == 0)
 		return (true);
 	return (false);
 }
