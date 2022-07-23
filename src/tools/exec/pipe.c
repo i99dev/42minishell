@@ -39,6 +39,8 @@ void	free_pipe(t_minishell *msh, int (*fd)[2], pid_t **pid)
 
 void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 {
+	char	*path;
+
 	if (i != msh->command_count - 1)
 	{
 		dup2(fd[i][1], 1);
@@ -63,9 +65,15 @@ void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 	}
 	else
 	{
-		execve(get_path(msh, i), msh->cmd_table[i]->exec_table, NULL);
-		error_message(msh, "command not found", 127);
-		exit(127);
+		path = get_path(msh, i);
+		execve(path, msh->cmd_table[i]->exec_table, NULL);
+		error_message(msh, "NOT FOUND", 127);
+		msh->exit_status = 127;
+		free(path);
+		free_pipe(msh, fd, &pid);
+		ft_free_prompt(msh);
+		ft_command_table_free(msh);
+		ft_free_minishell(msh);
 	}
 }
 

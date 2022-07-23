@@ -35,6 +35,7 @@ void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
+	char			*path;
 
 	pid = fork();
 	define_exec_signals(msh);
@@ -46,15 +47,18 @@ void	execute(t_minishell *msh, int i)
 		if (msh->cmd_table[i]->command_type == BUILTIN)
 		{
 			execute_builtin(msh, i);
-			//printf("%s",msh->cmd_table[i]->exec_table[0]);
-			//ft_command_table_free(msh);
 			exit(0);
 		}
 		else
 		{
-			execve(get_path(msh, i), msh->cmd_table[i]->exec_table, NULL);
+			path = get_path(msh, i);
+			execve(path, msh->cmd_table[i]->exec_table, (char *const *)0);
 			error_message(msh, "NOT FOUND", 127);
-			exit(127);
+			msh->exit_status = 127;
+			free(path);
+			ft_free_prompt(msh);
+			ft_command_table_free(msh);
+			ft_free_minishell(msh);
 		}		
 	}
 	waitpid(pid, &status, WUNTRACED);
