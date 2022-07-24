@@ -71,7 +71,7 @@ void	init_command_table(t_minishell *msh)
 	int		i;
 
 	i = 0;
-	ft_check_quotes(msh); // ;eak in this function 🙄
+	ft_check_quotes(msh);
 	add_space_redirect_char(msh);
 	tmp = tk_split_pip(msh);
 	count_pipe = 0;

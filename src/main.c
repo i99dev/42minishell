@@ -48,10 +48,13 @@ bool	check_valid_line(char *str)
 static void	minishill_start(t_minishell *msh, char **env)
 {
 	msh->env_table = init_table(env);
-	//print_hash(msh->env_table);
-	//printf("%s",msh->env[0]);
 	while (1)
 	{
+		if (msh->line)
+		{
+			free(msh->line);
+			ft_command_table_free(msh);
+		}
 		read_line(msh);
 		if (ft_strlen(msh->line) == 0)
 		{
@@ -63,11 +66,6 @@ static void	minishill_start(t_minishell *msh, char **env)
 		if (!ft_tokenizer(msh))
 			continue ;
 		init_execute(msh);
-		if (msh->line)
-		{
-			free(msh->line);
-			ft_command_table_free(msh);
-		}
 	}
 }
 

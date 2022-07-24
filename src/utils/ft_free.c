@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 12:39:16 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/23 10:16:08 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/24 06:05:35 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,11 @@ void	ft_command_table_free(t_minishell *msh)
 		free_2d_array(msh->cmd_table[i]->cmd);
 		if (msh->cmd_table[i]->filename)
 			free_2d_array(msh->cmd_table[i]->filename);
-		//free(msh->cmd_table[i]->filename);
 		free_token(msh->cmd_table[i]);
 		free(msh->cmd_table[i]->exec_table);
 		free(msh->cmd_table[i]);
 		i++;
 	}
-	//free_2d_array(msh->env);
 	free_quotes(msh);
 	free(msh->cmd_table);
 }
