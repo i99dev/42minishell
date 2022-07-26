@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-bool	is_executable(char *cmd_path)
+bool	is_executable(char *cmd_path, int *found)
 {
 	struct stat	buffer;
 
@@ -21,8 +21,20 @@ bool	is_executable(char *cmd_path)
 	if ((buffer.st_mode & S_IFMT) == S_IFDIR)
 		return (false);
 	if ((buffer.st_mode & S_IXUSR))
+	{
+		*found = 1;
 		return (true);
+	}
 	return (false);
+}
+
+char	*r_get_path(char **tmp, char *all_path, int found, char *cmd)
+{
+	free(tmp);
+	free(all_path);
+	if (!found)
+		return (ft_strdup(""));
+	return (cmd);
 }
 
 char	*get_path(t_minishell *msh, int command_table_index)
@@ -44,20 +56,12 @@ char	*get_path(t_minishell *msh, int command_table_index)
 	i = 0;
 	while (tmp != NULL && tmp[i])
 	{
-		cmd = ft_strjoin(tmp[i], "/");
+		cmd = ft_strjoin(tmp[i++], "/");
 		cmd = ft_strjoin(cmd, \
 		msh->cmd_table[command_table_index]->exec_table[0]);
-		if (is_executable(cmd))
-		{
-			found = 1;
+		if (is_executable(cmd, &found))
 			break ;
-		}
 		free(cmd);
-		i++;
 	}
-	free(tmp);
-	free(all_path);
-	if (!found)
-		return (ft_strdup(""));
-	return (cmd);
+	return (r_get_path(tmp, all_path, found, cmd));
 }

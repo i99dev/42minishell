@@ -31,11 +31,25 @@ void	ft_redirect(t_minishell *msh, int i)
 	}
 }
 
+void	execute_2(t_minishell *msh, int i)
+{
+	char			*path;
+
+	ft_redirect(msh, i);
+	path = get_path(msh, i);
+	execve(path, msh->cmd_table[i]->exec_table, (char *const *)0);
+	error_message(msh, "NOT FOUND", 127);
+	msh->exit_status = 127;
+	free(path);
+	ft_free_prompt(msh);
+	ft_command_table_free(msh);
+	ft_free_minishell(msh);
+}
+
 void	execute(t_minishell *msh, int i)
 {
 	pid_t			pid;
 	int				status;
-	char			*path;
 
 	pid = fork();
 	define_exec_signals(msh);
@@ -52,17 +66,7 @@ void	execute(t_minishell *msh, int i)
 			ft_free_minishell(msh);
 		}
 		else
-		{
-			ft_redirect(msh, i);
-			path = get_path(msh, i);
-			execve(path, msh->cmd_table[i]->exec_table, (char *const *)0);
-			error_message(msh, "NOT FOUND", 127);
-			msh->exit_status = 127;
-			free(path);
-			ft_free_prompt(msh);
-			ft_command_table_free(msh);
-			ft_free_minishell(msh);
-		}		
+			execute_2(msh, i);
 	}
 	waitpid(pid, &status, WUNTRACED);
 	msh->exit_status = WEXITSTATUS(status);
