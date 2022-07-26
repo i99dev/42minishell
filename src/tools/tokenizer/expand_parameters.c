@@ -27,6 +27,26 @@ char	*_step_one_get_key(char *str, int *i)
 	return (key);
 }
 
+char	*key_last(char *str, int i, char *key)
+{
+	if (isdigit(str[i]) && i == 0)
+	{
+		free(key);
+		return (ft_strdup(str + 1));
+	}
+	else if (isdigit(str[i]))
+	{
+		free(key);
+		return (ft_strdup(""));
+	}
+	else
+	{
+		free(key);
+		return (ft_strdup(str));
+	}
+	return (key);
+}
+
 char	*get_key_from_str(t_minishell *msh, char *str)
 {
 	char	*key;
@@ -48,21 +68,8 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 		key = ft_strjoin(key, &str[i]);
 		free(value);
 	}
-	else if (isdigit(str[i]) && i == 0)
-	{
-		free(key);
-		return (ft_strdup(str + 1));
-	}
-	else if (isdigit(str[i]))
-	{
-		free(key);
-		return (ft_strdup(""));
-	}
 	else
-	{
-		free(key);
-		return (ft_strdup(str));
-	}
+		key = key_last(str, i, key);
 	return (key);
 }
 
