@@ -109,7 +109,6 @@ char	*_break_loop(t_minishell *msh, char *start, int *i)
 		free(start);
 		start = tmp;
 		free(tmp_free);
-		//free(tmp);
 	}
 	return (start);
 }

@@ -37,7 +37,7 @@ int	count_cmds(char **cmdtable)
 	return (i);
 }
 
-bool  line_check_quotes(t_minishell *msh)
+bool	line_check_quotes(t_minishell *msh)
 {
 	int	i;
 
@@ -62,7 +62,6 @@ bool  line_check_quotes(t_minishell *msh)
 	}
 	return (true);
 }
-
 
 void	init_command_table(t_minishell *msh)
 {

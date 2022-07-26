@@ -41,6 +41,4 @@ void	update_hash(t_minishell *msh, char *key, char *value)
 		msh->env_table->table[i]->value = ft_strdup(value);
 		msh->env_table->count++;
 	}
-	//free_2d_array(msh->env);
-	//msh->env = env2d(msh->env_table);
 }

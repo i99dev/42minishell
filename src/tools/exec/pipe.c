@@ -24,15 +24,6 @@ void	close_pipe(t_minishell *msh, int (*fd)[2], int i, pid_t *pid)
 void	free_pipe(t_minishell *msh, int (*fd)[2], pid_t **pid)
 {
 	(void)msh;
-	// int i;
-
-	// i = 0;
-	// // while (i < msh->command_count)
-	// // {
-	// // 	if((*fd)[i])
-	// // 		free((*fd)[i]);
-	// // 	i++;
-	// // }
 	free((*fd));
 	free(*pid);
 }

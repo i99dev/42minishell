@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 05:56:45 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/13 15:22:20 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 12:54:42 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*get_user_info(t_minishell *msh)
 	tmp = ft_strjoin(tmp, host);
 	tmp = ft_strjoin(tmp, BLUE"]");
 	tmp = ft_strjoin(tmp, ":");
-	// tmp = ft_strjoin(tmp, getcwd(NULL, 0));
 	tmp = ft_strjoin(tmp, RED"> "RESET);
 	free(user);
 	return (tmp);

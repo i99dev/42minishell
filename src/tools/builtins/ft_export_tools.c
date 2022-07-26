@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 04:12:35 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/13 14:20:09 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 12:48:55 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	init_export(t_export *export)
 
 void	_check_export(t_minishell *msh, int i, t_export *ex)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '+' || \
 	(!ft_isalpha(msh->cmd_table[i]->exec_table[ex->j][ex->k]) \

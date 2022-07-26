@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_in.c                                      :+:      :+:    :+:   */
+/*   ft_free_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 04:48:10 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/26 13:00:34 by Dokcer           ###   ########.fr       */
+/*   Created: 2022/07/26 12:53:15 by Dokcer            #+#    #+#             */
+/*   Updated: 2022/07/26 12:53:53 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../include/minishell.h"
+#include "../../include/minishell.h"
 
-int	tk_handle_redirect_in(t_minishell *msh, int i, int *j, int index)
+void	ft_free_prompt(t_minishell *msh)
 {
-	int		wordindex;
+	if (msh->line)
+		free(msh->line);
+}
 
-	wordindex = 0;
-	msh->cmd_table[i]->tok[*j]->token = "<";
-	msh->cmd_table[i]->filename[*j] = get_io_filename(msh, i, "<", index);
-	(*j)++;
-	if (*j == 1)
-		wordindex = index;
-	return (wordindex);
+void	ft_free_minishell(t_minishell *minishell)
+{
+	ft_free_hash(minishell->env_table);
+	exit(minishell->exit_status);
 }

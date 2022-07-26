@@ -62,5 +62,4 @@ void	ft_cd(t_minishell *msh, int i)
 	}
 	else
 		_2path(msh, msh->cmd_table[i]->exec_table[1]);
-	//ft_command_table_free(msh);
 }

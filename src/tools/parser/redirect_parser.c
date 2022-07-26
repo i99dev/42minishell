@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:21:18 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/23 11:12:34 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 12:59:04 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_redirect_in(t_minishell *msh, int index, int token)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		error_message(msh, "redirect_in: no such file or directory", 1);
-		//exit to next loop
 	if (msh->cmd_table[index]->exec_table[0])
 	{
 		dup2(fd, STDIN_FILENO);

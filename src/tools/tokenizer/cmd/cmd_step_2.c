@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 06:27:59 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/23 10:17:26 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:00:45 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ bool	_step_one_cmd(t_minishell *msh, int i, t_counter *cnt)
 {
 	if (!msh->cmd_table[i]->cmd[cnt->s_i + 1])
 		return (false);
-	//msh->cmd_table[i]->tok[cnt->s_j] = (t_token *)malloc(sizeof(t_token));
 	msh->cmd_table[i]->tok[cnt->s_j]->token = ">>";
 	msh->cmd_table[i]->filename[cnt->s_j] = \
 		get_io_filename(msh, i, ">>", cnt->s_i);
@@ -28,7 +27,6 @@ bool	_step_two_cmd(t_minishell *msh, int i, t_counter *cnt)
 {
 	if (!msh->cmd_table[i]->cmd[cnt->s_i + 1])
 		return (false);
-	//msh->cmd_table[i]->tok[cnt->s_j] = (t_token *)malloc(sizeof(t_token));
 	msh->cmd_table[i]->tok[cnt->s_j]->token = "<<";
 	msh->cmd_table[i]->filename[cnt->s_j] = \
 	get_io_filename(msh, i, "<<", cnt->s_i);

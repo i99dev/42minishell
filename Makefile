@@ -58,6 +58,7 @@ SRC= 	src/main.c		\
 		src/tools/tokenizer/expand_parameters.c \
 		src/utils/msg.c \
 		src/utils/ft_free.c \
+		src/utils/ft_free_2.c \
 		src/utils/ft_helper.c \
 		src/utils/signals.c \
 		src/utils/here_doc_signal.c \
