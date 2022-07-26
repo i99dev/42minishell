@@ -70,6 +70,14 @@ typedef struct s_minishell
 	int				exit_status;
 }	t_minishell;
 
+typedef struct s_export
+{
+	int		j;
+	int		k;
+	char	*tmp;
+	bool	has_export;
+}				t_export;
+
 //color 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -166,6 +174,7 @@ bool			_step_three_cmd(t_minishell *msh, int i, t_counter *cnt);
 bool			_step_four_cmd(t_minishell *msh, int i, t_counter *cnt);
 void			_step_five_cmd(t_minishell *msh, int i, t_counter *cnt);
 bool			is_parameter(char *str);
+void			init_export(t_export *export);
 //special_case_tools
 bool			check_dollar_quote(t_minishell *msh, int i, int j);
 bool			special_char_with_dollar(char *word);

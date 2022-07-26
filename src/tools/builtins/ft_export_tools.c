@@ -6,19 +6,11 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 04:12:35 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/26 12:48:55 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 14:27:30 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-typedef struct s_export
-{
-	int		j;
-	int		k;
-	char	*tmp;
-	bool	has_export;
-}				t_export;
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
@@ -52,12 +44,15 @@ char	*get_key_vlaue(char *str)
 	return (key);
 }
 
-void	init_export(t_export *export)
+void	_check_2(t_minishell *msh, int i, t_export *ex)
 {
-	export->j = 0;
-	export->k = 0;
-	export->tmp = NULL;
-	export->has_export = false;
+	if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '=' && ex->k == 0)
+		msh->exit_status = 1;
+	else if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '=' && \
+	!msh->cmd_table[i]->exec_table[ex->j][ex->k + 1] && !ex->has_export)
+		msh->exit_status = 1;
+	else if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '$' && ex->k == 0)
+		msh->exit_status = 1;
 }
 
 void	_check_export(t_minishell *msh, int i, t_export *ex)
@@ -84,13 +79,8 @@ void	_check_export(t_minishell *msh, int i, t_export *ex)
 		free(tmp);
 		free(ex->tmp);
 	}
-	else if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '=' && ex->k == 0)
-		msh->exit_status = 1;
-	else if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '=' && \
-	!msh->cmd_table[i]->exec_table[ex->j][ex->k + 1] && !ex->has_export)
-		msh->exit_status = 1;
-	else if (msh->cmd_table[i]->exec_table[ex->j][ex->k] == '$' && ex->k == 0)
-		msh->exit_status = 1;
+	else
+		_check_2(msh, i, ex);
 }
 
 void	ex_export_env(t_minishell *msh, int i)

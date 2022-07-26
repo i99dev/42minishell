@@ -12,6 +12,14 @@
 
 #include "../../../include/minishell.h"
 
+void	init_export(t_export *export)
+{
+	export->j = 0;
+	export->k = 0;
+	export->tmp = NULL;
+	export->has_export = false;
+}
+
 void	_print_value(t_minishell *msh, unsigned int t_i, int *j)
 {
 	if (msh->env_table->table[t_i]->value[*j])
