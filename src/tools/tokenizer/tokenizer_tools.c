@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:59:25 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/07/24 06:27:05 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:52:54 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,22 @@ void	add_space_redirect_char(t_minishell *msh)
 	free(msh->line);
 	msh->line = NULL;
 	msh->line = tmp;
+}
+
+bool	is_parameter(char *str)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(str, '$');
+	if (tmp)
+	{
+		if (tmp[1] && tmp[1] == ' ' && ft_strchr(&tmp[1], '$'))
+			return (true);
+		if ((tmp[1] && !is_case_alph(tmp[1]) && \
+		tmp[1] != ' ') || ft_strlen(tmp) == 1)
+			return (false);
+	}
+	else
+		return (false);
+	return (true);
 }

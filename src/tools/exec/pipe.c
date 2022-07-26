@@ -12,15 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-void	close_pipe(t_minishell *msh, int (*fd)[2], int i, pid_t *pid)
-{
-	if (i <= msh->command_count - 1)
-		close(fd[i][1]);
-	if (i != 0)
-		close(fd[i - 1][0]);
-	(void) pid;
-}
-
 void	free_pipe(t_minishell *msh, int (*fd)[2], pid_t **pid)
 {
 	(void)msh;
@@ -28,21 +19,10 @@ void	free_pipe(t_minishell *msh, int (*fd)[2], pid_t **pid)
 	free(*pid);
 }
 
-void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
+void	execut_pip_2(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 {
 	char	*path;
 
-	if (i != msh->command_count - 1)
-	{
-		dup2(fd[i][1], 1);
-		close(fd[i][1]);
-		close(fd[i][0]);
-	}
-	if (i > 0)
-	{
-		dup2(fd[i - 1][0], 0);
-		close(fd[i - 1][0]);
-	}
 	if (msh->cmd_table[i]->command_type == BUILTIN)
 	{
 		if (ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3) || \
@@ -68,6 +48,22 @@ void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
 	}
 }
 
+void	execute_pipe(t_minishell *msh, int i, int (*fd)[2], pid_t *pid)
+{
+	if (i != msh->command_count - 1)
+	{
+		dup2(fd[i][1], 1);
+		close(fd[i][1]);
+		close(fd[i][0]);
+	}
+	if (i > 0)
+	{
+		dup2(fd[i - 1][0], 0);
+		close(fd[i - 1][0]);
+	}
+	execut_pip_2(msh, i, fd, pid);
+}
+
 void	_handle_loop(t_minishell *msh, int *i, pid_t *pid, int (*fd)[2])
 {
 	if (pipe(fd[*i]) == -1)
@@ -78,7 +74,13 @@ void	_handle_loop(t_minishell *msh, int *i, pid_t *pid, int (*fd)[2])
 	else if (pid[*i] == 0)
 		execute_pipe(msh, *i, fd, pid);
 	else
-		close_pipe(msh, fd, *i, pid);
+	{
+		if (*i <= msh->command_count - 1)
+			close(fd[*i][1]);
+		if (*i != 0)
+			close(fd[*i - 1][0]);
+		(void) pid;
+	}
 	(*i)++;
 }
 

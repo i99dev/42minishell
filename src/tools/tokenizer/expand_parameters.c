@@ -73,24 +73,6 @@ char	*get_key_from_str(t_minishell *msh, char *str)
 	return (key);
 }
 
-bool	is_parameter(char *str)
-{
-	char	*tmp;
-
-	tmp = ft_strchr(str, '$');
-	if (tmp)
-	{
-		if (tmp[1] && tmp[1] == ' ' && ft_strchr(&tmp[1], '$'))
-			return (true);
-		if ((tmp[1] && !is_case_alph(tmp[1]) && \
-		tmp[1] != ' ') || ft_strlen(tmp) == 1)
-			return (false);
-	}
-	else
-		return (false);
-	return (true);
-}
-
 char	*_break_loop(t_minishell *msh, char *start, int *i)
 {
 	char	*tmp;

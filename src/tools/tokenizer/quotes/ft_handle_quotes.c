@@ -6,7 +6,7 @@
 /*   By: Dokcer <Dokcer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 04:36:39 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/30 07:08:04 by Dokcer           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:51:27 by Dokcer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ void	ft_handle_quotes(t_minishell *msh)
 				if (q_handle_all(msh, cnt))
 					break ;
 			}
-			cnt->s_j++;
-			if (cnt->s_j > msh->cmd_table[cnt->s_i]->cmd_count)
+			if (cnt->s_j++ > msh->cmd_table[cnt->s_i]->cmd_count)
 				break ;
 		}
 		cnt->s_i++;
