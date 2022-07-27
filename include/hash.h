@@ -12,7 +12,7 @@
 #ifndef HASH_H
 # define HASH_H
 
-#include "./minishell.h"
+# include "./minishell.h"
 
 typedef struct s_hash
 {

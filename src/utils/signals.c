@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oal-tena <oal-tena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 11:09:46 by oal-tena          #+#    #+#             */
-/*   Updated: 2022/06/22 07:24:47 by oal-tena         ###   ########.fr       */
+/*   Updated: 2022/07/27 09:46:54 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	interrupt_process(int signal)
 static void	redisplay_prompt(int signal)
 {
 	(void)signal;
+	printf("SIGNALLL");
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -23,4 +23,5 @@ void	remove_hash(t_minishell *msh, char *key)
 		free(msh->env_table->table[i]->value);
 		msh->env_table->table[i] = NULL;
 	}
+
 }

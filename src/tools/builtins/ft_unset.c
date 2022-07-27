@@ -37,6 +37,6 @@ void	ft_unset(t_minishell *msh, int i)
 		if (k == 1)
 			ft_putendl_fd("unset: Variable name must not contain '$'.", 2);
 		else
-			remove_hash(msh, msh->cmd_table[i]->cmd[1]);
+			remove_hash(msh, msh->cmd_table[i]->exec_table[1]);
 	}
 }

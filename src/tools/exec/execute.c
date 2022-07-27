@@ -87,8 +87,8 @@ void	init_execute(t_minishell *msh)
 	i = 0;
 	if (msh->command_count == 1)
 	{
-		if (!ft_strncmp(msh->cmd_table[i]->exec_table[0], "exit", 5) \
-		|| !ft_strncmp(msh->cmd_table[i]->exec_table[0], "cd", 3))
+		if (ft_strncmp(msh->cmd_table[i]->exec_table[0], "echo", 5) && \
+		msh->cmd_table[i]->command_type == BUILTIN)
 			execute_builtin(msh, i);
 		else
 			execute(msh, 0);
