@@ -27,6 +27,7 @@
 # include <sys/resource.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <valgrind/memcheck.h>
 
 //mini shell
 # include "../lib/libft/libft.h"
