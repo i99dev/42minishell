@@ -55,13 +55,15 @@ static void	minishill_start(t_minishell *msh, char **env)
 			ft_command_table_free(msh);
 		}
 		read_line(msh);
-		if (!msh->line || !ft_strlen(msh->line) || !check_valid_line(msh->line))
+		if (!msh->line)
+		{
+			ft_free_hash(msh->env_table);
+			exit(0);
+		}
+		if (!ft_strlen(msh->line) || !check_valid_line(msh->line))
 		{
 			free(msh->line);
 			msh->line = NULL;
-			if (!msh->line)
-				ft_free_hash(msh->env_table);
-			exit(0);
 			continue ;
 		}
 		if (!ft_tokenizer(msh))
